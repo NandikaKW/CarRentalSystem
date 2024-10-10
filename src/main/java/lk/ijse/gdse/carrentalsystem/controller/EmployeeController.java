@@ -177,6 +177,31 @@ public class EmployeeController implements Initializable {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        String EmployeeId = txtEmployeeID.getText();
+        String EmployeeName=txtEmployeeName.getText();
+        String Address=txtAdress.getText();
+        String Job=txtJobRole.getText();
+        String Salary=txtSalary.getText();
+        String AdminId=txtAdminID.getText();
+
+        EmployeeDto employeeDto=new EmployeeDto(EmployeeId,EmployeeName,Address,Job,Salary,AdminId);
+        try{
+            boolean isUpdated=EmployeeModel.updateEmployee(employeeDto);
+            if(isUpdated){
+                new Alert(Alert.AlertType.INFORMATION,"Employee updated successfully!").show();
+
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Employee not updated!").show();
+
+            }
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Error occurred while updating employee: " +e.getMessage()).show();
+
+
+        }
+
 
     }
     @FXML

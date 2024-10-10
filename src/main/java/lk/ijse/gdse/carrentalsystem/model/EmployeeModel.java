@@ -61,6 +61,19 @@ public class EmployeeModel {
         return null;
     }
 
+    public static boolean updateEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
+        Connection connection=DBConnection.getInstance().getConnection();
+        String sql="UPDATE employee SET name=?,address=?,job_role=?,salary=?,admin_id=? WHERE emp_id=?";
+        PreparedStatement pst=connection.prepareStatement(sql);
+        pst.setObject(1,employeeDto.getEmp_name());
+        pst.setObject(2,employeeDto.getAddress());
+        pst.setObject(3,employeeDto.getJob());
+        pst.setObject(4,employeeDto.getSalary());
+        pst.setObject(5,employeeDto.getAdmin_id());
+        pst.setObject(6,employeeDto.getEmp_id());
+        int result=pst.executeUpdate();
+        return result>0;
+    }
 
     public boolean saveEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
         Connection connection=DBConnection.getInstance().getConnection();

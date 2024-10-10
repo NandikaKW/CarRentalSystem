@@ -63,10 +63,6 @@ public class CustomerModel {
         int result=pst.executeUpdate();
         return  result>0;
 
-
-
-
-
     }
     public CustomerDto searchCustomer(String cust_id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
