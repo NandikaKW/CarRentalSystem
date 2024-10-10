@@ -39,6 +39,28 @@ public class EmployeeModel {
 
     }
 
+    public static EmployeeDto SearchEmployee(String employeeId) throws SQLException, ClassNotFoundException {
+        Connection connection=DBConnection.getInstance().getConnection();
+        String sql="SELECT * FROM employee WHERE emp_id=?";
+        PreparedStatement statement=connection.prepareStatement(sql);
+        statement.setString(1,employeeId);
+        ResultSet resultSet=statement.executeQuery();
+
+        if(resultSet.next()){
+            return new EmployeeDto(
+                    resultSet.getString("emp_id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("address"),
+                    resultSet.getString("job_role"),
+                    resultSet.getString("salary"),
+                    resultSet.getString("admin_id")
+
+            );
+
+        }
+        return null;
+    }
+
 
     public boolean saveEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
         Connection connection=DBConnection.getInstance().getConnection();

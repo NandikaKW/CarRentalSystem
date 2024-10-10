@@ -98,7 +98,7 @@ public class EmployeeController implements Initializable {
 
         }
 
-    }/*fffffffff*/
+    }
 
     @FXML
     void btnGenerateReportOnAction(ActionEvent event) {
@@ -107,6 +107,12 @@ public class EmployeeController implements Initializable {
 
     @FXML
     void btnResetOnAction(ActionEvent event) {
+        txtEmployeeID.setText("");
+        txtEmployeeName.setText("");
+        txtAdress.setText("");
+        txtJobRole.setText("");
+        txtSalary.setText("");
+        txtAdminID.setText("");
 
     }
 
@@ -135,8 +141,37 @@ public class EmployeeController implements Initializable {
 
         }
     }
+    public void clear() {
+
+        txtEmployeeID.setText("");
+        txtEmployeeName.setText("");
+        txtAdress.setText("");
+        txtJobRole.setText("");
+        txtSalary.setText("");
+        txtAdminID.setText("");
+
+    }
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        String employeeId = txtEmployeeID.getText();
+        try{
+            EmployeeDto employee= EmployeeModel.SearchEmployee(employeeId);
+            if(employee!=null){
+                txtEmployeeID.setText(employee.getEmp_id());
+                txtEmployeeName.setText(employee.getEmp_name());
+                txtAdress.setText(employee.getAddress());
+                txtJobRole.setText(employee.getJob());
+                txtSalary.setText(employee.getSalary());
+                txtAdminID.setText(employee.getAdmin_id());
+                new Alert(Alert.AlertType.INFORMATION,"Employee found successfully!").show();
+            }else{
+                new Alert(Alert.AlertType.WARNING,"Employee not found!").show();
+            }
+        }catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Error occurred while searching for employee: " + e.getMessage()).show();
+
+        }
 
     }
 
