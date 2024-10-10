@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ancPageOne" prefHeight="393.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.WelcomeController">
+   <children>
+      <ImageView fitHeight="308.0" fitWidth="502.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/lightened-luxury-sedan-car-darkness-with-headlamps-rear-lights-lit-realistic-image-reflection_1284-28803.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="140.0" layoutY="259.0" prefHeight="46.0" prefWidth="201.0" text="RentFleet" textFill="WHITE">
+         <font>
+            <Font name="Serif Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="123.0" layoutY="213.0" prefHeight="46.0" prefWidth="258.0" text="Welcome To " textFill="WHITE">
+         <font>
+            <Font name="Serif Bold" size="40.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="140.0" layoutY="329.0" onAction="#btnSIgnInOnAction" prefHeight="40.0" prefWidth="202.0" style="-fx-background-color: white;" text="Sign In ">
+         <font>
+            <Font name="Times New Roman Bold" size="28.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

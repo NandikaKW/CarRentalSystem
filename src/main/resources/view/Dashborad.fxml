@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="669.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.DashboradController">
+   <children>
+      <AnchorPane fx:id="content" layoutX="210.0" prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: black;" />
+      <AnchorPane prefHeight="692.0" prefWidth="168.0" style="-fx-background-color: white;">
+         <children>
+            <Label prefHeight="64.0" prefWidth="209.0" style="-fx-background-color: #ffffff;" text="Dashboard">
+               <opaqueInsets>
+                  <Insets left="10.0" />
+               </opaqueInsets>
+               <font>
+                  <Font name="Times New Roman Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDate" layoutX="98.0" layoutY="106.0" prefHeight="23.0" prefWidth="105.0" text="2022-10-02" textFill="#2b2b2b">
+               <font>
+                  <Font name="Times New Roman Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTime" layoutX="6.0" layoutY="106.0" prefHeight="18.0" prefWidth="162.0" text="21:01:44" textFill="#2b2b2b">
+               <font>
+                  <Font name="Times New Roman Italic" size="20.0" />
+               </font>
+            </Label>
+            <JFXButton buttonType="RAISED" layoutX="8.0" layoutY="180.0" onAction="#btnAdminOnAction" prefHeight="42.0" prefWidth="147.0" style="-fx-background-color: #3d3d3d;" text="Admin Pannel" textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="6.0" layoutY="130.0" onAction="#btnRentPaymentOnAction" prefHeight="42.0" prefWidth="162.0" style="-fx-background-color: #3d3d3d;" text="Rent Payment Detail" textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="231.0" onAction="#btnEmployeeOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Employee Management " textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="280.0" onAction="#btnRentOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Rent Service " textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="331.0" onAction="#btnCustomerOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Customer Records " textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="382.0" onAction="#btnAgrimentOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Agreement Detail" textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="432.0" onAction="#btnPackageOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Package Offers " textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="485.0" onAction="#btnMaintainOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Maintaince Schedule " textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="6.0" layoutY="536.0" onAction="#btnDamageOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Damage Details" textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="5.0" layoutY="587.0" onAction="#btnVehicleRentOnAction" prefHeight="42.0" prefWidth="185.0" style="-fx-background-color: #3d3d3d;" text="Vehicle Rents Details " textFill="#f7f7f7">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="155.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Downloads/icons8-admin-30%20(2).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="64.0" layoutX="14.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/icons8-clock-50.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="64.0" layoutX="109.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/icons8-calender-64.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

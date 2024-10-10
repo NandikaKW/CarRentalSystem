@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.MaintainScheduleController">
+   <children>
+      <Label layoutX="152.0" layoutY="8.0" text="Maintain Schedule Details ">
+         <font>
+            <Font name="Times New Roman Bold" size="35.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="39.0" fitWidth="57.0" layoutX="554.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8-car-50.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="14.0" layoutY="47.0" text="Maintain ID">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="8.0" layoutY="114.0" text="Maitain Date ">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="284.0" layoutY="80.0" text="Vehicle ID">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="80.0" text="Cost">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="284.0" layoutY="47.0" text="Description">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="284.0" layoutY="114.0" text="Duration">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField layoutX="123.0" layoutY="46.0" promptText="Maintain ID" />
+      <TextField layoutX="123.0" layoutY="79.0" promptText="Cost" />
+      <TextField layoutX="123.0" layoutY="113.0" promptText="Maintain Date " />
+      <TextField layoutX="387.0" layoutY="46.0" promptText="Description" />
+      <TextField layoutX="387.0" layoutY="79.0" promptText="Vehicle ID " />
+      <TextField layoutX="387.0" layoutY="113.0" promptText="Duration" />
+      <TableView layoutY="160.0" prefHeight="531.0" prefWidth="763.0">
+        <columns>
+          <TableColumn prefWidth="107.99996662139893" text="Maintain ID" />
+          <TableColumn prefWidth="95.20001220703125" text="Cost " />
+            <TableColumn prefWidth="125.60005187988281" text="Maintain Date " />
+            <TableColumn prefWidth="119.20001220703125" text="Description " />
+            <TableColumn prefWidth="128.0" text="Vehicle ID " />
+            <TableColumn prefWidth="147.19998779296873" text="Duration " />
+        </columns>
+      </TableView>
+      <JFXButton buttonType="RAISED" layoutX="554.0" layoutY="56.0" style="-fx-background-color: #3d3d3d;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="634.0" layoutY="56.0" style="-fx-background-color: #3d3d3d;" text="Upadte " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="634.0" layoutY="90.0" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="554.0" layoutY="89.0" style="-fx-background-color: #3d3d3d;" text="Delete " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="554.0" layoutY="123.0" style="-fx-background-color: #3d3d3d;" text="Generate Report " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

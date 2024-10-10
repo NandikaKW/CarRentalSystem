@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.RentServiceController">
+   <children>
+      <Label layoutX="272.0" layoutY="14.0" text="Rent Service">
+         <font>
+            <Font name="Times New Roman Bold" size="35.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="469.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Pictures/Saved%20Pictures/icons8-lease-80.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="272.0" layoutY="67.0" text="End Date ">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="67.0" text="Rent ID">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="513.0" layoutY="67.0" text="Customer ID ">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="17.0" layoutY="100.0" text="Start Date ">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="275.0" layoutY="100.0" text="Agriment ID">
+         <font>
+            <Font name="Serif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField layoutX="108.0" layoutY="63.0" promptText="Rent ID" />
+      <TextField layoutX="111.0" layoutY="99.0" promptText="Start Date" />
+      <TextField layoutX="372.0" layoutY="65.0" prefHeight="26.0" prefWidth="128.0" promptText="End Date" />
+      <TextField layoutX="388.0" layoutY="98.0" prefHeight="26.0" prefWidth="128.0" promptText="Agriment ID" />
+      <TextField layoutX="633.0" layoutY="64.0" prefHeight="26.0" prefWidth="94.0" promptText="Customer ID" />
+      <TableView layoutX="2.0" layoutY="192.0" prefHeight="498.0" prefWidth="763.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Rent ID " />
+          <TableColumn prefWidth="120.800048828125" text="Start Date " />
+            <TableColumn prefWidth="127.19996643066406" text="End Date " />
+            <TableColumn prefWidth="196.0" text="Agriment ID " />
+            <TableColumn prefWidth="207.20001220703125" text="Customer ID" />
+        </columns>
+      </TableView>
+      <JFXButton buttonType="RAISED" layoutX="36.0" layoutY="147.0" style="-fx-background-color: #3d3d3d;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="135.0" layoutY="147.0" style="-fx-background-color: #3d3d3d;" text="Delete " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="147.0" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="354.0" layoutY="147.0" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="452.0" layoutY="147.0" style="-fx-background-color: #3d3d3d;" text="Generate Report" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
