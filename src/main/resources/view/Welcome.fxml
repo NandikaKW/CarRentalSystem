@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancPageOne" prefHeight="572.0" prefWidth="483.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.WelcomeController">
+<AnchorPane fx:id="ancPageOne" prefHeight="615.0" prefWidth="595.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.WelcomeController">
    <children>
-      <ImageView fitHeight="308.0" fitWidth="502.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="338.0" fitWidth="595.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/R%20(1).gif" />
          </image>
       </ImageView>
-      <Label layoutX="172.0" layoutY="235.0" prefHeight="46.0" prefWidth="201.0" text="RentFleet" textFill="#e7e3e3">
+      <Label layoutX="215.0" layoutY="287.0" prefHeight="46.0" prefWidth="201.0" text="RentFleet" textFill="#e4e4e4">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
       </Label>
-      <Label layoutX="155.0" layoutY="189.0" prefHeight="46.0" prefWidth="258.0" text="Welcome To " textFill="#e7e3e3">
+      <Label layoutX="186.0" layoutY="240.0" prefHeight="46.0" prefWidth="258.0" text="Welcome To " textFill="#e4e4e4">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="150.0" layoutY="342.0" onAction="#btnSIgnInOnAction" prefHeight="40.0" prefWidth="202.0" style="-fx-background-color: white;" text="Sign In ">
+      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="186.0" layoutY="400.0" onAction="#btnSIgnInOnAction" prefHeight="86.0" prefWidth="223.0" style="-fx-background-color: white;" text="Sign In ">
          <font>
-            <Font name="Times New Roman Bold" size="28.0" />
+            <Font name="Times New Roman Bold" size="37.0" />
          </font>
       </JFXButton>
    </children>

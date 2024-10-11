@@ -103,6 +103,7 @@ public class DashboradController implements Initializable {
         try {
             navigateto("/view/DashBoardDesign .fxml");
 
+
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Error during initialization: " + e.getMessage()).show();
             throw new RuntimeException(e);
