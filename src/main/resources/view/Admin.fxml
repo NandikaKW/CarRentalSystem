@@ -46,7 +46,7 @@
       <TextField fx:id="txtAdminID" layoutX="269.0" layoutY="150.0" prefHeight="38.0" prefWidth="322.0" promptText="Admin ID" />
       <TextField fx:id="txtAdminName" layoutX="269.0" layoutY="217.0" prefHeight="38.0" prefWidth="322.0" promptText="User Name" />
       <TextField fx:id="txtPassword" layoutX="269.0" layoutY="282.0" prefHeight="38.0" prefWidth="322.0" promptText="Password" />
-      <TableView fx:id="tblAdmin" layoutX="-1.0" layoutY="371.0" prefHeight="319.0" prefWidth="763.0">
+      <TableView fx:id="tblAdmin" layoutX="-1.0" layoutY="371.0" onMouseClicked="#onClickTable" prefHeight="319.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colAdminID" prefWidth="143.19998168945312" text="Admin ID" />
             <TableColumn fx:id="colAdminName" prefWidth="162.39996337890625" text="Admin Name" />
@@ -54,27 +54,27 @@
             <TableColumn fx:id="colPassword" prefWidth="240.79997558593755" text="Password" />
         </columns>
       </TableView>
-      <JFXButton id="button" buttonType="RAISED" layoutX="477.0" layoutY="333.0" onAction="#btnGenerateOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report" textFill="WHITE">
+      <JFXButton id="button" fx:id="btnGenerateReport" buttonType="RAISED" layoutX="477.0" layoutY="333.0" onAction="#btnGenerateOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="button" buttonType="RAISED" layoutX="382.0" layoutY="333.0" onAction="#btnResetOnAction" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
+      <JFXButton id="button" fx:id="btnReset" buttonType="RAISED" layoutX="382.0" layoutY="333.0" onAction="#btnResetOnAction" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="button" buttonType="RAISED" layoutX="282.0" layoutY="332.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #3d3d3d;" text="Delete " textFill="WHITE">
+      <JFXButton id="button" fx:id="btnDelete" buttonType="RAISED" layoutX="282.0" layoutY="332.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #3d3d3d;" text="Delete " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="button" buttonType="RAISED" layoutX="167.0" layoutY="333.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
+      <JFXButton id="button" fx:id="btnUpdate" buttonType="RAISED" layoutX="167.0" layoutY="333.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="button" buttonType="RAISED" layoutX="70.0" layoutY="333.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save  " textFill="WHITE">
+      <JFXButton id="button" fx:id="btnSave" buttonType="RAISED" layoutX="70.0" layoutY="333.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save  " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>

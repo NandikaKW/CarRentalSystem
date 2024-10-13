@@ -58,7 +58,7 @@
       <TextField fx:id="txtAdress" layoutX="361.0" layoutY="95.0" promptText="Address" />
       <TextField fx:id="txtCustomerNumber" layoutX="632.0" layoutY="92.0" prefHeight="26.0" prefWidth="107.0" promptText="Contact Number" />
       <TextField fx:id="txtCustomerID" layoutX="608.0" layoutY="59.0" prefHeight="26.0" prefWidth="122.0" promptText="Customer ID" />
-      <TableView fx:id="tblCustomer" layoutX="-3.0" layoutY="181.0" prefHeight="511.0" prefWidth="769.0">
+      <TableView fx:id="tblCustomer" layoutX="-3.0" layoutY="181.0" onMouseClicked="#onClickTable" prefHeight="511.0" prefWidth="769.0">
         <columns>
           <TableColumn fx:id="colCustomerName" prefWidth="119.20001220703125" text="Customer Name" />
           <TableColumn fx:id="colNIC" prefWidth="121.60003662109375" text="NIC Number" />

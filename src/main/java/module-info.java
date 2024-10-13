@@ -4,6 +4,7 @@ module lk.ijse.gdse.carrentalsystem {
     requires java.sql;
     requires static lombok;
     requires com.jfoenix;
+    requires java.desktop;
 
     opens  lk.ijse.gdse.carrentalsystem.tm to javafx.base;//importnat
     opens lk.ijse.gdse.carrentalsystem to javafx.fxml;
