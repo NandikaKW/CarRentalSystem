@@ -58,7 +58,7 @@
       <TextField fx:id="txtAdress" layoutX="377.0" layoutY="114.0" promptText="Address" style="-fx-background-color: white;" />
       <TextField fx:id="txtAdminID" layoutX="621.0" layoutY="64.0" prefHeight="26.0" prefWidth="89.0" promptText="Admin ID" style="-fx-background-color: white;" />
       <TextField fx:id="txtJobRole" layoutX="621.0" layoutY="113.0" prefHeight="26.0" prefWidth="89.0" promptText="Job Role" style="-fx-background-color: white;" />
-      <TableView fx:id="tblEmployee" layoutY="191.0" prefHeight="502.0" prefWidth="763.0">
+      <TableView fx:id="tblEmployee" layoutY="191.0" onMouseClicked="#onClickedEmployeeTable" prefHeight="502.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colEmployeeName" prefWidth="104.79998475313187" text="Employe Name" />
           <TableColumn fx:id="colEmplyeeID" prefWidth="105.60000610351562" text="Employee ID" />

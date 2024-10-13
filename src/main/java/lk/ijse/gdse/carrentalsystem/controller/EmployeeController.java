@@ -8,13 +8,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.carrentalsystem.dto.AdminDto;
 import lk.ijse.gdse.carrentalsystem.dto.EmployeeDto;
+import lk.ijse.gdse.carrentalsystem.model.AdminModel;
 import lk.ijse.gdse.carrentalsystem.model.EmployeeModel;
 import lk.ijse.gdse.carrentalsystem.tm.EmployeeTM;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EmployeeController implements Initializable {
@@ -77,130 +83,157 @@ public class EmployeeController implements Initializable {
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employeeID=txtEmployeeID.getText();
         if(employeeID.isEmpty()){
-            new Alert(Alert.AlertType.WARNING,"Please enter a Employee ID to delete!").show();
+            new Alert(Alert.AlertType.WARNING,"Please enter employee ID").show();
             return;
         }
-        try{
-               boolean isDeleted =EmployeeModel.deleteEmployee(employeeID);
-               if(isDeleted){
-                   new Alert(Alert.AlertType.INFORMATION, "Employee deleted successfully!").show();
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this employee?",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> optionalButtonType=alert.showAndWait();
+        if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
+            try {
+                boolean isDeleted=EmployeeModel.deleteEmployee(employeeID);
+                if(isDeleted){
+                    new Alert(Alert.AlertType.INFORMATION,"Employee deleted successfully!").show();
+                    clearFields();
+                    loadNextEmployeeId();
+                    refreshTableData();
 
-                   loadNextEmployeeId();
-               }else{
-                   new Alert(Alert.AlertType.ERROR, "Failed to delete Employee!").show();
+                }else{
+                    new Alert(Alert.AlertType.ERROR,"Failed to delete employee!").show();
+                }
 
-               }
+            }catch (SQLException | ClassNotFoundException e){
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR,"Error occurred while deleting employee: "+e.getMessage()).show();
 
-        }catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while deleting Employee: " + e.getMessage()).show();
-
+            }
 
         }
 
+
+    }
+    private void refreshTableData() throws SQLException, ClassNotFoundException {
+        ArrayList<EmployeeDto> employeeDtos=EmployeeModel.getAllEmployees();
+        ObservableList<EmployeeTM> employeeTMS=FXCollections.observableArrayList();
+        for(EmployeeDto dto:employeeDtos){
+            EmployeeTM employeeTM=new EmployeeTM(
+                    dto.getEmp_id(),
+                    dto.getEmp_name(),
+                    dto.getAddress(),
+                    dto.getJob(),
+                    dto.getSalary(),
+                    dto.getAdmin_id()
+            );
+            employeeTMS.add(employeeTM);
+
+
+        }
+        tblEmployee.setItems(employeeTMS);
     }
 
     @FXML
     void btnGenerateReportOnAction(ActionEvent event) {
 
     }
-
-    @FXML
-    void btnResetOnAction(ActionEvent event) {
+    private  void clearFields(){
         txtEmployeeID.setText("");
         txtEmployeeName.setText("");
         txtAdress.setText("");
         txtJobRole.setText("");
         txtSalary.setText("");
         txtAdminID.setText("");
+    }
+
+    @FXML
+    void btnResetOnAction(ActionEvent event) {
+        clearFields();
 
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
            String empId=txtEmployeeID.getText();
            String empName=txtEmployeeName.getText();
            String address=txtAdress.getText();
            String job=txtJobRole.getText();
-           String salary=txtSalary.getText();
-           String adminID=txtAdminID.getText();
+        BigDecimal salary;
 
-        EmployeeDto employeeDto=new EmployeeDto(empId,empName,address,job,salary,adminID);
-        try{
-            boolean isSaved=new EmployeeModel().saveEmployee(employeeDto);
-            if(isSaved){
-                new Alert(Alert.AlertType.INFORMATION,"Employee saved successfully!").show();
+        try {
+            salary = new BigDecimal(txtSalary.getText()); // Validate and log salary
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid salary format!").show();
+            return;
+        }
 
-            }else{
-                new Alert(Alert.AlertType.ERROR,"Failed to save employee!").show();
+        String adminID = txtAdminID.getText();
+
+        EmployeeDto employeeDto = new EmployeeDto(empId, empName, address, job, salary, adminID);
+
+        try {
+            boolean isSaved = EmployeeModel.saveEmployee(employeeDto);
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully!").show();
+                loadNextEmployeeId();
+                refreshTableData();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save Employee!").show();
             }
-
-        }catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error occurred while saving employee: " + e.getMessage()).show();
-
+            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
         }
     }
-    public void clear() {
 
-        txtEmployeeID.setText("");
-        txtEmployeeName.setText("");
-        txtAdress.setText("");
-        txtJobRole.setText("");
-        txtSalary.setText("");
-        txtAdminID.setText("");
-
-    }
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String employeeId = txtEmployeeID.getText();
-        try{
-            EmployeeDto employee= EmployeeModel.SearchEmployee(employeeId);
-            if(employee!=null){
-                txtEmployeeID.setText(employee.getEmp_id());
-                txtEmployeeName.setText(employee.getEmp_name());
-                txtAdress.setText(employee.getAddress());
-                txtJobRole.setText(employee.getJob());
-                txtSalary.setText(employee.getSalary());
-                txtAdminID.setText(employee.getAdmin_id());
-                new Alert(Alert.AlertType.INFORMATION,"Employee found successfully!").show();
-            }else{
-                new Alert(Alert.AlertType.WARNING,"Employee not found!").show();
-            }
-        }catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error occurred while searching for employee: " + e.getMessage()).show();
+      if(employeeId.isEmpty()){
+          new Alert(Alert.AlertType.WARNING,"Please enter employee ID").show();
+          return;
 
-        }
+      }
+      try{
+          EmployeeDto employee= EmployeeModel.SearchEmployee(employeeId);
+          if(employee!=null){
+              txtEmployeeID.setText(employee.getEmp_id());
+              txtEmployeeName.setText(employee.getEmp_name());
+              txtAdress.setText(employee.getAddress());
+              txtJobRole.setText(employee.getAddress());
+              txtJobRole.setText(employee.getJob());
+              txtAdress.setText(employee.getAddress());
+          new Alert(Alert.AlertType.INFORMATION,"Employee found!").show();
+          }else{
+              new Alert(Alert.AlertType.ERROR,"Employee not found!").show();
+          }
+
+      }catch (SQLException | ClassNotFoundException e){
+          e.printStackTrace();
+          new Alert(Alert.AlertType.ERROR,"Error occurred while searching employee: "+e.getMessage()).show();
+
+      }
 
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String EmployeeId = txtEmployeeID.getText();
         String EmployeeName=txtEmployeeName.getText();
         String Address=txtAdress.getText();
         String Job=txtJobRole.getText();
-        String Salary=txtSalary.getText();
+        BigDecimal Salary = new BigDecimal(txtSalary.getText());
         String AdminId=txtAdminID.getText();
 
         EmployeeDto employeeDto=new EmployeeDto(EmployeeId,EmployeeName,Address,Job,Salary,AdminId);
-        try{
-            boolean isUpdated=EmployeeModel.updateEmployee(employeeDto);
-            if(isUpdated){
-                new Alert(Alert.AlertType.INFORMATION,"Employee updated successfully!").show();
+              boolean isUpdated=EmployeeModel.updateEmployee(employeeDto);
 
-            }else{
-                new Alert(Alert.AlertType.ERROR,"Employee not updated!").show();
+       if(isUpdated){
+           new Alert(Alert.AlertType.INFORMATION,"Employee updated successfully!").show();
+           clearFields();
+           refreshTableData();
 
-            }
+       }else{
+           new Alert(Alert.AlertType.ERROR,"Failed to update employee!").show();
 
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error occurred while updating employee: " +e.getMessage()).show();
-
-
-        }
+       }
 
 
     }
@@ -235,38 +268,76 @@ public class EmployeeController implements Initializable {
     colSalary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
     colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
 
-        EmployeeTM employeeTM1 = new EmployeeTM("E001", "John Doe", "123 Main St", "Manager", "50000", "A001");
-        EmployeeTM employeeTM2 = new EmployeeTM("E002", "Jane Smith", "456 Elm St", "Assistant Manager", "45000", "A001");
-        EmployeeTM employeeTM3 = new EmployeeTM("E003", "Robert Johnson", "789 Oak St", "Clerk", "40000", "A002");
-
-
-        ArrayList<EmployeeTM> EmployeeArray=new ArrayList<>();
-        EmployeeArray.add(employeeTM1);
-        EmployeeArray.add(employeeTM2);
-        EmployeeArray.add(employeeTM3);
-
-        ObservableList<EmployeeTM> employeeTMS= FXCollections.observableArrayList();
-        for(EmployeeTM employee:EmployeeArray){
-            employeeTMS.add(employee);
-        }
-        tblEmployee.setItems(employeeTMS);
         try{
-            loadNextEmployeeId();
-            loadNextAdminId();
-        }catch(SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-           new Alert(Alert.AlertType.ERROR,"Failed to load next employee ID").show();
-        }
+          loadNextEmployeeId();
+          loadNextAdminId();
+           refreshTableData();
+
+       }catch (SQLException | ClassNotFoundException e){
+           e.printStackTrace();
+           new Alert(Alert.AlertType.ERROR,"Failed to load Employee").show();
+
+       }
+
 
     }
+    private  void refreshPage() throws SQLException, ClassNotFoundException {
+        loadNextEmployeeId();
+        loadTableDta();
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+        clearFields();
+    }
+    private  void loadTableDta() throws SQLException, ClassNotFoundException {
+        ArrayList<EmployeeDto> employeeDtos=EmployeeModel.getAllEmployees();
+        ObservableList<EmployeeTM> employeeTMS=FXCollections.observableArrayList();
+        for(EmployeeDto  employeeDto:employeeDtos){
+            EmployeeTM employeeTM=new EmployeeTM(
+                   employeeDto.getEmp_id(),
+                    employeeDto.getEmp_name(),
+                    employeeDto.getAddress(),
+                    employeeDto.getJob(),
+                    employeeDto.getSalary(),
+                    employeeDto.getAdmin_id()
+
+
+
+            );
+            employeeTMS.add(employeeTM);
+
+
+        }
+        tblEmployee.setItems(employeeTMS);
+    }
+
+
+
     public void loadNextEmployeeId() throws SQLException,ClassNotFoundException{
         String nextEmployeeId=EmployeeModel.loadNextEmployeeId();
         txtEmployeeID.setText(nextEmployeeId);
     }
     public void loadNextAdminId() throws SQLException, ClassNotFoundException {
-        String nextAdminId = EmployeeModel.loadNextAdminId();
+        String nextAdminId = AdminModel.loadNextAdminId();
         txtAdminID.setText(nextAdminId);
     }
 
 
+    public void onClickedEmployeeTable(MouseEvent mouseEvent) {
+        EmployeeTM employeeTM= tblEmployee.getSelectionModel().getSelectedItem();
+        if(employeeTM!=null){
+            txtEmployeeID.setText(employeeTM.getEmp_id());
+            txtEmployeeName.setText(employeeTM.getEmp_name());
+            txtAdress.setText(employeeTM.getAddress());
+            txtJobRole.setText(employeeTM.getJob());
+            try {
+                BigDecimal salaryDecimal = new BigDecimal(String.valueOf(employeeTM.getSalary()));
+                txtSalary.setText(salaryDecimal.setScale(2, RoundingMode.HALF_UP).toString());  // format to 2 decimal places
+            } catch (NumberFormatException e) {
+                txtSalary.setText("0.00"); // In case of invalid number format, set a default value
+            }
+
+            txtAdminID.setText(employeeTM.getAdmin_id());
+        }
+    }
 }

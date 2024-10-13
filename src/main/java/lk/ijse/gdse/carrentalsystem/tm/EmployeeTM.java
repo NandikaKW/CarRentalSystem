@@ -1,17 +1,19 @@
 package lk.ijse.gdse.carrentalsystem.tm;
 
+import java.math.BigDecimal;
+
 public class EmployeeTM {
     private String emp_id;
     private String emp_name;
     private String address;
     private String job;
-    private String salary;
+    private BigDecimal salary;
     private String admin_id;
 
     public  EmployeeTM() {
     }
 
-    public EmployeeTM(String emp_id, String emp_name, String address, String job, String salary, String admin_id) {
+    public EmployeeTM(String emp_id, String emp_name, String address, String job, BigDecimal  salary, String admin_id) {
         this.emp_id = emp_id;
         this.emp_name = emp_name;
         this.address = address;
@@ -52,11 +54,11 @@ public class EmployeeTM {
         this.job = job;
     }
 
-    public String getSalary() {
+    public BigDecimal  getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(BigDecimal  salary) {
         this.salary = salary;
     }
 

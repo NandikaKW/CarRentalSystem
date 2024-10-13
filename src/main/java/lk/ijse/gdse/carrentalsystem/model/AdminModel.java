@@ -26,11 +26,10 @@ public class AdminModel {
         ResultSet rst=CrudUtil.execute("SELECT admin_id FROM admin ORDER BY admin_id DESC LIMIT 1");
 
         if (rst.next()) {
-            String lastID = rst.getString(1);
+            String lastID = rst.getString("admin_id");
             String substring = lastID.substring(1);
             int id = Integer.parseInt(substring);
             int newId = id + 1;
-
 
             return String.format("A%03d", newId);
         }
