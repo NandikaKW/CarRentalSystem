@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AdminModel {
-
-
     public static boolean saveAdmin(AdminDto adminDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO admin VALUES(?,?,?,?)",adminDto.getAdmin_id(),adminDto.getUserName(),adminDto.getEmail(),adminDto.getPassword());
 
