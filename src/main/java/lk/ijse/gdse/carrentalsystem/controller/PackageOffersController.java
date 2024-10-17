@@ -303,7 +303,7 @@ private void loadTableData() throws SQLException, ClassNotFoundException {
     // Retrieve all packages as DTO objects
     ArrayList<PackageDto> packageDtos = PackageModel.getAllPackages();
 
-    // Create an observable list to hold the package table models (PackageTM)
+
     ObservableList<PackageTM> packageTMS = FXCollections.observableArrayList();
 
     // Loop through each PackageDto object
