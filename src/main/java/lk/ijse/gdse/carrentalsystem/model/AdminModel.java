@@ -11,11 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AdminModel {
-    private static String currentAdminId;
-    public static String getCurrentAdminId() {
-        return currentAdminId;
 
-    }
 
     public static boolean saveAdmin(AdminDto adminDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO admin VALUES(?,?,?,?)",adminDto.getAdmin_id(),adminDto.getUserName(),adminDto.getEmail(),adminDto.getPassword());
@@ -59,9 +55,7 @@ public class AdminModel {
 
         }
         return null;
-
     }
-
     public static ArrayList<AdminDto> getAllAdmins() throws SQLException, ClassNotFoundException {
         ResultSet rst=CrudUtil.execute("SELECT * FROM admin");
         ArrayList<AdminDto> adminDtos=new ArrayList<>();

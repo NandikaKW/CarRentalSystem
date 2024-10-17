@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
+import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
 import lk.ijse.gdse.carrentalsystem.tm.RentTM;
 
@@ -238,6 +239,10 @@ public class RentServiceController  implements Initializable {
         String nextRentId = RentModel.loadNextRentId();
         txtRentId.setText(nextRentId);
     }
+    public  void loadNextCustomerId() throws SQLException, ClassNotFoundException {
+       String nextCustomerId= CustomerModel.loadNextCustomerId();
+       txtCustomerId.setText(nextCustomerId);
+    }
 
 
 
@@ -251,7 +256,7 @@ public class RentServiceController  implements Initializable {
         colCustomerID.setCellValueFactory(new PropertyValueFactory<>("cust_id"));
         try{
             loadNextRentId();
-
+            loadNextCustomerId();
             refreshTableData();
 
         }catch(SQLException | ClassNotFoundException e){

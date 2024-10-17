@@ -294,12 +294,8 @@ public class CustomerController implements Initializable {
     // Load the next admin ID
     // Load the current Admin ID
     public void loadNextAdminId() throws SQLException, ClassNotFoundException {
-        String currentAdminId = AdminModel.getCurrentAdminId();
-        if (currentAdminId != null && !currentAdminId.isEmpty()) {
-            txtAdminID.setText(currentAdminId);
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Current Admin ID not found!").show();
-        }
+        String loadNextAdminId =AdminModel.loadNextAdminId();
+        txtAdminID.setText(loadNextAdminId);
     }
 
 

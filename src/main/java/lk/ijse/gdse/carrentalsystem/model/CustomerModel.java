@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class CustomerModel {
     // Load the next customer ID
-    public String loadNextCustomerId() throws SQLException, ClassNotFoundException, SQLException {
+    public static String loadNextCustomerId() throws SQLException, ClassNotFoundException, SQLException {
         ResultSet rst = CrudUtil.execute("SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1");
         if (rst.next()) {
             String lastID = rst.getString(1);
