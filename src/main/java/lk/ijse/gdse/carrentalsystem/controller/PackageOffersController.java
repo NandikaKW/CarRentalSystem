@@ -298,15 +298,7 @@ public class PackageOffersController  implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
     }
-//    private  void refreshTableData() throws SQLException, ClassNotFoundException {
-//        loadNextPackageId();
-//        loadTableData();
-//        btnSave.setDisable(false);
-//        btnUpdate.setDisable(true);
-//        btnDelete.setDisable(true);
-//        clearFields();
-//
-//    }
+
 private void loadTableData() throws SQLException, ClassNotFoundException {
     // Retrieve all packages as DTO objects
     ArrayList<PackageDto> packageDtos = PackageModel.getAllPackages();
