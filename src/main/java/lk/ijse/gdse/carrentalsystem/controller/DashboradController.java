@@ -28,6 +28,7 @@ public class DashboradController implements Initializable {
     private Label lblTime;
 
 
+
     @FXML
     void btnAdminOnAction(ActionEvent event) throws IOException {
         navigateto("/view/Admin.fxml");
@@ -36,7 +37,7 @@ public class DashboradController implements Initializable {
 
     @FXML
     void btnAgrimentOnAction(ActionEvent event) throws IOException {
-        navigateto("/view/AgrimentDetails .fxml");
+        navigateto("/view/VehicleDetails .fxml");
 
     }
 
@@ -72,11 +73,13 @@ public class DashboradController implements Initializable {
 
     }
 
+
     @FXML
-    void btnPaymentOnAction(ActionEvent event) throws IOException {
-        navigateto("/view/PaymentTracking.fxml");
+    void btnPaymentDetailOnAction(ActionEvent event) throws IOException {
+        navigateto("/view/PaymentTracking .fxml");
 
     }
+
 
     @FXML
     void btnRentOnAction(ActionEvent event) throws IOException {

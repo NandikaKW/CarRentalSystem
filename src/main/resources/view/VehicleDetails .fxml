@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.VehicleDetailsController">
+   <children>
+      <Label layoutX="256.0" layoutY="14.0" prefHeight="39.0" prefWidth="246.0" text="Vehicle Details ">
+         <font>
+            <Font name="Times New Roman Bold" size="35.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="486.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/AdobeStock_921755939_Preview.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="52.0" layoutY="55.0" text="Vehicle ID">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="547.0" layoutY="56.0" text="Package ID">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="327.0" layoutY="56.0" text="Model">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="327.0" layoutY="94.0" text="Colour">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="94.0" text="Quality">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="541.0" layoutY="94.0" text="Category">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField layoutX="131.0" layoutY="53.0" />
+      <TextField layoutX="131.0" layoutY="91.0" />
+      <TextField layoutX="379.0" layoutY="52.0" />
+      <TextField layoutX="382.0" layoutY="91.0" />
+      <TextField layoutX="629.0" layoutY="52.0" prefHeight="26.0" prefWidth="119.0" />
+      <TextField layoutX="613.0" layoutY="90.0" prefHeight="26.0" prefWidth="137.0" />
+      <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="296.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="154.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="674.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="502.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Genearate Report" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="401.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <TableView layoutY="175.0" prefHeight="518.0" prefWidth="765.0">
+        <columns>
+          <TableColumn prefWidth="96.0000319480896" text="Vehicle ID" />
+          <TableColumn prefWidth="96.79998016357422" text="Quantity" />
+            <TableColumn prefWidth="100.0" text="Model" />
+            <TableColumn prefWidth="132.0" text="Colour" />
+            <TableColumn prefWidth="155.19998168945312" text="Package ID" />
+            <TableColumn prefWidth="184.0" text="Category " />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

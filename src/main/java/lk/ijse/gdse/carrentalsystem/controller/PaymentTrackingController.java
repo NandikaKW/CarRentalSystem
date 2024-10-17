@@ -1,4 +1,10 @@
 package lk.ijse.gdse.carrentalsystem.controller;
 
-public class PaymentTrackingController {
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PaymentTrackingController  {
+
 }
