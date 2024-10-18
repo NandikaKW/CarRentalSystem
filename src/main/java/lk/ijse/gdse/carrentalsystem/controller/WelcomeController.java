@@ -19,7 +19,7 @@ public class WelcomeController {
     @FXML
     void btnSIgnInOnAction(ActionEvent event) throws IOException {
         ancPageOne.getChildren().clear();
-        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/SignIn.fxml"));
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Dashborad.fxml"));
         ancPageOne.getChildren().add(load);
     }
 

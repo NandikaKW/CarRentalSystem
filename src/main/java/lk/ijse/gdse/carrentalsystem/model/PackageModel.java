@@ -1,6 +1,7 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
 import lk.ijse.gdse.carrentalsystem.dto.PackageDto;
+import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -86,5 +87,25 @@ public class PackageModel {
 
         }
         return "P001";
+    }
+    public static ArrayList<PaymentDto> getAllPayments() throws SQLException, ClassNotFoundException {
+         ResultSet resultSet=CrudUtil.execute("SELECT * FROM payment");
+         ArrayList<PaymentDto> paymentDtos=new ArrayList<>();
+         while(resultSet.next()){
+             PaymentDto paymentDto=new PaymentDto(
+                     resultSet.getString("pay_id"),
+                     resultSet.getBigDecimal("amount"),
+                     resultSet.getDate("date"),
+                     resultSet.getString("invoice"),
+                     resultSet.getString("method"),
+                     resultSet.getString("transaction_reference"),
+                     resultSet.getBigDecimal("tax"),
+                     resultSet.getBigDecimal("discount_applied")
+             );
+             paymentDtos.add(paymentDto);
+
+
+         }
+         return paymentDtos;
     }
 }

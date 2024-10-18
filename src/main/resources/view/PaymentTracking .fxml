@@ -22,87 +22,92 @@
             <Image url="@../image/icons8-payment-80.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="55.0" text="Payment ID ">
+      <Label fx:id="lblPaymentId" layoutX="14.0" layoutY="55.0" text="Payment ID ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="265.0" layoutY="46.0" text="Method Of Pay ">
+      <Label fx:id="lblPayMethods" layoutX="265.0" layoutY="46.0" text="Method Of Pay ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="546.0" layoutY="55.0" text="Tax ">
+      <Label fx:id="lblTax" layoutX="546.0" layoutY="55.0" text="Tax ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="82.0" text="Amount">
+      <Label fx:id="lblAmount" layoutX="14.0" layoutY="82.0" text="Amount">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="265.0" layoutY="82.0" text="Transaction Refference ">
+      <Label fx:id="lblTransaction" layoutX="265.0" layoutY="82.0" text="Transaction Refference ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="544.0" layoutY="82.0" text="Discount ">
+      <Label fx:id="lblDiscount" layoutX="544.0" layoutY="82.0" text="Discount ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="111.0" text="Date ">
+      <Label fx:id="lblDate" layoutX="14.0" layoutY="111.0" text="Date ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="141.0" text="Invoice ">
+      <Label fx:id="lblInvoice" layoutX="14.0" layoutY="141.0" text="Invoice ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="98.0" layoutY="48.0" promptText="Payment ID" />
-      <TextField layoutX="98.0" layoutY="79.0" promptText="Amount" />
-      <TextField layoutX="98.0" layoutY="108.0" promptText="Date" />
-      <TextField layoutX="98.0" layoutY="138.0" promptText="Invoice" />
-      <TextField layoutX="425.0" layoutY="47.0" prefHeight="26.0" prefWidth="105.0" promptText="Method Of Pay" />
-      <TextField layoutX="425.0" layoutY="78.0" prefHeight="26.0" prefWidth="117.0" promptText="Transaction Refference" />
-      <TextField layoutX="611.0" layoutY="47.0" prefHeight="26.0" prefWidth="90.0" promptText="Tax" />
-      <TextField layoutX="611.0" layoutY="78.0" prefHeight="26.0" prefWidth="90.0" promptText="Discount" />
-      <TableView layoutY="209.0" prefHeight="482.0" prefWidth="764.0">
+      <TextField fx:id="txtPaymentId" layoutX="98.0" layoutY="48.0" promptText="Payment ID" />
+      <TextField fx:id="txtAmount" layoutX="98.0" layoutY="79.0" promptText="Amount" />
+      <TextField fx:id="txtDate" layoutX="98.0" layoutY="108.0" promptText="Date" />
+      <TextField fx:id="txtInvoice" layoutX="98.0" layoutY="138.0" promptText="Invoice" />
+      <TextField fx:id="txtPayMethods" layoutX="425.0" layoutY="47.0" prefHeight="26.0" prefWidth="105.0" promptText="Method Of Pay" />
+      <TextField fx:id="txtTransaction" layoutX="425.0" layoutY="78.0" prefHeight="26.0" prefWidth="117.0" promptText="Transaction Refference" />
+      <TextField fx:id="txtTax" layoutX="611.0" layoutY="47.0" prefHeight="26.0" prefWidth="90.0" promptText="Tax" />
+      <TextField fx:id="txtDiscount" layoutX="611.0" layoutY="78.0" prefHeight="26.0" prefWidth="90.0" promptText="Discount" />
+      <TableView fx:id="tblPayment" layoutY="209.0" onMouseClicked="#tblPaymnetClickedOnAction" prefHeight="482.0" prefWidth="764.0">
         <columns>
-          <TableColumn prefWidth="91.99996662139893" text="Payment ID" />
-          <TableColumn prefWidth="73.60003662109375" text="Amount" />
-            <TableColumn prefWidth="84.00007629394531" text="Date " />
-            <TableColumn prefWidth="90.39997863769531" text="Invoice " />
-            <TableColumn prefWidth="73.59991455078125" text="PayMethod " />
-            <TableColumn prefWidth="144.800048828125" text="Transaction Refference " />
-            <TableColumn prefWidth="72.79998779296875" text="Tax " />
-            <TableColumn prefWidth="98.39996337890625" text="Discount " />
+          <TableColumn fx:id="colPaymentId" prefWidth="91.99996662139893" text="Payment ID" />
+          <TableColumn fx:id="colAmount" prefWidth="73.60003662109375" text="Amount" />
+            <TableColumn fx:id="colDate" prefWidth="84.00007629394531" text="Date " />
+            <TableColumn fx:id="colInvoice" prefWidth="90.39997863769531" text="Invoice " />
+            <TableColumn fx:id="colPayMehtod" prefWidth="73.59991455078125" text="PayMethod " />
+            <TableColumn fx:id="colTransaction" prefWidth="144.800048828125" text="Transaction Refference " />
+            <TableColumn fx:id="colTax" prefWidth="88.79998779296875" text="Tax " />
+            <TableColumn fx:id="colDiscount" prefWidth="114.4000244140625" text="Discount " />
         </columns>
       </TableView>
-      <JFXButton buttonType="RAISED" layoutX="22.0" layoutY="173.0" style="-fx-background-color: #3d3d3d;" text="Save " textFill="WHITE">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="22.0" layoutY="173.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="127.0" layoutY="173.0" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="127.0" layoutY="173.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="231.0" layoutY="173.0" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="WHITE">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="231.0" layoutY="173.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="331.0" layoutY="173.0" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="331.0" layoutY="173.0" onAction="#btnResetOnAction" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="425.0" layoutY="173.0" style="-fx-background-color: #3d3d3d;" text="Generate Report " textFill="WHITE">
+      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="425.0" layoutY="173.0" onAction="#btnReportOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="576.0" layoutY="173.0" onAction="#btnSearchOnAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>

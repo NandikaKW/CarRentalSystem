@@ -64,10 +64,8 @@ public class AdminModel {
                     rst.getString(3),
                     rst.getString(4)
 
-
             );
             adminDtos.add(adminDto);
-
         }
         return adminDtos;
     }
