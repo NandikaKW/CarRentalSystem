@@ -77,7 +77,7 @@ public class PaymentModel {
         if (resultSet.next()) {
             String lastID = resultSet.getString("pay_id");
 
-            // Extract only the numeric part from the lastID
+
             String numericPart = lastID.replaceAll("\\D", ""); // Remove all non-digit characters
 
             // Parse the numeric part to an integer
