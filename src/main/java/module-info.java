@@ -11,5 +11,6 @@ module lk.ijse.gdse.carrentalsystem {
     exports lk.ijse.gdse.carrentalsystem;
 //    exports lk.ijse.gdse.carrentalsystem.controller;
     opens lk.ijse.gdse.carrentalsystem.controller to javafx.fxml;
+    opens lk.ijse.gdse.carrentalsystem.dto to javafx.base;
 
 }
