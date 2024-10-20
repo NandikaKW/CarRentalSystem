@@ -22,80 +22,80 @@
             <Image url="@../image/AdobeStock_921755939_Preview.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="52.0" layoutY="55.0" text="Vehicle ID">
+      <Label fx:id="lblVehicleId" layoutX="52.0" layoutY="55.0" text="Vehicle ID">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="547.0" layoutY="56.0" text="Package ID">
+      <Label fx:id="lblPackageId" layoutX="547.0" layoutY="56.0" text="Package ID">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="327.0" layoutY="56.0" text="Model">
+      <Label fx:id="lblModel" layoutX="327.0" layoutY="56.0" text="Model">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="327.0" layoutY="94.0" text="Colour">
+      <Label fx:id="lblColour" layoutX="327.0" layoutY="94.0" text="Colour">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="52.0" layoutY="94.0" text="Quality">
+      <Label fx:id="lblQuantity" layoutX="52.0" layoutY="94.0" text="Quality">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="541.0" layoutY="94.0" text="Category">
+      <Label fx:id="lblCategory" layoutX="541.0" layoutY="94.0" text="Category">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="131.0" layoutY="53.0" />
-      <TextField layoutX="131.0" layoutY="91.0" />
-      <TextField layoutX="379.0" layoutY="52.0" />
-      <TextField layoutX="382.0" layoutY="91.0" />
-      <TextField layoutX="629.0" layoutY="52.0" prefHeight="26.0" prefWidth="119.0" />
-      <TextField layoutX="613.0" layoutY="90.0" prefHeight="26.0" prefWidth="137.0" />
-      <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Save" textFill="WHITE">
+      <TextField fx:id="txtVehicleId" layoutX="131.0" layoutY="53.0" />
+      <TextField fx:id="txtQuantity" layoutX="131.0" layoutY="91.0" />
+      <TextField fx:id="txtModel" layoutX="379.0" layoutY="52.0" />
+      <TextField fx:id="txtColour" layoutX="382.0" layoutY="91.0" />
+      <TextField fx:id="txtPackageId" layoutX="629.0" layoutY="52.0" prefHeight="26.0" prefWidth="119.0" />
+      <TextField fx:id="txtCategory" layoutX="613.0" layoutY="90.0" prefHeight="26.0" prefWidth="137.0" />
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="26.0" layoutY="139.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="296.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="WHITE">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="296.0" layoutY="139.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="154.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="154.0" layoutY="139.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #3d3d3d;" text="Update " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="674.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="674.0" layoutY="139.0" onAction="#btnSeachOnAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="502.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Genearate Report" textFill="WHITE">
+      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="502.0" layoutY="139.0" onAction="#btnGenerateOnAction" style="-fx-background-color: #3d3d3d;" text="Genearate Report" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="401.0" layoutY="139.0" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="401.0" layoutY="139.0" onAction="#btnResetOnAction" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <TableView layoutY="175.0" prefHeight="518.0" prefWidth="765.0">
+      <TableView fx:id="tblVehicle" layoutY="175.0" onMouseClicked="#onVehicleTblClicked" prefHeight="518.0" prefWidth="765.0">
         <columns>
-          <TableColumn prefWidth="96.0000319480896" text="Vehicle ID" />
-          <TableColumn prefWidth="96.79998016357422" text="Quantity" />
-            <TableColumn prefWidth="100.0" text="Model" />
-            <TableColumn prefWidth="132.0" text="Colour" />
-            <TableColumn prefWidth="155.19998168945312" text="Package ID" />
-            <TableColumn prefWidth="184.0" text="Category " />
+          <TableColumn fx:id="colVehicleId" prefWidth="96.0000319480896" text="Vehicle ID" />
+          <TableColumn fx:id="colQuantity" prefWidth="96.79998016357422" text="Quantity" />
+            <TableColumn fx:id="colModel" prefWidth="100.0" text="Model" />
+            <TableColumn fx:id="colColour" prefWidth="132.0" text="Colour" />
+            <TableColumn fx:id="colPackageId" prefWidth="155.19998168945312" text="Package ID" />
+            <TableColumn fx:id="colCategory" prefWidth="184.0" text="Category " />
         </columns>
       </TableView>
    </children>
