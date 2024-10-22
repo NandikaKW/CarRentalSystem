@@ -15,8 +15,7 @@ public class AppInitilizer extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Parent load = FXMLLoader.load(getClass().getResource("/view/Welcome.fxml"));
-        Scene scene=new Scene(load);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(new Scene(load));
         primaryStage.setTitle("SignIn Form");
         primaryStage.show();
 

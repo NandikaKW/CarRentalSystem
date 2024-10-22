@@ -13,7 +13,7 @@
    <children>
       <AnchorPane style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutY="-11.0" prefHeight="49.0" prefWidth="210.0" style="-fx-background-color: #FFF7FC;" text="Dashboard">
+            <Label layoutX="15.0" layoutY="-11.0" prefHeight="49.0" prefWidth="210.0" style="-fx-background-color: #FFF7FC;" text="Dashboard">
                <opaqueInsets>
                   <Insets left="10.0" />
                </opaqueInsets>
@@ -71,7 +71,7 @@
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </JFXButton>
-            <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="148.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="174.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../Downloads/icons8-admin-30%20(2).png" />
                </image>

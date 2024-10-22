@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -18,9 +20,10 @@ public class WelcomeController {
 
     @FXML
     void btnSIgnInOnAction(ActionEvent event) throws IOException {
-        ancPageOne.getChildren().clear();
-        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Dashborad.fxml"));
-        ancPageOne.getChildren().add(load);
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/SignIn.fxml"));
+        Stage stage = (Stage) btnSIgnIn.getScene().getWindow();
+        stage.setScene(new Scene(load));
+        stage.show();
     }
 
 }
