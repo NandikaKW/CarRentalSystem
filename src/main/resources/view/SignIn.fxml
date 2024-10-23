@@ -8,35 +8,39 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anclogin" prefHeight="615.0" prefWidth="595.0" style="-fx-background-color: #03AEwhite2;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.SignInController">
+<AnchorPane fx:id="anclogin" prefHeight="710.0" prefWidth="602.0" style="-fx-background-color: #03AEwhite2;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.SignInController">
    <children>
-      <Text layoutX="197.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In" wrappingWidth="172.53680419921875">
-         <font>
-            <Font name="Serif Bold" size="53.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="31.0" fitWidth="35.0" layoutX="384.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="35.0" layoutX="409.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/icons8-lock-30.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="387.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="412.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/icons8-user-24.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtPassword" layoutX="188.0" layoutY="242.0" prefHeight="31.0" prefWidth="190.0" promptText="Password" />
-      <JFXButton buttonType="RAISED" layoutX="212.0" layoutY="335.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #3d3d3d;" text="Login" textFill="WHITE">
+      <TextField fx:id="txtPassword" layoutX="213.0" layoutY="226.0" prefHeight="31.0" prefWidth="190.0" promptText="Password" />
+      <JFXButton buttonType="RAISED" layoutX="237.0" layoutY="319.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #3d3d3d;" text="Login" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="26.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="225.0" fitWidth="603.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="221.0" fitWidth="603.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/a0b43e94369913.5e7cfc87a4b3a.gif" />
          </image>
       </ImageView>
-      <TextField fx:id="txtUsername" layoutX="188.0" layoutY="281.0" prefHeight="31.0" prefWidth="190.0" promptText="User name" />
+      <TextField fx:id="txtUsername" layoutX="213.0" layoutY="265.0" prefHeight="31.0" prefWidth="190.0" promptText="User name" />
+      <ImageView fitHeight="338.0" fitWidth="654.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/dfffb894369913.5e7d01e6e5c92.gif" />
+         </image>
+      </ImageView>
+      <Text layoutX="237.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In" wrappingWidth="172.53680419921875">
+         <font>
+            <Font name="Serif Bold" size="53.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
