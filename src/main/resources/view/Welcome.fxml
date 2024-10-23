@@ -9,22 +9,22 @@
 
 <AnchorPane fx:id="ancPageOne" prefHeight="615.0" prefWidth="595.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.WelcomeController">
    <children>
-      <ImageView fitHeight="338.0" fitWidth="595.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="338.0" fitWidth="505.0" layoutX="133.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/R%20(1).gif" />
+            <Image url="@../image/dots.gif" />
          </image>
       </ImageView>
-      <Label layoutX="215.0" layoutY="287.0" prefHeight="46.0" prefWidth="201.0" text="RentFleet" textFill="#e4e4e4">
+      <Label layoutX="202.0" layoutY="371.0" prefHeight="46.0" prefWidth="201.0" style="-fx-background-color: white;" text="RentFleet" textFill="#0d0d0d">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
       </Label>
-      <Label layoutX="186.0" layoutY="240.0" prefHeight="46.0" prefWidth="258.0" text="Welcome To " textFill="#e4e4e4">
+      <Label layoutX="173.0" layoutY="324.0" prefHeight="46.0" prefWidth="258.0" style="-fx-background-color: white;" text="Welcome To " textFill="#0d0d0d">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="186.0" layoutY="411.0" onAction="#btnSIgnInOnAction" prefHeight="78.0" prefWidth="232.0" style="-fx-background-color: white;" text="Sign In ">
+      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="186.0" layoutY="449.0" onAction="#btnSIgnInOnAction" prefHeight="78.0" prefWidth="232.0" style="-fx-background-color: black;" text="Sign In " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="37.0" />
          </font>

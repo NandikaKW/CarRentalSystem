@@ -10,36 +10,33 @@
 
 <AnchorPane fx:id="anclogin" prefHeight="615.0" prefWidth="595.0" style="-fx-background-color: #03AEwhite2;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.SignInController">
    <children>
-      <Text layoutX="229.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In" wrappingWidth="172.53680419921875">
+      <Text layoutX="197.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In" wrappingWidth="172.53680419921875">
          <font>
-            <Font name="Serif Bold" size="32.0" />
+            <Font name="Serif Bold" size="53.0" />
          </font>
       </Text>
-      <ImageView fitHeight="31.0" fitWidth="35.0" layoutX="386.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="35.0" layoutX="384.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/icons8-lock-30.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="386.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="387.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/icons8-user-24.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtPassword" layoutX="186.0" layoutY="397.0" prefHeight="19.0" prefWidth="190.0" promptText="Password">
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
-      <JFXButton buttonType="RAISED" layoutX="212.0" layoutY="483.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #3d3d3d;" text="Login" textFill="WHITE">
+      <TextField fx:id="txtPassword" layoutX="188.0" layoutY="242.0" prefHeight="31.0" prefWidth="190.0" promptText="Password" />
+      <JFXButton buttonType="RAISED" layoutX="212.0" layoutY="335.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #3d3d3d;" text="Login" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="26.0" />
          </font>
       </JFXButton>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="407.0" fitWidth="603.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="225.0" fitWidth="603.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/login2.gif" />
+            <Image url="@../image/a0b43e94369913.5e7cfc87a4b3a.gif" />
          </image>
       </ImageView>
-      <TextField fx:id="txtUsername" layoutX="187.0" layoutY="438.0" prefHeight="31.0" prefWidth="190.0" promptText="User name" />
+      <TextField fx:id="txtUsername" layoutX="188.0" layoutY="281.0" prefHeight="31.0" prefWidth="190.0" promptText="User name" />
    </children>
 </AnchorPane>

@@ -6,21 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="692.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.DashboradDesignController">
+<AnchorPane prefHeight="692.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.DashboradDesignController">
    <children>
-      <ImageView fitHeight="692.0" fitWidth="763.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/gif.gif" />
-         </image>
-      </ImageView>
-      <AnchorPane layoutX="8.0" layoutY="22.0" prefHeight="66.0" prefWidth="153.0" style="-fx-background-color: black; -fx-background-radius: 5;">
+      <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="66.0" prefWidth="153.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="68.0" text="Total Cars " textFill="WHITE">
+            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="68.0" text="Total Cars ">
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="27.0" prefHeight="18.0" prefWidth="68.0" text="750+" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="27.0" prefHeight="18.0" prefWidth="68.0" text="750+">
                <font>
                   <Font name="Serif Bold Italic" size="30.0" />
                </font>
@@ -32,14 +27,14 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="189.0" layoutY="21.0" prefHeight="66.0" prefWidth="164.0" style="-fx-background-color: black; -fx-background-radius: 5;">
+      <AnchorPane layoutX="189.0" layoutY="21.0" prefHeight="66.0" prefWidth="164.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="85.0" text="Daily Trips " textFill="WHITE">
+            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="85.0" text="Daily Trips ">
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="98.0" text="1697+" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="98.0" text="1697+">
                <font>
                   <Font name="Serif Bold Italic" size="30.0" />
                </font>
@@ -51,33 +46,33 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="373.0" layoutY="21.0" prefHeight="66.0" prefWidth="171.0" style="-fx-background-color: black; -fx-background-radius: 5;">
+      <AnchorPane layoutX="373.0" layoutY="21.0" prefHeight="66.0" prefWidth="171.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="98.0" text="Cleints Anually " textFill="WHITE">
+            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="98.0" text="Cleints Anually ">
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="27.0" prefHeight="18.0" prefWidth="115.0" text="85k+" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="27.0" prefHeight="18.0" prefWidth="115.0" text="85k+">
                <font>
                   <Font name="Serif Bold Italic" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="123.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="95.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../Downloads/icons8-client-30.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="566.0" layoutY="21.0" prefHeight="66.0" prefWidth="182.0" style="-fx-background-color: black; -fx-background-radius: 5;">
+      <AnchorPane layoutX="566.0" layoutY="21.0" prefHeight="66.0" prefWidth="182.0" style="-fx-background-color: white; -fx-background-radius: 5;">
          <children>
-            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="115.0" text="Kilometers Daily " textFill="WHITE">
+            <Label layoutX="14.0" layoutY="4.0" prefHeight="18.0" prefWidth="115.0" text="Kilometers Daily ">
                <font>
                   <Font name="Serif Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="98.0" text="2167k+" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="98.0" text="2167k+">
                <font>
                   <Font name="Serif Bold Italic" size="30.0" />
                </font>
@@ -89,5 +84,10 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="452.0" fitWidth="761.0" layoutX="-3.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/view.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
