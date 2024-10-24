@@ -14,7 +14,7 @@
             <Image url="@../image/77236f94369913.5e7cfc87a518c.gif" />
          </image>
       </ImageView>
-      <Label layoutX="208.0" layoutY="424.0" prefHeight="46.0" prefWidth="201.0" style="-fx-background-color: white;" text="RentFleet" textFill="#0d0d0d">
+      <Label layoutX="168.0" layoutY="423.0" prefHeight="46.0" prefWidth="258.0" style="-fx-background-color: white;" text="Wunder Rent" textFill="#0d0d0d">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
@@ -24,7 +24,7 @@
             <Font name="Serif Bold" size="40.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="182.0" layoutY="494.0" onAction="#btnSIgnInOnAction" prefHeight="78.0" prefWidth="232.0" style="-fx-background-color: black;" text="Sign In " textFill="WHITE">
+      <JFXButton fx:id="btnSIgnIn" buttonType="RAISED" layoutX="181.0" layoutY="487.0" onAction="#btnSIgnInOnAction" prefHeight="78.0" prefWidth="232.0" style="-fx-background-color: black;" text="Sign In " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="37.0" />
          </font>

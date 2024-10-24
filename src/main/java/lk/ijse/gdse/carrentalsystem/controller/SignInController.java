@@ -32,16 +32,23 @@ public class SignInController {
         String password = txtPassword.getText();
 
         if (username.equals("Nandika") && password.equals("nandika4005")) {
-            System.out.println("is logged");
-            AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Dashborad.fxml"));
-            Stage stage = (Stage) anclogin.getScene().getWindow();
-            stage.setScene(new Scene(load));
-            stage.show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Something Wrong").show();
-        }
+            System.out.println("User is logged in");
 
+            // Correct FXML file path
+            try {
+                AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Dashborad.fxml"));
+                Stage stage = (Stage) anclogin.getScene().getWindow();
+                stage.setScene(new Scene(load));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to load Dashboard: " + e.getMessage()).show();
+            }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Incorrect username or password").show();
+        }
     }
+
 
 
 }

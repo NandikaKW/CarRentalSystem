@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="692.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.OurMissionController">
+   <children>
+      <ImageView fitHeight="356.0" fitWidth="764.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/bc6d1094369913.5e7cfabeb776a%20(1).gif" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

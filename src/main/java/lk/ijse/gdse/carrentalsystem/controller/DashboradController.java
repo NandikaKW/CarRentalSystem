@@ -1,5 +1,6 @@
 package lk.ijse.gdse.carrentalsystem.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DashboradController implements Initializable {
+    public JFXButton btnEnd;
     @FXML
     private AnchorPane content;
     @FXML
@@ -92,6 +94,14 @@ public class DashboradController implements Initializable {
         navigateto("/view/RentPaymentDetails.fxml");
 
     }
+    @FXML
+    void btnEndOnAction(ActionEvent event) throws IOException {
+        navigateto("/view/End.fxml");
+
+
+
+    }
+
 
     @FXML
     void btnVehicleRentOnAction(ActionEvent event) throws IOException {
@@ -104,31 +114,25 @@ public class DashboradController implements Initializable {
     public void initialize(URL location, ResourceBundle resourceBundle) {
         setDateAndTime();
         try {
-            navigateto("/view/DashBoardDesign .fxml");
-
-
+            navigateto("/view/DashBoardDesign.fxml");  // Ensure this is the correct path
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Error during initialization: " + e.getMessage()).show();
             throw new RuntimeException(e);
-
         }
-
-
     }
+
 
     private void navigateto(String fxmlPath) throws IOException {
         try {
-            content.getChildren().clear();
-            AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
+            content.getChildren().clear();  // Ensure 'content' is initialized correctly
+            AnchorPane load = FXMLLoader.load(this.getClass().getResource(fxmlPath));
             content.getChildren().add(load);
-
         } catch (IOException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to load form").show();
-
+            new Alert(Alert.AlertType.ERROR, "Failed to load form: " + fxmlPath).show();
         }
-
     }
+
 
     private void setDateAndTime() {
 
