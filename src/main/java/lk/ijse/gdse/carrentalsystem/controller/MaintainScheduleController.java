@@ -214,7 +214,7 @@ public class MaintainScheduleController  implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Maintain saved successfully!").show();
                 loadNextMaintainId();
                 loadNextVehicleId();
-                refreshTableData();
+                refreshPage();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save Maintain!").show();
             }
@@ -247,8 +247,13 @@ public class MaintainScheduleController  implements Initializable {
                 txtDescription.setText(maintain.getDescription());
                 txtDuration.setText(maintain.getDuration());
                 txtVehicleID.setText(maintain.getVehicle_id());
+                new Alert(Alert.AlertType.INFORMATION, "Maintain found").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Maintain not found").show();
+                clearFields();
+                loadNextVehicleId();
+                loadNextMaintainId();
+
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -298,10 +303,10 @@ public class MaintainScheduleController  implements Initializable {
             boolean isUpdated = MaintinModel.updateMaintain(maintainDto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Maintain updated successfully!").show();
-                clearFields();
+                refreshPage();
                 loadNextMaintainId();
                 loadNextVehicleId();
-                refreshTableData();
+
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update Maintain!").show();
             }
@@ -343,6 +348,7 @@ public class MaintainScheduleController  implements Initializable {
         colVechleId.setCellValueFactory(new PropertyValueFactory<>("vehicle_id"));
 
        try{
+           refreshPage();
            loadNextMaintainId();
            loadNextVehicleId();
            refreshTableData();

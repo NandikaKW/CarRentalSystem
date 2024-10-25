@@ -95,6 +95,7 @@ public class EmployeeController implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION,"Employee deleted successfully!").show();
                     clearFields();
+                    loadNextAdminId();
                     loadNextEmployeeId();
                     refreshTableData();
 
@@ -173,8 +174,9 @@ public class EmployeeController implements Initializable {
             boolean isSaved = EmployeeModel.saveEmployee(employeeDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully!").show();
+                loadNextAdminId();
                 loadNextEmployeeId();
-                refreshTableData();
+                refreshPage();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save Employee!").show();
             }
@@ -204,6 +206,10 @@ public class EmployeeController implements Initializable {
           new Alert(Alert.AlertType.INFORMATION,"Employee found!").show();
           }else{
               new Alert(Alert.AlertType.ERROR,"Employee not found!").show();
+              clearFields();
+              loadNextAdminId();
+              loadNextEmployeeId();
+
           }
 
       }catch (SQLException | ClassNotFoundException e){
@@ -228,8 +234,9 @@ public class EmployeeController implements Initializable {
 
        if(isUpdated){
            new Alert(Alert.AlertType.INFORMATION,"Employee updated successfully!").show();
-           clearFields();
-           refreshTableData();
+           loadNextAdminId();
+           loadNextEmployeeId();
+           refreshPage();
 
        }else{
            new Alert(Alert.AlertType.ERROR,"Failed to update employee!").show();
@@ -270,9 +277,10 @@ public class EmployeeController implements Initializable {
     colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
 
         try{
+            refreshPage();
           loadNextEmployeeId();
           loadNextAdminId();
-           refreshTableData();
+          refreshTableData();
 
        }catch (SQLException | ClassNotFoundException e){
            e.printStackTrace();
@@ -284,6 +292,7 @@ public class EmployeeController implements Initializable {
     }
     private  void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextEmployeeId();
+        loadNextAdminId();
         loadTableDta();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);

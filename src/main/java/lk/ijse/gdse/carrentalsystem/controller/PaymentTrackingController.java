@@ -34,6 +34,7 @@ public class PaymentTrackingController implements Initializable {
         colTax.setCellValueFactory(new PropertyValueFactory<>("tax"));
         colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount_applied"));
         try{
+            refreshPage();
             loadNextPaymentId();
             refreshTableData();
 
@@ -264,7 +265,8 @@ public class PaymentTrackingController implements Initializable {
         boolean isSaved=PaymentModel.savePayment(paymentDto);
         if(isSaved){
             new Alert(Alert.AlertType.INFORMATION,"Payment saved successfully").show();
-            refreshTableData();
+            refreshPage();
+            loadNextPaymentId();
 
         }else{
             new Alert(Alert.AlertType.ERROR,"Failed to save payment").show();
@@ -294,6 +296,8 @@ public class PaymentTrackingController implements Initializable {
 
             }else{
                 new Alert(Alert.AlertType.ERROR,"Payment Not Found").show();
+                loadNextPaymentId();
+                clearFields();
             }
 
         }catch (SQLException | ClassNotFoundException e){
@@ -321,9 +325,10 @@ public class PaymentTrackingController implements Initializable {
         PaymentDto paymentDto=new PaymentDto(paymentId,amount,date,invoice,method,transaction,tax,discount);
         boolean isUpdated= PaymentModel.UpdatePayment(paymentDto);
         if(isUpdated){
+
             new Alert(Alert.AlertType.INFORMATION,"Payment updated successfully").show();
-            clearFields();
-            refreshTableData();
+            refreshPage();
+            loadNextPaymentId();
         }else{
             new Alert(Alert.AlertType.ERROR,"Failed to update payment").show();
         }

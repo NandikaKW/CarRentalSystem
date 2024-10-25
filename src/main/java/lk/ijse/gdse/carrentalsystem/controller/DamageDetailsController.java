@@ -100,6 +100,7 @@ public class DamageDetailsController implements Initializable {
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Damage deleted successfully!").show();
                     clearFields();
+                    loadNextRentId();
                     loadNextDamageId();
                     refreshTableData();
                 } else {
@@ -171,8 +172,10 @@ public class DamageDetailsController implements Initializable {
                    boolean isSaved=DamageModel.saveDamage(damageDto);
         if(isSaved){
             new Alert(Alert.AlertType.INFORMATION,"Damage saved successfully!").show();
+            refreshPage();
+            loadNextRentId();
             loadNextDamageId();
-            refreshTableData();
+
         }else{
             new Alert(Alert.AlertType.ERROR,"Failed to save damage!").show();
         }
@@ -207,6 +210,10 @@ public class DamageDetailsController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Damage Found!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Damage not found!").show();
+                clearFields();
+                loadNextRentId();
+                loadNextDamageId();
+
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -240,8 +247,10 @@ public class DamageDetailsController implements Initializable {
 
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Damage Detail updated successfully!").show();
-            clearFields();
-            refreshTableData();
+            refreshPage();
+            loadNextRentId();
+            loadNextDamageId();
+
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to update Damage Detail!").show();
         }
@@ -260,9 +269,11 @@ public class DamageDetailsController implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("detail"));
         colRentId.setCellValueFactory(new PropertyValueFactory<>("rent_id"));
         try{
+            refreshPage();
             loadNextRentId();
             loadNextDamageId();
             refreshTableData();
+
 
 
         }catch (SQLException | ClassNotFoundException e){

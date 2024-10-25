@@ -113,6 +113,7 @@ public class VehicleDetailsController  implements Initializable {
                    new Alert(Alert.AlertType.INFORMATION, "Vehicle Deleted Successfully").show();
                    clearFields();
                    loadNextVehicleId();
+                   loadNextPackageId();
                    refreshTableData();
 
                }else{
@@ -178,9 +179,10 @@ public class VehicleDetailsController  implements Initializable {
          boolean isSaved=VehicleModel.saveVehicle(vehicleDto);
         if(isSaved){
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Saved Successfully").show();
-            clearFields();
+            refreshPage();
             loadNextVehicleId();
-            refreshTableData();
+            loadNextPackageId();
+
 
         }else{
             new Alert(Alert.AlertType.ERROR, "Failed To Save Vehicle").show();
@@ -209,6 +211,9 @@ public class VehicleDetailsController  implements Initializable {
 
             }else{
                 new Alert(Alert.AlertType.ERROR, "Vehicle Not Found").show();
+                loadNextPackageId();
+                loadNextVehicleId();
+                clearFields();
             }
 
         }catch (SQLException | ClassNotFoundException e){
@@ -232,8 +237,10 @@ public class VehicleDetailsController  implements Initializable {
         boolean isUpdated=VehicleModel.updateVehicle(vehicleDto);
         if(isUpdated){
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Updated Successfully").show();
-            clearFields();
-            refreshTableData();
+            refreshPage();
+            loadNextPackageId();
+            loadNextVehicleId();
+
 
         }else{
             new Alert(Alert.AlertType.ERROR, "Failed To Update Vehicle").show();
@@ -269,6 +276,7 @@ public class VehicleDetailsController  implements Initializable {
         colPackageId.setCellValueFactory(new PropertyValueFactory<>("package_id"));
 
         try{
+            refreshPage();
             loadNextPackageId();
             loadNextVehicleId();
             refreshTableData();

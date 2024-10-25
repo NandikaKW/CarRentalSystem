@@ -117,8 +117,9 @@ public class PackageOffersController  implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION,"Package deleted successfully!").show();
                     clearFields();
-                    loadNextPackageId();
                     refreshTableData();
+                    loadNextPackageId();
+
                 }else{
                     new Alert(Alert.AlertType.ERROR,"Failed to delete Package!").show();
                 }
@@ -186,12 +187,24 @@ public class PackageOffersController  implements Initializable {
 
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Package saved successfully!").show();
-
+            loadNextPackageId();
             refreshTableData();
+            refreshPage();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save package!").show();
         }
     }
+
+    private void refreshPage() throws SQLException, ClassNotFoundException {
+        loadNextPackageId();
+        loadTableData();
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+        clearFields();
+
+    }
+
     @FXML
     void btnSearchAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String packageId = txtPackageId.getText();
@@ -216,6 +229,8 @@ public class PackageOffersController  implements Initializable {
                 txtDescription.setText(dto.getDescription());
             } else {
                 new Alert(Alert.AlertType.WARNING, "Package not found!").show();
+                clearFields();
+                loadNextPackageId();
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -252,8 +267,9 @@ public class PackageOffersController  implements Initializable {
 
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Package updated successfully!").show();
-            clearFields();
-            refreshTableData();
+            refreshPage();
+            loadNextPackageId();
+
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to update package!").show();
         }
@@ -290,7 +306,7 @@ public class PackageOffersController  implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         try {
-            loadTableData();
+            refreshPage();
             refreshTableData();
             loadNextPackageId();
         } catch (SQLException | ClassNotFoundException e) {

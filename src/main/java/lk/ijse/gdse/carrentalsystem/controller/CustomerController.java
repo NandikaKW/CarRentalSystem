@@ -35,6 +35,7 @@ public class CustomerController implements Initializable {
 
         colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
         try {
+            refreshPage();
             loadNextAdminId();
             loadNextCustomerId();
             refreshTableData();
@@ -162,7 +163,10 @@ public class CustomerController implements Initializable {
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
                     clearFields();
+                    refreshTableData();
                     loadNextCustomerId();
+                    loadNextAdminId();
+
                     refreshTableData();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
@@ -211,8 +215,9 @@ public class CustomerController implements Initializable {
         boolean isSaved = customerModel.saveCustomer(dto);
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Customer Save  successfully!").show();
+            refreshPage();
             loadNextCustomerId();
-            refreshTableData();
+            loadNextAdminId();
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to Save Customer ....!").show();
         }
@@ -241,6 +246,8 @@ public class CustomerController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Customer found!").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+                clearFields();
+
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -262,8 +269,9 @@ public class CustomerController implements Initializable {
         boolean isUpdated = customerModel.updateCustomer(dto);
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
-            clearFields();
-            refreshTableData();
+            refreshPage();
+            loadNextCustomerId();
+            loadNextAdminId();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
         }

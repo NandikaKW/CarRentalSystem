@@ -108,6 +108,7 @@ public class RentServiceController  implements Initializable {
                   new Alert(Alert.AlertType.INFORMATION,"Rent deleted successfully").show();
                   clearFields();
                   loadNextRentId();
+                  loadNextCustomerId();
                   refreshTableData();
                 }else{
                     new Alert(Alert.AlertType.ERROR,"Failed to delete rent").show();
@@ -154,14 +155,24 @@ public class RentServiceController  implements Initializable {
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Rent saved successfully").show();
+                loadNextCustomerId();
                 loadNextRentId();
-                refreshTableData();
+                refreshPage();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save rent").show();
             }
         } catch (ParseException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format! Use 'yyyy-MM-dd'.").show();
         }
+    }
+
+    private void refreshPage() throws SQLException, ClassNotFoundException {
+        loadNextRentId();
+        loadNextCustomerId();
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+        clearFields();
     }
 
 
@@ -183,6 +194,9 @@ public class RentServiceController  implements Initializable {
 
             }else{
                 new Alert(Alert.AlertType.INFORMATION,"Rent not found").show();
+                loadNextCustomerId();
+                loadNextRentId();
+                clearFields();
             }
 
         } catch (Exception e) {
@@ -212,8 +226,9 @@ public class RentServiceController  implements Initializable {
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Rent updated successfully").show();
-                clearFields();
-                refreshTableData();
+                refreshPage();
+                loadNextCustomerId();
+                loadNextRentId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update rent").show();
             }

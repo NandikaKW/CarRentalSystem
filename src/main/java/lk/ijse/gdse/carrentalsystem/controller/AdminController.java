@@ -70,9 +70,9 @@ public class AdminController implements Initializable {
                  boolean isDeleted=AdminModel.deleteAdmin(adminId);
                  if(isDeleted){
                      new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
-                     clearField();
-                     loadNextAdminId();
-                     refreshTableData();
+                     clearField(); // Clear fields after deletion
+                     refreshTableData(); // Refresh table to remove deleted record
+                     loadNextAdminId(); // Reset ID field to next available
 
 
                  }else{
@@ -134,8 +134,12 @@ public class AdminController implements Initializable {
                txtPassword.setText(admin.getPassword());
                new Alert(Alert.AlertType.INFORMATION,"Admin found!").show();
 
+
+
            }else{
                new Alert(Alert.AlertType.WARNING,"Admin not found!").show();
+               loadNextAdminId();
+               clearField();
 
            }
 
@@ -148,8 +152,9 @@ public class AdminController implements Initializable {
 
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        clearField();
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+
 
     }
 
@@ -163,8 +168,9 @@ public class AdminController implements Initializable {
         boolean isSaved=AdminModel.saveAdmin(adminDto);
         if(isSaved){
             new Alert(Alert.AlertType.INFORMATION, "Admin saved successfully!").show();
+            refreshPage();
             loadNextAdminId();
-            refreshTableData();
+
 
 
         }else{
@@ -187,8 +193,10 @@ public class AdminController implements Initializable {
 
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Admin updated successfully!").show();
-            clearField();
-            refreshTableData();  // Ensure you call refreshTableData() here to refresh the table
+            refreshPage();
+            loadNextAdminId();
+
+            // Ensure you call refreshTableData() here to refresh the table
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to update admin!").show();
         }
@@ -217,6 +225,7 @@ public class AdminController implements Initializable {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
         colPassword.setCellValueFactory(new PropertyValueFactory<>("Password"));
         try{
+            refreshPage();
             loadNextAdminId();
             refreshTableData();
         }catch (SQLException | ClassNotFoundException e){

@@ -127,8 +127,8 @@ public class RentPaymentDetailsController  implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION,"RentPayment deleted successfully").show();
                     clearFields();
-                  //  loadNextPaymentId();
-                  //  loadNextRentId();
+                    loadNextPaymentId();
+                    loadNextRentId();
                     refreshTableData();
 
                 }else{
@@ -210,8 +210,9 @@ public class RentPaymentDetailsController  implements Initializable {
             boolean isSaved = RentPaymentModel.saveRentPayment(rentPayemntDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "RentPayment saved successfully").show();
-                clearFields();
-                refreshTableData();
+                refreshPage();
+                loadNextRentId();
+                loadNextPaymentId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save RentPayment").show();
             }
@@ -243,6 +244,9 @@ public class RentPaymentDetailsController  implements Initializable {
                  txtPaymentMethod.setText(rentPayemntDto.getPayment_method());
              }else{
                  new Alert(Alert.AlertType.ERROR,"RentPayment Not Found").show();
+                 loadNextPaymentId();
+                 loadNextRentId();
+                 clearFields();
              }
 
          }catch (SQLException | ClassNotFoundException e){
@@ -277,10 +281,9 @@ public class RentPaymentDetailsController  implements Initializable {
         boolean isUpdated = RentPaymentModel.UpdateRentPayment(rentPayemntDto);
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "RentPayment updated successfully").show();
-            clearFields();
-          loadNextPaymentId();
-           loadNextRentId();
-            refreshTableData();
+            refreshPage();
+            loadNextPaymentId();
+            loadNextRentId();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to update RentPayment").show();
         }

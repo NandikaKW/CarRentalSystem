@@ -201,10 +201,10 @@ public class VehicleRentDetailsController  implements Initializable {
             boolean isSaved = VehicleRentDetailModel.saveVehicleRent(vechileRentDetailDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Vehicle Rent Saved Successfully").show();
-                clearFields();
-                loadNextVehicleId();
-                loadNextRentId();
-                refreshTableData();
+               refreshPage();
+               refreshTableData();
+               loadNextRentId();
+               loadNextVehicleId();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,6 +233,9 @@ public class VehicleRentDetailsController  implements Initializable {
                 txtCondition.setText(vechileRentDetailDto.getVehicle_condition());
             }else{
                 new Alert(Alert.AlertType.ERROR,"Vehicle Rent Not Found").show();
+                loadNextRentId();
+                loadNextVehicleId();
+                clearFields();
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -265,9 +268,9 @@ public class VehicleRentDetailsController  implements Initializable {
         if (isUpdated) {
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Rent Updated Successfully").show();
             clearFields();
+            refreshPage();
             loadNextVehicleId();
             loadNextRentId();
-            refreshTableData();
         } else {
             new Alert(Alert.AlertType.ERROR, "Vehicle Rent Not Updated").show();
         }
@@ -301,6 +304,7 @@ public class VehicleRentDetailsController  implements Initializable {
         colCondition.setCellValueFactory(new PropertyValueFactory<>("vehicle_condition"));
 
         try{
+            refreshPage();
             loadNextVehicleId();
             loadNextRentId();
             refreshTableData();
@@ -312,6 +316,7 @@ public class VehicleRentDetailsController  implements Initializable {
         }
     }
     private  void refreshPage() throws SQLException, ClassNotFoundException {
+        loadTableData();
         loadNextVehicleId();
         loadNextRentId();
        btnSave.setDisable(false);
