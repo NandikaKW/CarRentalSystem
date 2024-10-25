@@ -42,7 +42,7 @@
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblQuantity" layoutX="52.0" layoutY="94.0" text="Quality">
+      <Label fx:id="lblQuantity" layoutX="14.0" layoutY="94.0" text="Vehicle amount">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>

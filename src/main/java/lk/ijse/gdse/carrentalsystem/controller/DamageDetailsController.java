@@ -260,6 +260,7 @@ public class DamageDetailsController implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("detail"));
         colRentId.setCellValueFactory(new PropertyValueFactory<>("rent_id"));
         try{
+            loadNextRentId();
             loadNextDamageId();
             refreshTableData();
 
@@ -302,4 +303,9 @@ public class DamageDetailsController implements Initializable {
 
     public void btnBackOnAction(ActionEvent actionEvent) {
     }
+    public void loadNextRentId() throws SQLException, ClassNotFoundException {
+        String nextRentId=DamageModel.loadNextRentId();
+        txtRentId.setText(nextRentId);
+    }
+
 }

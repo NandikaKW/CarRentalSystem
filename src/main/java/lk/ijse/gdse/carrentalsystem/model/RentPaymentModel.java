@@ -21,7 +21,7 @@ public class RentPaymentModel {
                    resultSet.getString("rent_id"),
                     resultSet.getString("pay_id"),
                     resultSet.getDate("payment_date"),
-                    resultSet.getInt("duration"),
+                    resultSet.getString("duration"),
                     resultSet.getString("description"),
                     resultSet.getBigDecimal("pay_amount"),
                     resultSet.getString("payment_method")
@@ -41,7 +41,7 @@ public class RentPaymentModel {
                     resultSet.getString("rent_id"),
                     resultSet.getString("pay_id"),
                     resultSet.getDate("payment_date"),
-                    resultSet.getInt("duration"),
+                    resultSet.getString("duration"),
                     resultSet.getString("description"),
                     resultSet.getBigDecimal("pay_amount"),
                     resultSet.getString("payment_method")

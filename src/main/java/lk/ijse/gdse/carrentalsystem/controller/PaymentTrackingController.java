@@ -181,16 +181,16 @@ public class PaymentTrackingController implements Initializable {
         Optional<ButtonType> optionalButtonType=alert.showAndWait();
         if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
             try{
-               boolean isDeleted =PaymentModel.deletePayment(paymentId);
-               if(isDeleted){
-                   new Alert(Alert.AlertType.INFORMATION,"Payment deleted successfully").show();
-                   clearFields();
-                   loadNextPaymentId();
-                   refreshTableData();
+                boolean isDeleted =PaymentModel.deletePayment(paymentId);
+                if(isDeleted){
+                    new Alert(Alert.AlertType.INFORMATION,"Payment deleted successfully").show();
+                    clearFields();
+                    loadNextPaymentId();
+                    refreshTableData();
 
-               }else{
-                   new Alert(Alert.AlertType.ERROR,"Failed to delete payment").show();
-               }
+                }else{
+                    new Alert(Alert.AlertType.ERROR,"Failed to delete payment").show();
+                }
 
             }catch (SQLException | ClassNotFoundException e){
                 e.printStackTrace();
@@ -222,14 +222,14 @@ public class PaymentTrackingController implements Initializable {
         tblPayment.setItems(paymentTMS);
     }
     private  void clearFields(){
-       txtPaymentId.setText("");
-       txtAmount.setText("");
-       txtDate.setText("");
-       txtDiscount.setText("");
-       txtInvoice.setText("");
-       txtPayMethods.setText("");
-       txtTax.setText("");
-       txtTransaction.setText("");
+        txtPaymentId.setText("");
+        txtAmount.setText("");
+        txtDate.setText("");
+        txtDiscount.setText("");
+        txtInvoice.setText("");
+        txtPayMethods.setText("");
+        txtTax.setText("");
+        txtTransaction.setText("");
     }
 
     @FXML
@@ -331,18 +331,18 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void tblPaymnetClickedOnAction(MouseEvent event) {
-       PaymentTM paymentTM=tblPayment.getSelectionModel().getSelectedItem();
-       if(paymentTM!=null){
-           txtPaymentId.setText(paymentTM.getPay_id());
-           txtAmount.setText(String.valueOf(paymentTM.getAmount()));
-           txtDate.setText(String.valueOf(paymentTM.getDate()));
-           txtInvoice.setText(paymentTM.getInvoice());
-           txtPayMethods.setText(paymentTM.getMethod());
-           txtTransaction.setText(paymentTM.getTransaction_reference());
-           txtTax.setText(String.valueOf(paymentTM.getTax()));
-           txtDiscount.setText(paymentTM.getDiscount_applied().toString());
+        PaymentTM paymentTM=tblPayment.getSelectionModel().getSelectedItem();
+        if(paymentTM!=null){
+            txtPaymentId.setText(paymentTM.getPay_id());
+            txtAmount.setText(String.valueOf(paymentTM.getAmount()));
+            txtDate.setText(String.valueOf(paymentTM.getDate()));
+            txtInvoice.setText(paymentTM.getInvoice());
+            txtPayMethods.setText(paymentTM.getMethod());
+            txtTransaction.setText(paymentTM.getTransaction_reference());
+            txtTax.setText(String.valueOf(paymentTM.getTax()));
+            txtDiscount.setText(paymentTM.getDiscount_applied().toString());
 
-       }
+        }
 
     }
 

@@ -7,15 +7,15 @@ public class RentPaymentTM {
     private String rent_id;
     private String pay_id;
     private Date payment_date;
-    private Integer duration;
+    private String duration;
     private String description;
     private BigDecimal pay_amount;
-    private  String payment_method;
+    private String payment_method;
 
     public RentPaymentTM() {
     }
 
-    public RentPaymentTM(String rent_id, String pay_id, Date payment_date, Integer duration, String description, BigDecimal pay_amount, String payment_method) {
+    public RentPaymentTM(String rent_id, String pay_id, Date payment_date, String duration, String description, BigDecimal pay_amount, String payment_method) {
         this.rent_id = rent_id;
         this.pay_id = pay_id;
         this.payment_date = payment_date;
@@ -49,11 +49,11 @@ public class RentPaymentTM {
         this.payment_date = payment_date;
     }
 
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

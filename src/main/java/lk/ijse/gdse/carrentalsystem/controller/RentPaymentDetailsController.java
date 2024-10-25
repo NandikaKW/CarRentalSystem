@@ -196,7 +196,7 @@ public class RentPaymentDetailsController  implements Initializable {
         Date paymentDate = java.sql.Date.valueOf(localDate);  // Convert to SQL Date type
 
         // Parse duration and payAmount
-        int duration = Integer.parseInt(txtDuration.getText());
+        String duration = String.valueOf(Integer.parseInt(txtDuration.getText()));
         String description = txtDescription.getText();
 
         // Convert payAmount from String to BigDecimal
@@ -264,7 +264,7 @@ public class RentPaymentDetailsController  implements Initializable {
         Date paymentDate = java.sql.Date.valueOf(localDate);  // Convert to SQL Date type
 
         // Parse duration and payAmount
-        int duration = Integer.parseInt(txtDuration.getText());
+        String duration = String.valueOf(Integer.parseInt(txtDuration.getText()));
         String description = txtDescription.getText();
 
         // Convert payAmount from String to BigDecimal
