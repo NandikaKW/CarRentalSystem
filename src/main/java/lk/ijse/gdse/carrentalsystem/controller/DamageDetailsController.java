@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class DamageDetailsController implements Initializable {
 
+    public JFXButton btnBack;
     @FXML
     private JFXButton btnDelete;
 
@@ -299,4 +300,6 @@ public class DamageDetailsController implements Initializable {
     }
 
 
+    public void btnBackOnAction(ActionEvent actionEvent) {
+    }
 }

@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
+    public JFXButton btnBack;
     CustomerModel customerModel = new CustomerModel();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -316,4 +317,6 @@ public class CustomerController implements Initializable {
     }
 
 
+    public void btnBackOnAction(ActionEvent actionEvent) {
+    }
 }

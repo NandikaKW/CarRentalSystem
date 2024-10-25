@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="692.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.EndController">
    <children>
@@ -11,5 +13,10 @@
             <Image url="@../image/bb828694369913.5e7d035e0d78d.jpg" />
          </image>
       </ImageView>
+      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="627.0" layoutY="26.0" onAction="#btnBackOnAction" style="-fx-background-color: white; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 4;" text="&lt;  Back">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

@@ -26,6 +26,7 @@ public class AdminController implements Initializable {
     public JFXButton btnDelete;
     public JFXButton btnSave;
     public JFXButton btnUpdate;
+    public JFXButton btnBack;
     @FXML
     private Label lblAdminID;
 
@@ -268,5 +269,9 @@ public class AdminController implements Initializable {
             btnSave.setDisable(true);
 
         }
+    }
+
+    public void btnBackOnAction(ActionEvent actionEvent) {
+
     }
 }

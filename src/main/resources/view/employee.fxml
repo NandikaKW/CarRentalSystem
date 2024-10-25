@@ -98,5 +98,10 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="666.0" layoutY="20.0" onAction="#btnBackOnAction" style="-fx-background-color: white; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 4;" text="&lt;  Back">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

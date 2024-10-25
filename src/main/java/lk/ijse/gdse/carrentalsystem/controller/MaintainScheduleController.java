@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 public class MaintainScheduleController  implements Initializable {
 
     public TextField txtDescription;
+    public JFXButton btnBack;
     @FXML
     private JFXButton btnDelete;
 
@@ -397,4 +398,6 @@ public class MaintainScheduleController  implements Initializable {
     }
 
 
+    public void btnBackOnAction(ActionEvent actionEvent) {
+    }
 }

@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class EmployeeController implements Initializable {
 
+    public JFXButton btnBack;
     @FXML
     private JFXButton btnDelete;
 
@@ -339,5 +340,8 @@ public class EmployeeController implements Initializable {
 
             txtAdminID.setText(employeeTM.getAdmin_id());
         }
+    }
+
+    public void btnBackOnAction(ActionEvent actionEvent) {
     }
 }

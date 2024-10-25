@@ -20,7 +20,7 @@ public class WelcomeController {
 
     @FXML
     void btnSIgnInOnAction(ActionEvent event) throws IOException {
-        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/SignIn.fxml"));
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Dashborad.fxml"));
         Stage stage = (Stage) btnSIgnIn.getScene().getWindow();
         stage.setScene(new Scene(load));
         stage.show();

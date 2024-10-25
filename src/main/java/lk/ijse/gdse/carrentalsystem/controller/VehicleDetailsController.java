@@ -269,6 +269,7 @@ public class VehicleDetailsController  implements Initializable {
         colPackageId.setCellValueFactory(new PropertyValueFactory<>("package_id"));
 
         try{
+            loadNextPackageId();
             loadNextVehicleId();
             refreshTableData();
 
@@ -307,6 +308,10 @@ public class VehicleDetailsController  implements Initializable {
     public  void loadNextVehicleId() throws SQLException, ClassNotFoundException {
         String nextVehicleId=VehicleModel.loadNextVehicleId();
         txtVehicleId.setText(nextVehicleId);
+    }
+    public void loadNextPackageId() throws SQLException, ClassNotFoundException {
+        String nexetPackage=VehicleModel.loadNextPackageId();
+        txtPackageId.setText(nexetPackage);
     }
 
 }

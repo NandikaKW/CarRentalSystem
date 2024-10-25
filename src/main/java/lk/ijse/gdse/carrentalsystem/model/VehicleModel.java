@@ -67,4 +67,18 @@ public class VehicleModel {
         return "V001"; // Default if no vehicles are found
     }
 
+    public static String loadNextPackageId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet=CrudUtil.execute("SELECT package_id FROM package ORDER BY package_id DESC LIMIT 1");
+        if (resultSet.next()){
+            String lastID=resultSet.getString("package_id");
+            String substring=lastID.substring(1);
+            int id=Integer.parseInt(substring);
+            int newId=id+1;
+            return String.format("P%03d",newId);
+
+
+        }
+        return "P001";
+
+    }
 }

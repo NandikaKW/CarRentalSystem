@@ -18,86 +18,91 @@
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="52.0" text="Vehicle ID  ">
+      <Label fx:id="lblVehicleID" layoutX="23.0" layoutY="52.0" text="Vehicle ID  ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="81.0" text="Start Date ">
+      <Label fx:id="lblStartDate" layoutX="23.0" layoutY="81.0" text="Start Date ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="256.0" layoutY="52.0" text="Cost ">
+      <Label fx:id="lblCost" layoutX="256.0" layoutY="52.0" text="Cost ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="111.0" text="End Date ">
+      <Label fx:id="lblEndDate" layoutX="23.0" layoutY="111.0" text="End Date ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="256.0" layoutY="80.0" text="Condition ">
+      <Label fx:id="lblCondition" layoutX="256.0" layoutY="80.0" text="Condition ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="256.0" layoutY="109.0" text="Rent Date ">
+      <Label fx:id="lblRentDate" layoutX="256.0" layoutY="109.0" text="Rent Date ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="460.0" layoutY="63.0" text="Rent ID ">
+      <Label fx:id="lblRentID" layoutX="460.0" layoutY="63.0" text="Rent ID ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField layoutX="123.0" layoutY="50.0" prefHeight="26.0" prefWidth="127.0" promptText="Vehicle ID" />
-      <TextField layoutX="123.0" layoutY="79.0" prefHeight="26.0" prefWidth="127.0" promptText="Start Date" />
-      <TextField layoutX="123.0" layoutY="107.0" prefHeight="26.0" prefWidth="127.0" promptText="End Date " />
-      <TextField layoutX="344.0" layoutY="50.0" prefHeight="26.0" prefWidth="112.0" promptText="Cost" />
-      <TextField layoutX="344.0" layoutY="79.0" prefHeight="26.0" prefWidth="112.0" promptText="Condtion" />
-      <TextField layoutX="344.0" layoutY="109.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent Date" />
+      <TextField fx:id="txtVehicleID" layoutX="123.0" layoutY="50.0" prefHeight="26.0" prefWidth="127.0" promptText="Vehicle ID" />
+      <TextField fx:id="txtStartDate" layoutX="123.0" layoutY="79.0" prefHeight="26.0" prefWidth="127.0" promptText="Start Date" />
+      <TextField fx:id="txtEndDate" layoutX="123.0" layoutY="107.0" prefHeight="26.0" prefWidth="127.0" promptText="End Date " />
+      <TextField fx:id="txtCost" layoutX="344.0" layoutY="50.0" prefHeight="26.0" prefWidth="112.0" promptText="Cost" />
+      <TextField fx:id="txtCondition" layoutX="344.0" layoutY="79.0" prefHeight="26.0" prefWidth="112.0" promptText="Condtion" />
+      <TextField fx:id="txtRentDate" layoutX="344.0" layoutY="109.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent Date" />
       <ImageView fitHeight="48.0" fitWidth="50.0" layoutX="496.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/648c6d3f-de6a-4d7a-871e-11684521f749.jpg" />
          </image>
       </ImageView>
-      <TextField layoutX="531.0" layoutY="61.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />
-      <TableView layoutY="187.0" prefHeight="506.0" prefWidth="763.0">
+      <TextField fx:id="txtRentId" layoutX="531.0" layoutY="61.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />
+      <TableView fx:id="tblVehileRent" layoutY="187.0" onMouseClicked="#tblVehicleRentClickedOnAction" prefHeight="506.0" prefWidth="763.0">
         <columns>
-          <TableColumn prefWidth="99.19997864961624" text="Vehicle ID " />
-          <TableColumn prefWidth="80.79998779296875" text="Start Date " />
-            <TableColumn prefWidth="112.00001525878906" text="End Date " />
-            <TableColumn prefWidth="92.79998779296875" text="Cost " />
-            <TableColumn prefWidth="149.5999755859375" text="Condition " />
-            <TableColumn prefWidth="83.2000732421875" text="Rent Date " />
-            <TableColumn prefWidth="120.79998779296875" text="Rent ID" />
+          <TableColumn fx:id="colVehicleID" prefWidth="99.19997864961624" text="Vehicle ID " />
+          <TableColumn fx:id="colStartDate" prefWidth="80.79998779296875" text="Start Date " />
+            <TableColumn fx:id="colEndDate" prefWidth="112.00001525878906" text="End Date " />
+            <TableColumn fx:id="colCost" prefWidth="92.79998779296875" text="Cost " />
+            <TableColumn fx:id="colCondition" prefWidth="149.5999755859375" text="Condition " />
+            <TableColumn fx:id="colRentDate" prefWidth="83.2000732421875" text="Rent Date " />
+            <TableColumn fx:id="colRentID" prefWidth="141.5999755859375" text="Rent ID" />
         </columns>
       </TableView>
       <Accordion />
-      <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="146.0" style="-fx-background-color: #3d3d3d;" text="Save " textFill="#fffefe">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="46.0" layoutY="146.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save " textFill="#fffefe">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="142.0" layoutY="146.0" style="-fx-background-color: #3d3d3d;" text="Update " textFill="#fffefe">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="142.0" layoutY="146.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #3d3d3d;" text="Update " textFill="#fffefe">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="256.0" layoutY="146.0" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="#fffefe">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="256.0" layoutY="146.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #3d3d3d;" text="Delete" textFill="#fffefe">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="352.0" layoutY="146.0" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="#fffefe">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="352.0" layoutY="146.0" onAction="#btnResetOnAction" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="#fffefe">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="469.0" layoutY="146.0" style="-fx-background-color: #3d3d3d;" text="Generate Report" textFill="#fffefe">
+      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="469.0" layoutY="146.0" onAction="#btnReportOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report" textFill="#fffefe">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="610.0" layoutY="146.0" onAction="#btnSearchOnAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="#fffefe">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
