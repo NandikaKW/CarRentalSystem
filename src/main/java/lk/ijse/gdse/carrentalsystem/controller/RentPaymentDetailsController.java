@@ -334,6 +334,7 @@ public class RentPaymentDetailsController  implements Initializable {
     private  void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextPaymentId();
         loadNextRentId();
+        loadTableData();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
         btnDelete.setDisable(true);

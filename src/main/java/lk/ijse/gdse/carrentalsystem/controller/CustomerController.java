@@ -9,18 +9,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.CustomerDto;
 import lk.ijse.gdse.carrentalsystem.model.AdminModel;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.tm.CustomerTM;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.util.*;
 
 public class CustomerController implements Initializable {
     public JFXButton btnBack;
@@ -182,6 +185,33 @@ public class CustomerController implements Initializable {
 
     @FXML
     void btnReportOnAction(ActionEvent event) {
+
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/CustomerDetailReport.jrxml"
+                            ));
+
+            Connection connection = DBConnection.getInstance().getConnection();
+            Map<String, Object> parameters = new HashMap<>();
+
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    null,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+          e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 

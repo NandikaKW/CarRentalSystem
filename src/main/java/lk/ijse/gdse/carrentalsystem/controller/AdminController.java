@@ -164,22 +164,65 @@ public class AdminController implements Initializable {
         String userName = txtAdminName.getText();
         String email = txtEmail.getText();
         String password = txtPassword.getText();
-        AdminDto adminDto=new AdminDto(adminId,userName,email,password);
-        boolean isSaved=AdminModel.saveAdmin(adminDto);
-        if(isSaved){
-            new Alert(Alert.AlertType.INFORMATION, "Admin saved successfully!").show();
-            refreshPage();
-            loadNextAdminId();
 
+        // Regex patterns
+        String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
+        String userNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"; // Valid email
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"; // At least 8 characters, at least 1 letter and 1 number
 
+        // Reset field styles
+        resetFieldStyles();
 
-        }else{
-            new Alert(Alert.AlertType.ERROR, "Failed to save admin!").show();
+        // Validation checks
+        boolean isValidAdminId = adminId.matches(adminIdPattern);
+        boolean isValidUserName = userName.matches(userNamePattern);
+        boolean isValidEmail = email.matches(emailPattern);
+        boolean isValidPassword = password.matches(passwordPattern);
+
+        // Highlight invalid fields
+        if (!isValidAdminId) {
+            txtAdminID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Admin ID.");
         }
 
+        if (!isValidUserName) {
+            txtAdminName.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid User Name.");
+        }
 
+        if (!isValidEmail) {
+            txtEmail.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Email.");
+        }
+
+        if (!isValidPassword) {
+            txtPassword.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Password.");
+        }
+
+        // If all fields are valid, proceed to save
+        if (isValidAdminId && isValidUserName && isValidEmail && isValidPassword) {
+            AdminDto adminDto = new AdminDto(adminId, userName, email, password);
+            boolean isSaved = AdminModel.saveAdmin(adminDto);
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Admin saved successfully!").show();
+                clearField();
+                refreshPage();
+                loadNextAdminId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save admin!").show();
+            }
+        }
     }
 
+    // Method to reset styles for all fields
+    private void resetFieldStyles() {
+        txtAdminID.setStyle(""); // Reset to default
+        txtAdminName.setStyle(""); // Reset to default
+        txtEmail.setStyle(""); // Reset to default
+        txtPassword.setStyle(""); // Reset to default
+    }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

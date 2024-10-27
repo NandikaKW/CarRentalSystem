@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class PaymentTrackingController implements Initializable {
+    public JFXButton btnBack;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colPaymentId.setCellValueFactory(new PropertyValueFactory<>("pay_id"));
@@ -351,4 +353,7 @@ public class PaymentTrackingController implements Initializable {
 
     }
 
+    public void btnBackOnAction(ActionEvent actionEvent) {
+        
+    }
 }

@@ -168,6 +168,7 @@ public class RentServiceController  implements Initializable {
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextRentId();
+        loadTaleData();
         loadNextCustomerId();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);

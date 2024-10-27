@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 public class PackageOffersController  implements Initializable {
 
+    public JFXButton btnBack;
     @FXML
     private TableColumn<PackageTM, String> colDescription;
 
@@ -385,5 +386,9 @@ private void loadTableData() throws SQLException, ClassNotFoundException {
             btnSave.setDisable(true);
 
         }
+    }
+
+
+    public void btnBackOnAction(ActionEvent actionEvent) {
     }
 }
