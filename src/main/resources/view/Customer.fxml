@@ -65,7 +65,7 @@
             <TableColumn fx:id="colAdminID" prefWidth="107.99993896484375" text="Admin ID" />
             <TableColumn fx:id="colAddress" prefWidth="91.99993896484375" text="Address" />
             <TableColumn fx:id="colCustomerID" prefWidth="145.5999755859375" text="Customer ID" />
-            <TableColumn fx:id="colCustomerNumber" prefWidth="148.79998779296875" text="Customer Number" />
+            <TableColumn fx:id="colCustomerNumber" prefWidth="180.79995117187502" text="Customer Number" />
         </columns>
       </TableView>
       <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="40.0" layoutY="128.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save " textFill="WHITE">

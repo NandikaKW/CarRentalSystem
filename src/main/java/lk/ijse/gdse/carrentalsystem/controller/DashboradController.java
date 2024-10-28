@@ -28,12 +28,19 @@ public class DashboradController implements Initializable {
 
     @FXML
     private Label lblTime;
+    @FXML
+    private JFXButton btnAgrimentDetail;
 
 
 
     @FXML
     void btnAdminOnAction(ActionEvent event) throws IOException {
         navigateto("/view/Admin.fxml");
+
+    }
+    @FXML
+    void btnAgrimentDetailOnAction(ActionEvent event) throws IOException {
+        navigateto("/view/RentAgriment.fxml");
 
     }
 
@@ -94,15 +101,6 @@ public class DashboradController implements Initializable {
         navigateto("/view/RentPaymentDetails.fxml");
 
     }
-    @FXML
-    void btnEndOnAction(ActionEvent event) throws IOException {
-        navigateto("/view/End.fxml");
-
-
-
-    }
-
-
     @FXML
     void btnVehicleRentOnAction(ActionEvent event) throws IOException {
         navigateto("/view/VehicleRentDetails.fxml");

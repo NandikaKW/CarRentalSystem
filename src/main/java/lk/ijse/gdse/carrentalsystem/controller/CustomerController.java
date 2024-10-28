@@ -191,27 +191,22 @@ public class CustomerController implements Initializable {
                     getClass()
                             .getResourceAsStream("/report/CustomerDetailReport.jrxml"
                             ));
-
             Connection connection = DBConnection.getInstance().getConnection();
             Map<String, Object> parameters = new HashMap<>();
-
-
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport,
                     null,
                     connection
             );
-
             JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException e) {
             new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
-          e.printStackTrace();
+            e.printStackTrace();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "DB error...!").show();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
