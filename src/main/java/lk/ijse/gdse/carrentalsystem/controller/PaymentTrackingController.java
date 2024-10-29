@@ -20,7 +20,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class PaymentTrackingController implements Initializable {
     public JFXButton btnBack;
@@ -45,6 +47,7 @@ public class PaymentTrackingController implements Initializable {
             new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
 
         }
+        initializeDateCombos();
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextPaymentId();
@@ -78,7 +81,14 @@ public class PaymentTrackingController implements Initializable {
         String nextPaymentId=PaymentModel.loadNextPaymentId();
         txtPaymentId.setText(nextPaymentId);
     }
+    @FXML
+    private ComboBox<Integer> CombMonth;
 
+    @FXML
+    private ComboBox<Integer> ComboDay;
+
+    @FXML
+    private ComboBox<Integer> ComboYear;
     @FXML
     private JFXButton btnDelete;
 
@@ -171,6 +181,63 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     private TextField txtTransaction;
+    @FXML
+    void ComboDayOnAction(ActionEvent event) {
+        showSelectedDate();
+
+    }
+    private void initializeDateCombos() {
+        // Populate ComboYear with the last 50 years up to the current year
+        ComboYear.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
+        ));
+        ComboYear.getSelectionModel().selectLast();
+
+        // Populate CombMonth with values 1 to 12
+        CombMonth.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1, 12).boxed().toList()
+        ));
+        CombMonth.getSelectionModel().selectFirst();
+
+        // Update days based on initial year and month selection
+        updateDays();
+    }
+
+
+    @FXML
+    void ComboMonthOnAction(ActionEvent event) {
+        updateDays();
+    }
+
+    @FXML
+    void ComboYearOnAction(ActionEvent event) {
+        updateDays();
+
+    }
+    private void updateDays() {
+        Integer year = ComboYear.getValue();
+        Integer month = CombMonth.getValue();
+
+        if (year != null && month != null) {
+            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
+            ComboDay.setItems(FXCollections.observableArrayList(
+                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
+            ));
+            ComboDay.getSelectionModel().selectFirst();
+            showSelectedDate();
+        }
+    }
+    private void showSelectedDate() {
+        Integer year = ComboYear.getValue();
+        Integer month = CombMonth.getValue();
+        Integer day = ComboDay.getValue();
+
+        if (year != null && month != null && day != null) {
+            txtDate.setText(String.format("%04d-%02d-%02d", year, month, day));
+        }
+    }
+
+
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
