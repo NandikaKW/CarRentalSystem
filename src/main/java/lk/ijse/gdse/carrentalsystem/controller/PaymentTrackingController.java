@@ -81,6 +81,7 @@ public class PaymentTrackingController implements Initializable {
         String nextPaymentId=PaymentModel.loadNextPaymentId();
         txtPaymentId.setText(nextPaymentId);
     }
+
     @FXML
     private ComboBox<Integer> CombMonth;
 

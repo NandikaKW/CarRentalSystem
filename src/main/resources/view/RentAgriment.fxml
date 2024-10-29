@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -23,68 +24,68 @@
             <Image url="@../image/icons8-agreement-50.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblAgrimentId" layoutX="14.0" layoutY="62.0" text="Agriment ID">
+      <Label fx:id="lblAgrimentId" layoutX="422.0" layoutY="62.0" text="Agriment ID">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblStartDate" layoutX="569.0" layoutY="62.0" text="Start Date ">
+      <Label fx:id="lblStartDate" layoutX="12.0" layoutY="62.0" text="Start Date ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblPaymentTerms" layoutX="283.0" layoutY="62.0" text="Payment Terms">
+      <Label fx:id="lblPaymentTerms" layoutX="6.0" layoutY="129.0" text="Payment Terms">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
       <Label fx:id="lblEndDate" layoutX="14.0" layoutY="93.0" text="End Date ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblCost" layoutX="540.0" layoutY="93.0" text="Total Rent Cost">
+      <Label fx:id="lblCost" layoutX="414.0" layoutY="93.0" text="Total Rent Cost">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblDepositAmount" layoutX="286.0" layoutY="93.0" text="Deposit Amount">
+      <Label fx:id="lblDepositAmount" layoutX="198.0" layoutY="129.0" text="Deposit Amount">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtAgrimentId" layoutX="120.0" layoutY="59.0" promptText="Agriment ID" />
-      <TextField fx:id="txtEndDate" layoutX="120.0" layoutY="90.0" promptText="EndDate" />
-      <TextField fx:id="txtPaymentTerms" layoutX="406.0" layoutY="59.0" promptText="PaymentTerms" />
-      <TextField fx:id="txtDepositAmount" layoutX="409.0" layoutY="90.0" prefHeight="26.0" prefWidth="121.0" promptText="Deposit Amount" />
-      <TextField fx:id="txtStartDate" layoutX="650.0" layoutY="58.0" prefHeight="26.0" prefWidth="99.0" promptText="Date" />
-      <TextField fx:id="txtCost" layoutX="667.0" layoutY="90.0" prefHeight="26.0" prefWidth="95.0" promptText="Cost" />
+      <TextField fx:id="txtAgrimentId" layoutX="502.0" layoutY="57.0" prefHeight="26.0" prefWidth="91.0" promptText="Agriment ID" />
+      <TextField fx:id="txtEndDate" layoutX="72.0" layoutY="90.0" prefHeight="26.0" prefWidth="110.0" promptText="EndDate" />
+      <TextField fx:id="txtPaymentTerms" layoutX="101.0" layoutY="124.0" prefHeight="26.0" prefWidth="91.0" promptText="PaymentTerms" />
+      <TextField fx:id="txtDepositAmount" layoutX="293.0" layoutY="124.0" prefHeight="26.0" prefWidth="110.0" promptText="Deposit Amount" />
+      <TextField fx:id="txtStartDate" layoutX="72.0" layoutY="58.0" prefHeight="26.0" prefWidth="110.0" promptText="Start Date" />
+      <TextField fx:id="txtCost" layoutX="509.0" layoutY="90.0" prefHeight="26.0" prefWidth="83.0" promptText="Cost" />
       <JFXTextArea layoutX="6.0" layoutY="368.0" prefHeight="311.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" text="1. Rental Agreement Overview&#10;This Agreement outlines the terms and conditions under which the Customer agrees to rent a vehicle from Wunder Rent Vehicle System. By signing this document, the Customer acknowledges and agrees to abide by the terms specified below, including payment obligations, vehicle usage, and responsibilities for damages.&#10;&#10;2. Customer Information&#10;The Customer agrees that the information provided, including their name, contact details, address, and NIC (National Identity Card) number, is accurate and up-to-date. Any changes to these details must be promptly communicated to Wunder Rent Vehicle System.&#10;&#10;3. Vehicle Details and Condition&#10;The Customer is renting the specified vehicle as detailed in the agreement, including the model, color, and category. The vehicle’s current condition has been inspected, and the Customer agrees to return it in the same condition at the end of the rental period, subject to normal wear and tear.&#10;&#10;4. Rental Period and Duration&#10;The rental period begins on the agreed start date and ends on the specified end date. Any extension beyond the rental duration requires prior approval from Wunder Rent Vehicle System and may incur additional charges.&#10;&#10;5. Payment Terms&#10;The Customer agrees to pay the total rental cost as detailed, including any deposit amount. Payment is due on or before the rental start date unless otherwise specified. Late payments may be subject to additional fees. Wunder Rent Vehicle System accepts the payment methods specified in this agreement.&#10;&#10;6. Insurance and Liability&#10;The rental package may include insurance coverage, as outlined in this agreement. The Customer acknowledges that they are responsible for any damage beyond normal wear and tear and may be liable for repair costs. The Customer agrees to take reasonable care of the vehicle during the rental period.&#10;&#10;7. Mileage Limit and Usage&#10;The Customer agrees to adhere to the mileage limit specified in the rental package. Exceeding this limit may result in additional charges. The vehicle is to be used only for lawful purposes and in accordance with local traffic laws.&#10;&#10;8. Damage and Maintenance&#10;In the event of any damage to the vehicle, the Customer agrees to report it to Wunder Rent Vehicle System immediately. Any repair costs, as determined by Wunder Rent Vehicle System, will be the responsibility of the Customer, unless covered under the rental package. Routine maintenance is performed by Wunder Rent Vehicle System and is included in the rental cost.&#10;&#10;9. Return Condition and Inspection&#10;Upon returning the vehicle, an inspection will be conducted by Wunder Rent Vehicle System. The Customer is responsible for any damages found that exceed normal wear and tear. The vehicle should be returned with the same fuel level as at the time of rental. Any costs incurred for fuel replenishment or cleaning will be added to the final bill.&#10;&#10;10. Deposit and Refund Policy&#10;A refundable deposit may be required upon signing this agreement. The deposit will be returned to the Customer within [specified days] after the vehicle has been inspected and confirmed to be in the same condition as at the time of rental.&#10;&#10;11. Cancellation and Early Termination&#10;The Customer may cancel this rental agreement up to [specified time] before the rental start date without penalty. If the Customer terminates the rental agreement early, refunds may be provided at the discretion of Wunder Rent Vehicle System, subject to any applicable cancellation fees.&#10;&#10;12. Governing Law and Dispute Resolution&#10;This agreement is governed by the laws of [jurisdiction]. Any disputes arising from this rental agreement will be resolved through [arbitration/court system] in [location]. The Customer and Wunder Rent Vehicle System agree to attempt amicable resolution before seeking formal mediation.&#10;&#10;" unFocusColor="BLACK">
          <font>
             <Font name="Times New Roman Bold Italic" size="18.0" />
          </font>
       </JFXTextArea>
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="14.0" layoutY="123.0" onAction="#btnSaveOnAction" style="-fx-background-color: black;" text="Save" textFill="WHITE">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="608.0" layoutY="56.0" onAction="#btnSaveOnAction" style="-fx-background-color: black;" text="Save" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="341.0" layoutY="123.0" onAction="#btnSearchOnAction" style="-fx-background-color: black;" text="Search" textFill="WHITE">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="674.0" layoutY="131.0" onAction="#btnSearchOnAction" style="-fx-background-color: black;" text="Search" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnRseset" buttonType="RAISED" layoutX="274.0" layoutY="123.0" onAction="#btnResetOnAction" style="-fx-background-color: black;" text="Reset" textFill="WHITE">
+      <JFXButton fx:id="btnRseset" buttonType="RAISED" layoutX="674.0" layoutY="95.0" onAction="#btnResetOnAction" style="-fx-background-color: black;" text="Reset" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="182.0" layoutY="123.0" onAction="#btnDeleteOnAction" style="-fx-background-color: black;" text="Delete" textFill="WHITE">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="605.0" layoutY="95.0" onAction="#btnDeleteOnAction" style="-fx-background-color: black;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="91.0" layoutY="123.0" onAction="#btnUpdateOnAction" style="-fx-background-color: black;" text="Update " textFill="WHITE">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="667.0" layoutY="56.0" onAction="#btnUpdateOnAction" style="-fx-background-color: black;" text="Update " textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
@@ -99,5 +100,11 @@
             <TableColumn fx:id="colRentCost" prefWidth="166.40007324218755" text="Total Rent Cost" />
         </columns>
       </TableView>
+      <ComboBox fx:id="ComboYearOne" layoutX="191.0" layoutY="89.0" onAction="#ComboYearOneOnAction" prefHeight="26.0" prefWidth="74.0" />
+      <ComboBox fx:id="CombMonthOne" layoutX="274.0" layoutY="88.0" onAction="#ComboMonthOneOnAction" prefHeight="26.0" prefWidth="65.0" />
+      <ComboBox fx:id="ComboDayOne" layoutX="347.0" layoutY="88.0" onAction="#ComboDayOneOnAction" prefHeight="26.0" prefWidth="66.0" />
+      <ComboBox fx:id="ComboYear" layoutX="191.0" layoutY="58.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="74.0" />
+      <ComboBox fx:id="CombMonth" layoutX="274.0" layoutY="58.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="65.0" />
+      <ComboBox fx:id="ComboDay" layoutX="347.0" layoutY="58.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="69.0" />
    </children>
 </AnchorPane>

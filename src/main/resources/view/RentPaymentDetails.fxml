@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -32,7 +33,7 @@
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblDuration" layoutX="312.0" layoutY="71.0" text="Duration ">
+      <Label fx:id="lblDuration" layoutX="312.0" layoutY="61.0" text="Duration ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
@@ -47,7 +48,7 @@
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblDescription" layoutX="312.0" layoutY="103.0" text="Description ">
+      <Label fx:id="lblDescription" layoutX="310.0" layoutY="93.0" text="Description ">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
@@ -65,8 +66,8 @@
       <TextField fx:id="txtPaymentMethod" layoutX="144.0" layoutY="59.0" promptText="Payment Method " />
       <TextField fx:id="txtRentId" layoutX="144.0" layoutY="90.0" promptText="Rent ID" />
       <TextField fx:id="txtPaymentDate" layoutX="144.0" layoutY="128.0" promptText="Payment Date" />
-      <TextField fx:id="txtDuration" layoutX="375.0" layoutY="68.0" promptText="Duration" />
-      <TextField fx:id="txtDescription" layoutX="393.0" layoutY="100.0" prefHeight="26.0" prefWidth="138.0" promptText="Descritption" />
+      <TextField fx:id="txtDuration" layoutX="375.0" layoutY="58.0" promptText="Duration" />
+      <TextField fx:id="txtDescription" layoutX="391.0" layoutY="90.0" prefHeight="26.0" prefWidth="138.0" promptText="Descritption" />
       <TextField fx:id="txtPaymentId" layoutX="621.0" layoutY="71.0" prefHeight="26.0" prefWidth="108.0" promptText="Payment ID" />
       <TextField fx:id="txtPayamount" layoutX="621.0" layoutY="102.0" prefHeight="26.0" prefWidth="108.0" promptText="Payamount" />
       <TableView fx:id="tblRentPayment" layoutY="210.0" onMouseClicked="#tblRentPaymentOnClickedOnAction" prefHeight="482.0" prefWidth="763.0">
@@ -111,5 +112,8 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
+      <ComboBox fx:id="ComboYear" layoutX="306.0" layoutY="127.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="76.0" />
+      <ComboBox fx:id="CombMonth" layoutX="391.0" layoutY="127.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="66.0" />
+      <ComboBox fx:id="ComboDay" layoutX="476.0" layoutY="127.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="65.0" />
    </children>
 </AnchorPane>

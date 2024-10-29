@@ -18,12 +18,31 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 public class RentAgrimentController implements Initializable {
+    @FXML
+    private ComboBox<Integer> CombMonth;
+
+    @FXML
+    private ComboBox<Integer> CombMonthOne;
+
+    @FXML
+    private ComboBox<Integer> ComboDay;
+
+    @FXML
+    private ComboBox<Integer> ComboDayOne;
+
+    @FXML
+    private ComboBox<Integer> ComboYear;
+
+    @FXML
+    private ComboBox<Integer> ComboYearOne;
 
     @FXML
     private JFXButton btnDelete;
@@ -285,11 +304,124 @@ public class RentAgrimentController implements Initializable {
             loadNextAgrimentId();
             refreshPage();
             refreshTableData();
+            updateYears();
+            updateMonths();
+            ComboYear.getSelectionModel().selectFirst();
+            CombMonth.getSelectionModel().selectFirst();
+            updateDays();
+
+            ComboYearOne.getSelectionModel().selectFirst();
+            CombMonthOne.getSelectionModel().selectFirst();
+            updateDaysOne();
+
+
+
+
 
         } catch (SQLException |ClassNotFoundException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Error occurred while loading data: " + e.getMessage()).show();
 
+        }
+    }
+    private  void updateYears(){
+        ObservableList<Integer> years=FXCollections.observableArrayList();
+        int currentYear=java.time.Year.now().getValue();
+        IntStream.rangeClosed(currentYear-10,currentYear+10).forEach(years::add);
+        ComboYear.setItems(years);
+        ComboYearOne.setItems(years);
+
+    }
+    private  void updateMonths(){
+        ObservableList<Integer> years=FXCollections.observableArrayList();
+
+        IntStream.rangeClosed(1,12).forEach(years::add);
+        CombMonth.setItems(years);
+        CombMonthOne.setItems(years);
+    }
+
+    @FXML
+    void ComboDayOnAction(ActionEvent event) {
+        showSelectedDate();
+
+
+    }
+
+    @FXML
+    void ComboDayOneOnAction(ActionEvent event) {
+        showSelectedDateOne();
+
+
+    }
+
+    @FXML
+    void ComboMonthOnAction(ActionEvent event) {
+        updateDays();
+
+    }
+
+    @FXML
+    void ComboMonthOneOnAction(ActionEvent event) {
+        updateDaysOne();
+
+
+
+    }
+
+    @FXML
+    void ComboYearOnAction(ActionEvent event) {
+        updateDays();
+
+    }
+
+    @FXML
+    void ComboYearOneOnAction(ActionEvent event) {
+        updateDaysOne();
+
+    }
+    private  void updateDays(){
+        Integer year=ComboYear.getValue();
+        Integer month=CombMonth.getValue();
+        if (year!=null && month!=null){
+            int daysInMonth= YearMonth.of(year,month).lengthOfMonth();
+            ComboDay.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1,daysInMonth).boxed().toList()
+            ));
+            ComboDay.getSelectionModel().selectFirst();
+            showSelectedDate();
+        }
+    }
+    private  void showSelectedDate(){
+        Integer year=ComboYear.getValue();
+        Integer month=CombMonth.getValue();
+        Integer day=ComboDay.getValue();
+        if (year!=null && month!=null && day!=null){
+            txtStartDate.setText(String.format("%04d-%02d-%02d",year,month,day));
+        }
+
+    }
+    private  void updateDaysOne(){
+        Integer year=ComboYearOne.getValue();
+        Integer month=CombMonthOne.getValue();
+        if (year!=null && month!=null){
+            int daysInMonth= YearMonth.of(year,month).lengthOfMonth();
+            ComboDayOne.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1,daysInMonth).boxed().toList(
+
+                )
+            ));
+            ComboDayOne.getSelectionModel().selectFirst();
+            showSelectedDateOne();
+        }
+
+
+    }
+    private  void showSelectedDateOne(){
+        Integer year=ComboYearOne.getValue();
+        Integer month=CombMonthOne.getValue();
+        Integer day=ComboDayOne.getValue();
+        if (year!=null && month!=null && day!=null){
+            txtEndDate.setText(String.format("%04d-%02d-%02d",year,month,day));
         }
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {

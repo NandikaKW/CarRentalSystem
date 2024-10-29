@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -32,20 +33,20 @@
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblCustomerID" layoutX="513.0" layoutY="67.0" text="Customer ID ">
+      <Label fx:id="lblCustomerID" layoutX="14.0" layoutY="101.0" text="Customer ID ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblStartDate" layoutX="17.0" layoutY="100.0" text="Start Date ">
+      <Label fx:id="lblStartDate" layoutX="272.0" layoutY="100.0" text="Start Date ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <TextField fx:id="txtRentId" layoutX="108.0" layoutY="63.0" promptText="Rent ID" />
-      <TextField fx:id="txtStartDate" layoutX="111.0" layoutY="99.0" promptText="Start Date" />
+      <TextField fx:id="txtStartDate" layoutX="372.0" layoutY="99.0" prefHeight="26.0" prefWidth="128.0" promptText="Start Date" />
       <TextField fx:id="txtEndDate" layoutX="372.0" layoutY="65.0" prefHeight="26.0" prefWidth="128.0" promptText="End Date" />
-      <TextField fx:id="txtCustomerId" layoutX="633.0" layoutY="64.0" prefHeight="26.0" prefWidth="94.0" promptText="Customer ID" />
+      <TextField fx:id="txtCustomerId" layoutX="134.0" layoutY="98.0" prefHeight="26.0" prefWidth="94.0" promptText="Customer ID" />
       <TableView fx:id="tblRent" layoutX="2.0" layoutY="192.0" onMouseClicked="#tblRenClicked" prefHeight="498.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colRentId" prefWidth="132.80004262924194" text="Rent ID " />
@@ -84,5 +85,11 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
+      <ComboBox fx:id="ComboYear" layoutX="507.0" layoutY="66.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="69.0" />
+      <ComboBox fx:id="CombMonth" layoutX="582.0" layoutY="65.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="54.0" />
+      <ComboBox fx:id="ComboDay" layoutX="650.0" layoutY="62.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="54.0" />
+      <ComboBox fx:id="ComboYearOne" layoutX="507.0" layoutY="98.0" onAction="#ComboYearOneOnAction" prefHeight="26.0" prefWidth="69.0" />
+      <ComboBox fx:id="CombMonthOne" layoutX="589.0" layoutY="98.0" onAction="#ComboMonthOneOnAction" prefHeight="26.0" prefWidth="54.0" />
+      <ComboBox fx:id="ComboDayOne" layoutX="650.0" layoutY="98.0" onAction="#ComboDayOneOnAction" prefHeight="26.0" prefWidth="54.0" />
    </children>
 </AnchorPane>
