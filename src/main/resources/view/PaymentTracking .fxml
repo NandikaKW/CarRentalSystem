@@ -113,11 +113,6 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="681.0" layoutY="8.0" onAction="#btnBackOnAction" style="-fx-background-color: white; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 4;" text="&lt;  Back">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
       <ComboBox fx:id="ComboYear" layoutX="256.0" layoutY="108.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="77.0" />
       <ComboBox fx:id="CombMonth" layoutX="342.0" layoutY="108.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="69.0" />
       <ComboBox fx:id="ComboDay" layoutX="416.0" layoutY="107.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="70.0" />

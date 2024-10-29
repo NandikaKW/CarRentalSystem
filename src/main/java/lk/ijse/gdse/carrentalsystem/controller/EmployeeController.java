@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class EmployeeController implements Initializable {
 
-    public JFXButton btnBack;
+
     @FXML
     private JFXButton btnDelete;
 
@@ -351,6 +351,5 @@ public class EmployeeController implements Initializable {
         }
     }
 
-    public void btnBackOnAction(ActionEvent actionEvent) {
-    }
+
 }

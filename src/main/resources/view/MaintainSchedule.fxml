@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -24,40 +25,40 @@
       </ImageView>
       <Label fx:id="lblMaintainID" layoutX="14.0" layoutY="47.0" text="Maintain ID">
          <font>
-            <Font name="Serif Bold Italic" size="20.0" />
+            <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
       <Label fx:id="lblMaintainDate" layoutX="8.0" layoutY="114.0" text="Maitain Date ">
          <font>
-            <Font name="Serif Bold Italic" size="20.0" />
+            <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblVehicleID" layoutX="284.0" layoutY="80.0" text="Vehicle ID">
+      <Label fx:id="lblVehicleID" layoutX="222.0" layoutY="80.0" text="Vehicle ID">
          <font>
-            <Font name="Serif Bold Italic" size="20.0" />
+            <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
       <Label fx:id="lblCost" layoutX="14.0" layoutY="80.0" text="Cost">
          <font>
-            <Font name="Serif Bold Italic" size="20.0" />
+            <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblDiscription" layoutX="284.0" layoutY="47.0" text="Description">
+      <Label fx:id="lblDiscription" layoutX="263.0" layoutY="47.0" text="Description">
          <font>
-            <Font name="Serif Bold Italic" size="20.0" />
+            <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblDuration" layoutX="284.0" layoutY="114.0" text="Duration">
+      <Label fx:id="lblDuration" layoutX="410.0" layoutY="135.0" text="Duration">
          <font>
-            <Font name="Serif Bold Italic" size="20.0" />
+            <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtMaintainID" layoutX="123.0" layoutY="46.0" promptText="Maintain ID" />
-      <TextField fx:id="txtCost" layoutX="123.0" layoutY="79.0" promptText="Cost" />
-      <TextField fx:id="txtMaintainDate" layoutX="123.0" layoutY="113.0" promptText="Maintain Date " />
-      <TextField fx:id="txtDescription" layoutX="387.0" layoutY="46.0" promptText="Description" />
-      <TextField fx:id="txtVehicleID" layoutX="387.0" layoutY="79.0" promptText="Vehicle ID " />
-      <TextField fx:id="txtDuration" layoutX="387.0" layoutY="113.0" promptText="Duration" />
+      <TextField fx:id="txtMaintainID" layoutX="101.0" layoutY="46.0" promptText="Maintain ID" />
+      <TextField fx:id="txtCost" layoutX="59.0" layoutY="79.0" promptText="Cost" />
+      <TextField fx:id="txtMaintainDate" layoutX="97.0" layoutY="113.0" prefHeight="26.0" prefWidth="111.0" promptText="Maintain Date " />
+      <TextField fx:id="txtDescription" layoutX="339.0" layoutY="46.0" promptText="Description" />
+      <TextField fx:id="txtVehicleID" layoutX="291.0" layoutY="79.0" promptText="Vehicle ID " />
+      <TextField fx:id="txtDuration" layoutX="476.0" layoutY="129.0" prefHeight="26.0" prefWidth="67.0" promptText="Duration" />
       <TableView fx:id="tblMaintain" layoutY="160.0" onMouseClicked="#tblMaintainOnClick" prefHeight="531.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colMaintainID" prefWidth="107.99996662139893" text="Maintain ID" />
@@ -98,10 +99,8 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="677.0" layoutY="14.0" onAction="#btnBackOnAction" style="-fx-background-color: white; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 4;" text="&lt;  Back ">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
+      <ComboBox fx:id="ComboYear" layoutX="216.0" layoutY="111.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="86.0" />
+      <ComboBox fx:id="CombMonth" layoutX="313.0" layoutY="110.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="69.0" />
+      <ComboBox fx:id="ComboDay" layoutX="397.0" layoutY="110.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="69.0" />
    </children>
 </AnchorPane>

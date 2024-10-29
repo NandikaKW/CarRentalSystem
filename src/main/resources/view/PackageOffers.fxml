@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -52,20 +53,20 @@
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblPackageName" layoutX="277.0" layoutY="126.0" text="Package Name ">
+      <Label fx:id="lblPackageName" layoutX="481.0" layoutY="126.0" text="Package Name ">
          <font>
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblRentDate" layoutX="11.0" layoutY="126.0" text="Rent Date ">
+      <Label fx:id="lblRentDate" layoutX="2.0" layoutY="126.0" text="Rent Date ">
          <font>
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
       <TextField fx:id="txtinsuarence" layoutX="131.0" layoutY="53.0" promptText="Insarence Included" />
       <TextField fx:id="txtRentDuration" layoutX="121.0" layoutY="91.0" promptText="Rent Duration" />
-      <TextField fx:id="txtRentDate" layoutX="121.0" layoutY="122.0" promptText="Rent Date" />
-      <TextField fx:id="txtPackageName" layoutX="370.0" layoutY="122.0" promptText="Package Name" />
+      <TextField fx:id="txtRentDate" layoutX="67.0" layoutY="122.0" prefHeight="26.0" prefWidth="127.0" promptText="Rent Date" />
+      <TextField fx:id="txtPackageName" layoutX="582.0" layoutY="122.0" promptText="Package Name" />
       <TextField fx:id="txtDescription" layoutX="370.0" layoutY="91.0" promptText="Description" />
       <TextField fx:id="txtMileage" layoutX="379.0" layoutY="53.0" prefWidth="133.0" promptText="Mileage Limit" />
       <TextField fx:id="txtPackageId" layoutX="605.0" layoutY="53.0" prefHeight="26.0" prefWidth="118.0" promptText="Package ID " />
@@ -113,10 +114,8 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="672.0" layoutY="11.0" onAction="#btnBackOnAction" style="-fx-background-color: white; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 4;" text="&lt;  Back">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
+      <ComboBox fx:id="ComboYear" layoutX="206.0" layoutY="122.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="91.0" />
+      <ComboBox fx:id="CombMonth" layoutX="303.0" layoutY="122.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="77.0" />
+      <ComboBox fx:id="ComboDay" layoutX="390.0" layoutY="121.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="77.0" />
    </children>
 </AnchorPane>

@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class PaymentTrackingController implements Initializable {
-    public JFXButton btnBack;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -186,6 +186,8 @@ public class PaymentTrackingController implements Initializable {
     void ComboDayOnAction(ActionEvent event) {
         showSelectedDate();
 
+
+
     }
     private void initializeDateCombos() {
         // Populate ComboYear with the last 50 years up to the current year
@@ -207,6 +209,7 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void ComboMonthOnAction(ActionEvent event) {
+
         updateDays();
     }
 
@@ -228,6 +231,7 @@ public class PaymentTrackingController implements Initializable {
             showSelectedDate();
         }
     }
+
     private void showSelectedDate() {
         Integer year = ComboYear.getValue();
         Integer month = CombMonth.getValue();
@@ -237,6 +241,8 @@ public class PaymentTrackingController implements Initializable {
             txtDate.setText(String.format("%04d-%02d-%02d", year, month, day));
         }
     }
+
+
 
 
 
@@ -421,7 +427,5 @@ public class PaymentTrackingController implements Initializable {
 
     }
 
-    public void btnBackOnAction(ActionEvent actionEvent) {
-        
-    }
+
 }

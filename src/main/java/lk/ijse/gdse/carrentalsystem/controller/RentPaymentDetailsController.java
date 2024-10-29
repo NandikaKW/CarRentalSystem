@@ -120,6 +120,7 @@ public class RentPaymentDetailsController  implements Initializable {
     private TextField txtRentId;
     @FXML
     void ComboDayOnAction(ActionEvent event) {
+        showSelectedDate();
 
     }
 
@@ -135,16 +136,23 @@ public class RentPaymentDetailsController  implements Initializable {
 
     }
     private void updateDays() {
-        Integer year = ComboYear.getValue();
-        Integer month = CombMonth.getValue();
+        try {
+            Integer year = ComboYear.getValue();
+            Integer month = CombMonth.getValue();
 
-        if (year != null && month != null) {
-            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
-            ComboDay.setItems(FXCollections.observableArrayList(
-                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
-            ));
-            ComboDay.getSelectionModel().selectFirst();
-            showSelectedDate();
+            // Check if both ComboBox values are not null
+            if (year != null && month != null) {
+                int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
+                ComboDay.setItems(FXCollections.observableArrayList(
+                        IntStream.rangeClosed(1, daysInMonth).boxed().toList()
+                ));
+                ComboDay.getSelectionModel().selectFirst();
+                showSelectedDate();
+            } else {
+                System.out.println("Year or Month ComboBox is null");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     private void showSelectedDate() {
