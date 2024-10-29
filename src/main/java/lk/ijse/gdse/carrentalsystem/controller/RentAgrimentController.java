@@ -282,6 +282,7 @@ public class RentAgrimentController implements Initializable {
         colDepositAmount.setCellValueFactory(new PropertyValueFactory<>("deposit_amount"));
         colRentCost.setCellValueFactory(new PropertyValueFactory<>("total_rent_cost"));
         try {
+            loadNextAgrimentId();
             refreshPage();
             refreshTableData();
 
@@ -316,8 +317,15 @@ public class RentAgrimentController implements Initializable {
         tblAgriment.setItems(agrimentTMS);
     }
     public void loadNextAgrimentId() throws SQLException, ClassNotFoundException {
-        String nextAgrimentId = AgrimentModel.getNextAgrimentId();
-        txtAgrimentId.setText(nextAgrimentId);
+        try {
+            String nextAgrimentId = AgrimentModel.getNextAgrimentId();
+            System.out.println("Next Agreement ID: " + nextAgrimentId);
+            txtAgrimentId.setText(nextAgrimentId);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error occurred while loading next agreement ID: " + e.getMessage()).show();
+        }
+
     }
 
 }
