@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.gdse.carrentalsystem.controller.LocationController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="397.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.LocationController">
+   <children>
+      <ImageView fitHeight="397.0" fitWidth="703.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/1e713a94369913.5e7d05fb22193.gif" />
+         </image>
+      </ImageView>
+   </children>
 </AnchorPane>
