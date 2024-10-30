@@ -114,8 +114,8 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <ComboBox fx:id="ComboYear" layoutX="206.0" layoutY="122.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="91.0" />
-      <ComboBox fx:id="CombMonth" layoutX="303.0" layoutY="122.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="77.0" />
-      <ComboBox fx:id="ComboDay" layoutX="390.0" layoutY="121.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="77.0" />
+      <ComboBox fx:id="ComboYear" layoutX="206.0" layoutY="122.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="CombMonth" layoutX="303.0" layoutY="122.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="ComboDay" layoutX="390.0" layoutY="121.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
    </children>
 </AnchorPane>
