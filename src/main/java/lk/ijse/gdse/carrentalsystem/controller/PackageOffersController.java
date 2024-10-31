@@ -11,8 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.PackageDto;
 import lk.ijse.gdse.carrentalsystem.model.PackageModel;
-import lk.ijse.gdse.carrentalsystem.tm.AdminTM;
-import lk.ijse.gdse.carrentalsystem.tm.PackageTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.PackageTM;
 
 import java.math.BigDecimal;
 import java.net.URL;

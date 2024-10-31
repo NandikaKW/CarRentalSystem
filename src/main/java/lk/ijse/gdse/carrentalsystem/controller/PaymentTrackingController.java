@@ -9,11 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.carrentalsystem.dto.PackageDto;
 import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.model.PackageModel;
 import lk.ijse.gdse.carrentalsystem.model.PaymentModel;
-import lk.ijse.gdse.carrentalsystem.tm.PaymentTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.PaymentTM;
 
 import java.math.BigDecimal;
 import java.net.URL;

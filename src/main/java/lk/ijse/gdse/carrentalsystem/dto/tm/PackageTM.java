@@ -1,4 +1,4 @@
-package lk.ijse.gdse.carrentalsystem.tm;
+package lk.ijse.gdse.carrentalsystem.dto.tm;
 
 import javafx.beans.property.SimpleBooleanProperty;
 

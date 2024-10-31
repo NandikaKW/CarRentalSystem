@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.VehicleDto;
 import lk.ijse.gdse.carrentalsystem.model.VehicleModel;
-import lk.ijse.gdse.carrentalsystem.tm.VehicleTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.VehicleTM;
 
 import java.net.URL;
 import java.sql.SQLException;

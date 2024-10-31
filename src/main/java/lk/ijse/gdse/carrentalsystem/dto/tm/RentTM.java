@@ -1,18 +1,20 @@
-package lk.ijse.gdse.carrentalsystem.dto;
+package lk.ijse.gdse.carrentalsystem.dto.tm;
+
+
 
 import java.util.Date;
 
-public class RentDto {
+public class RentTM {
     private String rentId; // changed to camelCase
     private Date startDate; // changed to camelCase
     private Date endDate; // changed to camelCase
     private String custId; // changed to camelCase
     private String agreementId; // added agreementId field
 
-    public RentDto() {
+    public RentTM() {
     }
 
-    public RentDto(String rentId, Date startDate, Date endDate, String custId, String agreementId) {
+    public RentTM(String rentId, Date startDate, Date endDate, String custId, String agreementId) {
         this.rentId = rentId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -62,7 +64,7 @@ public class RentDto {
 
     @Override
     public String toString() {
-        return "RentDto{" +
+        return "RentTM{" +
                 "rentId='" + rentId + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +

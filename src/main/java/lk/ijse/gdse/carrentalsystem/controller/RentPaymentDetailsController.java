@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.RentPayemntDto;
 import lk.ijse.gdse.carrentalsystem.model.RentPaymentModel;
-import lk.ijse.gdse.carrentalsystem.tm.RentPaymentTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.RentPaymentTM;
 
 import java.math.BigDecimal;
 import java.net.URL;

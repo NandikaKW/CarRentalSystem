@@ -10,11 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.DamageDto;
-import lk.ijse.gdse.carrentalsystem.dto.EmployeeDto;
 import lk.ijse.gdse.carrentalsystem.model.DamageModel;
-import lk.ijse.gdse.carrentalsystem.model.EmployeeModel;
-import lk.ijse.gdse.carrentalsystem.tm.DamageTM;
-import lk.ijse.gdse.carrentalsystem.tm.EmployeeTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.DamageTM;
 
 import java.math.BigDecimal;
 import java.net.URL;

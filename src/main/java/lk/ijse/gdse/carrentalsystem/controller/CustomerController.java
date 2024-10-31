@@ -15,22 +15,18 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.CustomerDto;
 import lk.ijse.gdse.carrentalsystem.model.AdminModel;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
-import lk.ijse.gdse.carrentalsystem.tm.CustomerTM;
-import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
+import lk.ijse.gdse.carrentalsystem.dto.tm.CustomerTM;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.*;
 
 public class CustomerController implements Initializable {
@@ -366,42 +362,6 @@ public class CustomerController implements Initializable {
 
     @FXML
     public void openSendMailModel(ActionEvent actionEvent) {
-        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
-        if (selectedItem == null) {
-            new Alert(Alert.AlertType.WARNING, "Please select a customer!").show();
-            return;
-        }
-
-        try {
-            // Load the mail dialog from the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Email.fxml"));
-            Parent load = loader.load();
-
-            // Get the controller instance from the loader
-            EmialController sendMailController = loader.getController();
-
-            // Retrieve customer email from selected item and set it in the controller
-            String email = selectedItem.getContact();
-            sendMailController.setCustomerEmail(email); // Ensure setCustomerEmail method exists in EmialController
-
-            // Set up the new stage for the email modal
-            Stage stage = new Stage();
-            stage.setScene(new Scene(load));
-            stage.setTitle("Send Email");
-
-            // Set the icon for the stage (Ensure the image path is correct)
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icons8-email-64.png")));
-
-            // Set the window as modal and define its owner
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(btnUpdate.getScene().getWindow());
-
-            // Show the stage and wait for it to close before returning to the main stage
-            stage.showAndWait();
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to load the UI.").show();
-            e.printStackTrace();
-        }
 
     }
 }

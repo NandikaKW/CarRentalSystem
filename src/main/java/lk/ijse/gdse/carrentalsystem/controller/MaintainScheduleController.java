@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.MaintainDto;
-import lk.ijse.gdse.carrentalsystem.tm.MaintainTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.MaintainTM;
 import lk.ijse.gdse.carrentalsystem.model.MaintinModel;
 
 import java.math.BigDecimal;

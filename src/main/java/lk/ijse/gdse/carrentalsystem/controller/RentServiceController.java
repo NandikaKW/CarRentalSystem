@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
-import lk.ijse.gdse.carrentalsystem.tm.RentTM;
+import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,6 +26,13 @@ import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
 public class RentServiceController  implements Initializable {
+    @FXML
+    private TextField txtAgrimentID;
+
+    @FXML
+    private TableColumn<?, ?> colAgrimentID;
+    @FXML
+    private Label lblAgreementID;
 
     @FXML
     private ComboBox<Integer> CombMonth;
@@ -160,6 +167,7 @@ public class RentServiceController  implements Initializable {
         String startDateStr = txtStartDate.getText();  // renamed variable
         String endDateStr = txtEndDate.getText();      // renamed variable
         String custId = txtCustomerId.getText();
+        String agreementId = txtAgrimentID.getText(); // added variable for agreement ID
 
         // Define a date format that matches your input format (e.g., "yyyy-MM-dd")
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -169,7 +177,8 @@ public class RentServiceController  implements Initializable {
             Date startDate = dateFormat.parse(startDateStr);
             Date endDate = dateFormat.parse(endDateStr);
 
-            RentDto dto = new RentDto(rentId, startDate, endDate, custId);
+            // Create RentDto with the new agreementId
+            RentDto dto = new RentDto(rentId, startDate, endDate, custId, agreementId);
             boolean isSaved = RentModel.saveRent(dto);
 
             if (isSaved) {
@@ -185,6 +194,7 @@ public class RentServiceController  implements Initializable {
         }
     }
 
+
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextRentId();
         loadTaleData();
@@ -198,42 +208,40 @@ public class RentServiceController  implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-        String RentId = txtRentId.getText();
-        if(RentId.isEmpty()){
-            new Alert(Alert.AlertType.INFORMATION,"Please enter a Rent ID to search").show();
+        String rentId = txtRentId.getText();
+        if (rentId.isEmpty()) {
+            new Alert(Alert.AlertType.INFORMATION, "Please enter a Rent ID to search").show();
             return;
         }
-        try{
-            RentDto rent=RentModel.SearchRent(RentId);
-            if(rent!=null){
-                txtRentId.setText(rent.getRent_id());
-                txtStartDate.setText(rent.getStartDate().toString());
-                txtEndDate.setText(rent.getEndDate().toString());
-                txtCustomerId.setText(rent.getCust_id());
-                new Alert(Alert.AlertType.INFORMATION,"Rent found").show();
-
-            }else{
-                new Alert(Alert.AlertType.INFORMATION,"Rent not found").show();
+        try {
+            RentDto rent = RentModel.SearchRent(rentId); // Ensure method name is in camelCase
+            if (rent != null) {
+                txtRentId.setText(rent.getRentId()); // Updated to use camelCase
+                txtStartDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(rent.getStartDate())); // Format date for display
+                txtEndDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(rent.getEndDate())); // Format date for display
+                txtCustomerId.setText(rent.getCustId()); // Updated to use camelCase
+                txtAgrimentID.setText(rent.getAgreementId()); // Added to display agreement ID
+                new Alert(Alert.AlertType.INFORMATION, "Rent found").show();
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Rent not found").show();
                 loadNextCustomerId();
                 loadNextRentId();
                 clearFields();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error occurred while searching for Rent: "+e.getMessage()).show();
-
+            new Alert(Alert.AlertType.ERROR, "Error occurred while searching for Rent: " + e.getMessage()).show();
         }
-
     }
+
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String RentId = txtRentId.getText();
+        String rentId = txtRentId.getText();
         String startDateText = txtStartDate.getText();
-        String endDateText=txtEndDate.getText();
-        String custId=txtCustomerId.getText();
-
+        String endDateText = txtEndDate.getText();
+        String custId = txtCustomerId.getText();
+        String agreementId = txtAgrimentID.getText(); // Added to capture the agreement ID
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -241,7 +249,7 @@ public class RentServiceController  implements Initializable {
             Date startDate = dateFormat.parse(startDateText);
             Date endDate = dateFormat.parse(endDateText);
 
-            RentDto dto = new RentDto(RentId, startDate, endDate, custId);
+            RentDto dto = new RentDto(rentId, startDate, endDate, custId, agreementId); // Include agreementId
             boolean isUpdated = RentModel.updateRent(dto);
 
             if (isUpdated) {
@@ -260,16 +268,17 @@ public class RentServiceController  implements Initializable {
     }
 
     @FXML
-      void tblRenClicked(MouseEvent event) {
-        RentTM rentTM=tblRent.getSelectionModel().getSelectedItem();
-        if(rentTM!=null){
-           txtRentId.setText(rentTM.getRent_id());
-           txtStartDate.setText(rentTM.getStartDate().toString());
-           txtEndDate.setText(rentTM.getEndDate().toString());
-           txtCustomerId.setText(rentTM.getCust_id());
+    void tblRenClicked(MouseEvent event) {
+        RentTM rentTM = tblRent.getSelectionModel().getSelectedItem();
+        if (rentTM != null) {
+            txtRentId.setText(rentTM.getRentId()); // Updated to use camelCase
+            txtStartDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(rentTM.getStartDate())); // Format date for display
+            txtEndDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(rentTM.getEndDate())); // Format date for display
+            txtCustomerId.setText(rentTM.getCustId()); // Updated to use camelCase
+            txtAgrimentID.setText(rentTM.getAgreementId()); // Added to display agreement ID
         }
-
     }
+
     public void loadNextRentId() throws SQLException, ClassNotFoundException {
         String nextRentId = RentModel.loadNextRentId();
         txtRentId.setText(nextRentId);
@@ -327,38 +336,40 @@ public class RentServiceController  implements Initializable {
         CombMonth.setItems(months);
         CombMonthOne.setItems(months);
     }
-    private void loadTaleData() throws SQLException, ClassNotFoundException {
-        ArrayList<RentDto> rentDtos= RentModel.getAllRentData();
-        ObservableList<RentTM> rentTMS= FXCollections.observableArrayList();
-        for(RentDto rentDto:rentDtos){
-            RentTM rentTM=new RentTM(
-                    rentDto.getRent_id(),
-                    rentDto.getStartDate(),
-                    rentDto.getEndDate(),
-                    rentDto.getCust_id()
+    private void  loadTaleData() throws SQLException, ClassNotFoundException {
+        ArrayList<RentDto> rentDtos = RentModel.getAllRentData();
+        ObservableList<RentTM> rentTMS = FXCollections.observableArrayList();
+
+        for (RentDto rentDto : rentDtos) {
+            RentTM rentTM = new RentTM(
+                    rentDto.getRentId(),       // Updated to use camelCase
+                    rentDto.getStartDate(),    // Updated to use camelCase
+                    rentDto.getEndDate(),      // Updated to use camelCase
+                    rentDto.getCustId(),       // Updated to use camelCase
+                    rentDto.getAgreementId()    // Added to use the new agreementId
             );
             rentTMS.add(rentTM);
-
         }
+
         tblRent.setItems(rentTMS);
-
-
     }
+
     private void refreshTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<RentDto> rentDtos=RentModel.getAllRentData();
-        ObservableList<RentTM> rentTMS=FXCollections.observableArrayList();
-        for(RentDto dto:rentDtos){
-            rentTMS.add(new RentTM(
-                    dto.getRent_id(),
-                    dto.getStartDate(),
-                    dto.getEndDate(),
-                    dto.getCust_id()
-            ));
+        ArrayList<RentDto> rentDtos = RentModel.getAllRentData();
+        ObservableList<RentTM> rentTMS = FXCollections.observableArrayList();
 
+        for (RentDto dto : rentDtos) {
+            rentTMS.add(new RentTM(
+                    dto.getRentId(),       // Updated to use camelCase
+                    dto.getStartDate(),    // Updated to use camelCase
+                    dto.getEndDate(),      // Updated to use camelCase
+                    dto.getCustId(),       // Updated to use camelCase
+                    dto.getAgreementId()    // Added to use the new agreementId
+            ));
         }
+
         tblRent.setItems(rentTMS);
     }
-
 
     @FXML
     void ComboYearOnAction(ActionEvent event) {

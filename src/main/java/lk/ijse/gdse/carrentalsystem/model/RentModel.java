@@ -10,19 +10,21 @@ import java.util.ArrayList;
 public class RentModel {
     public static ArrayList<RentDto> getAllRentData() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute("SELECT * FROM rent");
-        ArrayList<RentDto> rentDtos=new ArrayList<>();
-        while(resultSet.next()){
-            rentDtos.add( new RentDto(
+        ArrayList<RentDto> rentDtos = new ArrayList<>();
+
+        while (resultSet.next()) {
+            rentDtos.add(new RentDto(
                     resultSet.getString("rent_id"),
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
-                    resultSet.getString("cust_id")
-
+                    resultSet.getString("cust_id"),
+                    resultSet.getString("agreement_id") // Added to retrieve the new agreementId
             ));
-
         }
+
         return rentDtos;
     }
+
 
     public static boolean DeleteRent(String rentId) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM rent WHERE rent_id = ?", rentId);
@@ -30,26 +32,28 @@ public class RentModel {
     }
 
     public static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("INSERT INTO rent VALUES(?,?,?,?)",dto.getRent_id(),dto.getStartDate(),dto.getEndDate(),dto.getCust_id());
-
+        return CrudUtil.execute("INSERT INTO rent (rent_id, start_date, end_date, cust_id, agreement_id) VALUES (?, ?, ?, ?, ?)",
+                dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId());
     }
 
     public static RentDto SearchRent(String rentId) throws SQLException, ClassNotFoundException {
-        ResultSet rst=CrudUtil.execute("SELECT * FROM rent WHERE rent_id = ?",rentId);
-        if(rst.next()){
+        ResultSet rst = CrudUtil.execute("SELECT * FROM Rent WHERE rent_id = ?", rentId);
+        if (rst.next()) {
             return new RentDto(
                     rst.getString("rent_id"),
                     rst.getDate("start_date"),
                     rst.getDate("end_date"),
-                    rst.getString("cust_id")
+                    rst.getString("cust_id"),
+                    rst.getString("agreement_id") // Added to retrieve the agreement ID
             );
-
         }
         return null;
     }
 
+
     public static boolean updateRent(RentDto dto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE rent SET start_date=?,end_date=?,cust_id=? WHERE rent_id=?",dto.getStartDate(),dto.getEndDate(),dto.getCust_id(),dto.getRent_id());
+        return CrudUtil.execute("UPDATE Rent SET start_date=?, end_date=?, cust_id=?, agreement_id=? WHERE rent_id=?",
+                dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId(), dto.getRentId());
     }
 
     public static String loadNextRentId() throws SQLException, ClassNotFoundException {
