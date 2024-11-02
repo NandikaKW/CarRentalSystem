@@ -16,12 +16,40 @@ import lk.ijse.gdse.carrentalsystem.dto.tm.VehicleRentDetailTM;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 public class VehicleRentDetailsController  implements Initializable {
+    @FXML
+    private ComboBox<Integer> CombMonth;
+
+    @FXML
+    private ComboBox<Integer> CombMonthOne;
+
+    @FXML
+    private ComboBox<Integer> CombMonthTwo;
+
+    @FXML
+    private ComboBox<Integer> ComboDay;
+
+    @FXML
+    private ComboBox<Integer> ComboDayOne;
+
+    @FXML
+    private ComboBox<Integer> ComboDayTwo;
+
+    @FXML
+    private ComboBox<Integer> ComboYear;
+
+    @FXML
+    private ComboBox<Integer> ComboYearOne;
+
+    @FXML
+    private ComboBox<Integer> ComboYearTwo;
 
     @FXML
     private JFXButton btnDelete;
@@ -106,6 +134,178 @@ public class VehicleRentDetailsController  implements Initializable {
 
     @FXML
     private TextField txtVehicleID;
+    @FXML
+    public void initialize() {
+        ComboYear.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
+        ));
+        ComboYear.getSelectionModel().selectLast();
+
+        ComboYearOne.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
+        ));
+        ComboYearOne.getSelectionModel().selectLast();
+
+        ComboYearTwo.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
+        ));
+        ComboYearTwo.getSelectionModel().selectLast();
+
+        CombMonth.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1, 12).boxed().toList()
+        ));
+        CombMonth.getSelectionModel().selectFirst();
+
+        CombMonthOne.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1, 12).boxed().toList()
+        ));
+        CombMonthOne.getSelectionModel().selectFirst();
+
+        CombMonthTwo.setItems(FXCollections.observableArrayList(
+                IntStream.rangeClosed(1, 12).boxed().toList()
+        ));
+        CombMonthTwo.getSelectionModel().selectFirst();
+
+        updateDays();
+        updateDaysOne();
+        updateDaysTwo();
+    }
+
+
+    @FXML
+    void ComboDayOnAction(ActionEvent event) {
+        showSelectedDate();
+
+
+    }
+
+    @FXML
+    void ComboDayOneOnAction(ActionEvent event) {
+        showSelectedDateOne();
+
+
+    }
+
+    @FXML
+    void ComboDayTwoOnAction(ActionEvent event) {
+        showSelectedDateTwo();
+
+
+    }
+
+    @FXML
+    void ComboMonthOnAction(ActionEvent event) {
+        updateDays();
+
+
+    }
+
+    @FXML
+    void ComboMonthOneOnAction(ActionEvent event) {
+        updateDaysOne();
+
+    }
+
+    @FXML
+    void ComboMonthTwoOnAction(ActionEvent event) {
+        updateDaysTwo();
+
+
+
+    }
+
+    @FXML
+    void ComboYearOnAction(ActionEvent event) {
+        updateDays();
+
+    }
+
+    @FXML
+    void ComboYearOneOnAction(ActionEvent event) {
+        updateDaysOne();
+
+    }
+
+    @FXML
+    void ComboYearTwoOnAction(ActionEvent event) {
+        updateDaysTwo();
+
+
+    }
+    private void updateDays() {
+        Integer year = ComboYear.getValue();
+        Integer month = CombMonth.getValue();
+
+        if (year != null && month != null) {
+            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
+            ComboDay.setItems(FXCollections.observableArrayList(
+                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
+            ));
+            ComboDay.getSelectionModel().selectFirst();
+            showSelectedDate();
+        }
+    }
+    private void showSelectedDate() {
+        Integer year = ComboYear.getValue();
+        Integer month = CombMonth.getValue();
+        Integer day = ComboDay.getValue();
+
+        if (year != null && month != null && day != null) {
+            txtStartDate.setText(String.format("%04d-%02d-%02d", year, month, day));
+        }
+    }
+
+    private void updateDaysOne() {
+        Integer year = ComboYearOne.getValue();
+        Integer month = CombMonthOne.getValue();
+
+        if (year != null && month != null) {
+            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
+            ComboDayOne.setItems(FXCollections.observableArrayList(
+                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
+            ));
+            ComboDayOne.getSelectionModel().selectFirst();
+            showSelectedDateOne();
+        }
+    }
+    private void showSelectedDateOne() {
+        Integer year = ComboYearOne.getValue();
+        Integer month = CombMonthOne.getValue();
+        Integer day = ComboDayOne.getValue();
+
+        if (year != null && month != null && day != null) {
+            txtEndDate.setText(String.format("%04d-%02d-%02d", year, month, day));
+        }
+    }
+
+    private void updateDaysTwo() {
+        Integer year = ComboYearTwo.getValue();
+        Integer month = CombMonthTwo.getValue();
+
+        if (year != null && month != null) {
+            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
+            ComboDayTwo.setItems(FXCollections.observableArrayList(
+                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
+            ));
+            ComboDayTwo.getSelectionModel().selectFirst();
+            showSelectedDateTwo();
+        }
+    }
+    private void showSelectedDateTwo() {
+        Integer year = ComboYearTwo.getValue();
+        Integer month = CombMonthTwo.getValue();
+        Integer day = ComboDayTwo.getValue();
+
+        if (year != null && month != null && day != null) {
+            txtRentDate.setText(String.format("%04d-%02d-%02d", year, month, day));
+        }
+    }
+
+    public void txtDateone(ActionEvent actionEvent) {
+        lblRentDate.setText("Selected Date: " + txtRentDate.getText());
+    }
+
+
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
@@ -288,6 +488,9 @@ public class VehicleRentDetailsController  implements Initializable {
             txtRentDate.setText(vehicleRentDetailTM.getRent_date().toString());
             txtCost.setText(vehicleRentDetailTM.getCost().toString());
             txtCondition.setText(vehicleRentDetailTM.getVehicle_condition());
+            btnSave.setDisable(true);
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
 
         }
 
@@ -304,6 +507,7 @@ public class VehicleRentDetailsController  implements Initializable {
         colCondition.setCellValueFactory(new PropertyValueFactory<>("vehicle_condition"));
 
         try{
+            initialize();
             refreshPage();
             loadNextVehicleId();
             loadNextRentId();
