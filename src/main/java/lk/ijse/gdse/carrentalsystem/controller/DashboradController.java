@@ -112,7 +112,7 @@ public class DashboradController implements Initializable {
     public void initialize(URL location, ResourceBundle resourceBundle) {
         setDateAndTime();
         try {
-            navigateto("/view/DashBoardDesign.fxml");  // Ensure this is the correct path
+            navigateto("/view/Design.fxml");  // Ensure this is the correct path
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Error during initialization: " + e.getMessage()).show();
             throw new RuntimeException(e);

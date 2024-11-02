@@ -26,4 +26,6 @@ public class WelcomeController {
         stage.show();
     }
 
+
+
 }
