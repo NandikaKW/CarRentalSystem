@@ -42,7 +42,7 @@ CREATE TABLE Customer (
                           cust_id VARCHAR(50) NOT NULL PRIMARY KEY,
                           name VARCHAR(100) NOT NULL,
                           address VARCHAR(255),
-                          contact_number VARCHAR(15) NOT NULL,
+                          email VARCHAR(100) NOT NULL,
                           nic_number VARCHAR(20) NOT NULL UNIQUE,
                           admin_id VARCHAR(50),
                           FOREIGN KEY (admin_id) REFERENCES Admin(admin_id)

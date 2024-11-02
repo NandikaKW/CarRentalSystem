@@ -31,6 +31,7 @@ import java.util.*;
 
 public class CustomerController implements Initializable {
 
+    public TableColumn colCustomerEmail;
     CustomerModel customerModel = new CustomerModel();
 
     @Override
@@ -38,7 +39,7 @@ public class CustomerController implements Initializable {
         colCustomerID.setCellValueFactory(new PropertyValueFactory<>("cust_id"));
         colCustomerName.setCellValueFactory(new PropertyValueFactory<>("cust_name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colCustomerNumber.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
 
         colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
@@ -71,7 +72,7 @@ public class CustomerController implements Initializable {
                     customerDTO.getCust_id(),
                     customerDTO.getCust_name(),
                     customerDTO.getAddress(),
-                    customerDTO.getContact(),
+                    customerDTO.getEmail(),
                     customerDTO.getNic(),
                     customerDTO.getAdmin_id()
             );
@@ -272,7 +273,7 @@ public class CustomerController implements Initializable {
                 txtCustomerID.setText(customer.getCust_id());
                 txtCustomerName.setText(customer.getCust_name());
                 txtAdress.setText(customer.getAddress());
-                txtCustomerNumber.setText(customer.getContact());
+                txtCustomerNumber.setText(customer.getEmail());
                 txtNIC.setText(customer.getNic());
                 txtAdminID.setText(customer.getAdmin_id());
                 new Alert(Alert.AlertType.INFORMATION, "Customer found!").show();
@@ -318,7 +319,7 @@ public class CustomerController implements Initializable {
             txtCustomerID.setText(customerTM.getCust_id());
             txtCustomerName.setText(customerTM.getCust_name());
             txtAdress.setText(customerTM.getAddress());
-            txtCustomerNumber.setText(customerTM.getContact());
+            txtCustomerNumber.setText(customerTM.getEmail());
             txtNIC.setText(customerTM.getNic());
             txtAdminID.setText(customerTM.getAdmin_id());
             btnSave.setDisable(true);
@@ -350,7 +351,7 @@ public class CustomerController implements Initializable {
                     dto.getCust_id(),
                     dto.getCust_name(),
                     dto.getAddress(),
-                    dto.getContact(),
+                    dto.getEmail(),
                     dto.getNic(),
                     dto.getAdmin_id()
             ));

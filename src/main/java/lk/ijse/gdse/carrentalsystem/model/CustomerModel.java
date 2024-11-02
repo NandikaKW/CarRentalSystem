@@ -26,7 +26,7 @@ public class CustomerModel {
         return CrudUtil.execute(
                 "INSERT INTO customer VALUES (?,?,?,?,?,?)",
                 dto.getCust_id(), dto.getCust_name(), dto.getAddress(),
-                dto.getContact(), dto.getNic(), dto.getAdmin_id()
+                dto.getEmail(), dto.getNic(), dto.getAdmin_id()
         );
     }
     public ArrayList<CustomerDto> getAllCustomers() throws SQLException, ClassNotFoundException {
@@ -50,8 +50,8 @@ public class CustomerModel {
 
     public boolean updateCustomer(CustomerDto dto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
-                "UPDATE customer SET name = ?, address = ?, contact_number = ?, nic_number = ?, admin_id = ? WHERE cust_id = ?",
-                dto.getCust_name(), dto.getAddress(), dto.getContact(), dto.getNic(), dto.getAdmin_id(), dto.getCust_id()
+                "UPDATE customer SET name = ?, address = ?, email = ?, nic_number = ?, admin_id = ? WHERE cust_id = ?",
+                dto.getCust_name(), dto.getAddress(), dto.getEmail(), dto.getNic(), dto.getAdmin_id(), dto.getCust_id()
         );
     }
 
@@ -63,7 +63,7 @@ public class CustomerModel {
                     resultSet.getString("cust_id"),
                     resultSet.getString("name"),
                     resultSet.getString("address"),
-                    resultSet.getString("contact_number"),
+                    resultSet.getString("email"),
                     resultSet.getString("nic_number"),
                     resultSet.getString("admin_id")
             );
@@ -85,7 +85,7 @@ public class CustomerModel {
                     rst.getString("cust_id"),
                     rst.getString("name"),
                     rst.getString("address"),
-                    rst.getString("contact_number"),
+                    rst.getString("email"),
                     rst.getString("nic_number"),
                     rst.getString("admin_id")
             ));

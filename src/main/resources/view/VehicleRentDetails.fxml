@@ -109,7 +109,7 @@
          </font>
       </JFXButton>
       <ComboBox fx:id="ComboYear" layoutX="202.0" layoutY="81.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="CombMonth" layoutX="310.0" layoutY="81.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="CombMonth" layoutX="310.0" layoutY="81.0" onAction="#ComboMonthOnAction" prefHeight="27.0" prefWidth="67.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="ComboDay" layoutX="383.0" layoutY="82.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="ComboYearOne" layoutX="202.0" layoutY="112.0" onAction="#ComboYearOneOnAction" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="CombMonthOne" layoutX="310.0" layoutY="112.0" onAction="#ComboMonthOneOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />

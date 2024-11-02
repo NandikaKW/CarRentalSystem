@@ -4,7 +4,7 @@ public class CustomerDto {
     private String cust_id;
     private  String cust_name;
     private String address;
-    private String contact;
+    private String email;
     private String nic;
     private String admin_id;
 
@@ -12,11 +12,11 @@ public class CustomerDto {
     public CustomerDto() {
     }
 
-    public CustomerDto(String cust_id, String cust_name, String address, String contact, String nic, String admin_id) {
+    public CustomerDto(String cust_id, String cust_name, String address, String email, String nic, String admin_id) {
         this.cust_id = cust_id;
         this.cust_name = cust_name;
         this.address = address;
-        this.contact = contact;
+        this.email = email;
         this.nic = nic;
         this.admin_id = admin_id;
     }
@@ -45,12 +45,12 @@ public class CustomerDto {
         this.address = address;
     }
 
-    public String getContact() {
-        return contact;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNic() {
