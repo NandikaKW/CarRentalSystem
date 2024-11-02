@@ -7,17 +7,17 @@ public class RentDto {
     private Date startDate; // changed to camelCase
     private Date endDate; // changed to camelCase
     private String custId; // changed to camelCase
-    private String agreementId; // added agreementId field
+    private String agreement_id; // added agreementId field
 
     public RentDto() {
     }
 
-    public RentDto(String rentId, Date startDate, Date endDate, String custId, String agreementId) {
+    public RentDto(String rentId, Date startDate, Date endDate, String custId, String agreement_id) {
         this.rentId = rentId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.custId = custId;
-        this.agreementId = agreementId; // initializing the new field
+        this.agreement_id = agreement_id; // initializing the new field
     }
 
     public String getRentId() {
@@ -53,11 +53,11 @@ public class RentDto {
     }
 
     public String getAgreementId() { // added getter for agreementId
-        return agreementId;
+        return agreement_id;
     }
 
-    public void setAgreementId(String agreementId) { // added setter for agreementId
-        this.agreementId = agreementId;
+    public void setAgreementId(String agreement_id) { // added setter for agreementId
+        this.agreement_id = agreement_id;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class RentDto {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", custId='" + custId + '\'' +
-                ", agreementId='" + agreementId + '\'' + // included in toString
+                ", agreementId='" + agreement_id + '\'' + // included in toString
                 '}';
     }
 }

@@ -139,6 +139,9 @@ public class DamageDetailsController implements Initializable {
             txtRepairCost.setText(String.valueOf(damageTM.getRepair_cost()));
             txtDescription.setText(damageTM.getDetail());
             txtRentId.setText(damageTM.getRent_id());
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+            btnSave.setDisable(true);
 
 
 
@@ -169,6 +172,7 @@ public class DamageDetailsController implements Initializable {
                    boolean isSaved=DamageModel.saveDamage(damageDto);
         if(isSaved){
             new Alert(Alert.AlertType.INFORMATION,"Damage saved successfully!").show();
+            clearFields();
             refreshPage();
             loadNextRentId();
             loadNextDamageId();

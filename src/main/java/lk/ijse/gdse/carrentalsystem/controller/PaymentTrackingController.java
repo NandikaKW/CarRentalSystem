@@ -38,6 +38,7 @@ public class PaymentTrackingController implements Initializable {
         colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount_applied"));
         try{
             refreshPage();
+            loadTableData();
             loadNextPaymentId();
             refreshTableData();
 
@@ -203,6 +204,7 @@ public class PaymentTrackingController implements Initializable {
 
         // Update days based on initial year and month selection
         updateDays();
+
     }
 
 
@@ -229,6 +231,7 @@ public class PaymentTrackingController implements Initializable {
             ComboDay.getSelectionModel().selectFirst();
             showSelectedDate();
         }
+
     }
 
     private void showSelectedDate() {
@@ -239,6 +242,7 @@ public class PaymentTrackingController implements Initializable {
         if (year != null && month != null && day != null) {
             txtDate.setText(String.format("%04d-%02d-%02d", year, month, day));
         }
+
     }
 
 
@@ -279,7 +283,7 @@ public class PaymentTrackingController implements Initializable {
 
     }
     private void refreshTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentDto> paymentDtos=PackageModel.getAllPayments();
+        ArrayList<PaymentDto> paymentDtos=PaymentModel.getAllPayments();
         ObservableList<PaymentTM> paymentTMS= FXCollections.observableArrayList();
         for (PaymentDto dto:paymentDtos){
             PaymentTM paymentTM=new PaymentTM(
@@ -421,6 +425,9 @@ public class PaymentTrackingController implements Initializable {
             txtTransaction.setText(paymentTM.getTransaction_reference());
             txtTax.setText(String.valueOf(paymentTM.getTax()));
             txtDiscount.setText(paymentTM.getDiscount_applied().toString());
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+            btnSave.setDisable(true);
 
         }
 

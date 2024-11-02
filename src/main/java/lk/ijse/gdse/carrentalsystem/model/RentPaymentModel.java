@@ -80,7 +80,7 @@ public class RentPaymentModel {
         }
 
         // If no records are found, return the first ID
-        return "PAY01";
+        return "PAY001";
     }
 
 

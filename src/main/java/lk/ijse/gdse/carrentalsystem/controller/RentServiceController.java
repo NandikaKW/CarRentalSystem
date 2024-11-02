@@ -14,6 +14,7 @@ import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
 
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -197,7 +198,7 @@ public class RentServiceController  implements Initializable {
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextRentId();
-        loadTaleData();
+        loadTableData();
         loadNextCustomerId();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
@@ -294,10 +295,11 @@ public class RentServiceController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colRentId.setCellValueFactory(new PropertyValueFactory<>("rent_id"));
-        colStartDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-        colEndDate.setCellValueFactory(new PropertyValueFactory<>("EndDate"));
-        colCustomerID.setCellValueFactory(new PropertyValueFactory<>("cust_id"));
+        colRentId.setCellValueFactory(new PropertyValueFactory<>("rentId")); // Use camelCase
+        colStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate")); // Use camelCase
+        colEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate")); // Use camelCase
+        colCustomerID.setCellValueFactory(new PropertyValueFactory<>("custId")); // Use camelCase
+        colAgrimentID.setCellValueFactory(new PropertyValueFactory<>("agreementId")); // Added for agreementId
 
         try {
             loadNextRentId();
@@ -322,6 +324,7 @@ public class RentServiceController  implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Failed to load Rent data").show();
         }
     }
+
     private void updateYears() {
         ObservableList<Integer> years = FXCollections.observableArrayList();
         int currentYear = java.time.Year.now().getValue();
@@ -336,23 +339,24 @@ public class RentServiceController  implements Initializable {
         CombMonth.setItems(months);
         CombMonthOne.setItems(months);
     }
-    private void  loadTaleData() throws SQLException, ClassNotFoundException {
+    private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<RentDto> rentDtos = RentModel.getAllRentData();
         ObservableList<RentTM> rentTMS = FXCollections.observableArrayList();
 
         for (RentDto rentDto : rentDtos) {
             RentTM rentTM = new RentTM(
-                    rentDto.getRentId(),       // Updated to use camelCase
-                    rentDto.getStartDate(),    // Updated to use camelCase
-                    rentDto.getEndDate(),      // Updated to use camelCase
-                    rentDto.getCustId(),       // Updated to use camelCase
-                    rentDto.getAgreementId()    // Added to use the new agreementId
+                    rentDto.getRentId(),
+                    rentDto.getStartDate(),
+                    rentDto.getEndDate(),
+                    rentDto.getCustId(),
+                    rentDto.getAgreementId() // Ensure this is retrieved properly
             );
             rentTMS.add(rentTM);
         }
 
         tblRent.setItems(rentTMS);
     }
+
 
     private void refreshTableData() throws SQLException, ClassNotFoundException {
         ArrayList<RentDto> rentDtos = RentModel.getAllRentData();

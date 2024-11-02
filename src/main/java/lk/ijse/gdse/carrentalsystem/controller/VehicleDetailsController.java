@@ -162,8 +162,8 @@ public class VehicleDetailsController  implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        clearFields();
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
 
     }
 
@@ -261,6 +261,9 @@ public class VehicleDetailsController  implements Initializable {
             txtCategory.setText(vehicleTM.getCategory());
             txtQuantity.setText(String.valueOf(vehicleTM.getQuantity()));
             txtPackageId.setText(vehicleTM.getPackage_id());
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+            btnSave.setDisable(true);
 
         }
 

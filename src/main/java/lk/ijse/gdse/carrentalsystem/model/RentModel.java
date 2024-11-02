@@ -18,12 +18,13 @@ public class RentModel {
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
                     resultSet.getString("cust_id"),
-                    resultSet.getString("agreement_id") // Added to retrieve the new agreementId
+                    resultSet.getString("agreement_id") // Ensure this field is retrieved
             ));
         }
 
         return rentDtos;
     }
+
 
 
     public static boolean DeleteRent(String rentId) throws SQLException, ClassNotFoundException {
@@ -32,7 +33,7 @@ public class RentModel {
     }
 
     public static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("INSERT INTO rent (rent_id, start_date, end_date, cust_id, agreement_id) VALUES (?, ?, ?, ?, ?)",
+        return CrudUtil.execute("INSERT INTO rent VALUES (?,?,?,?,?)",
                 dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId());
     }
 

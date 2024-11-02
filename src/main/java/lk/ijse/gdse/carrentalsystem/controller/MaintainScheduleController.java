@@ -342,6 +342,9 @@ public class MaintainScheduleController  implements Initializable {
             txtDescription.setText(selectedItem.getDescription());
             txtDuration.setText(selectedItem.getDuration());
             txtVehicleID.setText(selectedItem.getVehicle_id());
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+            btnSave.setDisable(true);
 
         }
 
@@ -362,7 +365,7 @@ public class MaintainScheduleController  implements Initializable {
            loadNextMaintainId();
            loadNextVehicleId();
            refreshTableData();
-           initializeDateCombos();
+
 
 
        } catch (SQLException | ClassNotFoundException e){
@@ -370,18 +373,24 @@ public class MaintainScheduleController  implements Initializable {
            new Alert(Alert.AlertType.ERROR,"Error occurred while loading Maintain: "+e.getMessage()).show();
 
        }
+        initializeDateCombos();
     }
     private void initializeDateCombos(){
+        // Populate ComboYear with the last 50 years up to the current year
         ComboYear.setItems(FXCollections.observableArrayList(
-            IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
+                IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
         ));
         ComboYear.getSelectionModel().selectLast();
+
+        // Populate CombMonth with values 1 to 12
         CombMonth.setItems(FXCollections.observableArrayList(
                 IntStream.rangeClosed(1, 12).boxed().toList()
-
         ));
         CombMonth.getSelectionModel().selectFirst();
+
+        // Update days based on initial year and month selection
         updateDays();
+
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextMaintainId();
@@ -444,32 +453,29 @@ public class MaintainScheduleController  implements Initializable {
 
     }
     private void updateDays() {
-        try{
-            Integer year=ComboYear.getValue();
-            Integer month=CombMonth.getValue();
-            if (year!=null && month!=null){
-                int daysInMonth= YearMonth.of(year,month).lengthOfMonth();
-                ComboDay.setItems(FXCollections.observableArrayList(
-                        IntStream.rangeClosed(1,daysInMonth).boxed().toList()
-                ));
-                ComboDay.getSelectionModel().selectFirst();
-                showSelectedDate();
+        Integer year = ComboYear.getValue();
+        Integer month = CombMonth.getValue();
 
-            }else{
-                System.out.println("Year or Month ComboBox is null");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
+        if (year != null && month != null) {
+            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
+            ComboDay.setItems(FXCollections.observableArrayList(
+                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
+            ));
+            ComboDay.getSelectionModel().selectFirst();
+            showSelectedDate();
         }
+
+
     }
     private void showSelectedDate(){
-        Integer year=ComboYear.getValue();
-        Integer month=CombMonth.getValue();
-        Integer day=ComboDay.getValue();
-      if (year!=null && month!=null && day!=null){
-          txtMaintainDate.setText(String.format("%04d-%02d-%02d",year,month,day));
-      }
+        Integer year = ComboYear.getValue();
+        Integer month = CombMonth.getValue();
+        Integer day = ComboDay.getValue();
+
+        if (year != null && month != null && day != null) {
+            txtMaintainDate.setText(String.format("%04d-%02d-%02d", year, month, day));
+        }
+
+
     }
 }

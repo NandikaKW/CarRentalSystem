@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -251,19 +252,35 @@ public class RentPaymentDetailsController  implements Initializable {
 
         // Convert payment date from String to Date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(txtPaymentDate.getText(), formatter);
+        LocalDate localDate;
+        try {
+            localDate = LocalDate.parse(txtPaymentDate.getText(), formatter);
+        } catch (DateTimeParseException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please enter a date in yyyy-MM-dd format.").show();
+            return;
+        }
         Date paymentDate = java.sql.Date.valueOf(localDate);  // Convert to SQL Date type
 
-        // Parse duration and payAmount
-        String duration = String.valueOf(Integer.parseInt(txtDuration.getText()));
+        // Get duration as a String (no parsing to int)
+        String duration = txtDuration.getText();
+
         String description = txtDescription.getText();
 
-        // Convert payAmount from String to BigDecimal
-        BigDecimal payamount = new BigDecimal(txtPayamount.getText());
+        // Validate and parse payAmount
+        BigDecimal payamount;
+        try {
+            payamount = new BigDecimal(txtPayamount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid pay amount. Please enter a valid numeric value.").show();
+            return;
+        }
 
         String paymentMethod = txtPaymentMethod.getText();
 
-        RentPayemntDto rentPayemntDto = new RentPayemntDto(rentId, paymentId, paymentDate, duration, description, payamount, paymentMethod);
+        // Create the RentPaymentDto object with validated data
+        RentPayemntDto rentPayemntDto = new RentPayemntDto(
+                rentId, paymentId, paymentDate, duration, description, payamount, paymentMethod
+        );
 
         try {
             boolean isSaved = RentPaymentModel.saveRentPayment(rentPayemntDto);
@@ -279,8 +296,8 @@ public class RentPaymentDetailsController  implements Initializable {
             e.printStackTrace();  // Log the error
             new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
-
     }
+
 
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -323,31 +340,51 @@ public class RentPaymentDetailsController  implements Initializable {
 
         // Convert payment date from String to Date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(txtPaymentDate.getText(), formatter);
+        LocalDate localDate;
+        try {
+            localDate = LocalDate.parse(txtPaymentDate.getText(), formatter);
+        } catch (DateTimeParseException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please enter a date in yyyy-MM-dd format.").show();
+            return;
+        }
         Date paymentDate = java.sql.Date.valueOf(localDate);  // Convert to SQL Date type
 
-        // Parse duration and payAmount
-        String duration = String.valueOf(Integer.parseInt(txtDuration.getText()));
+        // Get duration as a String without numeric validation
+        String duration = txtDuration.getText();
+
         String description = txtDescription.getText();
 
         // Convert payAmount from String to BigDecimal
-        BigDecimal payAmount = new BigDecimal(txtPayamount.getText());
+        BigDecimal payAmount;
+        try {
+            payAmount = new BigDecimal(txtPayamount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid pay amount. Please enter a valid numeric value.").show();
+            return;
+        }
 
         String paymentMethod = txtPaymentMethod.getText();
 
-        RentPayemntDto rentPayemntDto = new RentPayemntDto(rentId, paymentId, paymentDate, duration, description, payAmount, paymentMethod);
+        // Create the RentPayemntDto object with validated data
+        RentPayemntDto rentPayemntDto = new RentPayemntDto(
+                rentId, paymentId, paymentDate, duration, description, payAmount, paymentMethod
+        );
 
-        boolean isUpdated = RentPaymentModel.UpdateRentPayment(rentPayemntDto);
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "RentPayment updated successfully").show();
-            refreshPage();
-            loadNextPaymentId();
-            loadNextRentId();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update RentPayment").show();
+        try {
+            boolean isUpdated = RentPaymentModel.UpdateRentPayment(rentPayemntDto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "RentPayment updated successfully").show();
+                refreshPage();
+                loadNextPaymentId();
+                loadNextRentId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update RentPayment").show();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();  // Log the error
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
-
 
     @FXML
     void tblRentPaymentOnClickedOnAction(MouseEvent event) {

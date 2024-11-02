@@ -85,7 +85,7 @@ public class DashboradController implements Initializable {
 
     @FXML
     void btnPaymentDetailOnAction(ActionEvent event) throws IOException {
-        navigateto("/view/PaymentTracking .fxml");
+        navigateto("/view/PaymentTracking.fxml");
 
     }
 

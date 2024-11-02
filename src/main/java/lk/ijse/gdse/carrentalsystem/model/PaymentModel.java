@@ -24,7 +24,7 @@ public class PaymentModel {
                     resultSet.getString("method"),
                     resultSet.getString("transaction_reference"),
                     resultSet.getBigDecimal("tax"),
-                    resultSet.getBigDecimal("discount_applied")
+                    resultSet.getBigDecimal("discount")
 
             );
 
@@ -38,7 +38,7 @@ public class PaymentModel {
     }
 
     public static boolean UpdatePayment(PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE payment SET pay_id=?, amount=?, date=?, invoice=?, method=?, transaction_reference=?, tax=?, discount_applied=? WHERE pay_id=?",
+        return CrudUtil.execute("UPDATE payment SET pay_id=?, amount=?, date=?, invoice=?, method=?, transaction_reference=?, tax=?, discount=? WHERE pay_id=?",
                 paymentDto.getPay_id(),                // Correctly pass pay_id here for the first column in the update
                 paymentDto.getAmount(),
                 paymentDto.getDate(),
@@ -63,7 +63,7 @@ public class PaymentModel {
                     resultSet.getString("method"),
                     resultSet.getString("transaction_reference"),
                     resultSet.getBigDecimal("tax"),
-                    resultSet.getBigDecimal("discount_applied")
+                    resultSet.getBigDecimal("discount")
             );
             paymentDtos.add(paymentDto);
 

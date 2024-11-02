@@ -339,9 +339,13 @@ public class EmployeeController implements Initializable {
             txtEmployeeName.setText(employeeTM.getEmp_name());
             txtAdress.setText(employeeTM.getAddress());
             txtJobRole.setText(employeeTM.getJob());
+
             try {
                 BigDecimal salaryDecimal = new BigDecimal(String.valueOf(employeeTM.getSalary()));
-                txtSalary.setText(salaryDecimal.setScale(2, RoundingMode.HALF_UP).toString());  // format to 2 decimal places
+                txtSalary.setText(salaryDecimal.setScale(2, RoundingMode.HALF_UP).toString());
+                btnUpdate.setDisable(false);
+                btnDelete.setDisable(false);
+                btnSave.setDisable(true);// format to 2 decimal places
             } catch (NumberFormatException e) {
                 txtSalary.setText("0.00"); // In case of invalid number format, set a default value
             }

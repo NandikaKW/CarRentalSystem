@@ -11,12 +11,12 @@ public class PaymentDto {
     private  String method;
     private String transaction_reference;
     private BigDecimal tax;
-    private BigDecimal discount_applied;
+    private BigDecimal Discount;
 
     public PaymentDto() {
     }
 
-    public PaymentDto(String pay_id, BigDecimal amount, Date date, String invoice, String method, String transaction_reference, BigDecimal tax, BigDecimal discount_applied) {
+    public PaymentDto(String pay_id, BigDecimal amount, Date date, String invoice, String method, String transaction_reference, BigDecimal tax, BigDecimal Discount) {
         this.pay_id = pay_id;
         this.amount = amount;
         this.date = date;
@@ -24,7 +24,7 @@ public class PaymentDto {
         this.method = method;
         this.transaction_reference = transaction_reference;
         this.tax = tax;
-        this.discount_applied = discount_applied;
+        this.Discount = Discount;
     }
 
     public String getPay_id() {
@@ -84,11 +84,11 @@ public class PaymentDto {
     }
 
     public BigDecimal getDiscount_applied() {
-        return discount_applied;
+        return Discount;
     }
 
-    public void setDiscount_applied(BigDecimal discount_applied) {
-        this.discount_applied = discount_applied;
+    public void setDiscount_applied(BigDecimal Discount) {
+        this.Discount = Discount;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class PaymentDto {
                 ", method='" + method + '\'' +
                 ", transaction_reference='" + transaction_reference + '\'' +
                 ", tax=" + tax +
-                ", discount_applied=" + discount_applied +
+                ", discount_applied=" + Discount +
                 '}';
     }
 }
