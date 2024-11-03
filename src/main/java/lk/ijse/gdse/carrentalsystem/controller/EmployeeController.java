@@ -28,8 +28,6 @@ public class EmployeeController implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
 
     @FXML
     private JFXButton btnReset;
@@ -131,10 +129,7 @@ public class EmployeeController implements Initializable {
         tblEmployee.setItems(employeeTMS);
     }
 
-    @FXML
-    void btnGenerateReportOnAction(ActionEvent event) {
 
-    }
     private  void clearFields(){
         txtEmployeeID.setText("");
         txtEmployeeName.setText("");

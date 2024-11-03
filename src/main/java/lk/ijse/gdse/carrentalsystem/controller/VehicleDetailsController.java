@@ -24,8 +24,7 @@ public class VehicleDetailsController  implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
+
 
     @FXML
     private JFXButton btnReset;
@@ -156,10 +155,7 @@ public class VehicleDetailsController  implements Initializable {
 
     }
 
-    @FXML
-    void btnGenerateOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

@@ -40,8 +40,6 @@ public class MaintainScheduleController  implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
 
     @FXML
     private JFXButton btnReset;
@@ -159,10 +157,7 @@ public class MaintainScheduleController  implements Initializable {
         tblMaintain.setItems(maintainTMS);
     }
 
-    @FXML
-    void btnReportOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

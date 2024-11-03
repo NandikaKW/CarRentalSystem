@@ -88,17 +88,12 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="310.0" layoutY="128.0" onAction="#btnReportOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report  " textFill="WHITE">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="326.0" layoutY="128.0" onAction="#btnSearchOnAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="452.0" layoutY="128.0" onAction="#btnSearchOnAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="526.0" layoutY="128.0" onAction="#openSendMailModel" style="-fx-background-color: #3d3d3d;" text="Send Email" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="413.0" layoutY="128.0" onAction="#openSendMailModel" style="-fx-background-color: #3d3d3d;" text="Send Email" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>

@@ -39,8 +39,7 @@ public class RentPaymentDetailsController  implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
+
 
     @FXML
     private JFXButton btnReset;
@@ -234,10 +233,7 @@ public class RentPaymentDetailsController  implements Initializable {
     }
 
 
-    @FXML
-    void btnReportOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) {

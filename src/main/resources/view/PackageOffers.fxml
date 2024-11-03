@@ -104,12 +104,7 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="416.0" layoutY="164.0" onAction="#btnGenerateReportOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report " textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="568.0" layoutY="164.0" onAction="#btnSearchAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="414.0" layoutY="164.0" onAction="#btnSearchAction" style="-fx-background-color: #3d3d3d;" text="Search" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>

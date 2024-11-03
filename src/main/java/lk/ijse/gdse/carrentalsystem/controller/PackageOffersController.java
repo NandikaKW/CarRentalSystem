@@ -145,10 +145,7 @@ public class PackageOffersController  implements Initializable {
 
     }
 
-    @FXML
-    void btnGenerateReportOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) {
@@ -287,8 +284,6 @@ public class PackageOffersController  implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
 
     @FXML
     private JFXButton btnReset;

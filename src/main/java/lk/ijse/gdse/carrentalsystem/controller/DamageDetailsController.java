@@ -21,13 +21,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DamageDetailsController implements Initializable {
-
+    @FXML
+    private JFXButton btnReport;
 
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
 
     @FXML
     private JFXButton btnReset;
@@ -150,10 +149,7 @@ public class DamageDetailsController implements Initializable {
     }
 
 
-    @FXML
-    void btnReportOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) {
@@ -319,4 +315,6 @@ public class DamageDetailsController implements Initializable {
         txtRentId.setText(nextRentId);
     }
 
+    public void btnReportOnAction(ActionEvent actionEvent) {
+    }
 }

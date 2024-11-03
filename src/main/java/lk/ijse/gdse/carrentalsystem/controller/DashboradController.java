@@ -20,6 +20,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DashboradController implements Initializable {
+    @FXML
+    private JFXButton btnBusiness;
+    @FXML
     public JFXButton btnEnd;
     @FXML
     private AnchorPane content;
@@ -46,7 +49,7 @@ public class DashboradController implements Initializable {
 
     @FXML
     void btnAgrimentOnAction(ActionEvent event) throws IOException {
-        navigateto("/view/VehicleDetails .fxml");
+        navigateto("/view/VehicleDetails.fxml");
 
     }
 
@@ -59,7 +62,7 @@ public class DashboradController implements Initializable {
 
     @FXML
     void btnDamageOnAction(ActionEvent event) throws IOException {
-        navigateto("/view/DamageDetails .fxml");
+        navigateto("/view/DamageDetails.fxml");
 
     }
 
@@ -151,6 +154,21 @@ public class DashboradController implements Initializable {
         );
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
+    }
+    private boolean isLocationViewActive = true;
+
+    public void btnBusinessOnAction(ActionEvent actionEvent) {
+        try {
+            if (isLocationViewActive) {
+                navigateto("/view/Location.fxml");  // Load location.fxml
+            } else {
+                navigateto("/view/OurMission.fxml");  // Load ourMission.fxml
+            }
+            isLocationViewActive = !isLocationViewActive;  // Toggle the view
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load form: " + e.getMessage()).show();
+        }
     }
 }
 

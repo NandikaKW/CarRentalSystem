@@ -55,8 +55,6 @@ public class RentServiceController  implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnGenerateReport;
 
     @FXML
     private JFXButton btnSave;
@@ -157,10 +155,7 @@ public class RentServiceController  implements Initializable {
         txtCustomerId.setText("");
     }
 
-    @FXML
-    void btnReporOnAction(ActionEvent event) {
 
-    }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.EmailController">
+   <children>
+      <Label layoutX="182.0" layoutY="22.0" prefHeight="34.0" prefWidth="235.0" text="Customer Email">
+         <font>
+            <Font name="Times New Roman Bold" size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="399.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8-email-open-50%20(1).png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtSubject" layoutX="100.0" layoutY="75.0" prefHeight="26.0" prefWidth="390.0" promptText="Subject" style="-fx-background-color: white;">
+         <font>
+            <Font name="Serif Regular" size="15.0" />
+         </font>
+      </TextField>
+      <Separator layoutX="101.0" layoutY="102.0" prefHeight="3.0" prefWidth="390.0" style="-fx-background-color: black;" />
+      <TextArea fx:id="txtBody" layoutX="100.0" layoutY="119.0" prefHeight="153.0" prefWidth="390.0" promptText="Body" style="-fx-background-color: white; -fx-border-color: black;">
+         <font>
+            <Font name="Serif Regular" size="15.0" />
+         </font>
+      </TextArea>
+      <JFXButton buttonType="RAISED" layoutX="491.0" layoutY="326.0" onAction="#sendUsingGmailOnAction" style="-fx-background-color: black;" text="Send" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

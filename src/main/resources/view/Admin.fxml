@@ -54,11 +54,6 @@
             <TableColumn fx:id="colPassword" prefWidth="240.79997558593755" text="Password" />
         </columns>
       </TableView>
-      <JFXButton id="button" fx:id="btnGenerateReport" buttonType="RAISED" layoutX="477.0" layoutY="333.0" onAction="#btnGenerateOnAction" style="-fx-background-color: #3d3d3d;" text="Generate Report" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="15.0" />
-         </font>
-      </JFXButton>
       <JFXButton id="button" fx:id="btnReset" buttonType="RAISED" layoutX="382.0" layoutY="333.0" onAction="#btnResetOnAction" style="-fx-background-color: #3d3d3d;" text="Reset" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
@@ -79,7 +74,7 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton id="button" fx:id="btnSearch" buttonType="RAISED" layoutX="618.0" layoutY="333.0" onAction="#btnSearchOnAction" style="-fx-background-color: #3d3d3d;" text="search" textFill="WHITE">
+      <JFXButton id="button" fx:id="btnSearch" buttonType="RAISED" layoutX="469.0" layoutY="333.0" onAction="#btnSearchOnAction" style="-fx-background-color: #3d3d3d;" text="search" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>

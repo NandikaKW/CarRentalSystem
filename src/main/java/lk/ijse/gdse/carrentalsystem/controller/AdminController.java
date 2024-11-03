@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
 
-    public JFXButton btnGenerateReport;
+
     public JFXButton btnReset;
     public JFXButton btnDelete;
     public JFXButton btnSave;
@@ -104,10 +104,7 @@ public class AdminController implements Initializable {
 
     }
 
-    @FXML
-    void btnGenerateOnAction(ActionEvent event) {
 
-    }
     private void clearField() {
         txtAdminID.setText("");
         txtAdminName.setText("");

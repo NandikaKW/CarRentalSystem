@@ -85,8 +85,7 @@ public class CustomerController implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
+
 
     @FXML
     private JFXButton btnRest;
@@ -191,32 +190,7 @@ public class CustomerController implements Initializable {
 
     }
 
-    @FXML
-    void btnReportOnAction(ActionEvent event) {
 
-        try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(
-                    getClass()
-                            .getResourceAsStream("/report/CustomerDetailReport.jrxml"
-                            ));
-            Connection connection = DBConnection.getInstance().getConnection();
-            Map<String, Object> parameters = new HashMap<>();
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    null,
-                    connection
-            );
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
-            e.printStackTrace();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
