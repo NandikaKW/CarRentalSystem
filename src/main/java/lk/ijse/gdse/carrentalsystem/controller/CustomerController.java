@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.CustomerDto;
 import lk.ijse.gdse.carrentalsystem.model.AdminModel;
@@ -338,6 +339,35 @@ public class CustomerController implements Initializable {
 
     @FXML
     public void openSendMailModel(ActionEvent actionEvent) {
+        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a customer.").show();
+            return;
+        }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Email.fxml"));
+            Parent load = loader.load();
+
+            EmailController emailController = loader.getController();
+            emailController.setCustomerEmail(selectedItem.getEmail());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Send Email");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/icons8-open-email-24.png")));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            Window parentWindow = ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            stage.initOwner(parentWindow);
+            stage.showAndWait();
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to load the email sending interface.").show();
+            e.printStackTrace();
+        }
     }
-}
+    }
+
+
+
+

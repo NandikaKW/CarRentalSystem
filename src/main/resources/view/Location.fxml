@@ -4,10 +4,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="397.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.LocationController">
+<AnchorPane prefHeight="692.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.LocationController">
    <children>
-      <ImageView fitHeight="397.0" fitWidth="703.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="431.0" fitWidth="764.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/1e713a94369913.5e7d05fb22193.gif" />
          </image>
