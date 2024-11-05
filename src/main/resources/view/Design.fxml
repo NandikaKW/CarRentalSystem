@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="692.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.DesignController">
+   <children>
+      <ImageView fitHeight="264.0" fitWidth="763.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Design1.gif" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="494.0" fitWidth="763.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Design01.gif" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
