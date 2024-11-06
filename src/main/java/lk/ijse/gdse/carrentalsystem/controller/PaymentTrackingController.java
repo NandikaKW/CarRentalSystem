@@ -9,16 +9,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.model.PackageModel;
 import lk.ijse.gdse.carrentalsystem.model.PaymentModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.PaymentTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -313,13 +318,48 @@ public class PaymentTrackingController implements Initializable {
     }
 
     @FXML
-    void btnReportOnAction(ActionEvent event) {
+    void btnReportOnAction(ActionEvent event) throws ClassNotFoundException {
+        PaymentTM paymentTM = tblPayment.getSelectionModel().getSelectedItem();
+
+        if (paymentTM == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a payment to generate the report!").show();
+            return;
+        }
+
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/PaymentReport.jrxml")
+            );
+
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("P_Date", LocalDate.now().toString());
+            parameters.put("P_Payment_Id", paymentTM.getPay_id());
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report...!").show();
+            e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error...!").show();
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        clearFields();
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+        loadNextPaymentId();
 
     }
 

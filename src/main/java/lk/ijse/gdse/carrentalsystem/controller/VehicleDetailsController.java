@@ -160,6 +160,8 @@ public class VehicleDetailsController  implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
+        loadNextPackageId();
+        loadNextVehicleId();
 
     }
 

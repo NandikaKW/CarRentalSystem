@@ -236,8 +236,10 @@ public class RentPaymentDetailsController  implements Initializable {
 
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        clearFields();
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+        loadNextPaymentId();
+        loadNextRentId();
 
     }
 

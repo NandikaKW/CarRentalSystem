@@ -1,0 +1,137 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="VehicleRentalDetails" language="java" columnCount="1" pageWidth="842" pageHeight="1191" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f3b12be-286e-4ec0-8adf-7f449b737534">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VehicleRentalDBConnection"/>
+	<query language="SQL"><![CDATA[SELECT 
+    vr.vehicle_id AS 'Vehicle ID', 
+    v.model AS 'Model', 
+    v.colour AS 'Colour', 
+    r.start_date AS 'Rental Start Date', 
+    r.end_date AS 'Rental End Date', 
+    vr.rent_date AS 'Rent Date', 
+    vr.cost AS 'Total Cost'
+FROM 
+    Vehicle_Rent_Details vr
+JOIN 
+    Vehicle v ON vr.vehicle_id = v.vehicle_id
+JOIN 
+    Rent r ON vr.rent_id = r.rent_id;
+]]></query>
+	<field name="Vehicle ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="vehicle_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="Vehicle ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle_rent_details"/>
+	</field>
+	<field name="Model" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="model"/>
+		<property name="com.jaspersoft.studio.field.label" value="Model"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="Colour" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="colour"/>
+		<property name="com.jaspersoft.studio.field.label" value="Colour"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="Rental Start Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Rental Start Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rent"/>
+	</field>
+	<field name="Rental End Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Rental End Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rent"/>
+	</field>
+	<field name="Rent Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="rent_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Rent Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle_rent_details"/>
+	</field>
+	<field name="Total Cost" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cost"/>
+		<property name="com.jaspersoft.studio.field.label" value="Total Cost"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle_rent_details"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="staticText" uuid="c250a124-6e8d-49b1-8df8-73625753359b" x="-20" y="0" width="842" height="79" fontName="Serif" fontSize="50.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Vehicle Rental Details  Report]]></text>
+		</element>
+	</title>
+	<pageHeader height="42" splitType="Stretch">
+		<element kind="staticText" uuid="4eefdba0-20ba-491c-a810-ca5f7af2875f" x="197" y="1" width="409" height="29" fontName="Serif" fontSize="20.0" bold="true" underline="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[789 Market Street, Suite 202, San Francisco, CA 94103, United States.]]></text>
+		</element>
+		<element kind="rectangle" uuid="9e270e09-7624-44cd-95f4-4f47f6f7a74d" x="-20" y="41" width="842" height="1" forecolor="#0F0C0C" backcolor="#0F0E0E"/>
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="4305ca6b-c45d-4232-a902-5617327841fc" x="-20" y="0" width="110" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Vehicle ID]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="37322bf9-7813-47f4-bdb1-15b94fe0fdb9"/>
+		</element>
+		<element kind="staticText" uuid="a81334ad-cef2-4697-9703-b8bcdb70a7fc" x="90" y="-1" width="80" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Model]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="57518321-e013-46ac-938c-0e7f62df01b2"/>
+		</element>
+		<element kind="staticText" uuid="fb19f1fe-ade9-4ee0-adee-8e3678983a94" x="170" y="0" width="93" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Colour]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="361f0f57-e4e5-4533-897d-0cee134f8e4b"/>
+		</element>
+		<element kind="staticText" uuid="f7713dfd-3ddf-429f-bc0b-81b06d8d96f7" x="264" y="0" width="126" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Rental Start Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54744f9c-9051-4930-9ae6-daab6ed8f84f"/>
+		</element>
+		<element kind="staticText" uuid="a3e7db42-fb42-4274-821c-cba7d23bf35c" x="390" y="0" width="130" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Rental End Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88095450-e5c6-4838-9101-93eb24e31746"/>
+		</element>
+		<element kind="staticText" uuid="b9a71c85-5646-4b33-a098-c8bee7fc17d7" x="520" y="0" width="170" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Rent Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27220c76-c360-49b4-be37-67f7eb372b19"/>
+		</element>
+		<element kind="staticText" uuid="954c9c4e-2b89-4e64-b8ed-4b7bd6f08386" x="690" y="0" width="131" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Total Cost]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aff5915a-21d8-41bc-8b60-dc4568dfd892"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="123" splitType="Stretch">
+			<element kind="textField" uuid="1aff8940-7464-49ee-9bcf-b0be2a8f9745" x="-20" y="0" width="110" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Vehicle ID}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="37322bf9-7813-47f4-bdb1-15b94fe0fdb9"/>
+			</element>
+			<element kind="textField" uuid="7537258c-f4a8-4c67-a84f-56e6ab0ce8e5" x="90" y="0" width="80" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Model}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="57518321-e013-46ac-938c-0e7f62df01b2"/>
+			</element>
+			<element kind="textField" uuid="5bd4c332-465a-4b4f-8fd3-73fc68acdd42" x="171" y="0" width="93" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Colour}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="361f0f57-e4e5-4533-897d-0cee134f8e4b"/>
+			</element>
+			<element kind="textField" uuid="4980251e-5346-4cce-aad2-7cb2ad0a5625" x="264" y="0" width="126" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Rental Start Date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54744f9c-9051-4930-9ae6-daab6ed8f84f"/>
+			</element>
+			<element kind="textField" uuid="fb582f49-1fd2-4606-a3fb-dea9f8e70d48" x="390" y="0" width="130" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Rental End Date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88095450-e5c6-4838-9101-93eb24e31746"/>
+			</element>
+			<element kind="textField" uuid="721ecc50-2ce7-4d41-aad3-571d358ed79e" x="520" y="0" width="170" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Rent Date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27220c76-c360-49b4-be37-67f7eb372b19"/>
+			</element>
+			<element kind="textField" uuid="ea80844d-1ec8-4719-836d-9e4e6300e527" x="690" y="0" width="131" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Total Cost}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aff5915a-21d8-41bc-8b60-dc4568dfd892"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="127" splitType="Stretch">
+		<element kind="staticText" uuid="009920ee-718a-4e0e-87a6-690f0c34ae9b" x="313" y="0" width="177" height="50" fontName="Serif" fontSize="25.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Thank You !]]></text>
+		</element>
+		<element kind="rectangle" uuid="f6ed8fef-4ae9-4268-b3be-d1d036a512fc" x="-30" y="50" width="851" height="1" forecolor="#0F0C0C" backcolor="#0F0E0E"/>
+	</columnFooter>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

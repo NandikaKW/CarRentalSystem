@@ -161,7 +161,7 @@ public class MaintainScheduleController  implements Initializable {
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        clearFields();
+        refreshPage();
         loadNextVehicleId();
         loadNextMaintainId();
 

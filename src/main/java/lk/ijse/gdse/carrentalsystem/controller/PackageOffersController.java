@@ -148,8 +148,9 @@ public class PackageOffersController  implements Initializable {
 
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        clearFields();
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+        loadNextPackageId();
 
     }
     private void clearFields() {

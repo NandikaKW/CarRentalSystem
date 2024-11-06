@@ -140,8 +140,10 @@ public class EmployeeController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        clearFields();
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+        loadNextAdminId();
+        loadNextEmployeeId();
 
     }
 

@@ -179,6 +179,7 @@ public class RentAgrimentController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
+        loadNextAgrimentId();
 
     }
 

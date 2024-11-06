@@ -108,11 +108,11 @@ public class RentServiceController  implements Initializable {
     private JFXButton btnReset;
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-        txtRentId.setText("");
-        txtStartDate.setText("");
-        txtEndDate.setText("");
-        txtCustomerId.setText("");
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+        loadNextRentId();
+        loadNextCustomerId();
+
     }
 
 

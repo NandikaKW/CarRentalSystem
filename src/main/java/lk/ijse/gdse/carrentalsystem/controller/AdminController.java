@@ -151,6 +151,7 @@ public class AdminController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
+        loadNextAdminId();
 
 
     }

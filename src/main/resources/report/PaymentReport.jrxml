@@ -1,0 +1,230 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="PaymentReport" language="java" columnCount="1" pageWidth="842" pageHeight="1191" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fd7e29c-04b0-4d68-a534-aaf9105ab5c6">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CarRentalSystemDBConnection"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<query language="SQL"><![CDATA[SELECT 
+    p.pay_id AS 'Payment ID', 
+    p.amount AS 'Payment Amount', 
+    p.date AS 'Payment Date', 
+    p.method AS 'Payment Method', 
+    p.tax AS 'Tax Amount', 
+    p.Discount AS 'Discount Amount', 
+    r.rent_id AS 'Rent ID'
+FROM 
+    Payment p
+JOIN 
+    Rent_Payment_Details rpd ON p.pay_id = rpd.pay_id
+JOIN 
+    Rent r ON rpd.rent_id = r.rent_id;
+]]></query>
+	<field name="Payment ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pay_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Payment Amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Payment Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Payment Method" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="method"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment Method"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Tax Amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="tax"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tax Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Discount Amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Discount"/>
+		<property name="com.jaspersoft.studio.field.label" value="Discount Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Rent ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rent_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="Rent ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rent"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="105" splitType="Stretch">
+		<element kind="staticText" uuid="5db365f9-929e-4055-ac83-1c5e0f10c230" x="192" y="20" width="407" height="70" fontName="Serif" fontSize="50.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Payment Report]]></text>
+		</element>
+	</title>
+	<pageHeader height="82" splitType="Stretch">
+		<element kind="staticText" uuid="ef8149b1-ecb3-40a4-9b97-1f2bec2ef7b0" x="187" y="0" width="419" height="30" fontName="Serif" fontSize="20.0" bold="true" underline="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[789 Market Street, Suite 202, San Francisco, CA 94103, United States.]]></text>
+		</element>
+		<element kind="rectangle" uuid="02b659d2-5f96-4a8b-a079-af935be54535" x="-30" y="40" width="852" height="1" forecolor="#0F0C0C" backcolor="#0F0E0E"/>
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="88c49567-f8a2-4442-88f7-7e50583b54bf" x="-19" y="0" width="118" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Payment ID]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05cd3164-a78f-4b0e-bb97-8d813ec35154"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="d1aab209-5ac8-489d-a216-b32ad5eadf27" x="99" y="0" width="100" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Payment Amount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd864ece-0261-4a56-969f-db6b4a9cd147"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="a331f8c2-8961-4ecd-9d52-8548f217d779" x="199" y="0" width="160" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Payment Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="352cc6e7-65e2-4918-91d2-21786b0082d9"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="a1f575e3-98dd-4c34-b994-91d5a4b34c69" x="359" y="0" width="149" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Payment Method]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45019097-25c6-4ce9-ae09-70bc790ec416"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e72e0023-c31d-4a2a-8e87-0b556d6d9c1c" x="508" y="0" width="130" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Tax Amount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d6ef6da-f7c0-48cf-aef3-4cf43229e723"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="526335a2-aaf4-4f9a-b3c0-e9f0373821de" x="638" y="0" width="100" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Discount Amount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="29040ac0-210d-40c7-8e64-59981cbef3a4"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="cbdd241c-e14f-44bf-91f1-3d4a46004f48" x="738" y="0" width="82" height="30" fontName="Serif" fontSize="20.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Rent ID]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94267a0e-8c59-48d7-ad0b-37dec12508e1"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<element kind="textField" uuid="721da799-a8df-4c75-9072-d332563fc493" x="-19" y="-31" width="118" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Payment ID}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05cd3164-a78f-4b0e-bb97-8d813ec35154"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="9cc46d5d-ef59-42a1-9164-e6da0f16892f" x="99" y="-31" width="100" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Payment Amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd864ece-0261-4a56-969f-db6b4a9cd147"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="4de4c900-9dde-4a68-8120-8746c5658478" x="199" y="-31" width="159" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Payment Date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="352cc6e7-65e2-4918-91d2-21786b0082d9"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="be8a5ed3-ff64-455e-9471-5b444acabb59" x="358" y="-32" width="149" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Payment Method}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45019097-25c6-4ce9-ae09-70bc790ec416"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="56f7101a-4f0f-44ea-bdcd-c39cac00332e" x="508" y="-31" width="130" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Tax Amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d6ef6da-f7c0-48cf-aef3-4cf43229e723"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="fee6b33e-a9f4-4251-b5e8-e0e57311c360" x="639" y="-31" width="99" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Discount Amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="29040ac0-210d-40c7-8e64-59981cbef3a4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="2750e71e-63fd-4ce1-9f35-8b96e02a738e" x="738" y="-31" width="82" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Rent ID}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94267a0e-8c59-48d7-ad0b-37dec12508e1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="128" splitType="Stretch">
+		<element kind="staticText" uuid="d4ba4528-83c3-4ba6-aa49-5013761550b3" x="313" y="33" width="177" height="66" fontName="Serif" fontSize="25.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Thank You !]]></text>
+		</element>
+		<element kind="rectangle" uuid="96874918-17e1-4417-9542-eaa8098ba381" x="-30" y="126" width="851" height="1" forecolor="#0F0C0C" backcolor="#0F0E0E"/>
+	</columnFooter>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

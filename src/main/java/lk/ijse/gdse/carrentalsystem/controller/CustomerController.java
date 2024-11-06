@@ -196,7 +196,9 @@ public class CustomerController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
-        clearFields();
+        loadNextCustomerId();
+        loadNextAdminId();
+
 
 
     }
