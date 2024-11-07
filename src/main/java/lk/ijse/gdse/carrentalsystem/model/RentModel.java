@@ -1,8 +1,11 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
+import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -79,7 +82,6 @@ public class RentModel {
         }
         return "C001"; // If no previous customers exist
     }
-
 
 
 }

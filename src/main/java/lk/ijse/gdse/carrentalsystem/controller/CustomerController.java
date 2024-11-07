@@ -288,7 +288,6 @@ public class CustomerController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
             }
         }
-
     }
 
     private void resetFieldStyles() {

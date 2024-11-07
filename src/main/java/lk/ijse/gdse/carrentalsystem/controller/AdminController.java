@@ -213,15 +213,7 @@ public class AdminController implements Initializable {
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Admin saved successfully!").show();
 
-                // Load the GIF image from the specified directory and set it to the ImageView
-                gifImageView.setImage(new Image("file:image/Save.gif"));
-                gifImageView.setVisible(true);
-
-                // Hide the GIF after 3 seconds
-                PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                pause.setOnFinished(e -> gifImageView.setVisible(false));
-                pause.play();
-
+                // Clear fields and refresh page after successful save
                 clearField();
                 refreshPage();
                 loadNextAdminId();

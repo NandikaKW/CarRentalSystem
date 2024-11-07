@@ -52,7 +52,7 @@
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="441.0" layoutY="473.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/8717908.gif" />
+            <Image url="@../image/8717908%20(1).gif" />
          </image>
       </ImageView>
       <Separator layoutX="170.0" layoutY="457.0" prefHeight="3.0" prefWidth="262.0" style="-fx-background-color: black;" />

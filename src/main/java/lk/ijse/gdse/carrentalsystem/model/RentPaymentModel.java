@@ -76,7 +76,7 @@ public class RentPaymentModel {
             int newId = id + 1;
 
             // Return the new ID formatted as 'PAY' followed by the number with leading zeros
-            return String.format("PAY%02d", newId);
+            return String.format("PAY%03d", newId);  // Ensure 3 digits in the new ID
         }
 
         // If no records are found, return the first ID

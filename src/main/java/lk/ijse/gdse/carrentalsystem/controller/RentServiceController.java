@@ -10,12 +10,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
+import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.model.AgrimentModel;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
 
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -275,6 +277,9 @@ public class RentServiceController  implements Initializable {
             txtEndDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(rentTM.getEndDate())); // Format date for display
             txtCustomerId.setText(rentTM.getCustId()); // Updated to use camelCase
             txtAgrimentID.setText(rentTM.getAgreementId()); // Added to display agreement ID
+            btnSave.setDisable(true);
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
         }
     }
 
@@ -304,6 +309,7 @@ public class RentServiceController  implements Initializable {
         colAgrimentID.setCellValueFactory(new PropertyValueFactory<>("agreementId")); // Added for agreementId
 
         try {
+            refreshPage();
             loadNextRentId();
             loadNextCustomerId();
             refreshTableData();

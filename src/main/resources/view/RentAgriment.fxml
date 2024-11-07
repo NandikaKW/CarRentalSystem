@@ -21,7 +21,7 @@
       </Label>
       <ImageView fitHeight="48.0" fitWidth="54.0" layoutX="497.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/6172540.gif" />
+            <Image url="@../image/6172540%20(1).gif" />
          </image>
       </ImageView>
       <Label fx:id="lblAgrimentId" layoutX="422.0" layoutY="62.0" text="Agriment ID">
