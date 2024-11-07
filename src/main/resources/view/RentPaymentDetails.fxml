@@ -20,12 +20,12 @@
       </Label>
       <ImageView fitHeight="57.0" fitWidth="62.0" layoutX="542.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/search-car-sharing-icon-outline-search-car-sharing-vector-icon-web-design-isolated-white-background_98402-77359.jpg" />
+            <Image url="@../image/8948313.gif" />
          </image>
       </ImageView>
       <ImageView fitHeight="57.0" fitWidth="62.0" layoutX="144.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/wallet_6020840.png" />
+            <Image url="@../image/10826774.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblPaymentMethod" layoutX="27.0" layoutY="62.0" text="Payment Method ">

@@ -17,9 +17,9 @@
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="486.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="486.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/AdobeStock_921755939_Preview.jpeg" />
+            <Image url="@../image/8948320.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblVehicleId" layoutX="52.0" layoutY="55.0" text="Vehicle ID">

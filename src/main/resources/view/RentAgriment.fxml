@@ -19,9 +19,9 @@
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </Label>
-      <ImageView fitHeight="43.0" fitWidth="46.0" layoutX="497.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="48.0" fitWidth="54.0" layoutX="497.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/icons8-agreement-50.png" />
+            <Image url="@../image/6172540.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblAgrimentId" layoutX="422.0" layoutY="62.0" text="Agriment ID">

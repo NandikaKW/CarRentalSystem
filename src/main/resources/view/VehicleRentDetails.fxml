@@ -62,7 +62,7 @@
       <TextField fx:id="txtRentDate" layoutX="590.0" layoutY="81.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent Date" />
       <ImageView fitHeight="48.0" fitWidth="50.0" layoutX="496.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/648c6d3f-de6a-4d7a-871e-11684521f749.jpg" />
+            <Image url="@../image/8948327.gif" />
          </image>
       </ImageView>
       <TextField fx:id="txtRentId" layoutX="408.0" layoutY="50.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />

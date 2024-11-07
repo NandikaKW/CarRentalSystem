@@ -27,6 +27,7 @@ public class WelcomeController {
         stage.setScene(new Scene(loadingScreen));
         stage.show();
 
+
         // Create a background task to load the dashboard
         Task<Scene> loadingTask = new Task<>() {
             @Override

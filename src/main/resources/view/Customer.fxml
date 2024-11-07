@@ -17,9 +17,9 @@
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="487.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="507.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/icons8-customer-100.png" />
+            <Image url="@../image/6569161.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblCustomerName" layoutX="14.0" layoutY="62.0" text="Customer Name">

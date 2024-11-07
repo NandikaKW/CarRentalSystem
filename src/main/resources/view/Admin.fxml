@@ -19,7 +19,7 @@
       </Label>
       <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="461.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/icons8-admin-80.png" />
+            <Image url="@../image/7211817.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblEmail" layoutX="99.0" layoutY="83.0" prefHeight="38.0" prefWidth="135.0" text="Email">

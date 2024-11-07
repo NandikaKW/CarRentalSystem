@@ -18,9 +18,9 @@
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <ImageView fitHeight="39.0" fitWidth="57.0" layoutX="554.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="49.0" fitWidth="64.0" layoutX="549.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/icons8-car-50.png" />
+            <Image url="@../image/13893613.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblMaintainID" layoutX="14.0" layoutY="47.0" text="Maintain ID">

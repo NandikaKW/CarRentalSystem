@@ -18,9 +18,9 @@
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <ImageView fitHeight="61.0" fitWidth="72.0" layoutX="517.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="61.0" fitWidth="72.0" layoutX="517.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/a6f6bad8-9d95-4ee9-96ae-45c5ba9c4a15.jpg" />
+            <Image url="@../image/12707582.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblInsuarence" layoutX="2.0" layoutY="56.0" text="Insarence Included">

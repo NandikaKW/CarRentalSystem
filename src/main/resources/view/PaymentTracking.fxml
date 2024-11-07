@@ -20,7 +20,7 @@
       </Label>
       <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="550.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/icons8-payment-80.png" />
+            <Image url="@../image/8112748.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblPaymentId" layoutX="14.0" layoutY="55.0" text="Payment ID ">

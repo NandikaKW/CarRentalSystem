@@ -20,7 +20,7 @@
       </Label>
       <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="469.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Pictures/Saved%20Pictures/icons8-lease-80.png" />
+            <Image url="@../image/17905086.gif" />
          </image>
       </ImageView>
       <Label fx:id="lblEndDate" layoutX="272.0" layoutY="67.0" text="End Date ">
