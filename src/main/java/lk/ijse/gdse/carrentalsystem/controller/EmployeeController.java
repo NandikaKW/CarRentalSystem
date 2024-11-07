@@ -149,37 +149,88 @@ public class EmployeeController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-           String empId=txtEmployeeID.getText();
-           String empName=txtEmployeeName.getText();
-           String address=txtAdress.getText();
-           String job=txtJobRole.getText();
+        String empId = txtEmployeeID.getText();
+        String empName = txtEmployeeName.getText();
+        String address = txtAdress.getText();
+        String job = txtJobRole.getText();
+        String adminID = txtAdminID.getText();
         BigDecimal salary;
 
+        // Regex patterns
+        String empIdPattern = "^E\\d{3}$"; // Matches E001, E002, etc.
+        String empNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String addressPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
+        String jobPattern = "^[A-Za-z ]+$"; // Allows letters and spaces only for job role
+        String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
+
+        // Validation checks
+        boolean isValidEmpId = empId.matches(empIdPattern);
+        boolean isValidEmpName = empName.matches(empNamePattern);
+        boolean isValidAddress = address.matches(addressPattern);
+        boolean isValidJob = job.matches(jobPattern);
+        boolean isValidAdminId = adminID.matches(adminIdPattern);
+
+        // Reset field styles
+        resetFieldStyles();
+
+        // Highlight invalid fields
+        if (!isValidEmpId) {
+            txtEmployeeID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Employee ID.");
+        }
+        if (!isValidEmpName) {
+            txtEmployeeName.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Employee Name.");
+        }
+        if (!isValidAddress) {
+            txtAdress.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Address.");
+        }
+        if (!isValidJob) {
+            txtJobRole.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Job Role.");
+        }
+        if (!isValidAdminId) {
+            txtAdminID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Admin ID.");
+        }
+
+        // Validate salary
         try {
-            salary = new BigDecimal(txtSalary.getText()); // Validate and log salary
+            salary = new BigDecimal(txtSalary.getText());
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid salary format!").show();
             return;
         }
 
-        String adminID = txtAdminID.getText();
+        // If all fields are valid, proceed to save
+        if (isValidEmpId && isValidEmpName && isValidAddress && isValidJob && isValidAdminId) {
+            EmployeeDto employeeDto = new EmployeeDto(empId, empName, address, job, salary, adminID);
 
-        EmployeeDto employeeDto = new EmployeeDto(empId, empName, address, job, salary, adminID);
-
-        try {
-            boolean isSaved = EmployeeModel.saveEmployee(employeeDto);
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully!").show();
-                loadNextAdminId();
-                loadNextEmployeeId();
-                refreshPage();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save Employee!").show();
+            try {
+                boolean isSaved = EmployeeModel.saveEmployee(employeeDto);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully!").show();
+                    loadNextAdminId();
+                    loadNextEmployeeId();
+                    refreshPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to save Employee!").show();
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
         }
+    }
+
+    private void resetFieldStyles() {
+        txtEmployeeID.setStyle("");
+        txtEmployeeName.setStyle("");
+        txtAdress.setStyle("");
+        txtJobRole.setStyle("");
+        txtSalary.setStyle("");
+        txtAdminID.setStyle("");
     }
 
     @FXML
@@ -218,27 +269,74 @@ public class EmployeeController implements Initializable {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String EmployeeId = txtEmployeeID.getText();
-        String EmployeeName=txtEmployeeName.getText();
-        String Address=txtAdress.getText();
-        String Job=txtJobRole.getText();
-        BigDecimal Salary = new BigDecimal(txtSalary.getText());
-        String AdminId=txtAdminID.getText();
+        String employeeId = txtEmployeeID.getText();
+        String employeeName = txtEmployeeName.getText();
+        String address = txtAdress.getText();
+        String job = txtJobRole.getText();
+        String adminId = txtAdminID.getText();
+        BigDecimal salary;
 
-        EmployeeDto employeeDto=new EmployeeDto(EmployeeId,EmployeeName,Address,Job,Salary,AdminId);
-              boolean isUpdated=EmployeeModel.updateEmployee(employeeDto);
+        // Regex patterns
+        String empIdPattern = "^E\\d{3}$"; // Matches E001, E002, etc.
+        String empNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String addressPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
+        String jobPattern = "^[A-Za-z ]+$"; // Allows letters and spaces only for job role
+        String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
 
-       if(isUpdated){
-           new Alert(Alert.AlertType.INFORMATION,"Employee updated successfully!").show();
-           loadNextAdminId();
-           loadNextEmployeeId();
-           refreshPage();
+        // Validation checks
+        boolean isValidEmpId = employeeId.matches(empIdPattern);
+        boolean isValidEmpName = employeeName.matches(empNamePattern);
+        boolean isValidAddress = address.matches(addressPattern);
+        boolean isValidJob = job.matches(jobPattern);
+        boolean isValidAdminId = adminId.matches(adminIdPattern);
 
-       }else{
-           new Alert(Alert.AlertType.ERROR,"Failed to update employee!").show();
+        // Reset field styles
+        resetFieldStyles();
 
-       }
+        // Highlight invalid fields
+        if (!isValidEmpId) {
+            txtEmployeeID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Employee ID.");
+        }
+        if (!isValidEmpName) {
+            txtEmployeeName.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Employee Name.");
+        }
+        if (!isValidAddress) {
+            txtAdress.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Address.");
+        }
+        if (!isValidJob) {
+            txtJobRole.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Job Role.");
+        }
+        if (!isValidAdminId) {
+            txtAdminID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Admin ID.");
+        }
 
+        // Validate salary
+        try {
+            salary = new BigDecimal(txtSalary.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid salary format!").show();
+            return;
+        }
+
+        // If all fields are valid, proceed to update
+        if (isValidEmpId && isValidEmpName && isValidAddress && isValidJob && isValidAdminId) {
+            EmployeeDto employeeDto = new EmployeeDto(employeeId, employeeName, address, job, salary, adminId);
+            boolean isUpdated = EmployeeModel.updateEmployee(employeeDto);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully!").show();
+                loadNextAdminId();
+                loadNextEmployeeId();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update employee!").show();
+            }
+        }
 
     }
     @FXML

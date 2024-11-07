@@ -7,10 +7,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.LoadingController">
    <children>
-      <ProgressBar layoutX="40.0" layoutY="346.0" prefHeight="36.0" prefWidth="527.0" />
-      <ImageView fitHeight="329.0" fitWidth="451.0" layoutX="84.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ProgressBar layoutX="21.0" layoutY="346.0" prefHeight="36.0" prefWidth="562.0" />
+      <ImageView fitHeight="340.0" fitWidth="502.0" layoutX="127.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/9d0bdec34936a8d1f6af537cd7a4b7e9.gif" />
+            <Image url="@../image/17904345.gif" />
          </image>
       </ImageView>
    </children>

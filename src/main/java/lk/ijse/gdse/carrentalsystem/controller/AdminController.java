@@ -1,6 +1,7 @@
 package lk.ijse.gdse.carrentalsystem.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,7 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import lk.ijse.gdse.carrentalsystem.dto.AdminDto;
 import lk.ijse.gdse.carrentalsystem.model.AdminModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.AdminTM;
@@ -26,6 +30,8 @@ public class AdminController implements Initializable {
     public JFXButton btnDelete;
     public JFXButton btnSave;
     public JFXButton btnUpdate;
+    @FXML
+    private ImageView gifImageView;
 
     @FXML
     private Label lblAdminID;
@@ -203,8 +209,19 @@ public class AdminController implements Initializable {
         if (isValidAdminId && isValidUserName && isValidEmail && isValidPassword) {
             AdminDto adminDto = new AdminDto(adminId, userName, email, password);
             boolean isSaved = AdminModel.saveAdmin(adminDto);
+
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Admin saved successfully!").show();
+
+                // Load the GIF image from the specified directory and set it to the ImageView
+                gifImageView.setImage(new Image("file:image/Save.gif"));
+                gifImageView.setVisible(true);
+
+                // Hide the GIF after 3 seconds
+                PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                pause.setOnFinished(e -> gifImageView.setVisible(false));
+                pause.play();
+
                 clearField();
                 refreshPage();
                 loadNextAdminId();
@@ -229,17 +246,55 @@ public class AdminController implements Initializable {
         String email = txtEmail.getText();
         String password = txtPassword.getText();
 
-        AdminDto adminDto = new AdminDto(adminId, userName, email, password);
-        boolean isUpdated = AdminModel.updateAdmin(adminDto);
+        // Regex patterns
+        String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
+        String userNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"; // Valid email
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"; // At least 8 characters, at least 1 letter and 1 number
 
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Admin updated successfully!").show();
-            refreshPage();
-            loadNextAdminId();
+        // Reset field styles
+        resetFieldStyles();
 
-            // Ensure you call refreshTableData() here to refresh the table
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update admin!").show();
+        // Validation checks
+        boolean isValidAdminId = adminId.matches(adminIdPattern);
+        boolean isValidUserName = userName.matches(userNamePattern);
+        boolean isValidEmail = email.matches(emailPattern);
+        boolean isValidPassword = password.matches(passwordPattern);
+
+        // Highlight invalid fields
+        if (!isValidAdminId) {
+            txtAdminID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Admin ID.");
+        }
+
+        if (!isValidUserName) {
+            txtAdminName.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid User Name.");
+        }
+
+        if (!isValidEmail) {
+            txtEmail.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Email.");
+        }
+
+        if (!isValidPassword) {
+            txtPassword.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Password.");
+        }
+
+        // Proceed only if all fields are valid
+        if (isValidAdminId && isValidUserName && isValidEmail && isValidPassword) {
+            AdminDto adminDto = new AdminDto(adminId, userName, email, password);
+            boolean isUpdated = AdminModel.updateAdmin(adminDto);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Admin updated successfully!").show();
+                refreshPage();
+                loadNextAdminId();
+                // Ensure you call refreshTableData() here to refresh the table
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update admin!").show();
+            }
         }
     }
 

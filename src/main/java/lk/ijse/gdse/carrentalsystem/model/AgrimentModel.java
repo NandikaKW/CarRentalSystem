@@ -85,4 +85,16 @@ public class AgrimentModel {
         return "AG001";
     }
 
+    public static String loadNextAgreementId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet=CrudUtil.execute("SELECT agreement_id FROM rental_agreement ORDER BY agreement_id DESC LIMIT 1");
+        if (resultSet.next()){
+            String lastID=resultSet.getString("agreement_id");
+            String subString=lastID.substring(2);
+            int id=Integer.parseInt(subString);
+            int newId=id+1;
+            return String.format("AG%03d",newId);
+        }
+        return "AG001";
+
+    }
 }

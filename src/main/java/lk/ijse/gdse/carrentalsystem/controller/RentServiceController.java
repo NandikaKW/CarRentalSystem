@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
+import lk.ijse.gdse.carrentalsystem.model.AgrimentModel;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
@@ -188,10 +189,12 @@ public class RentServiceController  implements Initializable {
         } catch (ParseException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format! Use 'yyyy-MM-dd'.").show();
         }
+
     }
 
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
+        loadNextAgreementId();
         loadNextRentId();
         loadTableData();
         loadNextCustomerId();
@@ -282,6 +285,10 @@ public class RentServiceController  implements Initializable {
     public  void loadNextCustomerId() throws SQLException, ClassNotFoundException {
        String nextCustomerId= CustomerModel.loadNextCustomerId();
        txtCustomerId.setText(nextCustomerId);
+    }
+    public void loadNextAgreementId() throws SQLException, ClassNotFoundException {
+        String nextAgreementId= AgrimentModel.loadNextAgreementId();
+        txtAgrimentID.setText(nextAgreementId);
     }
 
 

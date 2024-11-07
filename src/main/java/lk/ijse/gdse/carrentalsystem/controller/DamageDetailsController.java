@@ -165,28 +165,69 @@ public class DamageDetailsController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String damageId = txtDamageId.getText();
-        BigDecimal repairCost = new BigDecimal(txtRepairCost.getText());
-        String detail=txtDescription.getText();
-        String rentId=txtRentId.getText();
-        try{
-                   DamageDto damageDto=new DamageDto(damageId,repairCost,detail,rentId);
-                   boolean isSaved=DamageModel.saveDamage(damageDto);
-        if(isSaved){
-            new Alert(Alert.AlertType.INFORMATION,"Damage saved successfully!").show();
-            clearFields();
-            refreshPage();
-            loadNextRentId();
-            loadNextDamageId();
+        String detail = txtDescription.getText();
+        String rentId = txtRentId.getText();
 
-        }else{
-            new Alert(Alert.AlertType.ERROR,"Failed to save damage!").show();
+        // Regex patterns
+        String damageIdPattern = "^D\\d{3}$"; // Matches D001, D002, etc.
+        String detailPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
+        String rentIdPattern = "^R\\d{3}$"; // Matches R001, R002, etc.
+
+        // Validation checks
+        boolean isValidDamageId = damageId.matches(damageIdPattern);
+        boolean isValidDetail = detail.matches(detailPattern);
+        boolean isValidRentId = rentId.matches(rentIdPattern);
+
+        // Reset field styles
+        resetFieldStyles();
+
+        if (!isValidDamageId) {
+            txtDamageId.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Damage ID.");
         }
 
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"ERROR occurred while saving damage: "+e.getMessage()).show();
+        if (!isValidDetail) {
+            txtDescription.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Detail.");
         }
 
+        if (!isValidRentId) {
+            txtRentId.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Rent ID.");
+        }
+
+        BigDecimal repairCost;
+        try {
+            repairCost = new BigDecimal(txtRepairCost.getText());
+        } catch (NumberFormatException e) {
+            txtRepairCost.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Repair Cost.");
+            return;
+        }
+
+        // If all fields are valid, proceed to save
+        if (isValidDamageId && isValidDetail && isValidRentId) {
+            DamageDto damageDto = new DamageDto(damageId, repairCost, detail, rentId);
+            boolean isSaved = DamageModel.saveDamage(damageDto);
+
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Damage saved successfully!").show();
+                clearFields();
+                refreshPage();
+                loadNextRentId();
+                loadNextDamageId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save damage!").show();
+            }
+        }
+
+    }
+
+    private void resetFieldStyles() {
+        txtDamageId.setStyle("");
+        txtDescription.setStyle("");
+        txtRepairCost.setStyle("");
+        txtRentId.setStyle("");
     }
 
     @FXML
@@ -231,30 +272,59 @@ public class DamageDetailsController implements Initializable {
             return;
         }
 
+        String detail = txtDescription.getText();
+        String rentId = txtRentId.getText();
+
+        // Regex patterns
+        String damageIdPattern = "^D\\d{3}$"; // Matches D001, D002, etc.
+        String detailPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
+        String rentIdPattern = "^R\\d{3}$"; // Matches R001, R002, etc.
+
+        // Validation checks
+        boolean isValidDamageId = damageId.matches(damageIdPattern);
+        boolean isValidDetail = detail.matches(detailPattern);
+        boolean isValidRentId = rentId.matches(rentIdPattern);
+
+        // Reset field styles
+        resetFieldStyles();
+
+        if (!isValidDamageId) {
+            txtDamageId.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Damage ID.");
+        }
+
+        if (!isValidDetail) {
+            txtDescription.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Detail.");
+        }
+
+        if (!isValidRentId) {
+            txtRentId.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Rent ID.");
+        }
+
         BigDecimal repairCost;
         try {
             repairCost = new BigDecimal(txtRepairCost.getText());
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid Repair Cost").show();
+            txtRepairCost.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Repair Cost.");
             return;
         }
 
-        String detail = txtDescription.getText();
-        String rentId = txtRentId.getText();
+        // If all fields are valid, proceed to update
+        if (isValidDamageId && isValidDetail && isValidRentId) {
+            DamageDto damageDto = new DamageDto(damageId, repairCost, detail, rentId);
+            boolean isUpdated = DamageModel.updateDamage(damageDto);
 
-        DamageDto damageDto = new DamageDto(damageId, repairCost, detail, rentId);
-
-        // Execute update
-        boolean isUpdated = DamageModel.updateDamage(damageDto);
-
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Damage Detail updated successfully!").show();
-            refreshPage();
-            loadNextRentId();
-            loadNextDamageId();
-
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update Damage Detail!").show();
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Damage Detail updated successfully!").show();
+                refreshPage();
+                loadNextRentId();
+                loadNextDamageId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update Damage Detail!").show();
+            }
         }
     }
 

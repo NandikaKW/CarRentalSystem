@@ -218,22 +218,86 @@ public class CustomerController implements Initializable {
         String customerId = txtCustomerID.getText();
         String customerName = txtCustomerName.getText();
         String address = txtAdress.getText();
-        String contactNumber = txtCustomerNumber.getText();
+        String email = txtCustomerNumber.getText();
         String nic = txtNIC.getText();
         String adminId = txtAdminID.getText();
 
-        CustomerDto dto = new CustomerDto(customerId, customerName, address, contactNumber, nic, adminId);
-        boolean isSaved = customerModel.saveCustomer(dto);
-        if (isSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Customer Save  successfully!").show();
-            refreshPage();
-            loadNextCustomerId();
-            loadNextAdminId();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to Save Customer ....!").show();
+        // Regex patterns
+        String customerIdPattern = "^C\\d{3}$"; // Matches C001, C002, etc.
+        String customerNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String addressPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
+        String emailPattern = "^[\\w!#$%&'*+/=?{|}~^-]+(?:\\.[\\w!#$%&'*+/=?{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"; // Valid email format
+        String nicPattern = "^[0-9]{9}[Vv]$|^[0-9]{12}$"; // Matches NIC format with 9 digits + V or 12 digits
+        String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
+
+        // Reset field styles
+        resetFieldStyles();
+
+
+
+        // Validation checks
+        boolean isValidCustomerId = customerId.matches(customerIdPattern);
+        boolean isValidCustomerName = customerName.matches(customerNamePattern);
+        boolean isValidAddress = address.matches(addressPattern);
+        boolean isValidEmail = email.matches(emailPattern);
+        boolean isValidNic = nic.matches(nicPattern);
+        boolean isValidAdminId = adminId.matches(adminIdPattern);
+
+        // Highlight invalid fields
+        if (!isValidCustomerId) {
+            txtCustomerID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Customer ID.");
         }
 
+        if (!isValidCustomerName) {
+            txtCustomerName.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Customer Name.");
+        }
 
+        if (!isValidAddress) {
+            txtAdress.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Address.");
+        }
+
+        if (!isValidEmail) {
+            txtCustomerNumber.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Email.");
+        }
+
+        if (!isValidNic) {
+            txtNIC.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid NIC.");
+        }
+
+        if (!isValidAdminId) {
+            txtAdminID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Admin ID.");
+        }
+
+        // If all fields are valid, proceed to save
+        if (isValidCustomerId && isValidCustomerName && isValidAddress && isValidEmail && isValidNic && isValidAdminId) {
+            CustomerDto dto = new CustomerDto(customerId, customerName, address, email, nic, adminId);
+            boolean isSaved = customerModel.saveCustomer(dto);
+
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully!").show();
+                refreshPage();
+                loadNextCustomerId();
+                loadNextAdminId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
+            }
+        }
+
+    }
+
+    private void resetFieldStyles() {
+        txtCustomerID.setStyle("");
+        txtCustomerName.setStyle("");
+        txtAdress.setStyle("");
+        txtCustomerNumber.setStyle("");
+        txtNIC.setStyle("");
+        txtAdminID.setStyle("");
     }
 
     @FXML
@@ -270,22 +334,76 @@ public class CustomerController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = txtCustomerID.getText();
-        String customername = txtCustomerName.getText();
+        String customerName = txtCustomerName.getText();
         String address = txtAdress.getText();
-        String contact = txtCustomerNumber.getText();
-        String nicNumber = txtNIC.getText();
-        String adminid = txtAdminID.getText();
-        CustomerDto dto = new CustomerDto(customerId, customername, address, contact, nicNumber, adminid);
-        boolean isUpdated = customerModel.updateCustomer(dto);
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
-            refreshPage();
-            loadNextCustomerId();
-            loadNextAdminId();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
+        String email = txtCustomerNumber.getText(); // Assuming txtCustomerNumber is used for email input
+        String nic = txtNIC.getText();
+        String adminId = txtAdminID.getText();
+
+        // Regex patterns
+        String customerIdPattern = "^C\\d{3}$"; // Matches C001, C002, etc.
+        String customerNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String addressPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
+        String emailPattern = "^[\\w!#$%&'*+/=?{|}~^-]+(?:\\.[\\w!#$%&'*+/=?{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"; // Valid email format
+        String nicPattern = "^[0-9]{9}[Vv]$|^[0-9]{12}$"; // Matches NIC format with 9 digits + V or 12 digits
+        String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
+
+        // Reset field styles
+        resetFieldStyles();
+
+        // Validation checks
+        boolean isValidCustomerId = customerId.matches(customerIdPattern);
+        boolean isValidCustomerName = customerName.matches(customerNamePattern);
+        boolean isValidAddress = address.matches(addressPattern);
+        boolean isValidEmail = email.matches(emailPattern);
+        boolean isValidNic = nic.matches(nicPattern);
+        boolean isValidAdminId = adminId.matches(adminIdPattern);
+
+        // Highlight invalid fields
+        if (!isValidCustomerId) {
+            txtCustomerID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Customer ID.");
         }
 
+        if (!isValidCustomerName) {
+            txtCustomerName.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Customer Name.");
+        }
+
+        if (!isValidAddress) {
+            txtAdress.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Address.");
+        }
+
+        if (!isValidEmail) {
+            txtCustomerNumber.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Email.");
+        }
+
+        if (!isValidNic) {
+            txtNIC.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid NIC.");
+        }
+
+        if (!isValidAdminId) {
+            txtAdminID.setStyle("-fx-border-color: red;");
+            System.out.println("Invalid Admin ID.");
+        }
+
+        // If all fields are valid, proceed to update
+        if (isValidCustomerId && isValidCustomerName && isValidAddress && isValidEmail && isValidNic && isValidAdminId) {
+            CustomerDto dto = new CustomerDto(customerId, customerName, address, email, nic, adminId);
+            boolean isUpdated = customerModel.updateCustomer(dto);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
+                refreshPage();
+                loadNextCustomerId();
+                loadNextAdminId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
+            }
+        }
 
     }
 
