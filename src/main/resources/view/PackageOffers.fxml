@@ -73,15 +73,14 @@
       <TextField fx:id="txtcost" layoutX="605.0" layoutY="91.0" prefHeight="26.0" prefWidth="118.0" promptText="Total Cost" />
       <TableView fx:id="tblPackage" layoutY="206.0" onMouseClicked="#MouseClickOnAction" prefHeight="486.0" prefWidth="763.0">
         <columns>
-          <TableColumn fx:id="colInsuarence" prefWidth="114.39999234676361" text="Insuarence Include" />
-          <TableColumn fx:id="colRentDuration" prefWidth="124.79998016357422" text="Rental Duration " />
-            <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-            <TableColumn fx:id="colRentDate" prefWidth="67.199951171875" text="Rent Date" />
-            <TableColumn fx:id="colMileage" prefWidth="87.20001220703125" text="Mileage Limit " />
-            <TableColumn fx:id="colDescription" prefWidth="77.60003662109375" text="Description " />
-            <TableColumn fx:id="colPackageName" prefWidth="145.59991455078125" text="Package Name" />
-            <TableColumn fx:id="colPackageID" minWidth="0.0" prefWidth="79.99993896484375" text="PackageID" />
-            <TableColumn fx:id="colTotalCost" prefWidth="65.60003662109375" text="TotalCost" />
+          <TableColumn fx:id="colInsuarence" prefWidth="85.60000455379486" text="Insuarence Include" />
+          <TableColumn fx:id="colRentDuration" prefWidth="93.60001373291016" text="Rental Duration " />
+            <TableColumn fx:id="colRentDate" prefWidth="125.5999755859375" text="Rent Date" />
+            <TableColumn fx:id="colMileage" prefWidth="98.39996337890625" text="Mileage Limit " />
+            <TableColumn fx:id="colDescription" prefWidth="96.800048828125" text="Description " />
+            <TableColumn fx:id="colPackageName" prefWidth="95.19998168945312" text="Package Name" />
+            <TableColumn fx:id="colPackageID" minWidth="0.0" prefWidth="80.79998779296875" text="PackageID" />
+            <TableColumn fx:id="colTotalCost" prefWidth="83.2000732421875" text="TotalCost" />
         </columns>
       </TableView>
       <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="19.0" layoutY="164.0" onAction="#btnSaveOnAction" style="-fx-background-color: #3d3d3d;" text="Save" textFill="WHITE">

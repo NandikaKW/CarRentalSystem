@@ -113,6 +113,8 @@ public class RentServiceController  implements Initializable {
         refreshPage();
         loadNextRentId();
         loadNextCustomerId();
+        loadNextAgreementId();
+
 
     }
 

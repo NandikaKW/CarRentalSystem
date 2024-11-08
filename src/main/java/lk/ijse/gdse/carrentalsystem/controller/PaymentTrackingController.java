@@ -365,32 +365,46 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String paymentId=txtPaymentId.getText();
-        BigDecimal amount = new BigDecimal(txtAmount.getText());// line no 1
+        String paymentId = txtPaymentId.getText();
+        BigDecimal amount;
+        try {
+            amount = new BigDecimal(txtAmount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid amount format. Please enter a valid number.").show();
+            return;
+        }
+
         Date date = null;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Assuming the date format is yyyy-MM-dd
-            date = dateFormat.parse(txtDate.getText()); // Parse the text to a Date object
+            date = dateFormat.parse(txtDate.getText());
         } catch (ParseException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
             return;
         }
-        String invoice=txtInvoice.getText();
-        String method=txtPayMethods.getText();
-        String transaction=txtTransaction.getText();
-        BigDecimal tax = new BigDecimal(txtTax.getText());    // line no 2
-        BigDecimal discount = new BigDecimal(txtDiscount.getText());// line no 3
-        PaymentDto paymentDto=new PaymentDto(paymentId,amount,date,invoice,method,transaction,tax,discount);
-        boolean isSaved=PaymentModel.savePayment(paymentDto);
-        if(isSaved){
-            new Alert(Alert.AlertType.INFORMATION,"Payment saved successfully").show();
-            refreshPage();
-            loadNextPaymentId();
 
-        }else{
-            new Alert(Alert.AlertType.ERROR,"Failed to save payment").show();
+        String invoice = txtInvoice.getText();
+        String method = txtPayMethods.getText();
+        String transaction = txtTransaction.getText();
+
+        BigDecimal tax, discount;
+        try {
+            tax = new BigDecimal(txtTax.getText());
+            discount = new BigDecimal(txtDiscount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid tax or discount format. Please enter valid numbers.").show();
+            return;
         }
 
+        PaymentDto paymentDto = new PaymentDto(paymentId, amount, date, invoice, method, transaction, tax, discount);
+        boolean isSaved = PaymentModel.savePayment(paymentDto);
+        if (isSaved) {
+            new Alert(Alert.AlertType.INFORMATION, "Payment saved successfully").show();
+            refreshPage();
+            loadNextPaymentId();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Failed to save payment").show();
+        }
 
     }
 
