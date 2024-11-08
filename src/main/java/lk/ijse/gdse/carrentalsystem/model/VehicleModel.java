@@ -1,5 +1,6 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
+import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.dto.VehicleDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
 
@@ -81,6 +82,23 @@ public class VehicleModel {
         return "P001";
 
     }
+    public static boolean reduceVehicleQuantity(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
+
+
+        try {
+            // Execute the update statement to reduce quantity by 1
+            return CrudUtil.execute("UPDATE vehicle SET quantity = quantity - 1 WHERE vehicle_id = ?", vechileRentDetailDto.getVehicle_id());
+        } catch (SQLException e) {
+            System.err.println("Error while reducing vehicle quantity for vehicle_id: " + vechileRentDetailDto.getVehicle_id());
+            e.printStackTrace();
+            return false;
+        } catch (ClassNotFoundException e) {
+            System.err.println("Database driver not found.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
 }

@@ -34,7 +34,15 @@ public class VehicleRentDetailModel {
     }
 
     public static boolean saveVehicleRent(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("INSERT INTO vehicle_rent_details VALUES (?,?,?,?,?,?,?)",vechileRentDetailDto.getVehicle_id(),vechileRentDetailDto.getRent_id(),vechileRentDetailDto.getStart_date(),vechileRentDetailDto.getEnd_date(),vechileRentDetailDto.getRent_date(),vechileRentDetailDto.getCost(),vechileRentDetailDto.getVehicle_condition());
+        return CrudUtil.execute("INSERT INTO vehicle_rent_details VALUES (?,?,?,?,?,?,?)",
+                vechileRentDetailDto.getVehicle_id(),
+                vechileRentDetailDto.getRent_id(),
+                vechileRentDetailDto.getStart_date(),
+                vechileRentDetailDto.getEnd_date(),
+                vechileRentDetailDto.getRent_date(),
+                vechileRentDetailDto.getCost(),
+                vechileRentDetailDto.getVehicle_condition()
+        );
 
     }
 
@@ -84,6 +92,27 @@ public class VehicleRentDetailModel {
        }
        return "R001";
     }
+    public static boolean saveVehicleRentList(ArrayList<VechileRentDetailDto> vechileRentDetailDtos) throws SQLException, ClassNotFoundException {
+        for (VechileRentDetailDto vechileRentDetailDto : vechileRentDetailDtos) {
+
+            // Save individual vehicle rent detail
+            boolean isVehicleRentSaved = saveVehicleRent(vechileRentDetailDto);
+            if (!isVehicleRentSaved) {
+                return false;  // If saving fails, return false to trigger rollback
+            }
+
+            // Update vehicle quantity after saving rent detail
+            boolean isVehicleUpdated = VehicleModel.reduceVehicleQuantity(vechileRentDetailDto);
+            if (!isVehicleUpdated) {
+                return false;  // If update fails, return false to trigger rollback
+            }
+        }
+        return true;
+    }
+
+
+
+
 
 
 }

@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.EmailController">
    <children>
       <Label layoutX="182.0" layoutY="22.0" prefHeight="34.0" prefWidth="235.0" text="Customer Email">
@@ -20,7 +19,7 @@
       </Label>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="399.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/icons8-email-open-50%20(1).png" />
+            <Image url="@../image/8717946.gif" />
          </image>
       </ImageView>
       <TextField fx:id="txtSubject" layoutX="100.0" layoutY="75.0" prefHeight="26.0" prefWidth="390.0" promptText="Subject" style="-fx-background-color: white;">

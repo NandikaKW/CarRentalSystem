@@ -1,5 +1,6 @@
 package lk.ijse.gdse.carrentalsystem.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class RentDto {
@@ -8,16 +9,34 @@ public class RentDto {
     private Date endDate; // changed to camelCase
     private String custId; // changed to camelCase
     private String agreement_id; // added agreementId field
+    private ArrayList<VechileRentDetailDto> vehicleRentDetailDtos;
 
-    public RentDto() {
-    }
-
-    public RentDto(String rentId, Date startDate, Date endDate, String custId, String agreement_id) {
+    // Constructor including vehicleRentDetailDtos
+    public RentDto(String rentId, Date startDate, Date endDate, String custId, String agreement_id, ArrayList<VechileRentDetailDto> vehicleRentDetailDtos) {
         this.rentId = rentId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.custId = custId;
         this.agreement_id = agreement_id; // initializing the new field
+        this.vehicleRentDetailDtos = vehicleRentDetailDtos;
+    }
+
+    // Constructor without vehicleRentDetailDtos for flexibility
+    public RentDto(String rentId, Date startDate, Date endDate, String custId, String agreement_id) {
+        this.rentId = rentId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.custId = custId;
+        this.agreement_id = agreement_id;
+        this.vehicleRentDetailDtos = new ArrayList<>(); // initializing empty list by default
+    }
+
+    public ArrayList<VechileRentDetailDto> getVehicleRentDetailDtos() {
+        return vehicleRentDetailDtos;
+    }
+
+    public void setVehicleRentDetailDtos(ArrayList<VechileRentDetailDto> vehicleRentDetailDtos) {
+        this.vehicleRentDetailDtos = vehicleRentDetailDtos;
     }
 
     public String getRentId() {
@@ -67,7 +86,8 @@ public class RentDto {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", custId='" + custId + '\'' +
-                ", agreementId='" + agreement_id + '\'' + // included in toString
+                ", agreementId='" + agreement_id + '\'' +
+                ", vehicleRentDetailDtos=" + vehicleRentDetailDtos +
                 '}';
     }
 }

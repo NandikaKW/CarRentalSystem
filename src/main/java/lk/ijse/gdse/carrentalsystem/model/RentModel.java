@@ -1,6 +1,8 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
 import lk.ijse.gdse.carrentalsystem.db.DBConnection;
+import lk.ijse.gdse.carrentalsystem.dto.PackageDto;
+import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
 import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
@@ -9,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RentModel {
     public static ArrayList<RentDto> getAllRentData() throws SQLException, ClassNotFoundException {
@@ -29,15 +32,43 @@ public class RentModel {
     }
 
 
-
     public static boolean DeleteRent(String rentId) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM rent WHERE rent_id = ?", rentId);
 
     }
 
     public static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("INSERT INTO rent VALUES (?,?,?,?,?)",
-                dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId());
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+
+            // Save the rent details
+            boolean isRentSaved = CrudUtil.execute("INSERT INTO rent VALUES (?,?,?,?,?)",
+                    dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId()
+            );
+            if (!isRentSaved) {
+                connection.rollback();
+                return false;
+            }
+
+            // Save vehicle rent details and reduce quantity
+            boolean isVehicleRentSaved = VehicleRentDetailModel.saveVehicleRentList(dto.getVehicleRentDetailDtos());
+            if (!isVehicleRentSaved) {
+                connection.rollback();
+                return false;
+            }
+
+            // Commit transaction if both operations succeed
+            connection.commit();
+            return true;
+
+        } catch (Exception e) {
+            connection.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     public static RentDto SearchRent(String rentId) throws SQLException, ClassNotFoundException {
@@ -71,6 +102,7 @@ public class RentModel {
         }
         return "R001"; // If no previous customers exist
     }
+
     public String loadNextCustomerId() throws SQLException, ClassNotFoundException, SQLException {
         ResultSet rst = CrudUtil.execute("SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1");
         if (rst.next()) {
@@ -82,6 +114,11 @@ public class RentModel {
         }
         return "C001"; // If no previous customers exist
     }
+
+
+
+
+
 
 
 }

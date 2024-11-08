@@ -1,11 +1,16 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.AgrimentDto;
+import lk.ijse.gdse.carrentalsystem.dto.RentDto;
+import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AgrimentModel {
     public static boolean deleteAgriment(String agrimentId) throws SQLException, ClassNotFoundException {
@@ -53,6 +58,7 @@ public class AgrimentModel {
     public static boolean saveAgriment(AgrimentDto agrimentDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO rental_agreement VALUES (?,?,?,?,?,?)",agrimentDto.getAgreement_id(),agrimentDto.getPayment_terms(),agrimentDto.getStart_date(),agrimentDto.getEnd_date(),agrimentDto.getDeposit_amount(),agrimentDto.getTotal_rent_cost());
 
+
     }
 
     public static boolean updateAgriment(AgrimentDto agrimentDto) throws SQLException, ClassNotFoundException {
@@ -97,4 +103,9 @@ public class AgrimentModel {
         return "AG001";
 
     }
+
+
+
+
+
 }
