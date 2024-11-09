@@ -23,8 +23,8 @@ public class VehicleRentDetailModel {
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
                     resultSet.getDate("rent_date"),
-                    resultSet.getBigDecimal("cost"),
-                    resultSet.getString("vehicle_condition")
+                    resultSet.getString("vehicle_condition"),
+                    resultSet.getInt("Vehicle_Quantity")
             );
             vechileRentDetailDtos.add(vechileRentDetailDto);
         }
@@ -40,8 +40,8 @@ public class VehicleRentDetailModel {
                 vechileRentDetailDto.getStart_date(),
                 vechileRentDetailDto.getEnd_date(),
                 vechileRentDetailDto.getRent_date(),
-                vechileRentDetailDto.getCost(),
-                vechileRentDetailDto.getVehicle_condition()
+                vechileRentDetailDto.getVehicle_condition(),
+                vechileRentDetailDto.getVehicle_quantity()
         );
 
     }
@@ -55,8 +55,8 @@ public class VehicleRentDetailModel {
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
                     resultSet.getDate("rent_date"),
-                    resultSet.getBigDecimal("cost"),
-                    resultSet.getString("vehicle_condition")
+                    resultSet.getString("vehicle_condition"),
+                    resultSet.getInt("Vehicle_Quantity")
             );
         }
         return null;
@@ -65,7 +65,7 @@ public class VehicleRentDetailModel {
     }
 
     public static boolean isVehicleRentUpdated(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE vehicle_rent_details SET start_date=?,end_date=?,rent_date=?,cost=?,vehicle_condition=? WHERE vehicle_id=? AND rent_id=?",vechileRentDetailDto.getStart_date(),vechileRentDetailDto.getEnd_date(),vechileRentDetailDto.getRent_date(),vechileRentDetailDto.getCost(),vechileRentDetailDto.getVehicle_condition(),vechileRentDetailDto.getVehicle_id(),vechileRentDetailDto.getRent_id());
+        return CrudUtil.execute("UPDATE vehicle_rent_details SET start_date=?,end_date=?,rent_date=?,vehicle_condition=?,Vehicle_Quantity=? WHERE vehicle_id=? AND rent_id=?",vechileRentDetailDto.getStart_date(),vechileRentDetailDto.getEnd_date(),vechileRentDetailDto.getRent_date(),vechileRentDetailDto.getVehicle_condition(),vechileRentDetailDto.getVehicle_quantity(),vechileRentDetailDto.getVehicle_id(),vechileRentDetailDto.getRent_id());
 
     }
 
@@ -81,17 +81,7 @@ public class VehicleRentDetailModel {
        return "V001";
     }
 
-    public static String loadNextRentId() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet=CrudUtil.execute("SELECT rent_id FROM rent ORDER BY rent_id DESC LIMIT 1");
-       if (resultSet.next()){
-           String lastID=resultSet.getString("rent_id");
-           String substring=lastID.substring(1);
-           int id=Integer.parseInt(substring);
-           int newId=id+1;
-           return String.format("R%03d",newId);
-       }
-       return "R001";
-    }
+    
     public static boolean saveVehicleRentList(ArrayList<VechileRentDetailDto> vechileRentDetailDtos) throws SQLException, ClassNotFoundException {
         for (VechileRentDetailDto vechileRentDetailDto : vechileRentDetailDtos) {
 
@@ -111,8 +101,24 @@ public class VehicleRentDetailModel {
     }
 
 
+    public static String loadCurrentRentId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT rent_id FROM rent ORDER BY rent_id DESC LIMIT 1");
 
+        if (resultSet.next()) {
+            return resultSet.getString("rent_id");  // Return the most recent rent_id directly
+        }
 
+        return null;  // Return null if there are no records in the rent table
+    }
 
+    public static String loadCurrentVehicleId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT vehicle_id FROM vehicle ORDER BY vehicle_id DESC LIMIT 1");
+
+        if (resultSet.next()) {
+            return resultSet.getString("vehicle_id");  // Return the most recent vehicle_id directly
+        }
+
+        return null;  // Return null if there are no records in the vehicle table
+    }
 
 }

@@ -28,6 +28,13 @@ import java.util.stream.IntStream;
 
 public class VehicleRentDetailsController  implements Initializable {
     @FXML
+    private Label lblVehicleQuantity;
+    @FXML
+    private TextField txtVehicleQuantity;
+    @FXML
+    private TableColumn<VehicleRentDetailTM, Integer> colVehicleQuantity;
+
+    @FXML
     private ComboBox<Integer> CombMonth;
 
     @FXML
@@ -327,8 +334,8 @@ public class VehicleRentDetailsController  implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION,"Vehicle Rent Deleted Successfully").show();
                     clearFields();
-                    loadNextVehicleId();
-                    loadNextRentId();
+                    loadCurrentVehicleId();
+                    loadCurrentRentId();
                     refreshTableData();
 
                 }else{
@@ -345,20 +352,30 @@ public class VehicleRentDetailsController  implements Initializable {
 
     }
     private void refreshTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<VechileRentDetailDto>  vechileRentDetailDtos=VehicleRentDetailModel.getAllVehicleRent();
-        ObservableList<VehicleRentDetailTM> vehicleRentDetailTMS= FXCollections.observableArrayList();
-        for (VechileRentDetailDto vechileRentDetailDto:vechileRentDetailDtos){
-            VehicleRentDetailTM vehicleRentDetailTM=new VehicleRentDetailTM(
+        // Retrieve all vehicle rent details from the model
+        ArrayList<VechileRentDetailDto> vechileRentDetailDtos = VehicleRentDetailModel.getAllVehicleRent();
+
+        // Create an observable list for table items
+        ObservableList<VehicleRentDetailTM> vehicleRentDetailTMS = FXCollections.observableArrayList();
+
+        // Iterate over the DTO list and map to the corresponding table model
+        for (VechileRentDetailDto vechileRentDetailDto : vechileRentDetailDtos) {
+            // Create a new VehicleRentDetailTM with the updated fields
+            VehicleRentDetailTM vehicleRentDetailTM = new VehicleRentDetailTM(
                     vechileRentDetailDto.getVehicle_id(),
                     vechileRentDetailDto.getRent_id(),
                     vechileRentDetailDto.getStart_date(),
                     vechileRentDetailDto.getEnd_date(),
                     vechileRentDetailDto.getRent_date(),
-                    vechileRentDetailDto.getCost(),
-                    vechileRentDetailDto.getVehicle_condition()
+                    vechileRentDetailDto.getVehicle_condition(),  // Updated field
+                    vechileRentDetailDto.getVehicle_quantity()
             );
+
+            // Add the TM object to the observable list
             vehicleRentDetailTMS.add(vehicleRentDetailTM);
         }
+
+        // Set the observable list as the items for the table view
         tblVehileRent.setItems(vehicleRentDetailTMS);
     }
 
@@ -368,8 +385,8 @@ public class VehicleRentDetailsController  implements Initializable {
         txtStartDate.clear();
         txtEndDate.clear();
         txtRentDate.clear();
-        txtCost.clear();
         txtCondition.clear();
+        txtVehicleQuantity.clear();
     }
 
 
@@ -416,8 +433,8 @@ public class VehicleRentDetailsController  implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
-        loadNextRentId();
-        loadNextVehicleId();
+        loadCurrentRentId();
+        loadCurrentVehicleId();
 
     }
 
@@ -431,11 +448,13 @@ public class VehicleRentDetailsController  implements Initializable {
         java.sql.Date endDate = java.sql.Date.valueOf(txtEndDate.getText());
         java.sql.Date rentDate = java.sql.Date.valueOf(txtRentDate.getText());
 
-        BigDecimal cost = BigDecimal.valueOf(Double.parseDouble(txtCost.getText()));
+
+
         String vechicleCondition = txtCondition.getText();
+        Integer Quantity = Integer.parseInt(txtVehicleQuantity.getText());
 
         // Updated to use java.sql.Date in the DTO as well
-        VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(vehicleId, rentId, startDate, endDate, rentDate, cost, vechicleCondition);
+        VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(vehicleId, rentId, startDate, endDate, rentDate, vechicleCondition,Quantity);
 
         try {
             boolean isSaved = VehicleRentDetailModel.saveVehicleRent(vechileRentDetailDto);
@@ -443,8 +462,8 @@ public class VehicleRentDetailsController  implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Vehicle Rent Saved Successfully").show();
                refreshPage();
                refreshTableData();
-               loadNextRentId();
-               loadNextVehicleId();
+                loadCurrentRentId();
+                loadCurrentVehicleId();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -454,37 +473,34 @@ public class VehicleRentDetailsController  implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-        String vehicleId=txtVehicleID.getText();
-        String rentId=txtRentId.getText();
-        if(vehicleId.isEmpty() || rentId.isEmpty()){
-            new Alert(Alert.AlertType.ERROR,"Please Enter Vehicle Id and Rent Id").show();
+        String vehicleId = txtVehicleID.getText();
+        String rentId = txtRentId.getText();
+        if (vehicleId.isEmpty() || rentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please Enter Vehicle Id and Rent Id").show();
             return;
-
         }
-        try{
-            VechileRentDetailDto vechileRentDetailDto= VehicleRentDetailModel.searchVehicleRent(vehicleId,rentId);
-            if (vechileRentDetailDto!=null){
+
+        try {
+            VechileRentDetailDto vechileRentDetailDto = VehicleRentDetailModel.searchVehicleRent(vehicleId, rentId);
+            if (vechileRentDetailDto != null) {
                 txtVehicleID.setText(vechileRentDetailDto.getVehicle_id());
                 txtRentId.setText(vechileRentDetailDto.getRent_id());
                 txtStartDate.setText(vechileRentDetailDto.getStart_date().toString());
                 txtEndDate.setText(vechileRentDetailDto.getEnd_date().toString());
                 txtRentDate.setText(vechileRentDetailDto.getRent_date().toString());
-                txtCost.setText(vechileRentDetailDto.getCost().toString());
-                txtCondition.setText(vechileRentDetailDto.getVehicle_condition());
-            }else{
-                new Alert(Alert.AlertType.ERROR,"Vehicle Rent Not Found").show();
-                loadNextRentId();
-                loadNextVehicleId();
+                txtCost.setText(vechileRentDetailDto.getVehicle_condition()); // Assuming it's text, not a number
+                txtVehicleQuantity.setText(String.valueOf(vechileRentDetailDto.getVehicle_quantity())); // Convert int to String
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Vehicle Rent Not Found").show();
+                loadCurrentRentId();
+                loadCurrentVehicleId();
                 clearFields();
             }
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error occurred while searching vehicle rent: "+e.getMessage()).show();
-
+            new Alert(Alert.AlertType.ERROR, "Error occurred while searching vehicle rent: " + e.getMessage()).show();
         }
-
-
     }
 
     @FXML
@@ -499,9 +515,10 @@ public class VehicleRentDetailsController  implements Initializable {
 
         BigDecimal cost = BigDecimal.valueOf(Double.parseDouble(txtCost.getText()));
         String vechicleCondition = txtCondition.getText();
+        Integer Quantity = Integer.parseInt(txtVehicleQuantity.getText());
 
         // Updated to use java.sql.Date in the DTO as well
-        VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(vehicleId, rentId, startDate, endDate, rentDate, cost, vechicleCondition);
+        VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(vehicleId, rentId, startDate, endDate, rentDate, vechicleCondition,Quantity);
 
         boolean isUpdated = VehicleRentDetailModel.isVehicleRentUpdated(vechileRentDetailDto);
 
@@ -509,8 +526,8 @@ public class VehicleRentDetailsController  implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Rent Updated Successfully").show();
             clearFields();
             refreshPage();
-            loadNextVehicleId();
-            loadNextRentId();
+            loadCurrentVehicleId();
+            loadCurrentRentId();
         } else {
             new Alert(Alert.AlertType.ERROR, "Vehicle Rent Not Updated").show();
         }
@@ -526,8 +543,8 @@ public class VehicleRentDetailsController  implements Initializable {
             txtStartDate.setText(vehicleRentDetailTM.getStart_date().toString());
             txtEndDate.setText(vehicleRentDetailTM.getEnd_date().toString());
             txtRentDate.setText(vehicleRentDetailTM.getRent_date().toString());
-            txtCost.setText(vehicleRentDetailTM.getCost().toString());
             txtCondition.setText(vehicleRentDetailTM.getVehicle_condition());
+            txtVehicleQuantity.setText(String.valueOf(vehicleRentDetailTM.getVehicle_quantity()));
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
@@ -543,14 +560,15 @@ public class VehicleRentDetailsController  implements Initializable {
         colStartDate.setCellValueFactory(new PropertyValueFactory<>("start_date"));
         colEndDate.setCellValueFactory(new PropertyValueFactory<>("end_date"));
         colRentDate.setCellValueFactory(new PropertyValueFactory<>("rent_date"));
-        colCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         colCondition.setCellValueFactory(new PropertyValueFactory<>("vehicle_condition"));
+        colVehicleQuantity.setCellValueFactory(new PropertyValueFactory<>("vehicle_quantity"));
+
 
         try{
             initialize();
             refreshPage();
-            loadNextVehicleId();
-            loadNextRentId();
+            loadCurrentVehicleId();
+            loadCurrentRentId();
             refreshTableData();
 
         } catch (Exception e) {
@@ -561,9 +579,9 @@ public class VehicleRentDetailsController  implements Initializable {
     }
     private  void refreshPage() throws SQLException, ClassNotFoundException {
         loadTableData();
-        loadNextVehicleId();
-        loadNextRentId();
-       btnSave.setDisable(false);
+        loadCurrentVehicleId();
+        loadCurrentRentId();
+        btnSave.setDisable(false);
        btnUpdate.setDisable(true);
        btnDelete.setDisable(true);
        clearFields();
@@ -579,8 +597,8 @@ public class VehicleRentDetailsController  implements Initializable {
                     vechileRentDetailDto.getStart_date(),
                     vechileRentDetailDto.getEnd_date(),
                     vechileRentDetailDto.getRent_date(),
-                    vechileRentDetailDto.getCost(),
-                    vechileRentDetailDto.getVehicle_condition()
+                    vechileRentDetailDto.getVehicle_condition(),
+                    vechileRentDetailDto.getVehicle_quantity()
 
             );
             vehicleRentDetailTMS.add(vehicleRentDetailTM);
@@ -589,12 +607,14 @@ public class VehicleRentDetailsController  implements Initializable {
 
 
     }
-    public void loadNextVehicleId() throws SQLException, ClassNotFoundException {
-       String nextVehicleId=VehicleRentDetailModel.loadNextVehicleId();
-        txtVehicleID.setText(nextVehicleId);
+    public void loadCurrentVehicleId() throws SQLException, ClassNotFoundException {
+        String currentVehicleId = VehicleRentDetailModel.loadCurrentVehicleId();
+        txtVehicleID.setText(currentVehicleId);
     }
-    public void loadNextRentId() throws SQLException, ClassNotFoundException {
-        String nextRentId=VehicleRentDetailModel.loadNextRentId();
-        txtRentId.setText(nextRentId);
+
+    public void loadCurrentRentId() throws SQLException, ClassNotFoundException {
+        String currentRentId = VehicleRentDetailModel.loadCurrentRentId();
+        txtRentId.setText(currentRentId);
     }
+
 }

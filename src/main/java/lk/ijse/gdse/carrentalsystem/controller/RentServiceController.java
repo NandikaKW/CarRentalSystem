@@ -112,8 +112,10 @@ public class RentServiceController  implements Initializable {
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
         loadNextRentId();
-        loadNextCustomerId();
-        loadNextAgreementId();
+        loadCurrentCustomerId();
+        //loadNextCustomerId();
+        loadCurrentAgreementId();
+       // loadNextAgreementId();
 
 
     }
@@ -136,7 +138,8 @@ public class RentServiceController  implements Initializable {
                   new Alert(Alert.AlertType.INFORMATION,"Rent deleted successfully").show();
                   clearFields();
                   loadNextRentId();
-                  loadNextCustomerId();
+                    loadCurrentCustomerId();
+                 // loadNextCustomerId();
                   refreshTableData();
                 }else{
                     new Alert(Alert.AlertType.ERROR,"Failed to delete rent").show();
@@ -182,7 +185,8 @@ public class RentServiceController  implements Initializable {
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Rent saved successfully").show();
-                loadNextCustomerId();
+                //loadNextCustomerId();
+                loadCurrentCustomerId();
                 loadNextRentId();
                 refreshPage();
             } else {
@@ -200,10 +204,12 @@ public class RentServiceController  implements Initializable {
 
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
-        loadNextAgreementId();
+        //loadNextAgreementId();
+        loadCurrentAgreementId();
         loadNextRentId();
         loadTableData();
-        loadNextCustomerId();
+        //loadNextCustomerId();
+        loadCurrentCustomerId();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
         btnDelete.setDisable(true);
@@ -229,7 +235,8 @@ public class RentServiceController  implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Rent found").show();
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Rent not found").show();
-                loadNextCustomerId();
+                //loadNextCustomerId();
+                loadCurrentCustomerId();
                 loadNextRentId();
                 clearFields();
             }
@@ -260,7 +267,8 @@ public class RentServiceController  implements Initializable {
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Rent updated successfully").show();
                 refreshPage();
-                loadNextCustomerId();
+                //loadNextCustomerId();
+                loadCurrentCustomerId();
                 loadNextRentId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update rent").show();
@@ -286,19 +294,29 @@ public class RentServiceController  implements Initializable {
             btnDelete.setDisable(false);
         }
     }
+    public void loadCurrentCustomerId() throws SQLException, ClassNotFoundException {
+        String currentCustomerId = CustomerModel.loadCurrentCustomerId();
+        txtCustomerId.setText(currentCustomerId);
+    }
+
 
     public void loadNextRentId() throws SQLException, ClassNotFoundException {
         String nextRentId = RentModel.loadNextRentId();
         txtRentId.setText(nextRentId);
     }
-    public  void loadNextCustomerId() throws SQLException, ClassNotFoundException {
-       String nextCustomerId= CustomerModel.loadNextCustomerId();
-       txtCustomerId.setText(nextCustomerId);
-    }
-    public void loadNextAgreementId() throws SQLException, ClassNotFoundException {
-        String nextAgreementId= AgrimentModel.loadNextAgreementId();
-        txtAgrimentID.setText(nextAgreementId);
-    }
+//    public  void loadNextCustomerId() throws SQLException, ClassNotFoundException {
+//       String nextCustomerId= CustomerModel.loadNextCustomerId();
+//       txtCustomerId.setText(nextCustomerId);
+//    }
+public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException {
+    String currentAgreementId = AgrimentModel.loadCurrentAgreementId();
+    txtAgrimentID.setText(currentAgreementId);
+}
+
+//    public void loadNextAgreementId() throws SQLException, ClassNotFoundException {
+//        String nextAgreementId= AgrimentModel.loadNextAgreementId();
+//        txtAgrimentID.setText(nextAgreementId);
+//    }
 
 
 
@@ -315,7 +333,8 @@ public class RentServiceController  implements Initializable {
         try {
             refreshPage();
             loadNextRentId();
-            loadNextCustomerId();
+            //loadNextCustomerId();
+            loadCurrentCustomerId();
             refreshTableData();
 
             updateYears();

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AdminModel {
+
     public static boolean saveAdmin(AdminDto adminDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO admin VALUES(?,?,?,?)",adminDto.getAdmin_id(),adminDto.getUserName(),adminDto.getEmail(),adminDto.getPassword());
 
@@ -68,5 +69,14 @@ public class AdminModel {
             adminDtos.add(adminDto);
         }
         return adminDtos;
+    }
+
+    public static String loadCurrentAdminId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("SELECT admin_id FROM admin ORDER BY admin_id DESC LIMIT 1");
+
+        if (rst.next()) {
+            return rst.getString("admin_id");  // Return the last admin ID without incrementing it
+        }
+        return null;  // Or handle this case as needed if there are no admin records
     }
 }

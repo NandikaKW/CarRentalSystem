@@ -86,4 +86,15 @@ public class DamageModel {
         return "R001";
 
     }
+
+    public static String loadCurrentRentId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT rent_id FROM rent ORDER BY rent_id DESC LIMIT 1");
+
+        if (resultSet.next()) {
+            return resultSet.getString("rent_id");  // Return the most recent rent_id directly
+        }
+
+        return null;
+    }
+
 }

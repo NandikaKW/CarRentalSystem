@@ -46,7 +46,7 @@ public class CustomerController implements Initializable {
         colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
         try {
             refreshPage();
-            loadNextAdminId();
+            loadCurrentAdminId();
             loadNextCustomerId();
             refreshTableData();
         } catch (SQLException | ClassNotFoundException e) {
@@ -176,7 +176,7 @@ public class CustomerController implements Initializable {
                     clearFields();
                     refreshTableData();
                     loadNextCustomerId();
-                    loadNextAdminId();
+                    loadCurrentAdminId();
 
                     refreshTableData();
                 } else {
@@ -197,7 +197,7 @@ public class CustomerController implements Initializable {
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
         loadNextCustomerId();
-        loadNextAdminId();
+        loadCurrentAdminId();
 
 
 
@@ -283,7 +283,7 @@ public class CustomerController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully!").show();
                 refreshPage();
                 loadNextCustomerId();
-                loadNextAdminId();
+                loadCurrentAdminId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
             }
@@ -398,7 +398,7 @@ public class CustomerController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
                 refreshPage();
                 loadNextCustomerId();
-                loadNextAdminId();
+                loadCurrentAdminId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
             }
@@ -431,10 +431,11 @@ public class CustomerController implements Initializable {
 
     // Load the next admin ID
     // Load the current Admin ID
-    public void loadNextAdminId() throws SQLException, ClassNotFoundException {
-        String loadNextAdminId = AdminModel.loadNextAdminId();
-        txtAdminID.setText(loadNextAdminId);
+    public void loadCurrentAdminId() throws SQLException, ClassNotFoundException {
+        String currentAdminId = AdminModel.loadCurrentAdminId();
+        txtAdminID.setText(currentAdminId);
     }
+
 
 
     private void refreshTableData() throws SQLException, ClassNotFoundException {

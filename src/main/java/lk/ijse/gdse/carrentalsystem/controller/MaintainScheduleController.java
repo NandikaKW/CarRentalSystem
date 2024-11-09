@@ -122,7 +122,7 @@ public class MaintainScheduleController  implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION, "Maintain deleted successfully!").show();
                     clearFields();
-                    loadNextVehicleId();
+                    loadCurrentVehicleId();
                     loadNextMaintainId();
                     refreshTableData();
 
@@ -162,7 +162,7 @@ public class MaintainScheduleController  implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
-        loadNextVehicleId();
+        loadCurrentVehicleId();
         loadNextMaintainId();
 
     }
@@ -218,7 +218,7 @@ public class MaintainScheduleController  implements Initializable {
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Maintain saved successfully!").show();
                 loadNextMaintainId();
-                loadNextVehicleId();
+                loadCurrentVehicleId();
                 refreshPage();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save Maintain!").show();
@@ -256,7 +256,7 @@ public class MaintainScheduleController  implements Initializable {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Maintain not found").show();
                 clearFields();
-                loadNextVehicleId();
+                loadCurrentVehicleId();
                 loadNextMaintainId();
 
             }
@@ -310,7 +310,7 @@ public class MaintainScheduleController  implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Maintain updated successfully!").show();
                 refreshPage();
                 loadNextMaintainId();
-                loadNextVehicleId();
+                loadCurrentVehicleId();
 
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update Maintain!").show();
@@ -358,7 +358,7 @@ public class MaintainScheduleController  implements Initializable {
        try{
            refreshPage();
            loadNextMaintainId();
-           loadNextVehicleId();
+           loadCurrentVehicleId();
            refreshTableData();
 
 
@@ -426,10 +426,11 @@ public class MaintainScheduleController  implements Initializable {
         String nextId=MaintinModel.loadNextMaintainId();
         txtMaintainID.setText(nextId);
     }
-    public void loadNextVehicleId() throws SQLException, ClassNotFoundException {
-        String nextId=MaintinModel.loadNextVehicleId();
-        txtVehicleID.setText(nextId);
+    public void loadCurrentVehicleId() throws SQLException, ClassNotFoundException {
+        String currentVehicleId = MaintinModel.loadCurrentVehicleId();
+        txtVehicleID.setText(currentVehicleId);
     }
+
 
 
     public void ComboYearOnAction(ActionEvent actionEvent) {

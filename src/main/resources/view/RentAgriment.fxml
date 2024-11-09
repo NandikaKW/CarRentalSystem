@@ -54,7 +54,7 @@
             <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtAgrimentId" layoutX="502.0" layoutY="57.0" prefHeight="26.0" prefWidth="91.0" promptText="Agriment ID" />
+      <TextField fx:id="txtAgriID" layoutX="502.0" layoutY="57.0" prefHeight="26.0" prefWidth="91.0" promptText="Agriment ID" />
       <TextField fx:id="txtEndDate" layoutX="72.0" layoutY="90.0" prefHeight="26.0" prefWidth="110.0" promptText="EndDate" />
       <TextField fx:id="txtPaymentTerms" layoutX="101.0" layoutY="124.0" prefHeight="26.0" prefWidth="91.0" promptText="PaymentTerms" />
       <TextField fx:id="txtDepositAmount" layoutX="293.0" layoutY="124.0" prefHeight="26.0" prefWidth="110.0" promptText="Deposit Amount" />

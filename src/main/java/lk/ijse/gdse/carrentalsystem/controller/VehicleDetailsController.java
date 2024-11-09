@@ -112,7 +112,7 @@ public class VehicleDetailsController  implements Initializable {
                    new Alert(Alert.AlertType.INFORMATION, "Vehicle Deleted Successfully").show();
                    clearFields();
                    loadNextVehicleId();
-                   loadNextPackageId();
+                   loadCurrentPackageId();
                    refreshTableData();
 
                }else{
@@ -160,7 +160,7 @@ public class VehicleDetailsController  implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
-        loadNextPackageId();
+        loadCurrentPackageId();
         loadNextVehicleId();
 
     }
@@ -179,7 +179,7 @@ public class VehicleDetailsController  implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Saved Successfully").show();
             refreshPage();
             loadNextVehicleId();
-            loadNextPackageId();
+            loadCurrentPackageId();
 
 
         }else{
@@ -209,7 +209,7 @@ public class VehicleDetailsController  implements Initializable {
 
             }else{
                 new Alert(Alert.AlertType.ERROR, "Vehicle Not Found").show();
-                loadNextPackageId();
+                loadCurrentPackageId();
                 loadNextVehicleId();
                 clearFields();
             }
@@ -236,7 +236,7 @@ public class VehicleDetailsController  implements Initializable {
         if(isUpdated){
             new Alert(Alert.AlertType.INFORMATION, "Vehicle Updated Successfully").show();
             refreshPage();
-            loadNextPackageId();
+            loadCurrentPackageId();
             loadNextVehicleId();
 
 
@@ -278,7 +278,7 @@ public class VehicleDetailsController  implements Initializable {
 
         try{
             refreshPage();
-            loadNextPackageId();
+            loadCurrentPackageId();
             loadNextVehicleId();
             refreshTableData();
 
@@ -318,9 +318,10 @@ public class VehicleDetailsController  implements Initializable {
         String nextVehicleId=VehicleModel.loadNextVehicleId();
         txtVehicleId.setText(nextVehicleId);
     }
-    public void loadNextPackageId() throws SQLException, ClassNotFoundException {
-        String nexetPackage=VehicleModel.loadNextPackageId();
-        txtPackageId.setText(nexetPackage);
+    public void loadCurrentPackageId() throws SQLException, ClassNotFoundException {
+        String currentPackageId = VehicleModel.loadCurrentPackageId();
+        txtPackageId.setText(currentPackageId);
     }
+
 
 }

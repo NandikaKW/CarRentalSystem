@@ -29,7 +29,7 @@
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblCost" layoutX="208.0" layoutY="52.0" text="Cost ">
+      <Label fx:id="lblVehicleQuantity" layoutX="208.0" layoutY="52.0" text="Vehicle Quantity">
          <font>
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
@@ -39,7 +39,7 @@
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblCondition" layoutX="531.0" layoutY="50.0" text="Condition ">
+      <Label fx:id="lblCondition" layoutX="580.0" layoutY="50.0" text="Condition ">
          <font>
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
@@ -49,7 +49,7 @@
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblRentID" layoutX="355.0" layoutY="54.0" text="Rent ID ">
+      <Label fx:id="lblRentID" layoutX="399.0" layoutY="54.0" text="Rent ID ">
          <font>
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
@@ -57,21 +57,21 @@
       <TextField fx:id="txtVehicleID" layoutX="75.0" layoutY="50.0" prefHeight="26.0" prefWidth="127.0" promptText="Vehicle ID" />
       <TextField fx:id="txtStartDate" layoutX="68.0" layoutY="79.0" prefHeight="26.0" prefWidth="127.0" promptText="Start Date" />
       <TextField fx:id="txtEndDate" layoutX="67.0" layoutY="113.0" prefHeight="26.0" prefWidth="127.0" promptText="End Date " />
-      <TextField fx:id="txtCost" layoutX="240.0" layoutY="50.0" prefHeight="26.0" prefWidth="112.0" promptText="Cost" />
-      <TextField fx:id="txtCondition" layoutX="594.0" layoutY="46.0" prefHeight="26.0" prefWidth="112.0" promptText="Condtion" />
+      <TextField fx:id="txtVehicleQuantity" layoutX="314.0" layoutY="50.0" prefHeight="26.0" prefWidth="82.0" promptText="Quantity" />
+      <TextField fx:id="txtCondition" layoutX="650.0" layoutY="46.0" prefHeight="26.0" prefWidth="112.0" promptText="Condtion" />
       <TextField fx:id="txtRentDate" layoutX="590.0" layoutY="81.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent Date" />
       <ImageView fitHeight="48.0" fitWidth="50.0" layoutX="496.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/8948327.gif" />
          </image>
       </ImageView>
-      <TextField fx:id="txtRentId" layoutX="408.0" layoutY="50.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />
+      <TextField fx:id="txtRentId" layoutX="461.0" layoutY="50.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />
       <TableView fx:id="tblVehileRent" layoutY="187.0" onMouseClicked="#tblVehicleRentClickedOnAction" prefHeight="506.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colVehicleID" prefWidth="99.19997864961624" text="Vehicle ID " />
           <TableColumn fx:id="colStartDate" prefWidth="80.79998779296875" text="Start Date " />
             <TableColumn fx:id="colEndDate" prefWidth="112.00001525878906" text="End Date " />
-            <TableColumn fx:id="colCost" prefWidth="92.79998779296875" text="Cost " />
+            <TableColumn fx:id="colVehicleQuantity" prefWidth="92.79998779296875" text="Quantity" />
             <TableColumn fx:id="colCondition" prefWidth="149.5999755859375" text="Condition " />
             <TableColumn fx:id="colRentDate" prefWidth="83.2000732421875" text="Rent Date " />
             <TableColumn fx:id="colRentID" prefWidth="141.5999755859375" text="Rent ID" />

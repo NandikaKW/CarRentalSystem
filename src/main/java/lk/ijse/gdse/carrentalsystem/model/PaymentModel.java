@@ -34,32 +34,9 @@ public class PaymentModel {
     }
 
     public static boolean savePayment(PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
-        boolean isSaved = CrudUtil.execute("INSERT INTO payment VALUES(?,?,?,?,?,?,?,?)",
-                paymentDto.getPay_id(),
-                paymentDto.getAmount(),
-                paymentDto.getDate(),
-                paymentDto.getInvoice(),
-                paymentDto.getMethod(),
-                paymentDto.getTransaction_reference(),
-                paymentDto.getTax(),
-                paymentDto.getDiscount_applied());
-        if (isSaved) {
-            // Calculate the final amount after tax and discount
-            BigDecimal taxAmount = paymentDto.getAmount().multiply(paymentDto.getTax().divide(BigDecimal.valueOf(100), BigDecimal.ROUND_HALF_UP));
-            BigDecimal discountAmount = paymentDto.getAmount().multiply(paymentDto.getDiscount_applied().divide(BigDecimal.valueOf(100), BigDecimal.ROUND_HALF_UP));
-            BigDecimal finalAmount = paymentDto.getAmount().add(taxAmount).subtract(discountAmount);
+        return CrudUtil.execute("INSERT INTO payment VALUES(?,?,?,?,?,?,?,?)", paymentDto.getPay_id(), paymentDto.getAmount(), paymentDto.getDate(), paymentDto.getInvoice(), paymentDto.getMethod(), paymentDto.getTransaction_reference(), paymentDto.getTax(), paymentDto.getDiscount_applied());
 
-            // Update the rent_payment_details table with the calculated final amount
-            boolean isRentPaymentUpdated = CrudUtil.execute("UPDATE rent_payment_details SET pay_amount=? WHERE pay_id=?",
-                    finalAmount,
-                    paymentDto.getPay_id());
-
-            return isRentPaymentUpdated;
-        }
-
-        return false;
     }
-
     public static boolean UpdatePayment(PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("UPDATE payment SET pay_id=?, amount=?, date=?, invoice=?, method=?, transaction_reference=?, tax=?, discount=? WHERE pay_id=?",
                 paymentDto.getPay_id(),                // Correctly pass pay_id here for the first column in the update

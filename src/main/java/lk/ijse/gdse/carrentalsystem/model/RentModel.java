@@ -40,35 +40,38 @@ public class RentModel {
     public static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
         try {
+            // Set auto-commit to false to manage transactions manually
             connection.setAutoCommit(false);
 
-            // Save the rent details
-            boolean isRentSaved = CrudUtil.execute("INSERT INTO rent VALUES (?,?,?,?,?)",
-                    dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId()
-            );
-            if (!isRentSaved) {
-                connection.rollback();
-                return false;
+            // Save rent details
+            boolean isRentSaved = CrudUtil.execute("INSERT INTO rent (rent_id, start_date, end_date, cust_id, agreement_id) VALUES (?,?,?,?,?)",
+                    dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId());
+
+            // If rent is saved, proceed to save vehicle rent details
+            if (isRentSaved) {
+                // Save associated vehicle rent details
+                boolean isVehicleRentSaved = VehicleRentDetailModel.saveVehicleRentList(dto.getVehicleRentDetailDtos());
+
+                // If both rent and vehicle rent details are saved, commit the transaction
+                if (isVehicleRentSaved) {
+                    connection.commit();
+                    return true;
+                }
             }
 
-            // Save vehicle rent details and reduce quantity
-            boolean isVehicleRentSaved = VehicleRentDetailModel.saveVehicleRentList(dto.getVehicleRentDetailDtos());
-            if (!isVehicleRentSaved) {
-                connection.rollback();
-                return false;
-            }
-
-            // Commit transaction if both operations succeed
-            connection.commit();
-            return true;
-
+            // Rollback the transaction if any part of the process fails
+            connection.rollback();
+            return false;
         } catch (Exception e) {
+            // Rollback the transaction in case of any exception
             connection.rollback();
             e.printStackTrace();
             return false;
         } finally {
+            // Restore auto-commit mode
             connection.setAutoCommit(true);
         }
+
     }
 
     public static RentDto SearchRent(String rentId) throws SQLException, ClassNotFoundException {
@@ -103,17 +106,8 @@ public class RentModel {
         return "R001"; // If no previous customers exist
     }
 
-    public String loadNextCustomerId() throws SQLException, ClassNotFoundException, SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1");
-        if (rst.next()) {
-            String lastID = rst.getString(1);
-            String substring = lastID.substring(1); // Strip the leading "C"
-            int id = Integer.parseInt(substring);
-            int newIndex = id + 1;
-            return String.format("C%03d", newIndex); // Format the new ID as "Cxxx"
-        }
-        return "C001"; // If no previous customers exist
-    }
+
+
 
 
 

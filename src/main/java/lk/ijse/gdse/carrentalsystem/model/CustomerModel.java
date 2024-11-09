@@ -8,6 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CustomerModel {
+    public static String loadCurrentCustomerId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1");
+
+        if (rst.next()) {
+            return rst.getString("cust_id");  // Directly return the latest customer ID
+        }
+        return null;  // Return null if no customer records are available
+    }
+
     // Load the next customer ID
     public static String loadNextCustomerId() throws SQLException, ClassNotFoundException, SQLException {
         ResultSet rst = CrudUtil.execute("SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1");

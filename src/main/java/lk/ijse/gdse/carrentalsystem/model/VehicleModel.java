@@ -83,8 +83,6 @@ public class VehicleModel {
 
     }
     public static boolean reduceVehicleQuantity(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
-
-
         try {
             // Execute the update statement to reduce quantity by 1
             return CrudUtil.execute("UPDATE vehicle SET quantity = quantity - 1 WHERE vehicle_id = ?", vechileRentDetailDto.getVehicle_id());
@@ -100,5 +98,14 @@ public class VehicleModel {
     }
 
 
+    public static String loadCurrentPackageId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT package_id FROM package ORDER BY package_id DESC LIMIT 1");
+
+        if (resultSet.next()) {
+            return resultSet.getString("package_id");  // Return the most recent package_id directly
+        }
+
+        return null;  // Return null if there are no records in the package table
+    }
 
 }

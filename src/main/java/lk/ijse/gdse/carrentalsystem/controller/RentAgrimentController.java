@@ -96,6 +96,8 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     private TableView<AgrimentTM> tblAgriment;
+    @FXML
+    private TextField txtAgriID;
 
     @FXML
     private TextField txtAgrimentId;
@@ -166,7 +168,7 @@ public class RentAgrimentController implements Initializable {
     }
 
     public void clearFields() {
-        txtAgrimentId.setText("");
+        txtAgriID.setText("");
         txtCost.setText("");
         txtDepositAmount.setText("");
         txtEndDate.setText("");
@@ -450,14 +452,24 @@ public class RentAgrimentController implements Initializable {
     }
     public void loadNextAgrimentId() throws SQLException, ClassNotFoundException {
         try {
+            // Get the next agreement ID
             String nextAgrimentId = AgrimentModel.getNextAgrimentId();
+
+            // Debugging to ensure the ID is returned correctly
             System.out.println("Next Agreement ID: " + nextAgrimentId);
-            txtAgrimentId.setText(nextAgrimentId);
+
+            // Ensure that the text field is properly set
+            if (nextAgrimentId != null && !nextAgrimentId.isEmpty()) {
+                txtAgriID.setText(nextAgrimentId);
+            } else {
+                // Handle case where the ID is null or empty (could happen if no agreement records exist)
+                new Alert(Alert.AlertType.WARNING, "Failed to load next agreement ID").show();
+            }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Error occurred while loading next agreement ID: " + e.getMessage()).show();
         }
-
     }
+
 
 }

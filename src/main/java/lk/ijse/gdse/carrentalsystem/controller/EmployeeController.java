@@ -92,7 +92,9 @@ public class EmployeeController implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION,"Employee deleted successfully!").show();
                     clearFields();
-                    loadNextAdminId();
+                    loadCurrentAdminId();
+                    //loadNextAdminId();
+                    //loadCurrentEmployeeId();
                     loadNextEmployeeId();
                     refreshTableData();
 
@@ -142,8 +144,10 @@ public class EmployeeController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
-        loadNextAdminId();
+        loadCurrentAdminId();
+       // loadNextAdminId();
         loadNextEmployeeId();
+       // loadCurrentEmployeeId();
 
     }
 
@@ -211,8 +215,10 @@ public class EmployeeController implements Initializable {
                 boolean isSaved = EmployeeModel.saveEmployee(employeeDto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully!").show();
-                    loadNextAdminId();
+                    //loadNextAdminId();
+                    loadCurrentAdminId();
                     loadNextEmployeeId();
+                  //  loadCurrentEmployeeId();
                     refreshPage();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to save Employee!").show();
@@ -254,8 +260,11 @@ public class EmployeeController implements Initializable {
           }else{
               new Alert(Alert.AlertType.ERROR,"Employee not found!").show();
               clearFields();
-              loadNextAdminId();
+              //loadNextAdminId();
+              loadCurrentAdminId();
               loadNextEmployeeId();
+              //loadCurrentEmployeeId();
+
 
           }
 
@@ -330,8 +339,10 @@ public class EmployeeController implements Initializable {
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully!").show();
-                loadNextAdminId();
+               // loadNextAdminId();
+                loadCurrentAdminId();
                 loadNextEmployeeId();
+              //  loadCurrentEmployeeId();
                 refreshPage();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update employee!").show();
@@ -373,7 +384,9 @@ public class EmployeeController implements Initializable {
         try{
             refreshPage();
           loadNextEmployeeId();
-          loadNextAdminId();
+            //loadCurrentEmployeeId();
+          //loadNextAdminId();
+            loadCurrentAdminId();
           refreshTableData();
 
        }catch (SQLException | ClassNotFoundException e){
@@ -386,7 +399,9 @@ public class EmployeeController implements Initializable {
     }
     private  void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextEmployeeId();
-        loadNextAdminId();
+
+        //loadNextAdminId();
+        loadCurrentAdminId();
         loadTableDta();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
@@ -421,10 +436,20 @@ public class EmployeeController implements Initializable {
         String nextEmployeeId=EmployeeModel.loadNextEmployeeId();
         txtEmployeeID.setText(nextEmployeeId);
     }
-    public void loadNextAdminId() throws SQLException, ClassNotFoundException {
-        String nextAdminId = AdminModel.loadNextAdminId();
-        txtAdminID.setText(nextAdminId);
+//    public void loadNextAdminId() throws SQLException, ClassNotFoundException {
+//        String nextAdminId = AdminModel.loadNextAdminId();
+//        txtAdminID.setText(nextAdminId);
+//    }
+    public void loadCurrentAdminId() throws SQLException, ClassNotFoundException {
+        String currentAdminId = AdminModel.loadCurrentAdminId();
+        txtAdminID.setText(currentAdminId);
     }
+
+//    public void loadCurrentEmployeeId() throws SQLException, ClassNotFoundException {
+//        String currentEmployeeId = EmployeeModel.loadCurrentEmployeeId();
+//        txtEmployeeID.setText(currentEmployeeId);
+//    }
+
 
 
     public void onClickedEmployeeTable(MouseEvent mouseEvent) {

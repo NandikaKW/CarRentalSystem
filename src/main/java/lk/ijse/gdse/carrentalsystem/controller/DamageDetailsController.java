@@ -99,7 +99,7 @@ public class DamageDetailsController implements Initializable {
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Damage deleted successfully!").show();
                     clearFields();
-                    loadNextRentId();
+                    loadCurrentRentId();
                     loadNextDamageId();
                     refreshTableData();
                 } else {
@@ -157,7 +157,7 @@ public class DamageDetailsController implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         clearFields();
-        loadNextRentId();
+        loadCurrentRentId();
         loadNextDamageId();
 
     }
@@ -214,7 +214,7 @@ public class DamageDetailsController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Damage saved successfully!").show();
                 clearFields();
                 refreshPage();
-                loadNextRentId();
+                loadCurrentRentId();
                 loadNextDamageId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save damage!").show();
@@ -254,7 +254,7 @@ public class DamageDetailsController implements Initializable {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Damage not found!").show();
                 clearFields();
-                loadNextRentId();
+                loadCurrentRentId();
                 loadNextDamageId();
 
             }
@@ -320,7 +320,7 @@ public class DamageDetailsController implements Initializable {
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Damage Detail updated successfully!").show();
                 refreshPage();
-                loadNextRentId();
+                loadCurrentRentId();
                 loadNextDamageId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update Damage Detail!").show();
@@ -342,7 +342,7 @@ public class DamageDetailsController implements Initializable {
         colRentId.setCellValueFactory(new PropertyValueFactory<>("rent_id"));
         try{
             refreshPage();
-            loadNextRentId();
+            loadCurrentRentId();
             loadNextDamageId();
             refreshTableData();
 
@@ -385,10 +385,11 @@ public class DamageDetailsController implements Initializable {
 
 
 
-    public void loadNextRentId() throws SQLException, ClassNotFoundException {
-        String nextRentId=DamageModel.loadNextRentId();
-        txtRentId.setText(nextRentId);
+    public void loadCurrentRentId() throws SQLException, ClassNotFoundException {
+        String currentRentId = DamageModel.loadCurrentRentId();
+        txtRentId.setText(currentRentId);
     }
+
 
     public void btnReportOnAction(ActionEvent actionEvent) {
         try {

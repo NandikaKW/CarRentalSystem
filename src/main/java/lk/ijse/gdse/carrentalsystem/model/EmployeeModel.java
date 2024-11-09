@@ -11,6 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeModel {
+//    public static String loadCurrentEmployeeId() throws SQLException, ClassNotFoundException {
+//        ResultSet resultSet = CrudUtil.execute("SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1");
+//        if (resultSet.next()) {
+//            return resultSet.getString("emp_id");  // Return the last employee ID without incrementing it
+//        }
+//        return null;  // Or handle as needed if there is no employee record
+//    }
+
+
+
 
     public static String loadNextEmployeeId() throws SQLException, ClassNotFoundException {
         ResultSet resultSet=CrudUtil.execute("SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1");

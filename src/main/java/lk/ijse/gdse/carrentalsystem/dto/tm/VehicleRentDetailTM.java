@@ -9,22 +9,25 @@ public class VehicleRentDetailTM {
     private Date start_date;
     private Date end_date;
     private Date rent_date;
-    private BigDecimal cost;
     private String vehicle_condition;
+    private int vehicle_quantity;
 
+    // Default constructor
     public VehicleRentDetailTM() {
     }
 
-    public VehicleRentDetailTM(String vehicle_id, String rent_id, Date start_date, Date end_date, Date rent_date, BigDecimal cost, String vehicle_condition) {
+    // Parameterized constructor
+    public VehicleRentDetailTM(String vehicle_id, String rent_id, Date start_date, Date end_date, Date rent_date, String vehicle_condition, int vehicle_quantity) {
         this.vehicle_id = vehicle_id;
         this.rent_id = rent_id;
         this.start_date = start_date;
         this.end_date = end_date;
         this.rent_date = rent_date;
-        this.cost = cost;
         this.vehicle_condition = vehicle_condition;
+        this.vehicle_quantity = vehicle_quantity;
     }
 
+    // Getters and Setters
     public String getVehicle_id() {
         return vehicle_id;
     }
@@ -65,20 +68,20 @@ public class VehicleRentDetailTM {
         this.rent_date = rent_date;
     }
 
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
     public String getVehicle_condition() {
         return vehicle_condition;
     }
 
     public void setVehicle_condition(String vehicle_condition) {
         this.vehicle_condition = vehicle_condition;
+    }
+
+    public int getVehicle_quantity() {
+        return vehicle_quantity;
+    }
+
+    public void setVehicle_quantity(int vehicle_quantity) {
+        this.vehicle_quantity = vehicle_quantity;
     }
 
     @Override
@@ -89,8 +92,8 @@ public class VehicleRentDetailTM {
                 ", start_date=" + start_date +
                 ", end_date=" + end_date +
                 ", rent_date=" + rent_date +
-                ", cost=" + cost +
                 ", vehicle_condition='" + vehicle_condition + '\'' +
+                ", vehicle_quantity=" + vehicle_quantity +
                 '}';
     }
 }

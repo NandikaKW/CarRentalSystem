@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.dto.RentPayemntDto;
 import lk.ijse.gdse.carrentalsystem.model.RentPaymentModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentPaymentTM;
@@ -186,8 +187,8 @@ public class RentPaymentDetailsController  implements Initializable {
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION,"RentPayment deleted successfully").show();
                     clearFields();
-                    loadNextPaymentId();
-                    loadNextRentId();
+                    loadCurrentPaymentId();
+                    loadCurrentRentId();
                     refreshTableData();
 
                 }else{
@@ -238,13 +239,14 @@ public class RentPaymentDetailsController  implements Initializable {
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
-        loadNextPaymentId();
-        loadNextRentId();
+        loadCurrentPaymentId();
+        loadCurrentRentId();
 
     }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        // Get values from text fields
         String rentId = txtRentId.getText();
         String paymentId = txtPaymentId.getText();
 
@@ -259,7 +261,7 @@ public class RentPaymentDetailsController  implements Initializable {
         }
         Date paymentDate = java.sql.Date.valueOf(localDate);  // Convert to SQL Date type
 
-        // Get duration as a String (no parsing to int)
+        // Get duration as a String
         String duration = txtDuration.getText();
 
         String description = txtDescription.getText();
@@ -280,18 +282,32 @@ public class RentPaymentDetailsController  implements Initializable {
                 rentId, paymentId, paymentDate, duration, description, payamount, paymentMethod
         );
 
+        // Create the PaymentDto object with relevant data
+        PaymentDto paymentDto = new PaymentDto(
+                paymentId,        // pay_id
+                payamount,        // amount
+                paymentDate,      // date
+                "",               // invoice (set empty or provide an appropriate value)
+                paymentMethod,    // method
+                "",               // transaction_reference (set empty or provide an appropriate value)
+                BigDecimal.ZERO,  // tax (default to zero if not available)
+                BigDecimal.ZERO   // discount (default to zero if not available)
+        );
+
         try {
-            boolean isSaved = RentPaymentModel.saveRentPayment(rentPayemntDto);
+            boolean isSaved = RentPaymentModel.saveRentPayment(paymentDto, rentPayemntDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "RentPayment saved successfully").show();
                 refreshPage();
-                loadNextRentId();
-                loadNextPaymentId();
+                loadCurrentRentId();
+                loadCurrentPaymentId();
+                loadTableData();  // Refresh the table to show new data
+
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save RentPayment").show();
             }
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();  // Log the error
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
@@ -318,8 +334,8 @@ public class RentPaymentDetailsController  implements Initializable {
                  txtPaymentMethod.setText(rentPayemntDto.getPayment_method());
              }else{
                  new Alert(Alert.AlertType.ERROR,"RentPayment Not Found").show();
-                 loadNextPaymentId();
-                 loadNextRentId();
+                 loadCurrentPaymentId();
+                 loadCurrentRentId();
                  clearFields();
              }
 
@@ -373,8 +389,8 @@ public class RentPaymentDetailsController  implements Initializable {
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "RentPayment updated successfully").show();
                 refreshPage();
-                loadNextPaymentId();
-                loadNextRentId();
+                loadCurrentPaymentId();
+                loadCurrentRentId();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update RentPayment").show();
             }
@@ -415,8 +431,8 @@ public class RentPaymentDetailsController  implements Initializable {
         colPaymentMethod.setCellValueFactory(new PropertyValueFactory<>("payment_method"));
 
         try{
-            loadNextPaymentId();
-            loadNextRentId();
+            loadCurrentPaymentId();
+            loadCurrentRentId();
             refreshTableData();
             initializeDateCombos();
 
@@ -445,8 +461,8 @@ public class RentPaymentDetailsController  implements Initializable {
 
 
     private  void refreshPage() throws SQLException, ClassNotFoundException {
-        loadNextPaymentId();
-        loadNextRentId();
+        loadCurrentPaymentId();
+        loadCurrentRentId();
         loadTableData();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
@@ -473,23 +489,24 @@ public class RentPaymentDetailsController  implements Initializable {
         }
         tblRentPayment.setItems(rentPaymentTMS);
     }
-    public void loadNextPaymentId() throws SQLException, ClassNotFoundException {
+    public void loadCurrentPaymentId() throws SQLException, ClassNotFoundException {
         try {
-            String nextPaymentId = RentPaymentModel.loadNextPaymentId();
-
-            txtPaymentId.setText(nextPaymentId);
-        }catch (Exception e){
+            String currentPaymentId = RentPaymentModel.loadCurrentPaymentId();
+            txtPaymentId.setText(currentPaymentId);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void loadNextRentId() throws SQLException, ClassNotFoundException {
+
+
+    public void loadCurrentRentId() throws SQLException, ClassNotFoundException {
         try {
-            String nextRentId = RentPaymentModel.loadNextRentId();
-            txtRentId.setText(nextRentId);
-        }catch (Exception e){
+            String currentRentId = RentPaymentModel.loadCurrentRentId();
+            txtRentId.setText(currentRentId);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
 }

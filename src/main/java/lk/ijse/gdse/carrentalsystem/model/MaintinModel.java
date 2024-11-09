@@ -85,4 +85,14 @@ public class MaintinModel {
     }
 
 
+    public static String loadCurrentVehicleId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT vehicle_id FROM vehicle ORDER BY vehicle_id DESC LIMIT 1");
+
+        if (resultSet.next()) {
+            return resultSet.getString("vehicle_id");  // Return the most recent vehicle_id directly
+        }
+
+        return null;  // Return null if there are no records in the vehicle table
+    }
+
 }
