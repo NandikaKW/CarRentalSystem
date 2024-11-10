@@ -113,35 +113,43 @@ public class PackageOffersController  implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String packageId = txtPackageId.getText();
-        if(packageId.isEmpty()){
-            new Alert(Alert.AlertType.WARNING," Please enter a Package ID to delete!").show();
-            return;
 
+        // Input validation for Package ID
+        if (packageId.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a Package ID to delete!").show();
+            return; // Exit if the Package ID is not entered
         }
-        Alert alert= new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this Package?",ButtonType.YES,ButtonType.NO);
-        Optional<ButtonType> optionalButtonType=alert.showAndWait();
-        if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
-            try{
-                boolean isDeleted=PackageModel.deletePackage(packageId);
-                if(isDeleted){
-                    new Alert(Alert.AlertType.INFORMATION,"Package deleted successfully!").show();
+
+        // Confirmation dialog before deletion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Package?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        // Proceed only if YES is selected
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+            try {
+                // Attempt to delete the package
+                boolean isDeleted = PackageModel.deletePackage(packageId);
+
+                if (isDeleted) {
+                    // Show success message if deletion is successful
+                    new Alert(Alert.AlertType.INFORMATION, "Package deleted successfully!").show();
                     clearFields();
                     refreshTableData();
                     loadNextPackageId();
-
-                }else{
-                    new Alert(Alert.AlertType.ERROR,"Failed to delete Package!").show();
+                } else {
+                    // Show error message if deletion failed
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete Package!").show();
                 }
-
-            }catch (SQLException | ClassNotFoundException e){
-                e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Error occurred while deleting Package: "+e.getMessage() ).show();
-
-
+            } catch (SQLException | ClassNotFoundException e) {
+                // Catch database errors and show the appropriate message to the user
+                e.printStackTrace(); // Log the exception for debugging purposes
+                new Alert(Alert.AlertType.ERROR, "Error occurred while deleting Package: " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Catch any other unexpected errors
+                e.printStackTrace(); // Log the exception for debugging purposes
+                new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             }
-
         }
-
 
     }
 
@@ -169,36 +177,65 @@ public class PackageOffersController  implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        // Get input data from fields
         String packageId = txtPackageId.getText();
         String packageName = txtPackageName.getText();
-        BigDecimal cost = new BigDecimal(txtcost.getText());
-        boolean insurance = Boolean.parseBoolean(txtinsuarence.getText());
+        BigDecimal cost = BigDecimal.ZERO;
+        try {
+            cost = new BigDecimal(txtcost.getText()); // Convert cost to BigDecimal
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid cost format!").show();
+            return; // Exit if cost format is invalid
+        }
+
+        boolean insurance = false;
+        try {
+            insurance = Boolean.parseBoolean(txtinsuarence.getText()); // Parse insurance input
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid insurance value! Please enter true/false.").show();
+            return; // Exit if insurance value is invalid
+        }
+
         String rentDuration = txtRentDuration.getText();
 
-        // Parsing date using java.util.Date (you can switch to java.sql.Date if needed)
+        // Parsing rentDate
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date rentDate = null;
         try {
-            rentDate = dateFormat.parse(txtRentDate.getText());
+            rentDate = dateFormat.parse(txtRentDate.getText()); // Parse date
         } catch (ParseException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd.").show();
-            return; // Exit the method if the date format is wrong
+            return; // Exit if date format is wrong
         }
 
         String mileage = txtMileage.getText();
         String description = txtDescription.getText();
 
+        // Create PackageDto object to pass the data to the model
         PackageDto dto = new PackageDto(packageId, packageName, cost, insurance, rentDuration, rentDate, mileage, description);
-        boolean isSaved = PackageModel.savePackage(dto);
 
-        if (isSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Package saved successfully!").show();
-            loadNextPackageId();
-            refreshTableData();
-            refreshPage();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to save package!").show();
+        // Attempt to save the package in the database
+        try {
+            boolean isSaved = PackageModel.savePackage(dto);
+
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Package saved successfully!").show();
+                loadNextPackageId();
+                refreshTableData();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save package!").show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log the exception
+            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); // Log the exception
+            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
         }
     }
 
@@ -216,12 +253,14 @@ public class PackageOffersController  implements Initializable {
     void btnSearchAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String packageId = txtPackageId.getText();
 
+        // Check if Package ID is provided
         if (packageId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter a Package ID to search!").show();
-            return;
+            return; // Exit if Package ID is not provided
         }
 
         try {
+            // Search the package using the PackageModel
             PackageDto dto = PackageModel.searchPackage(packageId);
 
             if (dto != null) {
@@ -235,14 +274,24 @@ public class PackageOffersController  implements Initializable {
                 txtMileage.setText(dto.getMileageLimit());
                 txtDescription.setText(dto.getDescription());
             } else {
+                // If package not found, show a warning
                 new Alert(Alert.AlertType.WARNING, "Package not found!").show();
-                clearFields();
-                loadNextPackageId();
+                clearFields(); // Clear fields if package is not found
+                loadNextPackageId(); // Load the next available Package ID
             }
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+            // Handle SQL exceptions
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while searching for Package: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Database error while searching for Package: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle ClassNotFoundException
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error while searching for Package: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Catch any unexpected exceptions
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
         }
     }
 
@@ -250,7 +299,16 @@ public class PackageOffersController  implements Initializable {
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String packageId = txtPackageId.getText();
         String packageName = txtPackageName.getText();
-        BigDecimal cost = new BigDecimal(txtcost.getText());
+        BigDecimal cost = null;
+
+        // Validate cost input
+        try {
+            cost = new BigDecimal(txtcost.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid cost format! Please enter a valid number.").show();
+            return; // Exit the method if cost format is incorrect
+        }
+
         boolean insurance = Boolean.parseBoolean(txtinsuarence.getText());
         String rentDuration = txtRentDuration.getText();
 
@@ -268,17 +326,38 @@ public class PackageOffersController  implements Initializable {
         String mileage = txtMileage.getText();
         String description = txtDescription.getText();
 
+        // Ensure all required fields are filled before proceeding
+        if (packageId.isEmpty() || packageName.isEmpty() || rentDuration.isEmpty() || mileage.isEmpty() || description.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all the fields before updating.").show();
+            return; // Exit the method if any field is empty
+        }
+
         // Create PackageDto and update
         PackageDto dto = new PackageDto(packageId, packageName, cost, insurance, rentDuration, rentDate, mileage, description);
-        boolean isUpdated = PackageModel.updatePackage(dto);
 
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Package updated successfully!").show();
-            refreshPage();
-            loadNextPackageId();
+        try {
+            boolean isUpdated = PackageModel.updatePackage(dto);
 
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update package!").show();
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Package updated successfully!").show();
+                refreshPage();
+                loadNextPackageId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update package!").show();
+            }
+
+        } catch (SQLException e) {
+            // Handle SQL exceptions
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while updating the package: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle ClassNotFoundException
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error occurred while updating the package: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Catch any unexpected exceptions
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
         }
     }
 
@@ -311,15 +390,28 @@ public class PackageOffersController  implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         try {
+            // Attempt to refresh the page, load data, and initialize components
             refreshPage();
             refreshTableData();
             loadNextPackageId();
             initializeDateCombos();
 
-
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+            // Handle database-related errors
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle class not found errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (NullPointerException e) {
+            // Handle null pointer exceptions if any
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Null value encountered during initialization: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Handle any other unexpected errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred during initialization: " + e.getMessage()).show();
         }
     }
     private void initializeDateCombos() {

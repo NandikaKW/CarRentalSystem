@@ -85,6 +85,7 @@ public class DamageDetailsController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String damageId = txtDamageId.getText();
+
         if (damageId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter damage ID").show();
             return;
@@ -93,8 +94,10 @@ public class DamageDetailsController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this damage?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
+        // Only proceed if the user confirms the deletion
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             try {
+                // Attempt to delete the damage record
                 boolean isDeleted = DamageModel.deleteDamage(damageId);
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Damage deleted successfully!").show();
@@ -105,9 +108,18 @@ public class DamageDetailsController implements Initializable {
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete damage!").show();
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
+                // Handle SQL exception
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "ERROR occurred while deleting damage: " + e.getMessage()).show();
+                new Alert(Alert.AlertType.ERROR, "Error occurred while deleting damage: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // Handle ClassNotFoundException
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class not found while deleting damage: " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Catch any unforeseen exceptions
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             }
         }
     }
@@ -169,9 +181,9 @@ public class DamageDetailsController implements Initializable {
         String rentId = txtRentId.getText();
 
         // Regex patterns
-        String damageIdPattern = "^D\\d{3}$"; // Matches D001, D002, etc.
-        String detailPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
-        String rentIdPattern = "^R\\d{3}$"; // Matches R001, R002, etc.
+        String damageIdPattern = "^D\\d{3}$";
+        String detailPattern = "^[\\w\\s,.#-]+$";
+        String rentIdPattern = "^R\\d{3}$";
 
         // Validation checks
         boolean isValidDamageId = damageId.matches(damageIdPattern);
@@ -181,46 +193,58 @@ public class DamageDetailsController implements Initializable {
         // Reset field styles
         resetFieldStyles();
 
+        // Highlight invalid fields
         if (!isValidDamageId) {
             txtDamageId.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Damage ID.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Damage ID. Format should be Dxxx").show();
         }
 
         if (!isValidDetail) {
             txtDescription.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Detail.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Detail. Format is not valid.").show();
         }
 
         if (!isValidRentId) {
             txtRentId.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Rent ID.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Rent ID. Format should be Rxxx").show();
         }
 
+        // Handle repair cost field
         BigDecimal repairCost;
         try {
             repairCost = new BigDecimal(txtRepairCost.getText());
         } catch (NumberFormatException e) {
             txtRepairCost.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Repair Cost.");
-            return;
+            new Alert(Alert.AlertType.WARNING, "Invalid Repair Cost. Please enter a valid number.").show();
+            return; // Stop the operation if repair cost is invalid
         }
 
         // If all fields are valid, proceed to save
         if (isValidDamageId && isValidDetail && isValidRentId) {
-            DamageDto damageDto = new DamageDto(damageId, repairCost, detail, rentId);
-            boolean isSaved = DamageModel.saveDamage(damageDto);
+            try {
+                DamageDto damageDto = new DamageDto(damageId, repairCost, detail, rentId);
+                boolean isSaved = DamageModel.saveDamage(damageDto);
 
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Damage saved successfully!").show();
-                clearFields();
-                refreshPage();
-                loadCurrentRentId();
-                loadNextDamageId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save damage!").show();
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "Damage saved successfully!").show();
+                    clearFields();
+                    refreshPage();
+                    loadCurrentRentId();
+                    loadNextDamageId();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to save damage! Please try again later.").show();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Error occurred while saving damage: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class not found while saving damage: " + e.getMessage()).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             }
         }
-
     }
 
     private void resetFieldStyles() {
@@ -233,6 +257,8 @@ public class DamageDetailsController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String damageId = txtDamageId.getText();
+
+        // If the Damage ID is empty, show a warning and stop further processing
         if (damageId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter Damage ID").show();
             return;
@@ -241,10 +267,12 @@ public class DamageDetailsController implements Initializable {
         try {
             System.out.println("Searching for Damage ID: " + damageId); // Debugging line
 
+
             DamageDto damage = DamageModel.searchDamage(damageId);
 
             if (damage != null) {
                 System.out.println("Damage Found: " + damage.toString()); // Debugging line
+
 
                 txtDamageId.setText(damage.getDamage_id());
                 txtRepairCost.setText(damage.getRepair_cost().toString());
@@ -252,15 +280,24 @@ public class DamageDetailsController implements Initializable {
                 txtRentId.setText(damage.getRent_id());
                 new Alert(Alert.AlertType.INFORMATION, "Damage Found!").show();
             } else {
+
                 new Alert(Alert.AlertType.ERROR, "Damage not found!").show();
                 clearFields();
                 loadCurrentRentId();
                 loadNextDamageId();
-
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while searching damage: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while searching for damage: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error occurred while searching for damage: " + e.getMessage()).show();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
         }
     }
 
@@ -312,7 +349,7 @@ public class DamageDetailsController implements Initializable {
             return;
         }
 
-        // If all fields are valid, proceed to update
+
         if (isValidDamageId && isValidDetail && isValidRentId) {
             DamageDto damageDto = new DamageDto(damageId, repairCost, detail, rentId);
             boolean isUpdated = DamageModel.updateDamage(damageDto);
@@ -393,15 +430,15 @@ public class DamageDetailsController implements Initializable {
 
     public void btnReportOnAction(ActionEvent actionEvent) {
         try {
-            // Compile the Jasper report from the .jrxml file
+
             JasperReport jasperReport = JasperCompileManager.compileReport(
                     getClass().getResourceAsStream("/report/DamageReport.jrxml")
             );
 
-            // Obtain the database connection
+
             Connection connection = DBConnection.getInstance().getConnection();
 
-            // Define parameters for the report, if any
+
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("P_Date", LocalDate.now().toString());  // Example parameter
 

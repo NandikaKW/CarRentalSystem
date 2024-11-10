@@ -33,6 +33,7 @@ public class PaymentTrackingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Set up the table column value factories
         colPaymentId.setCellValueFactory(new PropertyValueFactory<>("pay_id"));
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -41,18 +42,40 @@ public class PaymentTrackingController implements Initializable {
         colTransaction.setCellValueFactory(new PropertyValueFactory<>("transaction_reference"));
         colTax.setCellValueFactory(new PropertyValueFactory<>("tax"));
         colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount_applied"));
-        try{
+
+        try {
+            // Attempt to refresh the page, load data, and initialize components
             refreshPage();
             loadTableData();
             loadNextPaymentId();
-            refreshTableData();
+            refreshTableData();  // Called twice, but you can remove one if not needed
 
-        }catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException e) {
+            // Handle database-related errors
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
-
+            new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle class not found errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (NullPointerException e) {
+            // Handle null pointer exceptions if any
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Null value encountered during initialization: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Handle any other unexpected errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred during initialization: " + e.getMessage()).show();
         }
-        initializeDateCombos();
+
+        try {
+            // Initialize date combo boxes
+            initializeDateCombos();
+        } catch (Exception e) {
+            // Handle errors specific to the date combo initialization
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error initializing date combos: " + e.getMessage()).show();
+        }
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextPaymentId();
@@ -257,34 +280,45 @@ public class PaymentTrackingController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String paymentId = txtPaymentId.getText();
-        if(paymentId.isEmpty()){
-            new Alert(Alert.AlertType.ERROR,"Please Enter Payment Id").show();
-            return;
 
+        // Check if Payment ID is empty
+        if (paymentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please Enter Payment Id").show();
+            return; // Exit the method if paymentId is empty
         }
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this payment?",ButtonType.YES,ButtonType.NO);
-        Optional<ButtonType> optionalButtonType=alert.showAndWait();
-        if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
-            try{
-                boolean isDeleted =PaymentModel.deletePayment(paymentId);
-                if(isDeleted){
-                    new Alert(Alert.AlertType.INFORMATION,"Payment deleted successfully").show();
+
+        // Confirmation Alert before deletion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this payment?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        // If user confirms deletion
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+            try {
+                // Attempt to delete the payment
+                boolean isDeleted = PaymentModel.deletePayment(paymentId);
+                if (isDeleted) {
+                    new Alert(Alert.AlertType.INFORMATION, "Payment deleted successfully").show();
                     clearFields();
                     loadNextPaymentId();
                     refreshTableData();
-
-                }else{
-                    new Alert(Alert.AlertType.ERROR,"Failed to delete payment").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete payment").show();
                 }
 
-            }catch (SQLException | ClassNotFoundException e){
+            } catch (SQLException e) {
+                // Handle SQLException (e.g., database issues)
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Error occurred while deleting payment: "+e.getMessage()).show();
-
+                new Alert(Alert.AlertType.ERROR, "Database error occurred while deleting payment: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // Handle ClassNotFoundException (e.g., issues with class loading)
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class loading error occurred while deleting payment: " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Handle any other unexpected exceptions
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "An unexpected error occurred while deleting payment: " + e.getMessage()).show();
             }
-
         }
-
 
     }
     private void refreshTableData() throws SQLException, ClassNotFoundException {
@@ -321,39 +355,49 @@ public class PaymentTrackingController implements Initializable {
     void btnReportOnAction(ActionEvent event) throws ClassNotFoundException {
         PaymentTM paymentTM = tblPayment.getSelectionModel().getSelectedItem();
 
+        // Check if a payment is selected
         if (paymentTM == null) {
             new Alert(Alert.AlertType.WARNING, "Please select a payment to generate the report!").show();
-            return;
+            return; // Exit if no payment is selected
         }
 
         try {
+            // Attempt to compile the Jasper report
             JasperReport jasperReport = JasperCompileManager.compileReport(
-                    getClass()
-                            .getResourceAsStream("/report/PaymentReport.jrxml")
+                    getClass().getResourceAsStream("/report/PaymentReport.jrxml")
             );
 
+            // Get database connection
             Connection connection = DBConnection.getInstance().getConnection();
 
+            // Prepare report parameters
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("P_Date", LocalDate.now().toString());
             parameters.put("P_Payment_Id", paymentTM.getPay_id());
 
+            // Fill the report with data from the database
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport,
                     parameters,
                     connection
             );
 
+            // View the report
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (JRException e) {
+            // Handle JasperReport exceptions (e.g., report compilation or filling issues)
             new Alert(Alert.AlertType.ERROR, "Failed to generate report...!").show();
-            e.printStackTrace();
+            e.printStackTrace(); // Log the exception stack trace
         } catch (SQLException e) {
+            // Handle SQLException (e.g., database connection or query issues)
             new Alert(Alert.AlertType.ERROR, "Database error...!").show();
-            e.printStackTrace();
+            e.printStackTrace(); // Log the exception stack trace
+        } catch (Exception e) {
+            // Catch any other unexpected exceptions
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred!").show();
+            e.printStackTrace(); // Log the exception stack trace
         }
-
     }
 
     @FXML
@@ -365,45 +409,82 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String paymentId=txtPaymentId.getText();
-        BigDecimal amount = new BigDecimal(txtAmount.getText());// line no 1
+        String paymentId = txtPaymentId.getText();
+
+        // Try-catch for handling potential parsing errors when converting amount to BigDecimal (line no 1)
+        BigDecimal amount = null;
+        try {
+            amount = new BigDecimal(txtAmount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid amount format. Please enter a valid number.").show();
+            return; // Exit if the format is invalid
+        }
+
         Date date = null;
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Assuming the date format is yyyy-MM-dd
-            date = dateFormat.parse(txtDate.getText()); // Parse the text to a Date object
+            // Attempt to parse the date entered by the user
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Expected date format
+            date = dateFormat.parse(txtDate.getText()); // line no 2
         } catch (ParseException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
-            return;
+            return; // Exit if the date format is invalid
         }
-        String invoice=txtInvoice.getText();
-        String method=txtPayMethods.getText();
-        String transaction=txtTransaction.getText();
-        BigDecimal tax = new BigDecimal(txtTax.getText());    // line no 2
-        BigDecimal discount = new BigDecimal(txtDiscount.getText());// line no 3
-        PaymentDto paymentDto=new PaymentDto(paymentId,amount,date,invoice,method,transaction,tax,discount);
-        boolean isSaved=PaymentModel.savePayment(paymentDto);
-        if(isSaved){
-            new Alert(Alert.AlertType.INFORMATION,"Payment saved successfully").show();
+
+        String invoice = txtInvoice.getText();
+        String method = txtPayMethods.getText();
+        String transaction = txtTransaction.getText();
+
+        // Try-catch for handling potential parsing errors for tax and discount values (line no 3)
+        BigDecimal tax = null;
+        BigDecimal discount = null;
+
+        try {
+            tax = new BigDecimal(txtTax.getText()); // line no 3
+            discount = new BigDecimal(txtDiscount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid tax or discount format. Please enter valid numbers.").show();
+            return; // Exit if tax or discount format is invalid
+        }
+
+        // Create a new PaymentDto object
+        PaymentDto paymentDto = new PaymentDto(paymentId, amount, date, invoice, method, transaction, tax, discount);
+
+        // Attempt to save the payment
+        boolean isSaved = false;
+        try {
+            isSaved = PaymentModel.savePayment(paymentDto);
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Error occurred while saving payment: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the error details
+            return; // Exit on error
+        }
+
+        // Provide feedback based on the result of the save operation
+        if (isSaved) {
+            new Alert(Alert.AlertType.INFORMATION, "Payment saved successfully").show();
             refreshPage();
             loadNextPaymentId();
-
-        }else{
-            new Alert(Alert.AlertType.ERROR,"Failed to save payment").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Failed to save payment").show();
         }
-
-
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String PaymentId = txtPaymentId.getText();
-        if(PaymentId.isEmpty()){
-            new Alert(Alert.AlertType.ERROR,"Please Enter Payment Id").show();
-            return;
+        String paymentId = txtPaymentId.getText();
+
+        // Check if the payment ID is empty and show an error alert
+        if (paymentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please enter Payment ID").show();
+            return; // Exit if the ID is empty
         }
-        try{
-            PaymentDto payment= PaymentModel.searchPayment(PaymentId);
-            if (payment!=null){
+
+        try {
+            // Attempt to search for the payment using the provided Payment ID
+            PaymentDto payment = PaymentModel.searchPayment(paymentId);
+
+            if (payment != null) {
+                // If the payment is found, populate the fields with the payment details
                 txtPaymentId.setText(payment.getPay_id());
                 txtAmount.setText(String.valueOf(payment.getAmount()));
                 txtDate.setText(String.valueOf(payment.getDate()));
@@ -411,45 +492,100 @@ public class PaymentTrackingController implements Initializable {
                 txtPayMethods.setText(payment.getMethod());
                 txtTransaction.setText(payment.getTransaction_reference());
                 txtTax.setText(String.valueOf(payment.getTax()));
-                txtDiscount.setText(payment.getDiscount_applied().toString());
-
-            }else{
-                new Alert(Alert.AlertType.ERROR,"Payment Not Found").show();
-                loadNextPaymentId();
-                clearFields();
+                txtDiscount.setText(String.valueOf(payment.getDiscount_applied()));
+            } else {
+                // If payment is not found, show an error and reset the fields
+                new Alert(Alert.AlertType.ERROR, "Payment Not Found").show();
+                loadNextPaymentId();  // Load next payment ID after a failed search
+                clearFields();        // Clear the fields to avoid showing old data
             }
 
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error occurred while searching payment: "+e.getMessage()).show();
+        } catch (SQLException e) {
+            // Handle any SQL-related exceptions, such as connection issues or query errors
+            new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
+            e.printStackTrace(); // Optionally log the exception details for debugging purposes
+        } catch (ClassNotFoundException e) {
+            // Handle any ClassNotFoundException, such as missing database driver or model class
+            new Alert(Alert.AlertType.ERROR, "Class not found: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the exception details
+        } catch (Exception e) {
+            // Catch any other exceptions that may occur unexpectedly
+            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the error
         }
     }
     @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String paymentId=txtPaymentId.getText();
-        BigDecimal amount = new BigDecimal(txtAmount.getText());// line no 1
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {String paymentId = txtPaymentId.getText();
+
+        // Check if Payment ID is empty
+        if (paymentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please enter Payment ID").show();
+            return; // Exit if the Payment ID is empty
+        }
+
+        BigDecimal amount = null;
+        try {
+            amount = new BigDecimal(txtAmount.getText()); // line no 1
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid amount format").show();
+            return; // Exit if the amount is invalid
+        }
+
         Date date = null;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Assuming the date format is yyyy-MM-dd
             date = dateFormat.parse(txtDate.getText()); // Parse the text to a Date object
         } catch (ParseException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
-            return;
+            return; // Exit if the date format is invalid
         }
-        String invoice=txtInvoice.getText();
-        String method=txtPayMethods.getText();
-        String transaction=txtTransaction.getText();
-        BigDecimal tax = new BigDecimal(txtTax.getText());    // line no 2
-        BigDecimal discount = new BigDecimal(txtDiscount.getText());// line no 3
-        PaymentDto paymentDto=new PaymentDto(paymentId,amount,date,invoice,method,transaction,tax,discount);
-        boolean isUpdated= PaymentModel.UpdatePayment(paymentDto);
-        if(isUpdated){
 
-            new Alert(Alert.AlertType.INFORMATION,"Payment updated successfully").show();
-            refreshPage();
-            loadNextPaymentId();
-        }else{
-            new Alert(Alert.AlertType.ERROR,"Failed to update payment").show();
+        String invoice = txtInvoice.getText();
+        String method = txtPayMethods.getText();
+        String transaction = txtTransaction.getText();
+
+        BigDecimal tax = null;
+        try {
+            tax = new BigDecimal(txtTax.getText()); // line no 2
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid tax format").show();
+            return; // Exit if the tax format is invalid
+        }
+
+        BigDecimal discount = null;
+        try {
+            discount = new BigDecimal(txtDiscount.getText()); // line no 3
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid discount format").show();
+            return; // Exit if the discount format is invalid
+        }
+
+        // Create PaymentDto object
+        PaymentDto paymentDto = new PaymentDto(paymentId, amount, date, invoice, method, transaction, tax, discount);
+
+        try {
+            boolean isUpdated = PaymentModel.UpdatePayment(paymentDto);
+
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment updated successfully").show();
+                refreshPage();
+                loadNextPaymentId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update payment").show();
+            }
+
+        } catch (SQLException e) {
+            // Handle any SQL-related errors (e.g., database issues)
+            new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
+            e.printStackTrace(); // Optionally log the exception details for debugging
+        } catch (ClassNotFoundException e) {
+            // Handle class not found errors (e.g., missing JDBC driver)
+            new Alert(Alert.AlertType.ERROR, "Class not found: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the exception details
+        } catch (Exception e) {
+            // Catch any other unexpected errors
+            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the error
         }
     }
 

@@ -119,33 +119,46 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String agrimentId = txtAgrimentId.getText();
+        String agrimentId = txtAgriID.getText();
+
+        // Step 1: Check if Agriment ID is provided
         if (agrimentId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please Provide Agriment Id").show();
-            return;
+            new Alert(Alert.AlertType.ERROR, "Please provide Agriment Id").show();
+            return; // Exit if Agriment ID is not provided
         }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this RentAgriment?", ButtonType.YES, ButtonType.NO);
+
+        // Step 2: Show confirmation alert for deletion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Rent Agriment?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        // Step 3: Proceed with deletion only if user confirms
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             try {
+                // Step 4: Perform deletion operation
                 boolean isDeleted = AgrimentModel.deleteAgriment(agrimentId);
+
                 if (isDeleted) {
-                    new Alert(Alert.AlertType.INFORMATION, "RentAgriment Deleted").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Rent Agriment Deleted").show();
                     clearFields();
                     refreshTableData();
-
-
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to delete RentAgriment").show();
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete Rent Agriment").show();
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+
+            } catch (SQLException e) {
+                // Step 5: Handle database-related errors
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "Error occurred while deleting Agriment: " + e.getMessage()).show();
-
+                new Alert(Alert.AlertType.ERROR, "Database error occurred while deleting Agriment: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // Step 6: Handle class not found errors (e.g., missing JDBC drivers)
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Step 7: Handle any other unexpected errors
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
             }
-
         }
-
     }
 
     public void refreshTableData() throws SQLException, ClassNotFoundException {
@@ -187,100 +200,169 @@ public class RentAgrimentController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            String agrimentId = txtAgrimentId.getText();
+            String agrimentId = txtAgriID.getText();
             String paymentTerms = txtPaymentTerms.getText();
+
+            // Check for missing fields
+            if (agrimentId.isEmpty() || paymentTerms.isEmpty() || txtStartDate.getText().isEmpty() || txtEndDate.getText().isEmpty() || txtDepositAmount.getText().isEmpty() || txtCost.getText().isEmpty()) {
+                new Alert(Alert.AlertType.ERROR, "All fields must be filled in.").show();
+                return;
+            }
 
             // Convert String to Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = dateFormat.parse(txtStartDate.getText());
-            Date endDate = dateFormat.parse(txtEndDate.getText());
+            Date startDate = null;
+            Date endDate = null;
 
-            // Convert String to BigDecimal
-            BigDecimal depositAmount = new BigDecimal(txtDepositAmount.getText());
-            BigDecimal cost = new BigDecimal(txtCost.getText());
-
-            AgrimentDto agrimentDto = new AgrimentDto(agrimentId, paymentTerms, startDate, endDate, depositAmount, cost);
-            boolean isSaved = AgrimentModel.saveAgriment(agrimentDto);
-
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Rent Agreement Saved").show();
-                refreshPage();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save Rent Agreement").show();
+            try {
+                startDate = dateFormat.parse(txtStartDate.getText());
+                endDate = dateFormat.parse(txtEndDate.getText());
+            } catch (ParseException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd.").show();
+                return; // Exit if date format is invalid
             }
 
-        } catch (ParseException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd.").show();
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid numeric format for deposit amount or cost.").show();
+            // Convert String to BigDecimal
+            BigDecimal depositAmount = null;
+            BigDecimal cost = null;
+
+            try {
+                depositAmount = new BigDecimal(txtDepositAmount.getText());
+                cost = new BigDecimal(txtCost.getText());
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid numeric format for deposit amount or cost.").show();
+                return; // Exit if numeric format is invalid
+            }
+
+            AgrimentDto agrimentDto = new AgrimentDto(agrimentId, paymentTerms, startDate, endDate, depositAmount, cost);
+
+            try {
+                boolean isSaved = AgrimentModel.saveAgriment(agrimentDto);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "Rent Agreement Saved").show();
+                    refreshPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to save Rent Agreement").show();
+                }
+            } catch (SQLException e) {
+                // Handle database-related errors
+                new Alert(Alert.AlertType.ERROR, "Database error occurred while saving Rent Agreement: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // Handle class not found errors (e.g., missing JDBC driver)
+                new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+            }
+
+        } catch (Exception e) {
+            // Handle any other unexpected errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-        String agrimentId = txtAgrimentId.getText();
+        String agrimentId = txtAgriID.getText();
+
+        // Check if AgrimentId is empty
         if (agrimentId.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Please Provide Agriment Id").show();
-            return;
+            return; // Exit the method early if AgrimentId is empty
         }
+
         try {
+            // Attempt to search for the agreement using the AgrimentModel
             AgrimentDto agrimentDto = AgrimentModel.searchAgriment(agrimentId);
+
             if (agrimentDto != null) {
-                txtAgrimentId.setText(agrimentDto.getAgreement_id());
+                // If found, populate the fields with the data from the AgrimentDto
+                txtAgriID.setText(agrimentDto.getAgreement_id());
                 txtPaymentTerms.setText(agrimentDto.getPayment_terms());
                 txtStartDate.setText(agrimentDto.getStart_date().toString());
                 txtEndDate.setText(agrimentDto.getEnd_date().toString());
                 txtDepositAmount.setText(agrimentDto.getDeposit_amount().toString());
                 txtCost.setText(agrimentDto.getTotal_rent_cost().toString());
             } else {
-                new Alert(Alert.AlertType.ERROR, "RentAgriment Not Found").show();
+                // If no agreement is found, show an error and clear the fields
+                new Alert(Alert.AlertType.ERROR, "Rent Agreement Not Found").show();
                 clearFields();
             }
-
-
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+            // Handle SQL exceptions
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while searching for Agriment: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while searching for the agreement: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle ClassNotFoundException (e.g., JDBC driver issues)
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Handle any other unexpected errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
-
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            String agrimentId = txtAgrimentId.getText();
+            String agrimentId = txtAgriID.getText();
             String paymentTerms = txtPaymentTerms.getText();
 
             // Convert String to Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = dateFormat.parse(txtStartDate.getText());
-            Date endDate = dateFormat.parse(txtEndDate.getText());
+            Date startDate = null;
+            Date endDate = null;
 
-            // Convert String to BigDecimal
-            BigDecimal depositAmount = new BigDecimal(txtDepositAmount.getText());
-            BigDecimal cost = new BigDecimal(txtCost.getText());
+            try {
+                startDate = dateFormat.parse(txtStartDate.getText());
+                endDate = dateFormat.parse(txtEndDate.getText());
+            } catch (ParseException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd.").show();
+                return; // Exit the method early if there is an invalid date format
+            }
 
+            // Convert String to BigDecimal for depositAmount and cost
+            BigDecimal depositAmount = null;
+            BigDecimal cost = null;
+            try {
+                depositAmount = new BigDecimal(txtDepositAmount.getText());
+                cost = new BigDecimal(txtCost.getText());
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid numeric format for deposit amount or cost.").show();
+                return; // Exit the method early if there is an invalid numeric format
+            }
+
+            // Create AgrimentDto object with valid values
             AgrimentDto agrimentDto = new AgrimentDto(agrimentId, paymentTerms, startDate, endDate, depositAmount, cost);
+
+            // Attempt to update the rent agreement using AgrimentModel
             boolean isUpdated = AgrimentModel.updateAgriment(agrimentDto);
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Rent Agreement Updated").show();
-                refreshPage();
+                refreshPage(); // Refresh page or perform any additional actions if update is successful
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update Rent Agreement").show();
             }
 
-        } catch (ParseException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd.").show();
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid numeric format for deposit amount or cost.").show();
+        } catch (SQLException e) {
+            // Handle SQL exceptions (e.g., database connectivity issues)
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while updating Rent Agreement: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle ClassNotFoundException (e.g., JDBC driver issues)
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Handle any other unexpected errors
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
     }
     @FXML
     void tblMouseClickedOnAction(MouseEvent event) {
         AgrimentTM agrimentTM = tblAgriment.getSelectionModel().getSelectedItem();
         if (agrimentTM != null) {
-            txtAgrimentId.setText(agrimentTM.getAgreement_id());
+            txtAgriID.setText(agrimentTM.getAgreement_id());
             txtPaymentTerms.setText(agrimentTM.getPayment_terms());
             txtStartDate.setText(agrimentTM.getStart_date().toString());
             txtEndDate.setText(agrimentTM.getEnd_date().toString());
@@ -302,12 +384,16 @@ public class RentAgrimentController implements Initializable {
         colEndDate.setCellValueFactory(new PropertyValueFactory<>("end_date"));
         colDepositAmount.setCellValueFactory(new PropertyValueFactory<>("deposit_amount"));
         colRentCost.setCellValueFactory(new PropertyValueFactory<>("total_rent_cost"));
+
         try {
+            // Load initial data and refresh UI elements
             loadNextAgrimentId();
             refreshPage();
             refreshTableData();
             updateYears();
             updateMonths();
+
+            // Set default selections for year and month comboboxes
             ComboYear.getSelectionModel().selectFirst();
             CombMonth.getSelectionModel().selectFirst();
             updateDays();
@@ -316,14 +402,20 @@ public class RentAgrimentController implements Initializable {
             CombMonthOne.getSelectionModel().selectFirst();
             updateDaysOne();
 
-
-
-
-
-        } catch (SQLException |ClassNotFoundException e) {
+        } catch (SQLException e) {
+            // Handle SQLException - typically related to database errors
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while loading data: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while loading data: " + e.getMessage()).show();
 
+        } catch (ClassNotFoundException e) {
+            // Handle ClassNotFoundException - typically related to JDBC driver or class loading issues
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error occurred while loading data: " + e.getMessage()).show();
+
+        } catch (Exception e) {
+            // Catch any other unexpected exceptions
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred while initializing: " + e.getMessage()).show();
         }
     }
     private  void updateYears(){

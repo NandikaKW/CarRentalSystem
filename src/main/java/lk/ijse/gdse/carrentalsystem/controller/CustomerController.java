@@ -37,21 +37,34 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         colCustomerID.setCellValueFactory(new PropertyValueFactory<>("cust_id"));
         colCustomerName.setCellValueFactory(new PropertyValueFactory<>("cust_name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
 
+
         colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
+
         try {
+
             refreshPage();
             loadCurrentAdminId();
             loadNextCustomerId();
             refreshTableData();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Fail to load customer data").show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while loading customer data: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Required class not found: " + e.getMessage()).show();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
 
     }
@@ -161,33 +174,42 @@ public class CustomerController implements Initializable {
     void btnDeleteOnAction(ActionEvent event) {
         String customerId = txtCustomerID.getText();
 
+        // Check if Customer ID is provided
         if (customerId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter a Customer ID to delete!").show();
             return;
         }
 
+        // Confirm deletion action
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             try {
+                // Attempt to delete the customer
                 boolean isDeleted = customerModel.deleteCustomer(customerId);
+
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
-                    clearFields();
-                    refreshTableData();
-                    loadNextCustomerId();
-                    loadCurrentAdminId();
+                    clearFields();         // Clear input fields
+                    refreshTableData();     // Refresh the table
+                    loadNextCustomerId();   // Load the next available customer ID
+                    loadCurrentAdminId();   // Load the current admin ID
 
-                    refreshTableData();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "Error occurred while deleting customer: " + e.getMessage()).show();
+                new Alert(Alert.AlertType.ERROR, "Database error occurred while deleting customer: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Required class not found: " + e.getMessage()).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
             }
         }
-
 
     }
 
@@ -226,14 +248,12 @@ public class CustomerController implements Initializable {
         String customerIdPattern = "^C\\d{3}$"; // Matches C001, C002, etc.
         String customerNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
         String addressPattern = "^[\\w\\s,.#-]+$"; // Allows letters, numbers, spaces, and common punctuation
-        String emailPattern = "^[\\w!#$%&'*+/=?{|}~^-]+(?:\\.[\\w!#$%&'*+/=?{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"; // Valid email format
+        String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"; // Valid email format
         String nicPattern = "^[0-9]{9}[Vv]$|^[0-9]{12}$"; // Matches NIC format with 9 digits + V or 12 digits
         String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
 
         // Reset field styles
         resetFieldStyles();
-
-
 
         // Validation checks
         boolean isValidCustomerId = customerId.matches(customerIdPattern);
@@ -246,46 +266,58 @@ public class CustomerController implements Initializable {
         // Highlight invalid fields
         if (!isValidCustomerId) {
             txtCustomerID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Customer ID.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Customer ID format!").show();
         }
 
         if (!isValidCustomerName) {
             txtCustomerName.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Customer Name.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Customer Name format!").show();
         }
 
         if (!isValidAddress) {
             txtAdress.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Address.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Address format!").show();
         }
 
         if (!isValidEmail) {
             txtCustomerNumber.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Email.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Email format!").show();
         }
 
         if (!isValidNic) {
             txtNIC.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid NIC.");
+            new Alert(Alert.AlertType.WARNING, "Invalid NIC format!").show();
         }
 
         if (!isValidAdminId) {
             txtAdminID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Admin ID.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Admin ID format!").show();
         }
 
         // If all fields are valid, proceed to save
         if (isValidCustomerId && isValidCustomerName && isValidAddress && isValidEmail && isValidNic && isValidAdminId) {
             CustomerDto dto = new CustomerDto(customerId, customerName, address, email, nic, adminId);
-            boolean isSaved = customerModel.saveCustomer(dto);
 
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully!").show();
-                refreshPage();
-                loadNextCustomerId();
-                loadCurrentAdminId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
+            try {
+                boolean isSaved = customerModel.saveCustomer(dto);
+
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully!").show();
+                    refreshPage();
+                    loadNextCustomerId();
+                    loadCurrentAdminId();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Required class not found: " + e.getMessage()).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
             }
         }
     }
@@ -302,13 +334,18 @@ public class CustomerController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String customerId = txtCustomerID.getText();
+
+        // Check if customer ID is empty
         if (customerId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter a Customer ID to search!").show();
             return;
         }
 
         try {
+            // Try searching for the customer
             CustomerDto customer = customerModel.searchCustomer(customerId);
+
+            // If customer is found, populate fields
             if (customer != null) {
                 txtCustomerID.setText(customer.getCust_id());
                 txtCustomerName.setText(customer.getCust_name());
@@ -320,16 +357,19 @@ public class CustomerController implements Initializable {
             } else {
                 new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
                 clearFields();
-
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while searching for customer: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while searching for customer: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
 
-
     }
-
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = txtCustomerID.getText();
@@ -391,19 +431,31 @@ public class CustomerController implements Initializable {
 
         // If all fields are valid, proceed to update
         if (isValidCustomerId && isValidCustomerName && isValidAddress && isValidEmail && isValidNic && isValidAdminId) {
-            CustomerDto dto = new CustomerDto(customerId, customerName, address, email, nic, adminId);
-            boolean isUpdated = customerModel.updateCustomer(dto);
+            try {
+                CustomerDto dto = new CustomerDto(customerId, customerName, address, email, nic, adminId);
+                boolean isUpdated = customerModel.updateCustomer(dto);
 
-            if (isUpdated) {
-                new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
-                refreshPage();
-                loadNextCustomerId();
-                loadCurrentAdminId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
+                    refreshPage();
+                    loadNextCustomerId();
+                    loadCurrentAdminId();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Database error occurred while updating customer: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
             }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please correct the highlighted fields before updating!").show();
         }
-
     }
 
     @FXML
@@ -429,8 +481,7 @@ public class CustomerController implements Initializable {
         txtCustomerID.setText(nextCustomerId);
     }
 
-    // Load the next admin ID
-    // Load the current Admin ID
+
     public void loadCurrentAdminId() throws SQLException, ClassNotFoundException {
         String currentAdminId = AdminModel.loadCurrentAdminId();
         txtAdminID.setText(currentAdminId);
@@ -460,17 +511,21 @@ public class CustomerController implements Initializable {
     @FXML
     public void openSendMailModel(ActionEvent actionEvent) {
         CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+
         if (selectedItem == null) {
             new Alert(Alert.AlertType.WARNING, "Please select a customer.").show();
             return;
         }
 
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Email.fxml"));
             Parent load = loader.load();
 
+
             EmailController emailController = loader.getController();
             emailController.setCustomerEmail(selectedItem.getEmail());
+
 
             Stage stage = new Stage();
             stage.setScene(new Scene(load));
@@ -478,11 +533,18 @@ public class CustomerController implements Initializable {
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/icons8-open-email-24.png")));
             stage.initModality(Modality.APPLICATION_MODAL);
 
+            // Set the parent window for modal behavior
             Window parentWindow = ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
             stage.initOwner(parentWindow);
             stage.showAndWait();
+
         } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to load the email sending interface.").show();
+            // Handle the exception when FXMLLoader encounters an error
+            new Alert(Alert.AlertType.ERROR, "Failed to load the email sending interface. Please try again later.").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Catch any other unforeseen errors
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             e.printStackTrace();
         }
     }

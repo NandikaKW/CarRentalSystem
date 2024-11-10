@@ -12,10 +12,12 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
 import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
+import lk.ijse.gdse.carrentalsystem.dto.tm.ReserveTM;
 import lk.ijse.gdse.carrentalsystem.model.AgrimentModel;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
+import lk.ijse.gdse.carrentalsystem.model.VehicleModel;
 
 
 import java.math.BigDecimal;
@@ -28,6 +30,13 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class RentServiceController  implements Initializable {
+    @FXML
+    private JFXButton btnPlaceOrder;
+
+    @FXML
+    private JFXButton btnReserve;
+
+
     @FXML
     private TextField txtAgrimentID;
 
@@ -107,6 +116,11 @@ public class RentServiceController  implements Initializable {
 
     @FXML
     private JFXButton btnReset;
+    private final  RentModel rentModel=new RentModel();
+    private final CustomerModel customerModel=new CustomerModel();
+    private  final VehicleModel vehicleModel=new VehicleModel();
+
+    private final ObservableList<ReserveTM> reserveTMS = FXCollections.observableArrayList();
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -304,25 +318,13 @@ public class RentServiceController  implements Initializable {
         String nextRentId = RentModel.loadNextRentId();
         txtRentId.setText(nextRentId);
     }
-//    public  void loadNextCustomerId() throws SQLException, ClassNotFoundException {
-//       String nextCustomerId= CustomerModel.loadNextCustomerId();
-//       txtCustomerId.setText(nextCustomerId);
-//    }
+
 public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException {
     String currentAgreementId = AgrimentModel.loadCurrentAgreementId();
     txtAgrimentID.setText(currentAgreementId);
 }
 
-//    public void loadNextAgreementId() throws SQLException, ClassNotFoundException {
-//        String nextAgreementId= AgrimentModel.loadNextAgreementId();
-//        txtAgrimentID.setText(nextAgreementId);
-//    }
-
-
-
-
-
-    @Override
+     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colRentId.setCellValueFactory(new PropertyValueFactory<>("rentId")); // Use camelCase
         colStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate")); // Use camelCase
@@ -486,6 +488,60 @@ public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException
             txtStartDate.setText(String.format("%04d-%02d-%02d", year, month, day));
         }
     }
+    @FXML
+    void btnPlaceOrderOnAction(ActionEvent event) {
+//        String customerName = txtCustomerName.getText(); // TextField for customer's name.
+//        String customerContact = txtCustomerContact.getText(); // TextField for customer's contact.
+//
+//
+//        if (customerName == null || customerName.isEmpty() || customerContact == null || customerContact.isEmpty()) {
+//            new Alert(Alert.AlertType.ERROR, "Please fill in all required fields.").show();
+//            return;
+//        }
+//
+//
+//        boolean isOrderPlaced = processOrder(customerName, customerContact);  // Custom method to handle order placement.
+//
+//        if (isOrderPlaced) {
+//            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").show();
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Failed to place order. Please try again.").show();
+//        }
+    }
+
+    @FXML
+    void btnReserveOnAction(ActionEvent event) {
+
+//        String selectedVehicleId = txtVehicleId.getText();
+//
+//
+//        if (selectedVehicleId == null || selectedVehicleId.isEmpty()) {
+//            new Alert(Alert.AlertType.ERROR, "Please select a vehicle.").show();
+//            return;
+//        }
+//
+//
+//        boolean isVehicleReserved = reserveVehicle(selectedVehicleId);  // Custom method to handle vehicle reservation.
+//
+//        if (isVehicleReserved) {
+//            new Alert(Alert.AlertType.INFORMATION, "Vehicle reserved successfully!").show();
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Failed to reserve vehicle. Please try again.").show();
+//        }
+    }
+
+
+//    private boolean processOrder(String customerName, String customerContact) {
+//
+//        return true;
+//    }
+//
+//
+//    private boolean reserveVehicle(String vehicleId) {
+//
+//        return true;
+//    }
+
 
 
 }

@@ -79,37 +79,49 @@ public class EmployeeController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String employeeID=txtEmployeeID.getText();
-        if(employeeID.isEmpty()){
-            new Alert(Alert.AlertType.WARNING,"Please enter employee ID").show();
+        String employeeID = txtEmployeeID.getText();
+
+        // Check if the employee ID is empty
+        if (employeeID.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter employee ID").show();
             return;
         }
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this employee?",ButtonType.YES,ButtonType.NO);
-        Optional<ButtonType> optionalButtonType=alert.showAndWait();
-        if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
+
+        // Confirm with the user before deletion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this employee?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             try {
-                boolean isDeleted=EmployeeModel.deleteEmployee(employeeID);
-                if(isDeleted){
-                    new Alert(Alert.AlertType.INFORMATION,"Employee deleted successfully!").show();
+                // Try to delete the employee from the model
+                boolean isDeleted = EmployeeModel.deleteEmployee(employeeID);
+
+                // If deletion was successful, show an info alert
+                if (isDeleted) {
+                    new Alert(Alert.AlertType.INFORMATION, "Employee deleted successfully!").show();
                     clearFields();
                     loadCurrentAdminId();
-                    //loadNextAdminId();
-                    //loadCurrentEmployeeId();
                     loadNextEmployeeId();
                     refreshTableData();
-
-                }else{
-                    new Alert(Alert.AlertType.ERROR,"Failed to delete employee!").show();
+                } else {
+                    // If deletion failed, show an error alert
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete employee!").show();
                 }
 
-            }catch (SQLException | ClassNotFoundException e){
+            } catch (SQLException e) {
+                // Catch any SQL exceptions and show an error alert
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Error occurred while deleting employee: "+e.getMessage()).show();
-
+                new Alert(Alert.AlertType.ERROR, "Database error occurred while deleting employee: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // Catch any ClassNotFoundException and show an error alert
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class not found error occurred while deleting employee: " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Catch any other unexpected exceptions and show a generic error alert
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             }
-
         }
-
 
     }
     private void refreshTableData() throws SQLException, ClassNotFoundException {
@@ -177,26 +189,26 @@ public class EmployeeController implements Initializable {
         // Reset field styles
         resetFieldStyles();
 
-        // Highlight invalid fields
+        // Highlight invalid fields and show messages
         if (!isValidEmpId) {
             txtEmployeeID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Employee ID.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Employee ID format!").show();
         }
         if (!isValidEmpName) {
             txtEmployeeName.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Employee Name.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Employee Name format!").show();
         }
         if (!isValidAddress) {
             txtAdress.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Address.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Address format!").show();
         }
         if (!isValidJob) {
             txtJobRole.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Job Role.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Job Role format!").show();
         }
         if (!isValidAdminId) {
             txtAdminID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Admin ID.");
+            new Alert(Alert.AlertType.WARNING, "Invalid Admin ID format!").show();
         }
 
         // Validate salary
@@ -207,25 +219,33 @@ public class EmployeeController implements Initializable {
             return;
         }
 
-        // If all fields are valid, proceed to save
+        // If all fields are valid, proceed to save the employee
         if (isValidEmpId && isValidEmpName && isValidAddress && isValidJob && isValidAdminId) {
             EmployeeDto employeeDto = new EmployeeDto(empId, empName, address, job, salary, adminID);
 
             try {
+                // Try to save the employee
                 boolean isSaved = EmployeeModel.saveEmployee(employeeDto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully!").show();
-                    //loadNextAdminId();
                     loadCurrentAdminId();
                     loadNextEmployeeId();
-                  //  loadCurrentEmployeeId();
                     refreshPage();
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to save Employee!").show();
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
+                // Handle database-related exceptions
                 e.printStackTrace();
                 new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // Handle class not found exceptions
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Catch any other unexpected exceptions
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             }
         }
     }
@@ -242,37 +262,46 @@ public class EmployeeController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         String employeeId = txtEmployeeID.getText();
-      if(employeeId.isEmpty()){
-          new Alert(Alert.AlertType.WARNING,"Please enter employee ID").show();
-          return;
 
-      }
-      try{
-          EmployeeDto employee= EmployeeModel.SearchEmployee(employeeId);
-          if(employee!=null){
-              txtEmployeeID.setText(employee.getEmp_id());
-              txtEmployeeName.setText(employee.getEmp_name());
-              txtAdress.setText(employee.getAddress());
-              txtJobRole.setText(employee.getAddress());
-              txtJobRole.setText(employee.getJob());
-              txtAdress.setText(employee.getAddress());
-          new Alert(Alert.AlertType.INFORMATION,"Employee found!").show();
-          }else{
-              new Alert(Alert.AlertType.ERROR,"Employee not found!").show();
-              clearFields();
-              //loadNextAdminId();
-              loadCurrentAdminId();
-              loadNextEmployeeId();
-              //loadCurrentEmployeeId();
+        // Check if the employee ID field is empty
+        if (employeeId.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter employee ID").show();
+            return; // Stop further execution if the ID is empty
+        }
 
+        try {
+            // Search for the employee using the provided ID
+            EmployeeDto employee = EmployeeModel.SearchEmployee(employeeId);
 
-          }
+            // Check if the employee is found
+            if (employee != null) {
+                // Populate the fields with employee data
+                txtEmployeeID.setText(employee.getEmp_id());
+                txtEmployeeName.setText(employee.getEmp_name());
+                txtAdress.setText(employee.getAddress());
+                txtJobRole.setText(employee.getJob()); // Fixed the incorrect setText for job role
+                new Alert(Alert.AlertType.INFORMATION, "Employee found!").show(); // Show success alert
+            } else {
+                // If employee is not found, show an error alert
+                new Alert(Alert.AlertType.ERROR, "Employee not found!").show();
+                clearFields(); // Clear the fields
+                loadCurrentAdminId(); // Load current admin ID
+                loadNextEmployeeId(); // Load next employee ID
+            }
 
-      }catch (SQLException | ClassNotFoundException e){
-          e.printStackTrace();
-          new Alert(Alert.AlertType.ERROR,"Error occurred while searching employee: "+e.getMessage()).show();
-
-      }
+        } catch (SQLException e) {
+            // Handle SQLException and display a specific alert
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            // Handle ClassNotFoundException and display a specific alert
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Catch any other unexpected exceptions
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
+        }
 
     }
 
@@ -302,50 +331,55 @@ public class EmployeeController implements Initializable {
         // Reset field styles
         resetFieldStyles();
 
-        // Highlight invalid fields
+        // Highlight invalid fields and show appropriate alerts
         if (!isValidEmpId) {
             txtEmployeeID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Employee ID.");
+            new Alert(Alert.AlertType.ERROR, "Invalid Employee ID. Expected format: E001, E002, etc.").show();
         }
         if (!isValidEmpName) {
             txtEmployeeName.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Employee Name.");
+            new Alert(Alert.AlertType.ERROR, "Invalid Employee Name. Only letters and spaces are allowed.").show();
         }
         if (!isValidAddress) {
             txtAdress.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Address.");
+            new Alert(Alert.AlertType.ERROR, "Invalid Address. Only letters, numbers, and common punctuation are allowed.").show();
         }
         if (!isValidJob) {
             txtJobRole.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Job Role.");
+            new Alert(Alert.AlertType.ERROR, "Invalid Job Role. Only letters and spaces are allowed.").show();
         }
         if (!isValidAdminId) {
             txtAdminID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Admin ID.");
+            new Alert(Alert.AlertType.ERROR, "Invalid Admin ID. Expected format: A001, A002, etc.").show();
         }
 
         // Validate salary
         try {
             salary = new BigDecimal(txtSalary.getText());
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid salary format!").show();
-            return;
+            new Alert(Alert.AlertType.ERROR, "Invalid salary format! Please enter a valid number.").show();
+            return; // Stop further execution if salary format is invalid
         }
 
         // If all fields are valid, proceed to update
         if (isValidEmpId && isValidEmpName && isValidAddress && isValidJob && isValidAdminId) {
             EmployeeDto employeeDto = new EmployeeDto(employeeId, employeeName, address, job, salary, adminId);
-            boolean isUpdated = EmployeeModel.updateEmployee(employeeDto);
 
-            if (isUpdated) {
-                new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully!").show();
-               // loadNextAdminId();
-                loadCurrentAdminId();
-                loadNextEmployeeId();
-              //  loadCurrentEmployeeId();
-                refreshPage();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to update employee!").show();
+            try {
+                boolean isUpdated = EmployeeModel.updateEmployee(employeeDto);
+
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully!").show();
+                    loadCurrentAdminId(); // Load current admin ID
+                    loadNextEmployeeId(); // Load next employee ID
+                    refreshPage(); // Refresh the page to reflect changes
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to update employee!").show();
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                // Handle any SQL or class not found exceptions that may occur during the update
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
             }
         }
 
@@ -374,28 +408,29 @@ public class EmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    colEmplyeeID.setCellValueFactory(new PropertyValueFactory<>("emp_id"));
-    colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("emp_name"));
-    colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-    colJobRole.setCellValueFactory(new PropertyValueFactory<>("job"));
-    colSalary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
-    colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
+        colEmplyeeID.setCellValueFactory(new PropertyValueFactory<>("emp_id"));
+        colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("emp_name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colJobRole.setCellValueFactory(new PropertyValueFactory<>("job"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
+        colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
 
-        try{
+        try {
+            // Refreshing the page and loading necessary IDs and table data
             refreshPage();
-          loadNextEmployeeId();
-            //loadCurrentEmployeeId();
-          //loadNextAdminId();
+            loadNextEmployeeId();
             loadCurrentAdminId();
-          refreshTableData();
-
-       }catch (SQLException | ClassNotFoundException e){
-           e.printStackTrace();
-           new Alert(Alert.AlertType.ERROR,"Failed to load Employee").show();
-
-       }
-
-
+            refreshTableData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while loading employee data: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
+        }
     }
     private  void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextEmployeeId();
@@ -436,19 +471,11 @@ public class EmployeeController implements Initializable {
         String nextEmployeeId=EmployeeModel.loadNextEmployeeId();
         txtEmployeeID.setText(nextEmployeeId);
     }
-//    public void loadNextAdminId() throws SQLException, ClassNotFoundException {
-//        String nextAdminId = AdminModel.loadNextAdminId();
-//        txtAdminID.setText(nextAdminId);
-//    }
+
     public void loadCurrentAdminId() throws SQLException, ClassNotFoundException {
         String currentAdminId = AdminModel.loadCurrentAdminId();
         txtAdminID.setText(currentAdminId);
     }
-
-//    public void loadCurrentEmployeeId() throws SQLException, ClassNotFoundException {
-//        String currentEmployeeId = EmployeeModel.loadCurrentEmployeeId();
-//        txtEmployeeID.setText(currentEmployeeId);
-//    }
 
 
 

@@ -110,32 +110,46 @@ public class MaintainScheduleController  implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String maintainId = txtMaintainID.getText();
-        if(maintainId.isEmpty()){
+
+        // Check if Maintain ID is empty
+        if (maintainId.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Please Enter Maintain Id").show();
             return;
         }
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this Maintain?",ButtonType.YES,ButtonType.NO);
-        Optional<ButtonType> optionalButtonType=alert.showAndWait();
-        if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
-            try{
-                boolean isDeleted=MaintinModel.deleteMaintain(maintainId);
-                if(isDeleted){
+
+        // Confirmation alert before deletion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Maintain?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        // If user confirms deletion
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+            try {
+                // Attempt to delete the maintain record
+                boolean isDeleted = MaintinModel.deleteMaintain(maintainId);
+
+                if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Maintain deleted successfully!").show();
                     clearFields();
                     loadCurrentVehicleId();
                     loadNextMaintainId();
                     refreshTableData();
-
-                }else{
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete Maintain!").show();
                 }
 
-            }catch (SQLException | ClassNotFoundException e){
+            } catch (SQLException e) {
+                // SQL exception handling
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Error occurred while deleting Maintain: "+e.getMessage()).show();
-
+                new Alert(Alert.AlertType.ERROR, "Error occurred while deleting Maintain: Database error - " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                // ClassNotFoundException handling
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Error occurred while deleting Maintain: Class not found - " + e.getMessage()).show();
+            } catch (Exception e) {
+                // Catching any other unforeseen errors
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Unexpected error occurred while deleting Maintain: " + e.getMessage()).show();
             }
-
         }
 
     }
@@ -178,6 +192,7 @@ public class MaintainScheduleController  implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         try {
+            // Get input values
             String maintainId = txtMaintainID.getText();
             String cost = txtCost.getText();
             String maintainDateStr = txtMaintainDate.getText();
@@ -185,13 +200,13 @@ public class MaintainScheduleController  implements Initializable {
             String duration = txtDuration.getText();
             String vehicleId = txtVehicleID.getText();
 
-            // Validate inputs
+            // Validate inputs: Ensure that no field is empty
             if (maintainId.isEmpty() || cost.isEmpty() || maintainDateStr.isEmpty() || duration.isEmpty() || vehicleId.isEmpty()) {
                 new Alert(Alert.AlertType.WARNING, "Please fill all fields!").show();
                 return; // Exit if validation fails
             }
 
-            // Convert cost to BigDecimal
+            // Convert cost to BigDecimal with error handling for invalid format
             BigDecimal decimalCost;
             try {
                 decimalCost = new BigDecimal(cost);
@@ -200,7 +215,7 @@ public class MaintainScheduleController  implements Initializable {
                 return; // Exit if cost format is invalid
             }
 
-            // Parse maintainDate from String to Date
+            // Parse maintainDate from String to Date with error handling for invalid date format
             java.util.Date maintainDate;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust to your date format
@@ -210,26 +225,30 @@ public class MaintainScheduleController  implements Initializable {
                 return; // Exit if date format is invalid
             }
 
-            // Create MaintainDto object
+            // Create MaintainDto object with the validated input values
             MaintainDto maintainDto = new MaintainDto(maintainId, decimalCost, maintainDate, description, duration, vehicleId);
 
-            // Save to the database
-            boolean isSaved = MaintinModel.saveMaintain(maintainDto);
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Maintain saved successfully!").show();
-                loadNextMaintainId();
-                loadCurrentVehicleId();
-                refreshPage();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save Maintain!").show();
+            // Save the MaintainDto object to the database
+            try {
+                boolean isSaved = MaintinModel.saveMaintain(maintainDto);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "Maintain saved successfully!").show();
+                    loadNextMaintainId();
+                    loadCurrentVehicleId();
+                    refreshPage();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to save Maintain!").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
+                e.printStackTrace(); // Log for debugging
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+                e.printStackTrace(); // Log for debugging
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
-            e.printStackTrace(); // Log for debugging
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
-            e.printStackTrace(); // Log for debugging
+
         } catch (Exception e) {
+            // Catch any other unexpected errors
             new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             e.printStackTrace(); // Log for debugging
         }
@@ -238,37 +257,52 @@ public class MaintainScheduleController  implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String maintainId = txtMaintainID.getText(); // Get the user input, not the component ID
-        if(maintainId.isEmpty()){
+
+        // Check if the Maintain ID is empty and show an error alert
+        if (maintainId.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Please Enter Maintain Id").show();
-            return;
+            return; // Exit the method if Maintain ID is empty
         }
 
         try {
+            // Attempt to search for the Maintain record using the given Maintain ID
             MaintainDto maintain = MaintinModel.searchMaintain(maintainId); // Correct model method
+
             if (maintain != null) {
+
                 txtMaintainID.setText(maintain.getMaintain_id());
                 txtCost.setText(maintain.getCost().toString());
                 txtMaintainDate.setText(maintain.getMaintain_date().toString());
                 txtDescription.setText(maintain.getDescription());
                 txtDuration.setText(maintain.getDuration());
                 txtVehicleID.setText(maintain.getVehicle_id());
+
+                // Show a success message if the Maintain record is found
                 new Alert(Alert.AlertType.INFORMATION, "Maintain found").show();
             } else {
+                // If no record is found, clear fields and show an error message
                 new Alert(Alert.AlertType.ERROR, "Maintain not found").show();
-                clearFields();
-                loadCurrentVehicleId();
-                loadNextMaintainId();
-
+                clearFields(); // Clear fields if Maintain is not found
+                loadCurrentVehicleId(); // Reset vehicle ID field
+                loadNextMaintainId(); // Load the next Maintain ID
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while searching Maintain: " + e.getMessage()).show();
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the exception details for debugging
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the exception details for debugging
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
+            e.printStackTrace(); // Log the exception details for debugging
         }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
+            // Retrieve input values from text fields
             String maintainId = txtMaintainID.getText();
             String costStr = txtCost.getText();
             String maintainDateStr = txtMaintainDate.getText();
@@ -285,7 +319,7 @@ public class MaintainScheduleController  implements Initializable {
             // Convert cost to BigDecimal
             BigDecimal cost;
             try {
-                cost = new BigDecimal(costStr);
+                cost = new BigDecimal(costStr); // Attempt to parse the cost
             } catch (NumberFormatException e) {
                 new Alert(Alert.AlertType.ERROR, "Invalid cost format!").show();
                 return; // Exit if cost format is invalid
@@ -294,36 +328,39 @@ public class MaintainScheduleController  implements Initializable {
             // Parse maintainDate from String to Date
             java.util.Date maintainDate;
             try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust according to your date format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust to your date format
                 maintainDate = dateFormat.parse(maintainDateStr);
             } catch (ParseException e) {
                 new Alert(Alert.AlertType.ERROR, "Invalid date format! Use YYYY-MM-DD.").show();
                 return; // Exit if date format is invalid
             }
 
-            // Create MaintainDto object
+            // Create MaintainDto object with the provided details
             MaintainDto maintainDto = new MaintainDto(maintainId, cost, maintainDate, description, duration, vehicleId);
 
-            // Update the database
+            // Update the database with the updated MaintainDto
             boolean isUpdated = MaintinModel.updateMaintain(maintainDto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Maintain updated successfully!").show();
-                refreshPage();
-                loadNextMaintainId();
-                loadCurrentVehicleId();
-
+                refreshPage(); // Refresh the page after successful update
+                loadNextMaintainId(); // Load the next maintain ID
+                loadCurrentVehicleId(); // Load the current vehicle ID
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update Maintain!").show();
             }
+
         } catch (SQLException e) {
+            // Catch and handle SQLException separately
             new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
-            e.printStackTrace(); // Log for debugging
+            e.printStackTrace(); // Log the exception for debugging
         } catch (ClassNotFoundException e) {
+            // Catch and handle ClassNotFoundException separately
             new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
-            e.printStackTrace(); // Log for debugging
+            e.printStackTrace(); // Log the exception for debugging
         } catch (Exception e) {
+            // Catch any other unforeseen exceptions
             new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
-            e.printStackTrace(); // Log for debugging
+            e.printStackTrace(); // Log the exception for debugging
         }
     }
 
@@ -355,21 +392,27 @@ public class MaintainScheduleController  implements Initializable {
         colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         colVechleId.setCellValueFactory(new PropertyValueFactory<>("vehicle_id"));
 
-       try{
-           refreshPage();
-           loadNextMaintainId();
-           loadCurrentVehicleId();
-           refreshTableData();
+        try {
+            // Refresh and load data
+            refreshPage(); // Refresh the page view
+            loadNextMaintainId(); // Load the next maintain ID
+            loadCurrentVehicleId(); // Load current vehicle ID
+            refreshTableData(); // Refresh table with data
 
+        } catch (SQLException | ClassNotFoundException e) {
+            // Handle SQL and class loading errors
+            e.printStackTrace(); // Print stack trace for debugging
+            new Alert(Alert.AlertType.ERROR, "Error occurred while loading Maintain: " + e.getMessage()).show();
+        } catch (Exception e) {
+            // Catch any other unforeseen exceptions
+            e.printStackTrace(); // Print stack trace for debugging
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
+        }
 
-
-       } catch (SQLException | ClassNotFoundException e){
-           e.printStackTrace();
-           new Alert(Alert.AlertType.ERROR,"Error occurred while loading Maintain: "+e.getMessage()).show();
-
-       }
+        // Initialize date combo boxes (additional functionality, not wrapped in try-catch)
         initializeDateCombos();
     }
+
     private void initializeDateCombos(){
         // Populate ComboYear with the last 50 years up to the current year
         ComboYear.setItems(FXCollections.observableArrayList(

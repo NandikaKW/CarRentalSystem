@@ -8,9 +8,9 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.LoadingController">
    <children>
       <ProgressBar layoutX="21.0" layoutY="346.0" prefHeight="36.0" prefWidth="562.0" />
-      <ImageView fitHeight="340.0" fitWidth="502.0" layoutX="127.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="340.0" fitWidth="502.0" layoutX="84.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/17904345.gif" />
+            <Image url="@../image/735cea56968f703df45d4c551ee3b160.gif" />
          </image>
       </ImageView>
    </children>

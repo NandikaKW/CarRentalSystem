@@ -62,35 +62,39 @@ public class AdminController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String adminId=txtAdminID.getText();
-        if(adminId.isEmpty()){
-            new Alert(Alert.AlertType.WARNING, "Please enter a Admin ID to delete!").show();
+        String adminId = txtAdminID.getText();
+
+        if (adminId.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter an Admin ID to delete!").show();
             return;
         }
 
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this admin?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = confirmationAlert.showAndWait();
 
-             Alert alert=new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this admin?", ButtonType.YES,ButtonType.NO);
-            Optional<ButtonType> optionalButtonType=alert.showAndWait();
-            if(optionalButtonType.isPresent() && optionalButtonType.get()==ButtonType.YES){
-             try {
-                 boolean isDeleted=AdminModel.deleteAdmin(adminId);
-                 if(isDeleted){
-                     new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
-                     clearField(); // Clear fields after deletion
-                     refreshTableData(); // Refresh table to remove deleted record
-                     loadNextAdminId(); // Reset ID field to next available
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+            try {
+                boolean isDeleted = AdminModel.deleteAdmin(adminId);
 
+                if (isDeleted) {
+                    new Alert(Alert.AlertType.INFORMATION, "Admin deleted successfully!").show();
+                    clearField();         // Clear fields after deletion
+                    refreshTableData();    // Refresh table to remove deleted record
+                    loadNextAdminId();     // Reset ID field to next available ID
 
-                 }else{
-                     new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
-                 }
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete admin!").show();
+                }
 
-             }catch (SQLException | ClassNotFoundException e){
-                 e.printStackTrace();
-                 new Alert(Alert.AlertType.ERROR,"Error occurred while deleting Admin: "+e.getMessage()).show();
-
-             }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "SQL error occurred while deleting admin: " + e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
             }
+        }
 
     }
     private void refreshTableData() throws SQLException, ClassNotFoundException {
@@ -123,34 +127,35 @@ public class AdminController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String adminId=txtAdminID.getText();
-       if(adminId.isEmpty()){
-           new Alert(Alert.AlertType.WARNING,"Please enter a Admin ID to search!").show();
-         return;
-       }
-       try{
-           AdminDto admin=AdminModel.searchAdmin(adminId);
-           if(admin!=null){
-               txtAdminID.setText(admin.getAdmin_id());
-               txtAdminName.setText(admin.getUserName());
-               txtEmail.setText(admin.getEmail());
-               txtPassword.setText(admin.getPassword());
-               new Alert(Alert.AlertType.INFORMATION,"Admin found!").show();
+        String adminId = txtAdminID.getText();
 
+        if (adminId.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter an Admin ID to search!").show();
+            return;
+        }
 
+        try {
+            AdminDto admin = AdminModel.searchAdmin(adminId);
 
-           }else{
-               new Alert(Alert.AlertType.WARNING,"Admin not found!").show();
-               loadNextAdminId();
-               clearField();
+            if (admin != null) {
+                txtAdminID.setText(admin.getAdmin_id());
+                txtAdminName.setText(admin.getUserName());
+                txtEmail.setText(admin.getEmail());
+                txtPassword.setText(admin.getPassword());
+                new Alert(Alert.AlertType.INFORMATION, "Admin found!").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Admin not found!").show();
+                loadNextAdminId();
+                clearField();
+            }
 
-           }
-
-       }catch (SQLException | ClassNotFoundException e){
-           e.printStackTrace();
-           new Alert(Alert.AlertType.ERROR,"Error occurred while searching for Admin: "+e.getMessage()).show();
-
-       }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "SQL error occurred while searching for Admin: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
+        }
     }
 
 
@@ -184,46 +189,54 @@ public class AdminController implements Initializable {
         boolean isValidEmail = email.matches(emailPattern);
         boolean isValidPassword = password.matches(passwordPattern);
 
-        // Highlight invalid fields
-        if (!isValidAdminId) {
-            txtAdminID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Admin ID.");
+        // Alert message for validation errors
+        if (!isValidAdminId || !isValidUserName || !isValidEmail || !isValidPassword) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidAdminId) {
+                txtAdminID.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Admin ID (Expected format: A001)\n");
+            }
+            if (!isValidUserName) {
+                txtAdminName.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid User Name (Only letters and spaces allowed)\n");
+            }
+            if (!isValidEmail) {
+                txtEmail.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Email format\n");
+            }
+            if (!isValidPassword) {
+                txtPassword.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Password (Minimum 8 characters, at least 1 letter and 1 number)\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return;
         }
 
-        if (!isValidUserName) {
-            txtAdminName.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid User Name.");
-        }
-
-        if (!isValidEmail) {
-            txtEmail.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Email.");
-        }
-
-        if (!isValidPassword) {
-            txtPassword.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Password.");
-        }
-
-        // If all fields are valid, proceed to save
-        if (isValidAdminId && isValidUserName && isValidEmail && isValidPassword) {
+        // If all fields are valid, attempt to save
+        try {
             AdminDto adminDto = new AdminDto(adminId, userName, email, password);
             boolean isSaved = AdminModel.saveAdmin(adminDto);
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Admin saved successfully!").show();
-
-                // Clear fields and refresh page after successful save
-                clearField();
-                refreshPage();
-                loadNextAdminId();
+                clearField(); // Clear fields after successful save
+                refreshPage(); // Refresh the page
+                loadNextAdminId(); // Load the next available Admin ID
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save admin!").show();
             }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "SQL error occurred while saving Admin: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
         }
     }
 
-    // Method to reset styles for all fields
+
     private void resetFieldStyles() {
         txtAdminID.setStyle(""); // Reset to default
         txtAdminName.setStyle(""); // Reset to default
@@ -253,40 +266,50 @@ public class AdminController implements Initializable {
         boolean isValidEmail = email.matches(emailPattern);
         boolean isValidPassword = password.matches(passwordPattern);
 
-        // Highlight invalid fields
-        if (!isValidAdminId) {
-            txtAdminID.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Admin ID.");
+        // Alert message for validation errors
+        if (!isValidAdminId || !isValidUserName || !isValidEmail || !isValidPassword) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidAdminId) {
+                txtAdminID.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Admin ID (Expected format: A001)\n");
+            }
+            if (!isValidUserName) {
+                txtAdminName.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid User Name (Only letters and spaces allowed)\n");
+            }
+            if (!isValidEmail) {
+                txtEmail.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Email format\n");
+            }
+            if (!isValidPassword) {
+                txtPassword.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Password (Minimum 8 characters, at least 1 letter and 1 number)\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return;
         }
 
-        if (!isValidUserName) {
-            txtAdminName.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid User Name.");
-        }
-
-        if (!isValidEmail) {
-            txtEmail.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Email.");
-        }
-
-        if (!isValidPassword) {
-            txtPassword.setStyle("-fx-border-color: red;");
-            System.out.println("Invalid Password.");
-        }
-
-        // Proceed only if all fields are valid
-        if (isValidAdminId && isValidUserName && isValidEmail && isValidPassword) {
+        // Attempt to update admin if validation passes
+        try {
             AdminDto adminDto = new AdminDto(adminId, userName, email, password);
             boolean isUpdated = AdminModel.updateAdmin(adminDto);
 
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Admin updated successfully!").show();
-                refreshPage();
-                loadNextAdminId();
-                // Ensure you call refreshTableData() here to refresh the table
+                refreshPage();         // Refresh the page content
+                loadNextAdminId();      // Load the next available Admin ID
+                refreshTableData();     // Refresh the table to reflect changes
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update admin!").show();
             }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "SQL error while updating Admin: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
         }
     }
 
@@ -312,13 +335,20 @@ public class AdminController implements Initializable {
         colAdminName.setCellValueFactory(new PropertyValueFactory<>("UserName"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
         colPassword.setCellValueFactory(new PropertyValueFactory<>("Password"));
-        try{
+
+        try {
             refreshPage();
             loadNextAdminId();
             refreshTableData();
-        }catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Fail to load admin data").show();
+            new Alert(Alert.AlertType.ERROR, "Database error occurred while loading admin data: " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Required class not found: " + e.getMessage()).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {
