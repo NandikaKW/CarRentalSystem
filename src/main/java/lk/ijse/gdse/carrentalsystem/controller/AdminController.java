@@ -266,7 +266,7 @@ public class AdminController implements Initializable {
         boolean isValidEmail = email.matches(emailPattern);
         boolean isValidPassword = password.matches(passwordPattern);
 
-        // Alert message for validation errors
+
         if (!isValidAdminId || !isValidUserName || !isValidEmail || !isValidPassword) {
             StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
 
