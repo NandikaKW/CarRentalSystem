@@ -30,11 +30,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class RentServiceController  implements Initializable {
-    @FXML
-    private JFXButton btnPlaceOrder;
 
-    @FXML
-    private JFXButton btnReserve;
 
 
     @FXML
@@ -488,60 +484,14 @@ public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException
             txtStartDate.setText(String.format("%04d-%02d-%02d", year, month, day));
         }
     }
-    @FXML
-    void btnPlaceOrderOnAction(ActionEvent event) {
-//        String customerName = txtCustomerName.getText(); // TextField for customer's name.
-//        String customerContact = txtCustomerContact.getText(); // TextField for customer's contact.
-//
-//
-//        if (customerName == null || customerName.isEmpty() || customerContact == null || customerContact.isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please fill in all required fields.").show();
-//            return;
-//        }
-//
-//
-//        boolean isOrderPlaced = processOrder(customerName, customerContact);  // Custom method to handle order placement.
-//
-//        if (isOrderPlaced) {
-//            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").show();
-//        } else {
-//            new Alert(Alert.AlertType.ERROR, "Failed to place order. Please try again.").show();
-//        }
-    }
 
-    @FXML
-    void btnReserveOnAction(ActionEvent event) {
 
-//        String selectedVehicleId = txtVehicleId.getText();
-//
-//
-//        if (selectedVehicleId == null || selectedVehicleId.isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please select a vehicle.").show();
-//            return;
-//        }
-//
-//
-//        boolean isVehicleReserved = reserveVehicle(selectedVehicleId);  // Custom method to handle vehicle reservation.
-//
-//        if (isVehicleReserved) {
-//            new Alert(Alert.AlertType.INFORMATION, "Vehicle reserved successfully!").show();
-//        } else {
-//            new Alert(Alert.AlertType.ERROR, "Failed to reserve vehicle. Please try again.").show();
-//        }
+
     }
 
 
-//    private boolean processOrder(String customerName, String customerContact) {
-//
-//        return true;
-//    }
-//
-//
-//    private boolean reserveVehicle(String vehicleId) {
-//
-//        return true;
-//    }
 
 
 
-}
+
+
