@@ -379,7 +379,6 @@ public class VehicleRentDetailsController  implements Initializable {
                     vechileRentDetailDto.getRent_id(),
                     vechileRentDetailDto.getStart_date(),
                     vechileRentDetailDto.getEnd_date(),
-                    vechileRentDetailDto.getRent_date(),
                     vechileRentDetailDto.getVehicle_condition(),  // Updated field
                     vechileRentDetailDto.getVehicle_quantity()
             );
@@ -434,7 +433,7 @@ public class VehicleRentDetailsController  implements Initializable {
         }
 
         VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                vehicleId, rentId, startDate, endDate, rentDate, vehicleCondition, quantity
+                vehicleId, rentId, startDate, endDate, vehicleCondition, quantity
         );
 
         try {
@@ -501,7 +500,7 @@ public class VehicleRentDetailsController  implements Initializable {
 
         // Create DTO with validated inputs
         VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                vehicleId, rentId, startDate, endDate, rentDate, vehicleCondition, quantity
+                vehicleId, rentId, startDate, endDate,  vehicleCondition, quantity
         );
 
         try {
@@ -545,7 +544,6 @@ public class VehicleRentDetailsController  implements Initializable {
                 txtRentId.setText(vehicleRentDetailDto.getRent_id());
                 txtStartDate.setText(vehicleRentDetailDto.getStart_date().toString());
                 txtEndDate.setText(vehicleRentDetailDto.getEnd_date().toString());
-                txtRentDate.setText(vehicleRentDetailDto.getRent_date().toString());
                 txtCost.setText(vehicleRentDetailDto.getVehicle_condition()); // Assuming condition is a text field
                 txtVehicleQuantity.setText(String.valueOf(vehicleRentDetailDto.getVehicle_quantity())); // Convert int to String
             } else {
@@ -610,7 +608,7 @@ public class VehicleRentDetailsController  implements Initializable {
 
             // Create DTO object with validated inputs
             VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                    vehicleId, rentId, startDate, endDate, rentDate, vehicleCondition, quantity
+                    vehicleId, rentId, startDate, endDate,  vehicleCondition, quantity
             );
 
             // Attempt to update vehicle rent details
@@ -647,7 +645,6 @@ public class VehicleRentDetailsController  implements Initializable {
             txtRentId.setText(vehicleRentDetailTM.getRent_id());
             txtStartDate.setText(vehicleRentDetailTM.getStart_date().toString());
             txtEndDate.setText(vehicleRentDetailTM.getEnd_date().toString());
-            txtRentDate.setText(vehicleRentDetailTM.getRent_date().toString());
             txtCondition.setText(vehicleRentDetailTM.getVehicle_condition());
             txtVehicleQuantity.setText(String.valueOf(vehicleRentDetailTM.getVehicle_quantity()));
             btnSave.setDisable(true);
@@ -727,7 +724,6 @@ public class VehicleRentDetailsController  implements Initializable {
                     vechileRentDetailDto.getRent_id(),
                     vechileRentDetailDto.getStart_date(),
                     vechileRentDetailDto.getEnd_date(),
-                    vechileRentDetailDto.getRent_date(),
                     vechileRentDetailDto.getVehicle_condition(),
                     vechileRentDetailDto.getVehicle_quantity()
 

@@ -25,11 +25,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class VehicleDetailsController  implements Initializable {
-    @FXML
-    private JFXButton btnPlaceOrder;
 
-    @FXML
-    private JFXButton btnReserveVehicle;
 
     @FXML
     private JFXButton btnDelete;
@@ -106,9 +102,13 @@ public class VehicleDetailsController  implements Initializable {
     private TextField txtVehicleId;
     private final RentModel rentModel=new RentModel();
     private final CustomerModel customerModel=new CustomerModel();
-    private  final VehicleModel vehicleModel=new VehicleModel();
+    private  VehicleModel vehicleModel;
 
     private final ObservableList<ReserveTM> reserveTMS = FXCollections.observableArrayList();
+
+    public VehicleDetailsController() {
+        vehicleModel = new VehicleModel();
+    }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -128,7 +128,7 @@ public class VehicleDetailsController  implements Initializable {
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             try {
                 // Attempt to delete the vehicle from the model
-                boolean isDeleted = VehicleModel.deleteVehicle(vehicleId);
+                boolean isDeleted = vehicleModel.deleteVehicle(vehicleId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Vehicle Deleted Successfully").show();
@@ -157,7 +157,7 @@ public class VehicleDetailsController  implements Initializable {
         }
     }
     private  void refreshTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<VehicleDto> vehicleDtos=VehicleModel.getAllVehicles();
+        ArrayList<VehicleDto> vehicleDtos=vehicleModel.getAllVehicles();
         ObservableList<VehicleTM> vehicleTMS= FXCollections.observableArrayList();
         for(VehicleDto dto:vehicleDtos){
             VehicleTM vehicleTM=new VehicleTM(
@@ -222,7 +222,7 @@ public class VehicleDetailsController  implements Initializable {
 
         try {
             // Attempt to save the vehicle
-            boolean isSaved = VehicleModel.saveVehicle(vehicleDto);
+            boolean isSaved = vehicleModel.saveVehicle(vehicleDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Vehicle Saved Successfully").show();
                 // Refresh the page and update fields after successful save
@@ -255,7 +255,7 @@ public class VehicleDetailsController  implements Initializable {
 
         try {
             // Attempt to search for the vehicle in the database
-            VehicleDto vehicle = VehicleModel.searchVehicle(vehicleId);
+            VehicleDto vehicle = vehicleModel.searchVehicle(vehicleId);
 
             if (vehicle != null) {
                 // If vehicle is found, display its details in the text fields
@@ -320,7 +320,7 @@ public class VehicleDetailsController  implements Initializable {
 
         try {
             // Attempt to update the vehicle in the database
-            boolean isUpdated = VehicleModel.updateVehicle(vehicleDto);
+            boolean isUpdated = vehicleModel.updateVehicle(vehicleDto);
 
             // Show the result of the update operation
             if (isUpdated) {
@@ -399,7 +399,7 @@ public class VehicleDetailsController  implements Initializable {
         clearFields();
     }
     private  void loadTableData() throws  SQLException,ClassNotFoundException{
-        ArrayList<VehicleDto> vehicleDtos=VehicleModel.getAllVehicles();
+        ArrayList<VehicleDto> vehicleDtos=vehicleModel.getAllVehicles();
         ObservableList<VehicleTM> vehicleTMS=FXCollections.observableArrayList();
         for (VehicleDto dto:vehicleDtos){
             VehicleTM vehicleTM=new VehicleTM(
@@ -417,121 +417,61 @@ public class VehicleDetailsController  implements Initializable {
 
     }
     public  void loadNextVehicleId() throws SQLException, ClassNotFoundException {
-        String nextVehicleId=VehicleModel.loadNextVehicleId();
+        String nextVehicleId=vehicleModel.loadNextVehicleId();
         txtVehicleId.setText(nextVehicleId);
     }
     public void loadCurrentPackageId() throws SQLException, ClassNotFoundException {
-        String currentPackageId = VehicleModel.loadCurrentPackageId();
+        String currentPackageId = vehicleModel.loadCurrentPackageId();
         txtPackageId.setText(currentPackageId);
     }
-    @FXML
-    void btnPlaceOrderOnAction(ActionEvent event) {
-//        // Validate if the cart is empty
-//        if (tblVehicle.getItems().isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please add vehicles to the cart!").show();
+//    @FXML
+//    void btnBookVehicleOnAction(ActionEvent event) {
+//
+//
+//    }
+//
+//    @FXML
+//    void btnReserveVehicleOnAction(ActionEvent event) {
+//        String vehicleId = txtVehicleId.getText();
+//        String model = txtModel.getText();
+//        String VAmount = txtQuantity.getText();
+//        String color = txtColour.getText();
+//        String PakageId = txtPackageId.getText();
+//        String category = txtCategory.getText();
+//
+//        int qunt;
+//        try {
+//            qunt = Integer.parseInt(VAmount);
+//        } catch (NumberFormatException e) {
+//            new Alert(Alert.AlertType.ERROR, "Invalid quantity. Please enter a valid number").show();
 //            return;
 //        }
 //
-//
-//
-//        // Retrieve Rent details from the UI components
-//        String rentId = lblRentId.getText();
-//        Date startDate = Date.valueOf(txtStartDate.getText()); // Assuming it's a TextField or similar for date input
-//        Date endDate = Date.valueOf(txtEndDate.getText());
-//        String agreementId = txtAgreementId.getText();
-//        String customerId = cmbCustomerId.getValue();
-//
-//        // List to hold VehicleRentDetailsDTO
-//        ArrayList<VehicleRentDetailTDto> vehicleRentDetails = new ArrayList<>();
-//
-//        // Iterate over the vehicles in the cart and create VehicleRentDetailsDTO for each vehicle
-//        for (ReserveTM reserveTM : cartTMS) {
-//
-//            // Create a VehicleRentDetailsDTO for each vehicle in the cart
-//            VehicleRentDetailsDTO rentDetailsDTO = new VehicleRentDetailsDTO(
-//                    rentId,
-//                    reserveTM.getVehicle_id(),
-//                    reserveTM.getQuantity(),
-//                    reserveTM.getModel(),
-//                    reserveTM.getColour(),
-//                    reserveTM.getPackage_id(),
-//                    reserveTM.getCategory()
-//            );
-//
-//            // Add to the vehicle details list
-//            vehicleRentDetails.add(rentDetailsDTO);
-//        }
-//
-//        // Create RentDTO with all gathered data
-//        RentDTO rentDTO = new RentDTO(
-//                rentId,
-//                customerId,
-//                startDate,
-//                endDate,
-//                agreementId,
-//                vehicleRentDetails
-//        );
-//
-//        // Call saveRent to save the rent details to the database
-//        boolean isSaved = rentModel.saveRent(rentDTO);
-//
-//        // Show appropriate alert based on the result of the save operation
-//        if (isSaved) {
-//            new Alert(Alert.AlertType.INFORMATION, "Rent order saved successfully!").show();
-//
-//            // Reset the page or perform any necessary actions after placing the rent
-//            refreshPage();
-//        } else {
-//            new Alert(Alert.AlertType.ERROR, "Failed to save the rent order!").show();
-//        }
-
-
-    }
-
-    @FXML
-    void btnReserveVehicleOnAction(ActionEvent event) {
-//        VehicleTM selectedVehicle = tblVehicle.getSelectionModel().getSelectedItem();
-//        if (selectedVehicle == null) {
-//            new Alert(Alert.AlertType.ERROR, "Please select a vehicle to reserve.").show();
+//        if (vehicleId.isEmpty() || model.isEmpty() || color.isEmpty() || PakageId.isEmpty() || category.isEmpty()) {
+//            new Alert(Alert.AlertType.ERROR, "Please fill in all fields").show();
 //            return;
 //        }
 //
-//        String vehicleId = selectedVehicle.getVehicle_id();
+//        VehicleDto dto = new VehicleDto(vehicleId, model, color, category, qunt, PakageId);
 //
 //        try {
-//            // Validate if the vehicle is available for reservation (could be a field in your database)
-//            VehicleDto vehicleDto = VehicleModel.searchVehicle(vehicleId);
-//            if (vehicleDto == null) {
-//                new Alert(Alert.AlertType.ERROR, "Vehicle not found.").show();
-//                return;
-//            }
-//            if (vehicleDto.getQuantity() <= 0) {
-//                new Alert(Alert.AlertType.WARNING, "Vehicle is out of stock.").show();
-//                return;
-//            }
+//            boolean isSaved = vehicleModel.saveVehicle(dto);
+//            if (isSaved) {
+//                new Alert(Alert.AlertType.INFORMATION, "Rent Reserve  saved successfully!").show();
 //
-//            // Reserve the vehicle
-//            boolean isReserved = RentModel.reserveVehicle(vehicleId);
-//            if (isReserved) {
-//                new Alert(Alert.AlertType.INFORMATION, "Vehicle reserved successfully!").show();
-//
-//                // Update vehicle quantity in the database and refresh table data
-//                int newQuantity = vehicleDto.getQuantity() - 1;
-//                vehicleDto.setQuantity(newQuantity);
-//                VehicleModel.updateVehicle(vehicleDto);
-//                refreshTableData();
+//                // Reset the page or perform any necessary actions after placing the rent
 //            } else {
-//                new Alert(Alert.AlertType.ERROR, "Failed to reserve the vehicle.").show();
+//                new Alert(Alert.AlertType.ERROR, "Failed to save the rent order!").show();
 //            }
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
 //        }
-
-    }
+//
+//
+//
+//    }
 
 
 }

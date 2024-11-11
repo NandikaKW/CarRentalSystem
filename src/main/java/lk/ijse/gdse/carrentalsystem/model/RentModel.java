@@ -37,6 +37,7 @@ public class RentModel {
 
     }
 
+
     public static boolean saveRent(RentDto dto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
         try {
@@ -44,8 +45,10 @@ public class RentModel {
             connection.setAutoCommit(false);
 
             // Save rent details
-            boolean isRentSaved = CrudUtil.execute("INSERT INTO rent (rent_id, start_date, end_date, cust_id, agreement_id) VALUES (?,?,?,?,?)",
-                    dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId());
+            boolean isRentSaved = CrudUtil.execute(
+                    "INSERT INTO rent (rent_id, start_date, end_date, cust_id, agreement_id) VALUES (?,?,?,?,?)",
+                    dto.getRentId(), dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId()
+            );
 
             // If rent is saved, proceed to save vehicle rent details
             if (isRentSaved) {
@@ -107,12 +110,8 @@ public class RentModel {
     }
 
 
+    public static boolean reserveVehicle(String vehicleId) {
 
-
-
-
-
-
-
-
+        return false;
+    }
 }

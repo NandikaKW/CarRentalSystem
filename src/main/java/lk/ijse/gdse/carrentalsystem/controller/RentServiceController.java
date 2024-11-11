@@ -9,18 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
 import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
+import lk.ijse.gdse.carrentalsystem.dto.VehicleDto;
+import lk.ijse.gdse.carrentalsystem.dto.tm.CartTM;
 import lk.ijse.gdse.carrentalsystem.dto.tm.ReserveTM;
-import lk.ijse.gdse.carrentalsystem.model.AgrimentModel;
-import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
-import lk.ijse.gdse.carrentalsystem.model.RentModel;
+import lk.ijse.gdse.carrentalsystem.model.*;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
-import lk.ijse.gdse.carrentalsystem.model.VehicleModel;
 
-
-import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -31,13 +27,15 @@ import java.util.stream.IntStream;
 
 public class RentServiceController  implements Initializable {
 
-
+    @FXML
+    private JFXButton btnBookVehicle;
 
     @FXML
-    private TextField txtAgrimentID;
+    private JFXButton btnReserveVehicle;
 
     @FXML
-    private TableColumn<?, ?> colAgrimentID;
+    private TableColumn<RentTM, String> colAgrimentID;
+
     @FXML
     private Label lblAgreementID;
 
@@ -58,6 +56,16 @@ public class RentServiceController  implements Initializable {
 
     @FXML
     private ComboBox<Integer> ComboYearOne;
+
+    @FXML
+    private ComboBox<String> cmbPackageId;
+
+    @FXML
+    private ComboBox<String> cmbVehicleId;
+
+    @FXML
+    private ComboBox<String> cmbCondition;
+
     @FXML
     private JFXButton btnDelete;
 
@@ -72,16 +80,49 @@ public class RentServiceController  implements Initializable {
     private JFXButton btnUpdate;
 
     @FXML
-    private TableColumn<RentDto, String> colCustomerID;
+    private TableColumn<RentTM, String> colCustomerID;
 
     @FXML
-    private TableColumn<RentDto, Date> colEndDate;
+    private TableColumn<RentTM, Date> colEndDate;
 
     @FXML
-    private TableColumn<RentDto, String> colRentId;
+    private TableColumn<RentTM, String> colRentId;
 
     @FXML
-    private TableColumn<RentDto, Date> colStartDate;
+    private TableColumn<RentTM, Date> colStartDate;
+
+    @FXML
+    private TableColumn<ReserveTM, String> colPackageId;
+
+    @FXML
+    private TableColumn<ReserveTM, Integer> colQty;
+
+    @FXML
+    private TableColumn<ReserveTM, Button> colRemove;
+
+    @FXML
+    private TableColumn<ReserveTM, String> colVehicleId;
+
+    @FXML
+    private Label lblCategory;
+
+    @FXML
+    private Label lblCondition;
+
+    @FXML
+    private Label lblColor;
+
+    @FXML
+    private Label lblModel;
+
+    @FXML
+    private Label lblPackageID;
+
+    @FXML
+    private Label lblQty;
+
+    @FXML
+    private Label lblQtyOnHand;
 
     @FXML
     private Label lblCustomerID;
@@ -94,6 +135,12 @@ public class RentServiceController  implements Initializable {
 
     @FXML
     private Label lblStartDate;
+
+    @FXML
+    private Label lblVehicleID;
+
+    @FXML
+    private TableView<CartTM> tblCart;
 
     @FXML
     private TableView<RentTM> tblRent;
@@ -111,12 +158,18 @@ public class RentServiceController  implements Initializable {
     private TextField txtStartDate;
 
     @FXML
+    private TextField txtAgrimentID;
+
+    @FXML
+    private TextField txtQty;
+
+    @FXML
     private JFXButton btnReset;
     private final  RentModel rentModel=new RentModel();
     private final CustomerModel customerModel=new CustomerModel();
     private  final VehicleModel vehicleModel=new VehicleModel();
-
-    private final ObservableList<ReserveTM> reserveTMS = FXCollections.observableArrayList();
+    private final PackageModel packageModel=new PackageModel();
+    private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -208,11 +261,6 @@ public class RentServiceController  implements Initializable {
 
     }
 
-
-
-
-
-
     private void refreshPage() throws SQLException, ClassNotFoundException {
         //loadNextAgreementId();
         loadCurrentAgreementId();
@@ -220,10 +268,16 @@ public class RentServiceController  implements Initializable {
         loadTableData();
         //loadNextCustomerId();
         loadCurrentCustomerId();
+        loadCmbVehicle();
+        loadCmbPackage();
+        loadCmbCondiion();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
         btnDelete.setDisable(true);
         clearFields();
+        tblCart.setItems(cartTMS);
+        cartTMS.clear();
+        tblCart.refresh();
     }
 
 
@@ -315,43 +369,68 @@ public class RentServiceController  implements Initializable {
         txtRentId.setText(nextRentId);
     }
 
-public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException {
-    String currentAgreementId = AgrimentModel.loadCurrentAgreementId();
-    txtAgrimentID.setText(currentAgreementId);
-}
+    public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException {
+        String currentAgreementId = AgrimentModel.loadCurrentAgreementId();
+        txtAgrimentID.setText(currentAgreementId);
+    }
+
+    public void loadCmbVehicle() throws SQLException, ClassNotFoundException {
+        ArrayList<String> vehicleIds = vehicleModel.getAllVehicleIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(vehicleIds);
+        cmbVehicleId.setItems(observableList);
+    }
+
+    public void loadCmbPackage() throws SQLException, ClassNotFoundException {
+        ArrayList<String> packageIds = packageModel.getAllPackageIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(packageIds);
+        cmbPackageId.setItems(observableList);
+    }
+
+    public void loadCmbCondiion(){
+        if (cmbCondition != null) {
+            String[] conditions = {"New", "Old", "Used"};
+            cmbCondition.getItems().addAll(conditions);
+        } else {
+            System.err.println("cmbCondition is null");
+        }
+    }
 
      @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colRentId.setCellValueFactory(new PropertyValueFactory<>("rentId")); // Use camelCase
-        colStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate")); // Use camelCase
-        colEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate")); // Use camelCase
-        colCustomerID.setCellValueFactory(new PropertyValueFactory<>("custId")); // Use camelCase
-        colAgrimentID.setCellValueFactory(new PropertyValueFactory<>("agreementId")); // Added for agreementId
+         if (cmbCondition == null) {
+             System.err.println("cmbCondition is not initialized properly");
+         }
 
-        try {
-            refreshPage();
-            loadNextRentId();
-            //loadNextCustomerId();
-            loadCurrentCustomerId();
-            refreshTableData();
+         colRentId.setCellValueFactory(new PropertyValueFactory<>("rentId"));
+         colStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+         colEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+         colCustomerID.setCellValueFactory(new PropertyValueFactory<>("custId"));
+         colAgrimentID.setCellValueFactory(new PropertyValueFactory<>("agreementId"));
+         tblCart.setItems(cartTMS);
 
-            updateYears();
-            updateMonths();
+         try {
+             refreshPage();
+             loadNextRentId();
+             loadCurrentCustomerId();
+             refreshTableData();
 
-            // Set default values for year and month to trigger day updates
-            ComboYear.getSelectionModel().selectFirst();
-            CombMonth.getSelectionModel().selectFirst();
-            updateDays();
+             updateYears();
+             updateMonths();
 
-            // Same for the second set of combo boxes
-            ComboYearOne.getSelectionModel().selectFirst();
-            CombMonthOne.getSelectionModel().selectFirst();
-            updateDaysOne();
+             ComboYear.getSelectionModel().selectFirst();
+             CombMonth.getSelectionModel().selectFirst();
+             updateDays();
 
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to load Rent data").show();
-        }
+             ComboYearOne.getSelectionModel().selectFirst();
+             CombMonthOne.getSelectionModel().selectFirst();
+             updateDaysOne();
+
+         } catch (SQLException | ClassNotFoundException e) {
+             e.printStackTrace();
+             new Alert(Alert.AlertType.ERROR, "Failed to load Rent data").show();
+         }
     }
 
     private void updateYears() {
@@ -484,10 +563,163 @@ public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException
             txtStartDate.setText(String.format("%04d-%02d-%02d", year, month, day));
         }
     }
+    @FXML
+    void btnBookVehicleOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        if (tblCart.getItems().isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please add vehicles to cart..!").show();
+            return;
+        }
+        if (cmbVehicleId.getSelectionModel().isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please select vehicle for place order..!").show();
+            return;
+        }
+
+        String rentId = lblRentId.getText();
+        ArrayList<VechileRentDetailDto> vechileRentDetailDtos = new ArrayList<>();
+
+        // Date format to parse input strings
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            // Parse start and end dates from input fields
+            Date startDate = dateFormat.parse(txtStartDate.getText());
+            Date endDate = dateFormat.parse(txtEndDate.getText());
+
+            // Collect data for each item in the cart and add to order details array
+            for (CartTM cartTM : cartTMS) {
+                VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(
+                        cmbVehicleId.getValue(),
+                        lblRentId.getText(),
+                        startDate,
+                        endDate,
+                        cmbCondition.getValue(),
+                        Integer.parseInt(txtQty.getText())
+                );
+                vechileRentDetailDtos.add(vechileRentDetailDto);
+            }
+
+            RentDto rentDto = new RentDto(
+                    lblRentId.getText(),
+                    startDate,
+                    endDate,
+                    txtCustomerId.getText(),
+                    txtAgrimentID.getText(),
+                    vechileRentDetailDtos
+            );
+
+            boolean isSaved = RentModel.saveRent(rentDto);
+
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Order saved..!").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Order fail..!").show();
+            }
+
+        } catch (ParseException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid date format! Please use yyyy-MM-dd.").show();
+        }
+    }
 
 
+    @FXML
+    void btnReserveVehicleOnAction(ActionEvent event) {
+        String selectedVehicleId = cmbVehicleId.getValue();
+
+        // If no item is selected, show an error alert and return
+        if (selectedVehicleId == null) {
+            new Alert(Alert.AlertType.ERROR, "Please select item..!").show();
+            return; // Exit the method if no item is selected.
+        }
+
+        int cartQty = Integer.parseInt(txtQty.getText());
+        int qtyOnHand = Integer.parseInt(lblQtyOnHand.getText());
+
+        // Check if there are enough items in stock; if not, show an error alert and return
+        if (qtyOnHand < cartQty) {
+            new Alert(Alert.AlertType.ERROR, "Not enough items..!").show();
+            return; // Exit the method if there's insufficient stock.
+        }
+
+        // Clear the text field for adding quantity after retrieving the input value.
+        txtQty.setText("");
+
+        // Loop through each item in cart's observable list.
+        for (CartTM cartTM : cartTMS) {
+
+            // Check if the item is already in the cart
+            if (cartTM.getVehicle_id().equals(selectedVehicleId)) {
+                // Update the existing CartTM object in the cart's observable list with the new quantity and total.
+                int newQty = Integer.parseInt(cartTM.getQuantity() + cartQty);
+                cartTM.setQuantity(String.valueOf(newQty)); // Add the new quantity to the existing quantity in the cart.
+                 // Recalculate the total price based on the updated quantity
+
+                // Refresh the table to display the updated information.
+                tblCart.refresh();
+                return; // Exit the method as the cart item has been updated.
+            }
+        }
+
+
+        // Create a "Remove" button for the item to allow it to be removed from the cart later.
+        Button btn = new Button("Remove");
+        String packageId = cmbPackageId.getValue();
+
+        // If the item does not already exist in the cart, create a new CartTM object to represent it.
+        CartTM newCartTM = new CartTM(
+                selectedVehicleId,
+                String.valueOf(cartQty),
+                packageId,
+                btn
+        );
+
+        // Set an action for the "Remove" button, which removes the item from the cart when clicked.
+        btn.setOnAction(actionEvent -> {
+
+            // Remove the item from the cart's observable list (cartTMS).
+            cartTMS.remove(newCartTM);
+
+            // Refresh the table to reflect the removal of the item.
+            tblCart.refresh();
+        });
+
+        // Add the newly created CartTM object to the cart's observable list.
+        cartTMS.add(newCartTM);
+        tblCart.setItems(cartTMS);
+        tblCart.refresh();
+    }
+
+    @FXML
+    void cmbPackageOnAction(ActionEvent event) {
 
     }
+
+    @FXML
+    void cmbVehicleIdOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String selectedVehicleId = cmbVehicleId.getSelectionModel().getSelectedItem();
+        VehicleDto vehicleDto = vehicleModel.searchVehicle(selectedVehicleId); // Get the selected vehicleDTO = itemModel.findById(selectedItemId);
+
+        // If item found (itemDTO not null)
+        if (vehicleDto != null) {
+
+            // FIll item related labels
+            lblModel.setText(vehicleDto.getModel());
+            lblColor.setText(vehicleDto.getColour());
+            lblCategory.setText(vehicleDto.getCategory());
+            lblQtyOnHand.setText(String.valueOf(vehicleDto.getQuantity()));
+        }
+    }
+
+    @FXML
+    void tblCartOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void cmbConditionOnAction(ActionEvent event) {
+
+    }
+}
 
 
 

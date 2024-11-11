@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VehicleRentDetailModel {
+    public static VehicleModel vehicleModel=new VehicleModel();
+
     public static boolean deleteVehicleRent(String rentId, String vehicleId) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM vehicle_rent_details WHERE rent_id = ? AND vehicle_id = ?", rentId, vehicleId);
 
@@ -22,7 +24,6 @@ public class VehicleRentDetailModel {
                     resultSet.getString("rent_id"),
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
-                    resultSet.getDate("rent_date"),
                     resultSet.getString("vehicle_condition"),
                     resultSet.getInt("Vehicle_Quantity")
             );
@@ -34,12 +35,11 @@ public class VehicleRentDetailModel {
     }
 
     public static boolean saveVehicleRent(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("INSERT INTO vehicle_rent_details VALUES (?,?,?,?,?,?,?)",
+        return CrudUtil.execute("INSERT INTO vehicle_rent_details VALUES (?,?,?,?,?,?)",
                 vechileRentDetailDto.getVehicle_id(),
                 vechileRentDetailDto.getRent_id(),
                 vechileRentDetailDto.getStart_date(),
                 vechileRentDetailDto.getEnd_date(),
-                vechileRentDetailDto.getRent_date(),
                 vechileRentDetailDto.getVehicle_condition(),
                 vechileRentDetailDto.getVehicle_quantity()
         );
@@ -54,7 +54,6 @@ public class VehicleRentDetailModel {
                     resultSet.getString("rent_id"),
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
-                    resultSet.getDate("rent_date"),
                     resultSet.getString("vehicle_condition"),
                     resultSet.getInt("Vehicle_Quantity")
             );
@@ -65,7 +64,7 @@ public class VehicleRentDetailModel {
     }
 
     public static boolean isVehicleRentUpdated(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE vehicle_rent_details SET start_date=?,end_date=?,rent_date=?,vehicle_condition=?,Vehicle_Quantity=? WHERE vehicle_id=? AND rent_id=?",vechileRentDetailDto.getStart_date(),vechileRentDetailDto.getEnd_date(),vechileRentDetailDto.getRent_date(),vechileRentDetailDto.getVehicle_condition(),vechileRentDetailDto.getVehicle_quantity(),vechileRentDetailDto.getVehicle_id(),vechileRentDetailDto.getRent_id());
+        return CrudUtil.execute("UPDATE vehicle_rent_details SET start_date=?,end_date=?,vehicle_condition=?,Vehicle_Quantity=? WHERE vehicle_id=? AND rent_id=?",vechileRentDetailDto.getStart_date(),vechileRentDetailDto.getEnd_date(),vechileRentDetailDto.getVehicle_condition(),vechileRentDetailDto.getVehicle_quantity(),vechileRentDetailDto.getVehicle_id(),vechileRentDetailDto.getRent_id());
 
     }
 
@@ -92,7 +91,7 @@ public class VehicleRentDetailModel {
             }
 
             // Update vehicle quantity after saving rent detail
-            boolean isVehicleUpdated = VehicleModel.reduceVehicleQuantity(vechileRentDetailDto);
+            boolean isVehicleUpdated = vehicleModel.reduceVehicleQuantity(vechileRentDetailDto);
             if (!isVehicleUpdated) {
                 return false;  // If update fails, return false to trigger rollback
             }

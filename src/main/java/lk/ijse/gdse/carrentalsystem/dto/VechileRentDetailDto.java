@@ -8,7 +8,7 @@ public class VechileRentDetailDto {
     private String rent_id;
     private Date start_date;
     private Date end_date;
-    private Date rent_date;
+
     private String vehicle_condition;
     private int vehicle_quantity;
 
@@ -17,12 +17,12 @@ public class VechileRentDetailDto {
     }
 
     // Parameterized constructor
-    public VechileRentDetailDto(String vehicle_id, String rent_id, Date start_date, Date end_date, Date rent_date, String vehicle_condition, int vehicle_quantity) {
+    public VechileRentDetailDto(String vehicle_id, String rent_id, Date start_date, Date end_date,  String vehicle_condition, int vehicle_quantity) {
         this.vehicle_id = vehicle_id;
         this.rent_id = rent_id;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.rent_date = rent_date;
+
         this.vehicle_condition = vehicle_condition;
         this.vehicle_quantity = vehicle_quantity;
     }
@@ -60,13 +60,9 @@ public class VechileRentDetailDto {
         this.end_date = end_date;
     }
 
-    public Date getRent_date() {
-        return rent_date;
-    }
 
-    public void setRent_date(Date rent_date) {
-        this.rent_date = rent_date;
-    }
+
+
 
     public String getVehicle_condition() {
         return vehicle_condition;
@@ -91,7 +87,7 @@ public class VechileRentDetailDto {
                 ", rent_id='" + rent_id + '\'' +
                 ", start_date=" + start_date +
                 ", end_date=" + end_date +
-                ", rent_date=" + rent_date +
+
                 ", vehicle_condition='" + vehicle_condition + '\'' +
                 ", vehicle_quantity=" + vehicle_quantity +
                 '}';

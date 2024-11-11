@@ -98,7 +98,7 @@
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnPlaceOrder" buttonType="RAISED" layoutX="620.0" layoutY="139.0" onAction="#btnPlaceOrderOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Place Order" textFill="#1e1d1d">
+      <JFXButton fx:id="btnBookVehicle" buttonType="RAISED" layoutX="620.0" layoutY="139.0" onAction="#btnBookVehicleOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Book Vehicle" textFill="#1e1d1d">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
