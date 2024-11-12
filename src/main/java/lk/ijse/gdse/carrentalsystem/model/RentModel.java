@@ -99,6 +99,7 @@ public class RentModel {
 
     public static String loadNextRentId() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("SELECT rent_id FROM rent ORDER BY rent_id DESC LIMIT 1");
+
         if (rst.next()) {
             String lastID = rst.getString(1);
             String substring = lastID.substring(1); // Strip the leading "C"

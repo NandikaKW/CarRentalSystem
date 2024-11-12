@@ -424,54 +424,7 @@ public class VehicleDetailsController  implements Initializable {
         String currentPackageId = vehicleModel.loadCurrentPackageId();
         txtPackageId.setText(currentPackageId);
     }
-//    @FXML
-//    void btnBookVehicleOnAction(ActionEvent event) {
-//
-//
-//    }
-//
-//    @FXML
-//    void btnReserveVehicleOnAction(ActionEvent event) {
-//        String vehicleId = txtVehicleId.getText();
-//        String model = txtModel.getText();
-//        String VAmount = txtQuantity.getText();
-//        String color = txtColour.getText();
-//        String PakageId = txtPackageId.getText();
-//        String category = txtCategory.getText();
-//
-//        int qunt;
-//        try {
-//            qunt = Integer.parseInt(VAmount);
-//        } catch (NumberFormatException e) {
-//            new Alert(Alert.AlertType.ERROR, "Invalid quantity. Please enter a valid number").show();
-//            return;
-//        }
-//
-//        if (vehicleId.isEmpty() || model.isEmpty() || color.isEmpty() || PakageId.isEmpty() || category.isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please fill in all fields").show();
-//            return;
-//        }
-//
-//        VehicleDto dto = new VehicleDto(vehicleId, model, color, category, qunt, PakageId);
-//
-//        try {
-//            boolean isSaved = vehicleModel.saveVehicle(dto);
-//            if (isSaved) {
-//                new Alert(Alert.AlertType.INFORMATION, "Rent Reserve  saved successfully!").show();
-//
-//                // Reset the page or perform any necessary actions after placing the rent
-//            } else {
-//                new Alert(Alert.AlertType.ERROR, "Failed to save the rent order!").show();
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//
-//
-//    }
+
 
 
 }
