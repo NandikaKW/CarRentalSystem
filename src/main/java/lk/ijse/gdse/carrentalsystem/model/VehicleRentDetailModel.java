@@ -25,7 +25,7 @@ public class VehicleRentDetailModel {
                     resultSet.getDate("start_date"),
                     resultSet.getDate("end_date"),
                     resultSet.getString("vehicle_condition"),
-                    resultSet.getInt("Vehicle_Quantity")
+                    resultSet.getInt("quantity")
             );
             vechileRentDetailDtos.add(vechileRentDetailDto);
         }

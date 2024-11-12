@@ -72,9 +72,8 @@
           <TableColumn fx:id="colStartDate" prefWidth="80.79998779296875" text="Start Date " />
             <TableColumn fx:id="colEndDate" prefWidth="112.00001525878906" text="End Date " />
             <TableColumn fx:id="colVehicleQuantity" prefWidth="92.79998779296875" text="Quantity" />
-            <TableColumn fx:id="colCondition" prefWidth="149.5999755859375" text="Condition " />
-            <TableColumn fx:id="colRentDate" prefWidth="83.2000732421875" text="Rent Date " />
-            <TableColumn fx:id="colRentID" prefWidth="141.5999755859375" text="Rent ID" />
+            <TableColumn fx:id="colCondition" prefWidth="186.39999389648438" text="Condition " />
+            <TableColumn fx:id="colRentID" prefWidth="190.39996337890625" text="Rent ID" />
         </columns>
       </TableView>
       <Accordion />

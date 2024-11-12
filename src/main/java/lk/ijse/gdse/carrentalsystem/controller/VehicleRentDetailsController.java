@@ -662,7 +662,6 @@ public class VehicleRentDetailsController  implements Initializable {
             colRentID.setCellValueFactory(new PropertyValueFactory<>("rent_id"));
             colStartDate.setCellValueFactory(new PropertyValueFactory<>("start_date"));
             colEndDate.setCellValueFactory(new PropertyValueFactory<>("end_date"));
-            colRentDate.setCellValueFactory(new PropertyValueFactory<>("rent_date"));
             colCondition.setCellValueFactory(new PropertyValueFactory<>("vehicle_condition"));
             colVehicleQuantity.setCellValueFactory(new PropertyValueFactory<>("vehicle_quantity"));
         } catch (Exception e) {

@@ -25,8 +25,10 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class RentAgrimentController implements Initializable {
+    public TextField textArgumatId;
     @FXML
     private ComboBox<Integer> CombMonth;
+
 
     @FXML
     private ComboBox<Integer> CombMonthOne;
@@ -98,9 +100,6 @@ public class RentAgrimentController implements Initializable {
     private TableView<AgrimentTM> tblAgriment;
 
     @FXML
-    private TextField txtAgrimentId;
-
-    @FXML
     private TextField txtCost;
 
     @FXML
@@ -117,7 +116,7 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String agrimentId = txtAgrimentId.getText();
+        String agrimentId = textArgumatId.getText();
 
         // Step 1: Check if Agriment ID is provided
         if (agrimentId.isEmpty()) {
@@ -179,7 +178,7 @@ public class RentAgrimentController implements Initializable {
     }
 
     public void clearFields() {
-        txtAgrimentId.setText("");
+        textArgumatId.setText("");
         txtCost.setText("");
         txtDepositAmount.setText("");
         txtEndDate.setText("");
@@ -198,7 +197,7 @@ public class RentAgrimentController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            String agrimentId = txtAgrimentId.getText();
+            String agrimentId = textArgumatId.getText();
             String paymentTerms = txtPaymentTerms.getText();
 
             // Check for missing fields
@@ -259,7 +258,7 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-        String agrimentId = txtAgrimentId.getText();
+        String agrimentId = textArgumatId.getText();
 
         // Check if AgrimentId is empty
         if (agrimentId.isEmpty()) {
@@ -273,7 +272,7 @@ public class RentAgrimentController implements Initializable {
 
             if (agrimentDto != null) {
                 // If found, populate the fields with the data from the AgrimentDto
-                txtAgrimentId.setText(agrimentDto.getAgreement_id());
+                textArgumatId.setText(agrimentDto.getAgreement_id());
                 txtPaymentTerms.setText(agrimentDto.getPayment_terms());
                 txtStartDate.setText(agrimentDto.getStart_date().toString());
                 txtEndDate.setText(agrimentDto.getEnd_date().toString());
@@ -302,7 +301,7 @@ public class RentAgrimentController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            String agrimentId = txtAgrimentId.getText();
+            String agrimentId = textArgumatId.getText();
             String paymentTerms = txtPaymentTerms.getText();
 
             // Convert String to Date
@@ -360,7 +359,7 @@ public class RentAgrimentController implements Initializable {
     void tblMouseClickedOnAction(MouseEvent event) {
         AgrimentTM agrimentTM = tblAgriment.getSelectionModel().getSelectedItem();
         if (agrimentTM != null) {
-            txtAgrimentId.setText(agrimentTM.getAgreement_id());
+            textArgumatId.setText(agrimentTM.getAgreement_id());
             txtPaymentTerms.setText(agrimentTM.getPayment_terms());
             txtStartDate.setText(agrimentTM.getStart_date().toString());
             txtEndDate.setText(agrimentTM.getEnd_date().toString());
@@ -521,7 +520,6 @@ public class RentAgrimentController implements Initializable {
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);
         btnDelete.setDisable(true);
-        clearFields();
     }
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<AgrimentDto> agrimentDtos = AgrimentModel.getAllAgriment();
@@ -550,7 +548,7 @@ public class RentAgrimentController implements Initializable {
 
             // Set the next agreement ID to the text field
             if (nextAgrimentId != null && !nextAgrimentId.isEmpty()) {
-                txtAgrimentId.setText(nextAgrimentId);
+                textArgumatId.setText(nextAgrimentId);
             } else {
                 // Handle case where the ID is null or empty (could happen if no agreement records exist)
                 new Alert(Alert.AlertType.WARNING, "Failed to load next agreement ID").show();

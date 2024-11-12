@@ -105,6 +105,6 @@
       <ComboBox fx:id="ComboYear" layoutX="191.0" layoutY="58.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="CombMonth" layoutX="274.0" layoutY="58.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="ComboDay" layoutX="347.0" layoutY="58.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <TextField fx:id="txtAgrimentId" layoutX="509.0" layoutY="60.0" prefHeight="26.0" prefWidth="83.0" promptText=" Agriment ID" />
+      <TextField fx:id="textArgumatId" layoutX="509.0" layoutY="60.0" prefHeight="26.0" prefWidth="83.0" promptText=" Agriment ID" />
    </children>
 </AnchorPane>
