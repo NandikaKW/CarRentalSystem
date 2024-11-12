@@ -1,0 +1,11 @@
+package lk.ijse.gdse.carrentalsystem.dto;
+
+public class VehicleDto {
+    private  String vehicle_id;
+    private  String model;
+    private String colour;
+    private String category;
+    private int quantity;
+    private String 
+
+}
