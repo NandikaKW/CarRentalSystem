@@ -33,7 +33,7 @@
             <Font name="Serif Regular" size="15.0" />
          </font>
       </TextArea>
-      <JFXButton buttonType="RAISED" layoutX="491.0" layoutY="326.0" onAction="#sendUsingGmailOnAction" style="-fx-background-color: black;" text="Send" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="491.0" layoutY="326.0" onAction="#sendUsingGmailOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Send">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
