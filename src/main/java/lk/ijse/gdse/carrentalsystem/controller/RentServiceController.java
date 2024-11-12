@@ -365,8 +365,8 @@ public class RentServiceController  implements Initializable {
 
 
     public void loadNextRentId() throws SQLException, ClassNotFoundException {
-        String nextRentId = RentModel.loadNextRentId();
-        txtRentId.setText(nextRentId);
+//        String nextRentId = RentModel.loadNextRentId();
+//        txtRentId.setText(nextRentId);
     }
 
     public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException {
@@ -408,6 +408,8 @@ public class RentServiceController  implements Initializable {
          colEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
          colCustomerID.setCellValueFactory(new PropertyValueFactory<>("custId"));
          colAgrimentID.setCellValueFactory(new PropertyValueFactory<>("agreementId"));
+
+         setCellValueCart();
          tblCart.setItems(cartTMS);
 
          try {
@@ -431,6 +433,14 @@ public class RentServiceController  implements Initializable {
              e.printStackTrace();
              new Alert(Alert.AlertType.ERROR, "Failed to load Rent data").show();
          }
+    }
+
+    private void setCellValueCart() {
+        colVehicleId.setCellValueFactory(new PropertyValueFactory<>("vehicle_id"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colPackageId.setCellValueFactory(new PropertyValueFactory<>("PackageId"));
+        colRemove.setCellValueFactory(new PropertyValueFactory<>("removeBtn"));
+
     }
 
     private void updateYears() {
@@ -565,6 +575,7 @@ public class RentServiceController  implements Initializable {
     }
     @FXML
     void btnBookVehicleOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        System.out.println("is working");
         if (tblCart.getItems().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Please add vehicles to cart..!").show();
             return;
@@ -574,22 +585,24 @@ public class RentServiceController  implements Initializable {
             return;
         }
 
-        String rentId = lblRentId.getText();
+        String rentId = txtRentId.getText();
         ArrayList<VechileRentDetailDto> vechileRentDetailDtos = new ArrayList<>();
 
         // Date format to parse input strings
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
+            System.out.println("is coming here");
             // Parse start and end dates from input fields
             Date startDate = dateFormat.parse(txtStartDate.getText());
             Date endDate = dateFormat.parse(txtEndDate.getText());
+            System.out.println(txtQty.getText());
 
             // Collect data for each item in the cart and add to order details array
             for (CartTM cartTM : cartTMS) {
                 VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(
                         cmbVehicleId.getValue(),
-                        lblRentId.getText(),
+                        txtRentId.getText(),
                         startDate,
                         endDate,
                         cmbCondition.getValue(),
@@ -629,43 +642,36 @@ public class RentServiceController  implements Initializable {
         // If no item is selected, show an error alert and return
         if (selectedVehicleId == null) {
             new Alert(Alert.AlertType.ERROR, "Please select item..!").show();
-            return; // Exit the method if no item is selected.
+            return;
         }
 
         int cartQty = Integer.parseInt(txtQty.getText());
         int qtyOnHand = Integer.parseInt(lblQtyOnHand.getText());
 
-        // Check if there are enough items in stock; if not, show an error alert and return
+        // Check if there are enough items in stock
         if (qtyOnHand < cartQty) {
             new Alert(Alert.AlertType.ERROR, "Not enough items..!").show();
-            return; // Exit the method if there's insufficient stock.
+            return;
         }
 
-        // Clear the text field for adding quantity after retrieving the input value.
-        txtQty.setText("");
-
-        // Loop through each item in cart's observable list.
+        // Loop through each item in cart's observable list to check if the item already exists
         for (CartTM cartTM : cartTMS) {
-
-            // Check if the item is already in the cart
             if (cartTM.getVehicle_id().equals(selectedVehicleId)) {
-                // Update the existing CartTM object in the cart's observable list with the new quantity and total.
-                int newQty = Integer.parseInt(cartTM.getQuantity() + cartQty);
-                cartTM.setQuantity(String.valueOf(newQty)); // Add the new quantity to the existing quantity in the cart.
-                 // Recalculate the total price based on the updated quantity
+                // Update quantity and recalculate the total
+                int newQty = Integer.parseInt(cartTM.getQuantity()) + cartQty;
+                cartTM.setQuantity(String.valueOf(newQty));
 
-                // Refresh the table to display the updated information.
+                // Refresh the table to display the updated information
                 tblCart.refresh();
-                return; // Exit the method as the cart item has been updated.
+                return; // Exit the method as the cart item has been updated
             }
         }
 
-
-        // Create a "Remove" button for the item to allow it to be removed from the cart later.
+        // Create a "Remove" button for the new item
         Button btn = new Button("Remove");
         String packageId = cmbPackageId.getValue();
 
-        // If the item does not already exist in the cart, create a new CartTM object to represent it.
+        // Create a new CartTM object to represent the item if it does not already exist
         CartTM newCartTM = new CartTM(
                 selectedVehicleId,
                 String.valueOf(cartQty),
@@ -673,21 +679,18 @@ public class RentServiceController  implements Initializable {
                 btn
         );
 
-        // Set an action for the "Remove" button, which removes the item from the cart when clicked.
+        // Set an action for the "Remove" button to remove the item from the cart when clicked
         btn.setOnAction(actionEvent -> {
-
-            // Remove the item from the cart's observable list (cartTMS).
             cartTMS.remove(newCartTM);
-
-            // Refresh the table to reflect the removal of the item.
             tblCart.refresh();
         });
 
-        // Add the newly created CartTM object to the cart's observable list.
+        // Add the new item to the cart's observable list
         cartTMS.add(newCartTM);
         tblCart.setItems(cartTMS);
         tblCart.refresh();
     }
+
 
     @FXML
     void cmbPackageOnAction(ActionEvent event) {

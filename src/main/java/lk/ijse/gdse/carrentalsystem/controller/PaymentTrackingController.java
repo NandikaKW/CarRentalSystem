@@ -353,6 +353,7 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void btnReportOnAction(ActionEvent event) throws ClassNotFoundException {
+
         PaymentTM paymentTM = tblPayment.getSelectionModel().getSelectedItem();
 
         // Check if a payment is selected

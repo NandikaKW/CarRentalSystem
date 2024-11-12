@@ -472,7 +472,7 @@ public class RentPaymentDetailsController  implements Initializable {
         colPaymentMethod.setCellValueFactory(new PropertyValueFactory<>("payment_method"));
 
         try {
-            // Load data and initialize various components
+
             loadCurrentPaymentId();
             loadCurrentRentId();
             refreshTableData();
@@ -542,6 +542,7 @@ public class RentPaymentDetailsController  implements Initializable {
     public void loadCurrentPaymentId() throws SQLException, ClassNotFoundException {
         try {
             String currentPaymentId = RentPaymentModel.loadCurrentPaymentId();
+
             txtPaymentId.setText(currentPaymentId);
         } catch (Exception e) {
             e.printStackTrace();

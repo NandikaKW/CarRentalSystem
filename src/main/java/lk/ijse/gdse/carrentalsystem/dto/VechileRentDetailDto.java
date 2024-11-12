@@ -8,7 +8,6 @@ public class VechileRentDetailDto {
     private String rent_id;
     private Date start_date;
     private Date end_date;
-
     private String vehicle_condition;
     private int vehicle_quantity;
 

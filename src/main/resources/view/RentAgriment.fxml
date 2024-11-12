@@ -54,7 +54,6 @@
             <Font name="Serif Bold Italic" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtAgriID" layoutX="502.0" layoutY="57.0" prefHeight="26.0" prefWidth="91.0" promptText="Agriment ID" />
       <TextField fx:id="txtEndDate" layoutX="72.0" layoutY="90.0" prefHeight="26.0" prefWidth="110.0" promptText="EndDate" />
       <TextField fx:id="txtPaymentTerms" layoutX="101.0" layoutY="124.0" prefHeight="26.0" prefWidth="91.0" promptText="PaymentTerms" />
       <TextField fx:id="txtDepositAmount" layoutX="293.0" layoutY="124.0" prefHeight="26.0" prefWidth="110.0" promptText="Deposit Amount" />
@@ -106,5 +105,6 @@
       <ComboBox fx:id="ComboYear" layoutX="191.0" layoutY="58.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="CombMonth" layoutX="274.0" layoutY="58.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="ComboDay" layoutX="347.0" layoutY="58.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <TextField fx:id="txtAgrimentId" layoutX="509.0" layoutY="60.0" prefHeight="26.0" prefWidth="83.0" promptText="id" />
    </children>
 </AnchorPane>

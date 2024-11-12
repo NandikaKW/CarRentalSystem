@@ -66,7 +66,7 @@ CREATE TABLE Rent (
                       start_date DATE NOT NULL,
                       end_date DATE NOT NULL,
                       cust_id VARCHAR(50) NOT NULL,
-                      agreement_id VARCHAR(50) NOT NULL UNIQUE,
+                      agreement_id VARCHAR(50) NOT NULL,
                       FOREIGN KEY (cust_id) REFERENCES Customer(cust_id)
                           ON UPDATE CASCADE
                           ON DELETE CASCADE,

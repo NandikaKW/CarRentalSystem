@@ -40,8 +40,8 @@ public class VehicleRentDetailModel {
                 vechileRentDetailDto.getRent_id(),
                 vechileRentDetailDto.getStart_date(),
                 vechileRentDetailDto.getEnd_date(),
-                vechileRentDetailDto.getVehicle_condition(),
-                vechileRentDetailDto.getVehicle_quantity()
+                vechileRentDetailDto.getVehicle_quantity(),
+                vechileRentDetailDto.getVehicle_condition()
         );
 
     }

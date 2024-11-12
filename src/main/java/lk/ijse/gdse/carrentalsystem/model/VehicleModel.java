@@ -85,7 +85,7 @@ public class VehicleModel {
     public boolean reduceVehicleQuantity(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
         try {
             // Execute the update statement to reduce quantity by 1
-            return CrudUtil.execute("UPDATE vehicle SET quantity = quantity - 1 WHERE vehicle_id = ?", vechileRentDetailDto.getVehicle_id());
+            return CrudUtil.execute("UPDATE vehicle SET quantity = quantity - ? WHERE vehicle_id = ?", vechileRentDetailDto.getVehicle_quantity(), vechileRentDetailDto.getVehicle_id());
         } catch (SQLException e) {
             System.err.println("Error while reducing vehicle quantity for vehicle_id: " + vechileRentDetailDto.getVehicle_id());
             e.printStackTrace();

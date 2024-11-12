@@ -96,8 +96,6 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     private TableView<AgrimentTM> tblAgriment;
-    @FXML
-    private TextField txtAgriID;
 
     @FXML
     private TextField txtAgrimentId;
@@ -119,7 +117,7 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String agrimentId = txtAgriID.getText();
+        String agrimentId = txtAgrimentId.getText();
 
         // Step 1: Check if Agriment ID is provided
         if (agrimentId.isEmpty()) {
@@ -181,7 +179,7 @@ public class RentAgrimentController implements Initializable {
     }
 
     public void clearFields() {
-        txtAgriID.setText("");
+        txtAgrimentId.setText("");
         txtCost.setText("");
         txtDepositAmount.setText("");
         txtEndDate.setText("");
@@ -200,7 +198,7 @@ public class RentAgrimentController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            String agrimentId = txtAgriID.getText();
+            String agrimentId = txtAgrimentId.getText();
             String paymentTerms = txtPaymentTerms.getText();
 
             // Check for missing fields
@@ -261,7 +259,7 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-        String agrimentId = txtAgriID.getText();
+        String agrimentId = txtAgrimentId.getText();
 
         // Check if AgrimentId is empty
         if (agrimentId.isEmpty()) {
@@ -275,7 +273,7 @@ public class RentAgrimentController implements Initializable {
 
             if (agrimentDto != null) {
                 // If found, populate the fields with the data from the AgrimentDto
-                txtAgriID.setText(agrimentDto.getAgreement_id());
+                txtAgrimentId.setText(agrimentDto.getAgreement_id());
                 txtPaymentTerms.setText(agrimentDto.getPayment_terms());
                 txtStartDate.setText(agrimentDto.getStart_date().toString());
                 txtEndDate.setText(agrimentDto.getEnd_date().toString());
@@ -304,7 +302,7 @@ public class RentAgrimentController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            String agrimentId = txtAgriID.getText();
+            String agrimentId = txtAgrimentId.getText();
             String paymentTerms = txtPaymentTerms.getText();
 
             // Convert String to Date
@@ -362,7 +360,7 @@ public class RentAgrimentController implements Initializable {
     void tblMouseClickedOnAction(MouseEvent event) {
         AgrimentTM agrimentTM = tblAgriment.getSelectionModel().getSelectedItem();
         if (agrimentTM != null) {
-            txtAgriID.setText(agrimentTM.getAgreement_id());
+            txtAgrimentId.setText(agrimentTM.getAgreement_id());
             txtPaymentTerms.setText(agrimentTM.getPayment_terms());
             txtStartDate.setText(agrimentTM.getStart_date().toString());
             txtEndDate.setText(agrimentTM.getEnd_date().toString());
@@ -549,10 +547,10 @@ public class RentAgrimentController implements Initializable {
 
             // Debugging to ensure the ID is returned correctly
             System.out.println("Next Agreement ID: " + nextAgrimentId);
-
+            txtAgrimentId.setText("nextAgrimentId");
             // Ensure that the text field is properly set
             if (nextAgrimentId != null && !nextAgrimentId.isEmpty()) {
-                txtAgriID.setText(nextAgrimentId);
+                txtAgrimentId.setText(nextAgrimentId);
             } else {
                 // Handle case where the ID is null or empty (could happen if no agreement records exist)
                 new Alert(Alert.AlertType.WARNING, "Failed to load next agreement ID").show();

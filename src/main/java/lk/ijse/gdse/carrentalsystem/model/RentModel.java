@@ -1,17 +1,13 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
 import lk.ijse.gdse.carrentalsystem.db.DBConnection;
-import lk.ijse.gdse.carrentalsystem.dto.PackageDto;
-import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
-import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RentModel {
     public static ArrayList<RentDto> getAllRentData() throws SQLException, ClassNotFoundException {
@@ -52,6 +48,7 @@ public class RentModel {
 
             // If rent is saved, proceed to save vehicle rent details
             if (isRentSaved) {
+                System.out.println("is rent sved?");
                 // Save associated vehicle rent details
                 boolean isVehicleRentSaved = VehicleRentDetailModel.saveVehicleRentList(dto.getVehicleRentDetailDtos());
 
@@ -97,22 +94,36 @@ public class RentModel {
                 dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId(), dto.getRentId());
     }
 
-    public static String loadNextRentId() throws SQLException, ClassNotFoundException {
+    public static void loadNextRentId() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("SELECT rent_id FROM rent ORDER BY rent_id DESC LIMIT 1");
-
-        if (rst.next()) {
-            String lastID = rst.getString(1);
-            String substring = lastID.substring(1); // Strip the leading "C"
-            int id = Integer.parseInt(substring);
-            int newIndex = id + 1;
-            return String.format("R%03d", newIndex); // Format the new ID as "Cxxx"
-        }
-        return "R001"; // If no previous customers exist
+//            String lastID = rst.getString(1);
+//            String substring = lastID.substring(1);
+//            System.out.println("substring : " + substring);// Strip the leading "C"
+//            int id = Integer.parseInt(substring);
+//            int newIndex = id + 1;
+//            return String.format("R%03d", newIndex); // Format the new ID as "Cxxx"
+//        }
+//        return "R001"; // If no previous customers exist
     }
 
 
     public static boolean reserveVehicle(String vehicleId) {
 
         return false;
+    }
+
+    public static String getCurrentId() {
+        String sql = "SELECT rent_id from rent order by rent_id desc limit 1";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             ResultSet resultSet = connection.createStatement().executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
