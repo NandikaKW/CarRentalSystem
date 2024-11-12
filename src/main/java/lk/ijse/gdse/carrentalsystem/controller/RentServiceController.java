@@ -639,7 +639,7 @@ public class RentServiceController  implements Initializable {
     void btnReserveVehicleOnAction(ActionEvent event) {
         String selectedVehicleId = cmbVehicleId.getValue();
 
-        // If no item is selected, show an error alert and return
+
         if (selectedVehicleId == null) {
             new Alert(Alert.AlertType.ERROR, "Please select item..!").show();
             return;
