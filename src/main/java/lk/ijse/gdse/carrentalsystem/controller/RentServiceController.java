@@ -68,6 +68,8 @@ public class RentServiceController  implements Initializable {
 
     @FXML
     private JFXButton btnDelete;
+    @FXML
+    private TextField txtRentId;
 
 
     @FXML
@@ -151,8 +153,7 @@ public class RentServiceController  implements Initializable {
     @FXML
     private TextField txtEndDate;
 
-    @FXML
-    private TextField txtRentId;
+
 
     @FXML
     private TextField txtStartDate;
@@ -365,8 +366,8 @@ public class RentServiceController  implements Initializable {
 
 
     public void loadNextRentId() throws SQLException, ClassNotFoundException {
-//        String nextRentId = RentModel.loadNextRentId();
-//        txtRentId.setText(nextRentId);
+        String nextRentId = RentModel.loadNextRentId();
+        txtRentId.setText(nextRentId);
     }
 
     public void loadCurrentAgreementId() throws SQLException, ClassNotFoundException {
@@ -575,7 +576,7 @@ public class RentServiceController  implements Initializable {
     }
     @FXML
     void btnBookVehicleOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        System.out.println("is working");
+
         if (tblCart.getItems().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Please add vehicles to cart..!").show();
             return;
@@ -585,24 +586,25 @@ public class RentServiceController  implements Initializable {
             return;
         }
 
-        String rentId = txtRentId.getText();
+        // Load the correct next rent ID
+        String rentId = RentModel.loadNextRentId();
+        txtRentId.setText(rentId); // update the text field with the new rent ID
+
         ArrayList<VechileRentDetailDto> vechileRentDetailDtos = new ArrayList<>();
 
         // Date format to parse input strings
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
-            System.out.println("is coming here");
             // Parse start and end dates from input fields
             Date startDate = dateFormat.parse(txtStartDate.getText());
             Date endDate = dateFormat.parse(txtEndDate.getText());
-            System.out.println(txtQty.getText());
 
             // Collect data for each item in the cart and add to order details array
             for (CartTM cartTM : cartTMS) {
                 VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(
                         cmbVehicleId.getValue(),
-                        txtRentId.getText(),
+                        rentId, // use updated rent ID
                         startDate,
                         endDate,
                         cmbCondition.getValue(),
@@ -612,7 +614,7 @@ public class RentServiceController  implements Initializable {
             }
 
             RentDto rentDto = new RentDto(
-                    lblRentId.getText(),
+                    rentId, // use updated rent ID
                     startDate,
                     endDate,
                     txtCustomerId.getText(),
@@ -624,9 +626,9 @@ public class RentServiceController  implements Initializable {
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Order saved..!").show();
-                refreshPage();
+                refreshPage(); // This should ideally call loadNextRentId() to update the next available ID
             } else {
-                new Alert(Alert.AlertType.ERROR, "Order fail..!").show();
+                new Alert(Alert.AlertType.ERROR, "Order failed..!").show();
             }
 
         } catch (ParseException e) {

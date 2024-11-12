@@ -94,17 +94,34 @@ public class RentModel {
                 dto.getStartDate(), dto.getEndDate(), dto.getCustId(), dto.getAgreementId(), dto.getRentId());
     }
 
-    public static void loadNextRentId() throws SQLException, ClassNotFoundException {
+    public static String loadNextRentId() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("SELECT rent_id FROM rent ORDER BY rent_id DESC LIMIT 1");
-//            String lastID = rst.getString(1);
-//            String substring = lastID.substring(1);
-//            System.out.println("substring : " + substring);// Strip the leading "C"
-//            int id = Integer.parseInt(substring);
-//            int newIndex = id + 1;
-//            return String.format("R%03d", newIndex); // Format the new ID as "Cxxx"
-//        }
-//        return "R001"; // If no previous customers exist
+
+        if (rst.next()) {
+            String lastID = rst.getString("rent_id");
+
+            // Validate that the ID starts with "R" and has a numeric part
+            if (lastID != null && lastID.startsWith("R") && lastID.length() > 1) {
+                try {
+                    // Extract the numeric part after "R"
+                    String numericPart = lastID.substring(1);
+
+                    // Parse the numeric part and increment it
+                    int id = Integer.parseInt(numericPart);
+                    int newId = id + 1;
+
+                    // Format the new ID with "R" prefix and three-digit number
+                    return String.format("R%03d", newId);
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing rent ID numeric part: " + e.getMessage());
+                }
+            }
+        }
+
+        // Default if no ID exists in the table or if parsing fails
+        return "R001"; // Default ID if the table is empty or format is incorrect
     }
+
 
 
     public static boolean reserveVehicle(String vehicleId) {

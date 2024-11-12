@@ -547,8 +547,8 @@ public class RentAgrimentController implements Initializable {
 
             // Debugging to ensure the ID is returned correctly
             System.out.println("Next Agreement ID: " + nextAgrimentId);
-            txtAgrimentId.setText("nextAgrimentId");
-            // Ensure that the text field is properly set
+
+            // Set the next agreement ID to the text field
             if (nextAgrimentId != null && !nextAgrimentId.isEmpty()) {
                 txtAgrimentId.setText(nextAgrimentId);
             } else {
