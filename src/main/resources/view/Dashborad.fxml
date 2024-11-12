@@ -21,52 +21,52 @@
                   <Font name="Times New Roman Bold" size="31.0" />
                </font>
             </Label>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="169.0" onAction="#btnAdminOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Admin Pannel" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="169.0" onAction="#btnAdminOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Admin Pannel" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="129.0" onAction="#btnRentPaymentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Rent Payment Detail" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="129.0" onAction="#btnRentPaymentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Rent Payment Detail" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="247.0" onAction="#btnEmployeeOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Employee Management " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="247.0" onAction="#btnEmployeeOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Employee Management " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="286.0" onAction="#btnRentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Rent Service " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="286.0" onAction="#btnRentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Rent Service " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="326.0" onAction="#btnCustomerOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Customer Records " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="326.0" onAction="#btnCustomerOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Customer Records " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="369.0" onAction="#btnAgrimentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Vehicle Details" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="369.0" onAction="#btnAgrimentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Vehicle Details" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="414.0" onAction="#btnPackageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Package Offers " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="414.0" onAction="#btnPackageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Package Offers " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="458.0" onAction="#btnMaintainOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Maintaince Schedule " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="458.0" onAction="#btnMaintainOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Maintaince Schedule " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="503.0" onAction="#btnDamageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Damage Details" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="503.0" onAction="#btnDamageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Damage Details" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="545.0" onAction="#btnVehicleRentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Vehicle Rents Details " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="545.0" onAction="#btnVehicleRentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Vehicle Rents Details " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
@@ -110,17 +110,17 @@
                   </Label>
                </children>
             </Pane>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="208.0" onAction="#btnPaymentDetailOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Payment  Pannel" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="208.0" onAction="#btnPaymentDetailOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Payment  Pannel" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnAgrimentDetail" buttonType="RAISED" layoutX="19.0" layoutY="586.0" onAction="#btnAgrimentDetailOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Rent Agriment" textFill="#f7f7f7">
+            <JFXButton fx:id="btnAgrimentDetail" buttonType="RAISED" layoutX="19.0" layoutY="586.0" onAction="#btnAgrimentDetailOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Rent Agriment" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnBusiness" buttonType="RAISED" layoutX="19.0" layoutY="625.0" onAction="#btnBusinessOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #3d3d3d;" text="Our Mission and Location" textFill="#f7f7f7">
+            <JFXButton fx:id="btnBusiness" buttonType="RAISED" layoutX="19.0" layoutY="625.0" onAction="#btnBusinessOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Our Mission and Location" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
