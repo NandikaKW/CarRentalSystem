@@ -648,7 +648,7 @@ public class RentServiceController  implements Initializable {
         int cartQty = Integer.parseInt(txtQty.getText());
         int qtyOnHand = Integer.parseInt(lblQtyOnHand.getText());
 
-        // Check if there are enough items in stock
+
         if (qtyOnHand < cartQty) {
             new Alert(Alert.AlertType.ERROR, "Not enough items..!").show();
             return;
