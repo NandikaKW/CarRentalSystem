@@ -625,10 +625,10 @@ public class RentServiceController  implements Initializable {
             boolean isSaved = RentModel.saveRent(rentDto);
 
             if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Order saved..!").show();
+                new Alert(Alert.AlertType.INFORMATION, "Book saved..!").show();
                 refreshPage(); // This should ideally call loadNextRentId() to update the next available ID
             } else {
-                new Alert(Alert.AlertType.ERROR, "Order failed..!").show();
+                new Alert(Alert.AlertType.ERROR, "Book failed..!").show();
             }
 
         } catch (ParseException e) {

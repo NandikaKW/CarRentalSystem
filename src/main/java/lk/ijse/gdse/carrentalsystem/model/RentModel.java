@@ -48,7 +48,7 @@ public class RentModel {
 
             // If rent is saved, proceed to save vehicle rent details
             if (isRentSaved) {
-                System.out.println("is rent sved?");
+
                 // Save associated vehicle rent details
                 boolean isVehicleRentSaved = VehicleRentDetailModel.saveVehicleRentList(dto.getVehicleRentDetailDtos());
 
