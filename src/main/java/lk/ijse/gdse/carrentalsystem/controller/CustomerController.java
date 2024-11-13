@@ -518,37 +518,42 @@ public class CustomerController implements Initializable {
         }
 
         try {
-
+            // Attempt to load the email view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Email.fxml"));
             Parent load = loader.load();
 
-
+            // Initialize EmailController and set email data
             EmailController emailController = loader.getController();
             emailController.setCustomerEmail(selectedItem.getEmail());
 
-
+            // Configure and display the stage
             Stage stage = new Stage();
             stage.setScene(new Scene(load));
             stage.setTitle("Send Email");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/icons8-open-email-24.png")));
             stage.initModality(Modality.APPLICATION_MODAL);
 
-            // Set the parent window for modal behavior
+            // Set the parent window to create modal behavior
             Window parentWindow = ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
             stage.initOwner(parentWindow);
             stage.showAndWait();
 
         } catch (IOException e) {
-            // Handle the exception when FXMLLoader encounters an error
+            // Handle loading failure of the email view
             new Alert(Alert.AlertType.ERROR, "Failed to load the email sending interface. Please try again later.").show();
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            // Handle null resource or component issues
+            new Alert(Alert.AlertType.ERROR, "Some required resources are missing. Please contact support.").show();
+            e.printStackTrace();
         } catch (Exception e) {
-            // Catch any other unforeseen errors
+            // Handle any other unforeseen errors
             new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             e.printStackTrace();
         }
     }
-    }
+
+}
 
 
 

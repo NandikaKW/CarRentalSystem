@@ -157,6 +157,7 @@ public class DashboradController implements Initializable {
     }
     private boolean isLocationViewActive = true;
 
+
     public void btnBusinessOnAction(ActionEvent actionEvent) {
         try {
             if (isLocationViewActive) {

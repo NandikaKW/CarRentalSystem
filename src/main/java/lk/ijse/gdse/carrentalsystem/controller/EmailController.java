@@ -40,16 +40,31 @@ public class EmailController {
             return;
         }
 
-        sendEmailWithGmail(FROM, customerEmail, subject, body);
+        // Attempt to send the email and handle errors that may occur
+        try {
+            sendEmailWithGmail(FROM, customerEmail, subject, body);
+            new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
+        } catch (AuthenticationFailedException e) {
+            new Alert(Alert.AlertType.ERROR, "Authentication failed. Please check your email credentials.").show();
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to send email. Please check your internet connection or try again later.").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
+            e.printStackTrace();
+        }
     }
 
-    private void sendEmailWithGmail(String from, String to, String subject, String messageBody) {
-        final String PASSWORD = "replace-your-app-password";
+    private void sendEmailWithGmail(String from, String to, String subject, String messageBody) throws MessagingException {
+        final String PASSWORD = "argw plqc ujsx uvrw";
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -57,19 +72,16 @@ public class EmailController {
             }
         });
 
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject(subject);
-            message.setText(messageBody);
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setSubject(subject);
+        message.setText(messageBody);
 
-            Transport.send(message);
-
-            new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to send email.").show();
-        }
+        // Send the email; any exceptions thrown will be caught in the calling method
+        Transport.send(message);
     }
+
+
+
 }
