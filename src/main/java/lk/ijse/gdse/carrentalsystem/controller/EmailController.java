@@ -78,7 +78,7 @@ public class EmailController {
         message.setSubject(subject);
         message.setText(messageBody);
 
-        // Send the email; any exceptions thrown will be caught in the calling method
+
         Transport.send(message);
     }
 
