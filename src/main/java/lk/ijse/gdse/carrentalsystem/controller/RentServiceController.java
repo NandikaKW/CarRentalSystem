@@ -603,12 +603,12 @@ public class RentServiceController  implements Initializable {
             // Collect data for each item in the cart and add to order details array
             for (CartTM cartTM : cartTMS) {
                 VechileRentDetailDto vechileRentDetailDto = new VechileRentDetailDto(
-                        cmbVehicleId.getValue(),
+                        cartTM.getVehicle_id(),
                         rentId, // use updated rent ID
                         startDate,
                         endDate,
                         cmbCondition.getValue(),
-                        Integer.parseInt(txtQty.getText())
+                        Integer.parseInt(cartTM.getQuantity()) // Use updated quantity from cartTM
                 );
                 vechileRentDetailDtos.add(vechileRentDetailDto);
             }
@@ -636,11 +636,9 @@ public class RentServiceController  implements Initializable {
         }
     }
 
-
     @FXML
     void btnReserveVehicleOnAction(ActionEvent event) {
         String selectedVehicleId = cmbVehicleId.getValue();
-
 
         if (selectedVehicleId == null) {
             new Alert(Alert.AlertType.ERROR, "Please select item..!").show();
@@ -650,13 +648,12 @@ public class RentServiceController  implements Initializable {
         int cartQty = Integer.parseInt(txtQty.getText());
         int qtyOnHand = Integer.parseInt(lblQtyOnHand.getText());
 
-
         if (qtyOnHand < cartQty) {
             new Alert(Alert.AlertType.ERROR, "Not enough items..!").show();
             return;
         }
 
-        // Loop through each item in cart's observable list to check if the item already exists
+        // Loop through each item in the cart's observable list to check if the item already exists
         for (CartTM cartTM : cartTMS) {
             if (cartTM.getVehicle_id().equals(selectedVehicleId)) {
                 // Update quantity and recalculate the total
@@ -692,6 +689,7 @@ public class RentServiceController  implements Initializable {
         tblCart.setItems(cartTMS);
         tblCart.refresh();
     }
+
 
 
     @FXML

@@ -109,6 +109,9 @@ public class PaymentTrackingController implements Initializable {
         String nextPaymentId=PaymentModel.loadNextPaymentId();
         txtPaymentId.setText(nextPaymentId);
     }
+    @FXML
+    private TextField txtFinalAmount;
+
 
     @FXML
     private ComboBox<Integer> CombMonth;
@@ -210,6 +213,7 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     private TextField txtTransaction;
+
     @FXML
     void ComboDayOnAction(ActionEvent event) {
         showSelectedDate();
@@ -410,12 +414,14 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+
+
         String paymentId = txtPaymentId.getText();
 
-        // Try-catch for handling potential parsing errors when converting amount to BigDecimal (line no 1)
         BigDecimal amount = null;
         try {
             amount = new BigDecimal(txtAmount.getText());
+              // Print the amount to the terminal
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid amount format. Please enter a valid number.").show();
             return; // Exit if the format is invalid
@@ -423,9 +429,8 @@ public class PaymentTrackingController implements Initializable {
 
         Date date = null;
         try {
-            // Attempt to parse the date entered by the user
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Expected date format
-            date = dateFormat.parse(txtDate.getText()); // line no 2
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = dateFormat.parse(txtDate.getText());
         } catch (ParseException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
             return; // Exit if the date format is invalid
@@ -435,22 +440,31 @@ public class PaymentTrackingController implements Initializable {
         String method = txtPayMethods.getText();
         String transaction = txtTransaction.getText();
 
-        // Try-catch for handling potential parsing errors for tax and discount values (line no 3)
         BigDecimal tax = null;
         BigDecimal discount = null;
 
         try {
-            tax = new BigDecimal(txtTax.getText()); // line no 3
+            tax = new BigDecimal(txtTax.getText());
             discount = new BigDecimal(txtDiscount.getText());
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid tax or discount format. Please enter valid numbers.").show();
             return; // Exit if tax or discount format is invalid
         }
 
-        // Create a new PaymentDto object
-        PaymentDto paymentDto = new PaymentDto(paymentId, amount, date, invoice, method, transaction, tax, discount);
+        // Calculate total after applying tax and discount
+        BigDecimal taxAmount = amount.multiply(tax).divide(new BigDecimal("100"));
+        BigDecimal discountAmount = amount.multiply(discount).divide(new BigDecimal("100"));
+        BigDecimal finalAmount = amount.add(taxAmount).subtract(discountAmount);
 
-        // Attempt to save the payment
+        // Print the calculated tax, discount, and final amount in the terminal
+
+        // Set the finalAmount in the txtFinalAmount text field
+        txtFinalAmount.setText(finalAmount.toString());
+
+
+
+        PaymentDto paymentDto = new PaymentDto(paymentId, finalAmount, date, invoice, method, transaction, tax, discount);
+
         boolean isSaved = false;
         try {
             isSaved = PaymentModel.savePayment(paymentDto);
@@ -460,7 +474,6 @@ public class PaymentTrackingController implements Initializable {
             return; // Exit on error
         }
 
-        // Provide feedback based on the result of the save operation
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Payment saved successfully").show();
             refreshPage();
@@ -469,6 +482,7 @@ public class PaymentTrackingController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Failed to save payment").show();
         }
     }
+
 
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

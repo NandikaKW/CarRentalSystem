@@ -116,5 +116,11 @@
       <ComboBox fx:id="ComboYear" layoutX="256.0" layoutY="108.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="CombMonth" layoutX="342.0" layoutY="108.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="ComboDay" layoutX="416.0" layoutY="107.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <Label fx:id="lblDiscount1" layoutX="500.0" layoutY="115.0" text="Final  Amount That Should Pay">
+         <font>
+            <Font name="Serif Bold Italic" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFinalAmount" layoutX="567.0" layoutY="138.0" promptText="Final Amount" />
    </children>
 </AnchorPane>

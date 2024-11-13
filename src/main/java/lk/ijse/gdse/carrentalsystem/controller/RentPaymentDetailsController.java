@@ -119,6 +119,7 @@ public class RentPaymentDetailsController  implements Initializable {
 
     @FXML
     private TextField txtRentId;
+
     @FXML
     void ComboDayOnAction(ActionEvent event) {
         showSelectedDate();
@@ -136,6 +137,7 @@ public class RentPaymentDetailsController  implements Initializable {
         updateDays();
 
     }
+
     private void updateDays() {
         try {
             Integer year = ComboYear.getValue();

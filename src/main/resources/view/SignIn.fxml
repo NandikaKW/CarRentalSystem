@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,7 +26,7 @@
             <Font name="Times New Roman Bold" size="26.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="txtUsername" layoutX="170.0" layoutY="463.0" prefHeight="31.0" prefWidth="262.0" promptText="User name" style="-fx-background-color: white;">
+      <TextField fx:id="txtUsername" layoutX="170.0" layoutY="463.0" prefHeight="31.0" prefWidth="262.0" promptText="User name" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-border-color: black; -fx-background-radius: 23;">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font></TextField>
@@ -41,11 +40,11 @@
             <Font name="Serif Bold" size="53.0" />
          </font>
       </Text>
-      <PasswordField fx:id="txtPassword" layoutX="170.0" layoutY="424.0" prefHeight="31.0" prefWidth="261.0" promptText="Password" style="-fx-background-color: white;">
+      <PasswordField fx:id="txtPassword" layoutX="170.0" layoutY="424.0" prefHeight="31.0" prefWidth="261.0" promptText="Password" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font></PasswordField>
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="438.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="438.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/6569158.gif" />
          </image>
@@ -55,7 +54,5 @@
             <Image url="@../image/8717908%20(1).gif" />
          </image>
       </ImageView>
-      <Separator layoutX="170.0" layoutY="457.0" prefHeight="3.0" prefWidth="262.0" style="-fx-background-color: black;" />
-      <Separator layoutX="170.0" layoutY="492.0" prefHeight="3.0" prefWidth="262.0" style="-fx-background-color: black;" />
    </children>
 </AnchorPane>
