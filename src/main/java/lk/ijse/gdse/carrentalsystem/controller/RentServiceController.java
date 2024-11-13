@@ -26,6 +26,12 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class RentServiceController  implements Initializable {
+    @FXML
+    private TextField txtDate;
+
+    @FXML
+    private Label lblBooking;
+
 
     @FXML
     private JFXButton btnBookVehicle;
@@ -171,6 +177,15 @@ public class RentServiceController  implements Initializable {
     private  final VehicleModel vehicleModel=new VehicleModel();
     private final PackageModel packageModel=new PackageModel();
     private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
+
+    private void setDateAndOrderId() {
+
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String d =df.format(date);
+        txtDate.setText(d);
+       // txtDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -414,6 +429,7 @@ public class RentServiceController  implements Initializable {
          tblCart.setItems(cartTMS);
 
          try {
+             setDateAndOrderId();
              refreshPage();
              loadNextRentId();
              loadCurrentCustomerId();

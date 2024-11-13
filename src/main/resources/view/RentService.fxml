@@ -57,27 +57,27 @@
             <TableColumn fx:id="colAgrimentID" prefWidth="199.9999877929688" text="AgrimentID" />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="20.0" layoutY="297.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="20.0" layoutY="265.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="116.0" layoutY="297.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="116.0" layoutY="265.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="227.0" layoutY="297.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="227.0" layoutY="265.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="333.0" layoutY="297.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="333.0" layoutY="265.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="427.0" layoutY="297.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="427.0" layoutY="265.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
@@ -94,12 +94,12 @@
          </font>
       </Label>
       <TextField fx:id="txtAgrimentID" layoutX="129.0" layoutY="128.0" prefHeight="26.0" prefWidth="128.0" promptText="Agriment ID" />
-      <JFXButton fx:id="btnReserveVehicle" buttonType="RAISED" layoutX="504.0" layoutY="295.0" onAction="#btnReserveVehicleOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reserve Vehicle" textFill="#1e1d1d">
+      <JFXButton fx:id="btnReserveVehicle" buttonType="RAISED" layoutX="504.0" layoutY="263.0" onAction="#btnReserveVehicleOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reserve Vehicle" textFill="#1e1d1d">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnBookVehicle" buttonType="RAISED" layoutX="639.0" layoutY="295.0" onAction="#btnBookVehicleOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Book Vehicle" textFill="#1e1d1d">
+      <JFXButton fx:id="btnBookVehicle" buttonType="RAISED" layoutX="639.0" layoutY="263.0" onAction="#btnBookVehicleOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Book Vehicle" textFill="#1e1d1d">
          <font>
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
@@ -138,12 +138,12 @@
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblPackageID" layoutX="13.0" layoutY="243.0" text="Package ID">
+      <Label fx:id="lblPackageID" layoutX="13.0" layoutY="238.0" text="Package ID">
          <font>
             <Font name="Serif Bold Italic" size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbPackageId" layoutX="107.0" layoutY="240.0" onAction="#cmbPackageOnAction" prefWidth="150.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" />
+      <ComboBox fx:id="cmbPackageId" layoutX="107.0" layoutY="235.0" onAction="#cmbPackageOnAction" prefWidth="150.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" />
       <Label fx:id="lblQtyOnHand" layoutX="638.0" layoutY="169.0" prefHeight="18.0" prefWidth="107.0">
          <font>
             <Font size="15.0" />
@@ -156,5 +156,11 @@
       </Label>
       <ComboBox fx:id="cmbCondition" layoutX="366.0" layoutY="205.0" onAction="#cmbConditionOnAction" prefWidth="150.0" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" />
       <JFXTextField fx:id="txtQty" layoutX="111.0" layoutY="205.0" unFocusColor="WHITE" />
+      <Label fx:id="lblBooking" layoutX="12.0" layoutY="308.0" text="Booking  Date ">
+         <font>
+            <Font name="Serif Bold Italic" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDate" layoutX="109.0" layoutY="304.0" promptText="Booking Date " />
    </children>
 </AnchorPane>
