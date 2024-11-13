@@ -1,0 +1,148 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="PackageDetail" language="java" columnCount="1" pageWidth="842" pageHeight="1191" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="efd1f21b-8fbb-42a8-94a4-592b5563eb1f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CarRentalSystemPackageDBConnection"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<query language="SQL"><![CDATA[SELECT 
+    Rent.rent_id,
+    Rent.start_date,
+    Rent.end_date,
+    Customer.name AS customer_name,
+    Vehicle.model AS vehicle_model,
+    Package.package_name,
+    Payment.amount AS payment_amount
+FROM 
+    Rent
+    JOIN Customer ON Rent.cust_id = Customer.cust_id
+    JOIN Vehicle_Rent_Details ON Rent.rent_id = Vehicle_Rent_Details.rent_id
+    JOIN Vehicle ON Vehicle_Rent_Details.vehicle_id = Vehicle.vehicle_id
+    JOIN Package ON Vehicle.package_id = Package.package_id
+    LEFT JOIN Rent_Payment_Details ON Rent.rent_id = Rent_Payment_Details.rent_id
+    LEFT JOIN Payment ON Rent_Payment_Details.pay_id = Payment.pay_id
+ORDER BY Rent.start_date]]></query>
+	<field name="rent_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rent_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="rent_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rent"/>
+	</field>
+	<field name="start_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rent"/>
+	</field>
+	<field name="end_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rent"/>
+	</field>
+	<field name="customer_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="customer_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="vehicle_model" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="model"/>
+		<property name="com.jaspersoft.studio.field.label" value="vehicle_model"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="package_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="package_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="package_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="package"/>
+	</field>
+	<field name="payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="payment_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="101" splitType="Stretch">
+		<element kind="staticText" uuid="3633c0d0-4bef-43b9-94b2-c4c18bf6bfed" x="155" y="0" width="520" height="70" fontName="Times New Roman" fontSize="50.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Package Report]]></text>
+		</element>
+		<element kind="staticText" uuid="30fd5485-4e48-413e-8270-f4cf8a089354" x="207" y="71" width="419" height="30" fontName="Serif" fontSize="20.0" underline="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[789 Market Street, Suite 202, San Francisco, CA 94103, United States.]]></text>
+		</element>
+	</title>
+	<pageHeader height="50" splitType="Stretch">
+		<element kind="rectangle" uuid="1c7fdb27-750e-4378-9f14-95abbe30d8bf" x="-20" y="20" width="842" height="1" forecolor="#0F0C0C" backcolor="#0F0E0E"/>
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="2356f33a-1b1b-4e1a-9bd9-308b576b2f81" x="-20" y="0" width="99" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[rent_id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="645268ad-113e-47ce-9a22-823b10003de3"/>
+		</element>
+		<element kind="staticText" uuid="4d690d36-b144-4eb0-810e-21b73be4678f" x="79" y="0" width="130" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[start_date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b12e8f0-69a9-4c5c-a4bf-1d4215be55b4"/>
+		</element>
+		<element kind="staticText" uuid="be150f4b-e35d-43f0-910d-79f7a1edff30" x="209" y="0" width="130" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[end_date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc1a2fad-98d3-4ec4-8f36-0ba200927aba"/>
+		</element>
+		<element kind="staticText" uuid="2c11b764-6b28-46b8-ba0d-67c8ca5c51f6" x="339" y="0" width="150" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[customer_name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc394465-2ea6-4b3a-8aee-e247f05d83aa"/>
+		</element>
+		<element kind="staticText" uuid="4ec2bd3a-3841-40d3-ab61-57c4f31ff1a4" x="489" y="2" width="108" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[vehicle_model]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafafb95-757f-4334-ad98-a69760970e17"/>
+		</element>
+		<element kind="staticText" uuid="5e67fd2b-7a35-4529-b136-7dd53bd5ad72" x="595" y="0" width="114" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[package_name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9adfc9b5-90bc-47e2-8cda-c96910603885"/>
+		</element>
+		<element kind="staticText" uuid="cd482e83-7523-4898-abf2-5c87452bce01" x="707" y="0" width="113" height="30" fontName="Serif" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[payment_amount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d0f51b09-1c84-40e7-9b9d-b356d3b51fdf"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<element kind="textField" uuid="c8aa25c6-7510-43d0-8bfb-d3e24a2cd24d" x="-20" y="-29" width="99" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{rent_id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="645268ad-113e-47ce-9a22-823b10003de3"/>
+			</element>
+			<element kind="textField" uuid="29daa47b-598c-412b-9369-e2729e03b076" x="79" y="-29" width="130" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{start_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b12e8f0-69a9-4c5c-a4bf-1d4215be55b4"/>
+			</element>
+			<element kind="textField" uuid="729afbca-400a-44e9-8c13-309637f8ca07" x="209" y="-29" width="130" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{end_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc1a2fad-98d3-4ec4-8f36-0ba200927aba"/>
+			</element>
+			<element kind="textField" uuid="38918594-353e-414a-a8b8-548adfc8ee27" x="339" y="-29" width="150" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{customer_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc394465-2ea6-4b3a-8aee-e247f05d83aa"/>
+			</element>
+			<element kind="textField" uuid="375ad139-7beb-469f-9a12-33cc06ae0994" x="489" y="-29" width="108" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{vehicle_model}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafafb95-757f-4334-ad98-a69760970e17"/>
+			</element>
+			<element kind="textField" uuid="78ec151e-cd8a-4fcd-b715-d73fd3ed88b1" x="595" y="-29" width="114" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{package_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9adfc9b5-90bc-47e2-8cda-c96910603885"/>
+			</element>
+			<element kind="textField" uuid="e1203f26-0dde-4a98-8b12-176b9bfb8d2f" x="707" y="-29" width="113" height="30" fontName="Serif" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{payment_amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d0f51b09-1c84-40e7-9b9d-b356d3b51fdf"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="73" splitType="Stretch">
+		<element kind="rectangle" uuid="f265af14-e6d7-4601-8676-04ed31581eee" x="-30" y="72" width="851" height="1" forecolor="#0F0C0C" backcolor="#0F0E0E"/>
+		<element kind="staticText" uuid="019c02de-2a52-4a61-bbd7-f0a417b914e5" x="313" y="0" width="177" height="64" fontName="Serif" fontSize="25.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Thank You !]]></text>
+		</element>
+	</columnFooter>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

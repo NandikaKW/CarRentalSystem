@@ -64,8 +64,7 @@ public class VehicleRentDetailsController  implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
-    @FXML
-    private JFXButton btnReport;
+
 
     @FXML
     private JFXButton btnReset;
@@ -402,61 +401,6 @@ public class VehicleRentDetailsController  implements Initializable {
     }
 
 
-    @FXML
-    void btnReportOnAction(ActionEvent event) throws ClassNotFoundException, JRException {
-        String vehicleId = txtVehicleID.getText();
-        String rentId = txtRentId.getText();
-
-        // Validate input fields
-        if (vehicleId.isEmpty() || rentId.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please fill in both Vehicle ID and Rent ID.").show();
-            return;
-        }
-
-        java.sql.Date startDate, endDate, rentDate;
-        try {
-            startDate = java.sql.Date.valueOf(txtStartDate.getText());
-            endDate = java.sql.Date.valueOf(txtEndDate.getText());
-            rentDate = java.sql.Date.valueOf(txtRentDate.getText());
-        } catch (IllegalArgumentException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please enter dates in YYYY-MM-DD format.").show();
-            return;
-        }
-
-        String vehicleCondition = txtCondition.getText();
-        Integer quantity;
-        try {
-            quantity = Integer.parseInt(txtVehicleQuantity.getText());
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid quantity. Please enter a numeric value.").show();
-            return;
-        }
-
-        VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                vehicleId, rentId, startDate, endDate, vehicleCondition, quantity
-        );
-
-        try {
-            boolean isSaved = VehicleRentDetailModel.saveVehicleRent(vehicleRentDetailDto);
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Vehicle Rent Saved Successfully").show();
-                refreshPage();
-                refreshTableData();
-                loadCurrentRentId();
-                loadCurrentVehicleId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save vehicle rent.").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Database error occurred while saving vehicle rent: " + e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "System error: Required class not found.").show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
-        }
-
-
-    }
 
     @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {

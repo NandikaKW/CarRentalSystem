@@ -1,16 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
-<jasperReport name="DamageReport" language="java" columnCount="1" pageWidth="842" pageHeight="1191" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd0c58da-911d-43a5-9e38-1ec2fee57cd7">
+<jasperReport name="DamageReport" language="java" columnCount="1" pageWidth="842" pageHeight="1191" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd0c58da-911d-43a5-9e38-1ec2fee57cd7">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CarrentalsystemDBConnection"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<query language="SQL"><![CDATA[SELECT 
     d.damage_id AS 'Damage ID', 
     d.repair_cost AS 'Repair Cost', 
@@ -70,7 +61,7 @@ JOIN
 		</element>
 	</title>
 	<pageHeader height="41" splitType="Stretch">
-		<element kind="staticText" uuid="67aa5731-1009-4961-b833-f54e7e4cd105" x="187" y="0" width="419" height="30" fontName="Serif" fontSize="20.0" bold="true" underline="false" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="67aa5731-1009-4961-b833-f54e7e4cd105" x="187" y="0" width="419" height="30" fontName="Serif" fontSize="20.0" underline="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[789 Market Street, Suite 202, San Francisco, CA 94103, United States.]]></text>
 		</element>
 	</pageHeader>

@@ -136,7 +136,7 @@ CREATE TABLE Vehicle_Rent_Details (
                                       start_date DATE NOT NULL,
                                       end_date DATE NOT NULL,
                                       rent_date DATE NOT NULL,
-                                      cost DECIMAL(10, 2) NOT NULL,
+                                      quantity INT NOT NULL,
                                       vehicle_condition VARCHAR(255),
                                       PRIMARY KEY (vehicle_id, rent_id),
                                       FOREIGN KEY (vehicle_id) REFERENCES Vehicle(vehicle_id)
