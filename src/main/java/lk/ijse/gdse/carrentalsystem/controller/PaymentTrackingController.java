@@ -508,6 +508,9 @@ public class PaymentTrackingController implements Initializable {
                 txtTransaction.setText(payment.getTransaction_reference());
                 txtTax.setText(String.valueOf(payment.getTax()));
                 txtDiscount.setText(String.valueOf(payment.getDiscount_applied()));
+
+                // Show a success alert indicating that the payment data was found
+                new Alert(Alert.AlertType.INFORMATION, "Payment data found successfully!").show();
             } else {
                 // If payment is not found, show an error and reset the fields
                 new Alert(Alert.AlertType.ERROR, "Payment Not Found").show();
@@ -529,6 +532,7 @@ public class PaymentTrackingController implements Initializable {
             e.printStackTrace(); // Log the error
         }
     }
+
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {String paymentId = txtPaymentId.getText();
 

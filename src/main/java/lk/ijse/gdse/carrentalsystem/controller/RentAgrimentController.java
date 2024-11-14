@@ -262,8 +262,8 @@ public class RentAgrimentController implements Initializable {
 
         // Check if AgrimentId is empty
         if (agrimentId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please Provide Agriment Id").show();
-            return; // Exit the method early if AgrimentId is empty
+            new Alert(Alert.AlertType.ERROR, "Please Provide Agreement ID").show();
+            return; // Exit the method early if Agreement ID is empty
         }
 
         try {
@@ -278,6 +278,9 @@ public class RentAgrimentController implements Initializable {
                 txtEndDate.setText(agrimentDto.getEnd_date().toString());
                 txtDepositAmount.setText(agrimentDto.getDeposit_amount().toString());
                 txtCost.setText(agrimentDto.getTotal_rent_cost().toString());
+
+                // Show a success alert to indicate the agreement was found
+                new Alert(Alert.AlertType.INFORMATION, "Rent Agreement Found Successfully!").show();
             } else {
                 // If no agreement is found, show an error and clear the fields
                 new Alert(Alert.AlertType.ERROR, "Rent Agreement Not Found").show();
@@ -297,6 +300,8 @@ public class RentAgrimentController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
     }
+
+
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -516,6 +521,7 @@ public class RentAgrimentController implements Initializable {
         }
     }
     private void refreshPage() throws SQLException, ClassNotFoundException {
+        clearFields();
         loadTableData();
         btnSave.setDisable(false);
         btnUpdate.setDisable(true);

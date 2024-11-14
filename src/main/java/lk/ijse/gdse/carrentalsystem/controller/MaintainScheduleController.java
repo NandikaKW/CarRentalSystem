@@ -220,6 +220,10 @@ public class MaintainScheduleController  implements Initializable {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust to your date format
                 maintainDate = dateFormat.parse(maintainDateStr);
+
+                // Print the date in the desired format to the terminal
+                System.out.println("Parsed maintain date: " + dateFormat.format(maintainDate));
+
             } catch (ParseException e) {
                 new Alert(Alert.AlertType.ERROR, "Invalid date format! Use YYYY-MM-DD.").show();
                 return; // Exit if date format is invalid

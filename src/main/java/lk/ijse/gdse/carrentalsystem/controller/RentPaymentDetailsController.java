@@ -339,6 +339,9 @@ public class RentPaymentDetailsController  implements Initializable {
                 txtDescription.setText(rentPayemntDto.getDescription());
                 txtPayamount.setText(String.valueOf(rentPayemntDto.getPay_amount()));
                 txtPaymentMethod.setText(rentPayemntDto.getPayment_method());
+
+                // Show a success alert indicating that the data was found
+                new Alert(Alert.AlertType.INFORMATION, "RentPayment data found successfully!").show();
             } else {
                 // If no data found, show an error alert and reset the fields
                 new Alert(Alert.AlertType.ERROR, "RentPayment Not Found").show();
