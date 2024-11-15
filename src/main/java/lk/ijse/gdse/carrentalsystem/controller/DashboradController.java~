@@ -155,13 +155,15 @@ public class DashboradController implements Initializable {
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
     }
+    private boolean isLocationViewActive = true;
+    
 
     public void btnBusinessOnAction(ActionEvent actionEvent) {
         try {
             if (isLocationViewActive) {
-                navigateto("/view/location.fxml");  // Load location.fxml
+                navigateto("/view/Location.fxml");  // Load location.fxml
             } else {
-                navigateto("/view/ourMission.fxml");  // Load ourMission.fxml
+                navigateto("/view/OurMission.fxml");  // Load ourMission.fxml
             }
             isLocationViewActive = !isLocationViewActive;  // Toggle the view
         } catch (IOException e) {
