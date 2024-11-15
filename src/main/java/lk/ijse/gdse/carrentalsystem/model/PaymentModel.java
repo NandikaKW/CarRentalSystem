@@ -1,5 +1,6 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
+import lk.ijse.gdse.carrentalsystem.dto.CustomerPaymentDto;
 import lk.ijse.gdse.carrentalsystem.dto.PackageDto;
 import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
@@ -91,5 +92,35 @@ public class PaymentModel {
             return newID; // Return the newly generated ID
         }
         return "PAY001"; // If no record is found, start with "PAY001"
+    }
+
+    public static ArrayList<String> getAllPaymentIDs() throws SQLException, ClassNotFoundException {
+        // Execute SQL query to get all item IDs
+        ResultSet rst = CrudUtil.execute("select pay_id from payment");
+
+        // Create an ArrayList to store the item IDs
+        ArrayList<String> paymentIds = new ArrayList<>();
+
+        // Iterate through the result set and add each item ID to the list
+        while (rst.next()) {
+            paymentIds.add(rst.getString(1));
+        }
+
+        // Return the list of item IDs
+        return paymentIds;
+    }
+
+    public static boolean reducePaymentAmount(CustomerPaymentDto customerPaymentDto) throws SQLException, ClassNotFoundException {
+        try {
+            return  CrudUtil.execute("UPDATE payment SET amount = amount - ? WHERE pay_id = ?",customerPaymentDto.getAmount(),customerPaymentDto.getPay_id());
+        } catch (SQLException e) {
+            System.out.println("Error while reducing payment amount for pay_id: " + customerPaymentDto.getPay_id());
+            e.printStackTrace();
+            return false;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Database driver not found.");
+            e.printStackTrace();
+            return false;
+        }
     }
 }

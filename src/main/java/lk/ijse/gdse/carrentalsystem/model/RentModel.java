@@ -143,4 +143,19 @@ public class RentModel {
         }
         return null;
     }
+
+    public static ArrayList<String> getAllRentIds() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.execute("select rent_id from rent");
+
+        // Create an ArrayList to store the item IDs
+        ArrayList<String> rentIds = new ArrayList<>();
+
+        // Iterate through the result set and add each item ID to the list
+        while (rst.next()) {
+            rentIds.add(rst.getString(1));
+        }
+
+        // Return the list of item IDs
+        return rentIds;
+    }
 }

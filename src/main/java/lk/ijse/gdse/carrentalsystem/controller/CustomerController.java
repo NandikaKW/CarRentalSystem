@@ -16,18 +16,22 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.CustomerDto;
+import lk.ijse.gdse.carrentalsystem.dto.CustomerPaymentDto;
+import lk.ijse.gdse.carrentalsystem.dto.PaymentDto;
+import lk.ijse.gdse.carrentalsystem.dto.tm.SubmitTM;
 import lk.ijse.gdse.carrentalsystem.model.AdminModel;
 import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.CustomerTM;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.view.JasperViewer;
+import lk.ijse.gdse.carrentalsystem.model.PaymentModel;
+import lk.ijse.gdse.carrentalsystem.model.RentModel;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CustomerController implements Initializable {
@@ -43,9 +47,8 @@ public class CustomerController implements Initializable {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
-
-
         colAdminID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
+        setCellValueCart();
 
         try {
 
@@ -70,6 +73,9 @@ public class CustomerController implements Initializable {
     }
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
+        setDateAndOrderId();
+        loadAllRentIds();
+        loadAllPaymentIds();
         loadNextCustomerId();
         loadTableData();
         btnSave.setDisable(false);
@@ -94,12 +100,48 @@ public class CustomerController implements Initializable {
         }
         tblCustomer.setItems(customerTMS);
     }
+    @FXML
+    private TableView<SubmitTM> tblSubmit;
+
+    @FXML
+    private TableColumn<SubmitTM,Button> colRemove;
+
+    @FXML
+    private TableColumn<SubmitTM, String> colCustId;
+
+    @FXML
+    private TableColumn<SubmitTM, String> colPaymentID;
+
+    @FXML
+    private TableColumn<SubmitTM, String> colRentID;
+
+    @FXML
+    private TableColumn<SubmitTM, BigDecimal> colPaymentAmount;
 
 
     @FXML
+    private Label lblPaymentAmount;
+
+
+    @FXML
+    private TextField txtPaymentAmount;
+
+    @FXML
     private JFXButton btnDelete;
+    @FXML
+    private JFXButton btnPreparePayment;
+    @FXML
+    private JFXButton btnSubmitPayment;
 
 
+    @FXML
+    private Label lblPaymentID;
+
+    @FXML
+    private ComboBox<String> cmbPayemntId;
+
+    @FXML
+    private ComboBox<String> cmbRentID;
 
     @FXML
     private JFXButton btnRest;
@@ -145,6 +187,11 @@ public class CustomerController implements Initializable {
 
     @FXML
     private Label lblCustomerName;
+    @FXML
+    private Label lblPaymentDate;
+
+    @FXML
+    private TextField txtPaymentDate;
 
     @FXML
     private Label lblNIC;
@@ -169,6 +216,7 @@ public class CustomerController implements Initializable {
 
     @FXML
     private TextField txtNIC;
+    private final ObservableList<SubmitTM> submitTMS = FXCollections.observableArrayList();
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
@@ -223,6 +271,14 @@ public class CustomerController implements Initializable {
 
 
 
+    }
+    private void setDateAndOrderId() {
+
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String d =df.format(date);
+        txtPaymentDate.setText(d);
+        // txtDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
     }
 
     private void clearFields() {
@@ -552,6 +608,188 @@ public class CustomerController implements Initializable {
             e.printStackTrace();
         }
     }
+    public  void loadAllPaymentIds() throws SQLException, ClassNotFoundException {
+        ArrayList<String> PaymentIds = PaymentModel.getAllPaymentIDs();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(PaymentIds);
+        cmbPayemntId.setItems(observableList);
+    }
+    public  void loadAllRentIds() throws SQLException, ClassNotFoundException {
+        ArrayList<String> RentIds = RentModel.getAllRentIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(RentIds);
+        cmbRentID.setItems(observableList);
+    }
+   public void setCellValueCart() {
+        // Initialize table columns
+        colPaymentID.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
+        colRentID.setCellValueFactory(new PropertyValueFactory<>("rentId"));
+        colCustId.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        colPaymentAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        colRemove.setCellValueFactory(new PropertyValueFactory<>("removeBtn"));
+
+
+        tblSubmit.setItems(submitTMS);
+    }
+
+    @FXML
+    void cmbPayemntIdOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+
+    }
+    @FXML
+    void cmbRentIDOnAction(ActionEvent event) {
+
+    }
+    @FXML
+    void btnSubmitPaymentOnAction(ActionEvent event) throws SQLException, ClassNotFoundException, ParseException {
+        try {
+            // Check if the table has payment details
+            if (tblSubmit.getItems().isEmpty()) {
+                new Alert(Alert.AlertType.ERROR, "Please add payment details.").show();
+                return;
+            }
+
+            // Check if a payment ID is selected
+            if (cmbPayemntId.getSelectionModel().isEmpty()) {
+                new Alert(Alert.AlertType.ERROR, "Please select a payment ID.").show();
+                return;
+            }
+
+            // Load the next customer ID
+            String customerId = CustomerModel.loadNextCustomerId();
+            txtCustomerID.setText(customerId);
+
+            // Prepare payment details
+            ArrayList<CustomerPaymentDto> customerPaymentDtos = new ArrayList<>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            // Parse payment date
+            Date date;
+            try {
+                date = dateFormat.parse(txtPaymentDate.getText());
+            } catch (ParseException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use 'yyyy-MM-dd'.").show();
+                return;
+            }
+
+            // Populate payment DTOs from the table
+            for (Object item : tblSubmit.getItems()) {
+                SubmitTM submitTM = (SubmitTM) item; // Cast object to SubmitTM
+                CustomerPaymentDto customerPaymentDto = new CustomerPaymentDto(
+                        submitTM.getCustId(),
+                        submitTM.getPaymentId(),
+                        date,
+                        submitTM.getAmount()
+                );
+                customerPaymentDtos.add(customerPaymentDto);
+            }
+
+            // Prepare customer DTO
+            CustomerDto customerDto = new CustomerDto(
+                    txtCustomerID.getText(),
+                    txtCustomerName.getText(),
+                    txtAdress.getText(),
+                    txtCustomerNumber.getText(),
+                    txtNIC.getText(),
+                    txtAdminID.getText()
+            );
+            customerDto.setCustomerPaymentDtos(customerPaymentDtos);
+
+            // Save customer and handle the result
+            boolean isSaved = CustomerModel.saveCustomer(customerDto);
+            if (isSaved) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully.").show();
+
+                // Add customer to the table
+                CustomerTM customerTM = new CustomerTM(
+                        customerDto.getCust_id(),
+                        customerDto.getCust_name(),
+                        customerDto.getAddress(),
+                        customerDto.getEmail(),
+                        customerDto.getNic(),
+                        customerDto.getAdmin_id()
+                );
+                tblCustomer.getItems().add(customerTM);
+
+                clearFields();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save customer.").show();
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
+
+    // Method to reset form fields after successful payment submission
+    private void refreshPaymentForm() {
+        txtPaymentAmount.clear();
+        txtCustomerID.clear();
+        txtPaymentDate.clear();
+
+    }
+    @FXML
+    void btnPreparePaymentOnAction(ActionEvent event) {
+        String paymentId = cmbPayemntId.getValue();
+        String rentId = cmbRentID.getValue();
+        BigDecimal payAmount;
+
+        // Input validation
+        if (paymentId == null || paymentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please select the payment ID.").show();
+            return;
+        }
+
+        if (rentId == null || rentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please select the rent ID.").show();
+            return;
+        }
+
+        try {
+            payAmount = new BigDecimal(txtPaymentAmount.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid payment amount.").show();
+            return;
+        }
+
+        String custId = txtCustomerID.getText();
+        BigDecimal reservePayAmount = new BigDecimal("1000.00"); // Example reserved amount
+
+        if (payAmount.compareTo(reservePayAmount) < 0) {
+            new Alert(Alert.AlertType.ERROR, "Not enough Payment..!").show();
+            return;
+        }
+
+        // Check if payment already exists and update the amount
+        for (SubmitTM submitTM : submitTMS) {
+            if (submitTM.getPaymentId().equals(paymentId)) {
+                submitTM.setAmount(submitTM.getAmount().add(payAmount));
+                tblSubmit.refresh();
+                return;
+            }
+        }
+
+        // Create a new SubmitTM entry with a remove button
+        Button removeBtn = new Button("Remove");
+        SubmitTM newSubmitTM = new SubmitTM(paymentId, rentId, custId, payAmount, removeBtn);
+        removeBtn.setOnAction(e -> {
+            submitTMS.remove(newSubmitTM);
+            tblSubmit.refresh();
+        });
+
+        // Add the new entry to the list and refresh the table
+        submitTMS.add(newSubmitTM);
+        tblSubmit.setItems(submitTMS);
+        tblSubmit.refresh();
+    }
+
+
+
+
 
 }
 

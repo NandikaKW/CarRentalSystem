@@ -1,5 +1,7 @@
 package lk.ijse.gdse.carrentalsystem.dto;
 
+import java.util.ArrayList;
+
 public class CustomerDto {
     private String cust_id;
     private  String cust_name;
@@ -7,6 +9,7 @@ public class CustomerDto {
     private String email;
     private String nic;
     private String admin_id;
+    private ArrayList<CustomerPaymentDto> customerPaymentDtos=new ArrayList<>();
 
 
     public CustomerDto() {
@@ -19,6 +22,7 @@ public class CustomerDto {
         this.email = email;
         this.nic = nic;
         this.admin_id = admin_id;
+
     }
 
     public String getCust_id() {
@@ -67,5 +71,26 @@ public class CustomerDto {
 
     public void setAdmin_id(String admin_id) {
         this.admin_id = admin_id;
+    }
+
+    public ArrayList<CustomerPaymentDto> getCustomerPaymentDtos() {
+        return customerPaymentDtos;
+    }
+
+    public void setCustomerPaymentDtos(ArrayList<CustomerPaymentDto> customerPaymentDtos) {
+        this.customerPaymentDtos = customerPaymentDtos;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDto{" +
+                "cust_id='" + cust_id + '\'' +
+                ", cust_name='" + cust_name + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", nic='" + nic + '\'' +
+                ", admin_id='" + admin_id + '\'' +
+                ", customerPaymentDtos=" + customerPaymentDtos +
+                '}';
     }
 }

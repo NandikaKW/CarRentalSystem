@@ -1,8 +1,11 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.CustomerDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,10 +15,11 @@ public class CustomerModel {
         ResultSet rst = CrudUtil.execute("SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1");
 
         if (rst.next()) {
-            return rst.getString("cust_id");  // Directly return the latest customer ID
+            return rst.getString("cust_id");  // Return the latest customer ID if exists
         }
-        return null;  // Return null if no customer records are available
+        return "C001";  // Default to "C001" if no customer exists
     }
+
 
     // Load the next customer ID
     public static String loadNextCustomerId() throws SQLException, ClassNotFoundException, SQLException {
@@ -30,14 +34,56 @@ public class CustomerModel {
         return "C001";
     }
 
-    // Save a new customer to the database
-    public boolean saveCustomer(CustomerDto dto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute(
-                "INSERT INTO customer VALUES (?,?,?,?,?,?)",
-                dto.getCust_id(), dto.getCust_name(), dto.getAddress(),
-                dto.getEmail(), dto.getNic(), dto.getAdmin_id()
-        );
+    public static boolean saveCustomer(CustomerDto dto) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        try {
+            connection.setAutoCommit(false); // Disable auto-commit
+
+            // Check if the NIC already exists in the database
+            String checkNicQuery = "SELECT COUNT(*) FROM customer WHERE nic_number = ?";
+            PreparedStatement checkNicStmt = connection.prepareStatement(checkNicQuery);
+            checkNicStmt.setString(1, dto.getNic());
+            ResultSet rs = checkNicStmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+
+            if (count > 0) {
+                connection.rollback(); // Rollback the transaction
+                return false;
+            }
+
+            // Proceed with customer insertion
+            String insertQuery = "INSERT INTO customer (cust_id, name, address, email, nic_number, admin_id) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(insertQuery);
+            pstmt.setString(1, dto.getCust_id());
+            pstmt.setString(2, dto.getCust_name());
+            pstmt.setString(3, dto.getAddress());
+            pstmt.setString(4, dto.getEmail());
+            pstmt.setString(5, dto.getNic());
+            pstmt.setString(6, dto.getAdmin_id());
+
+            boolean isCustomerSaved = pstmt.executeUpdate() > 0;
+
+            if (isCustomerSaved) {
+                boolean isCustomerPaymentSaved = CustomerPaymentModel.saveCustomerPaymentList(dto.getCustomerPaymentDtos());
+                if (isCustomerPaymentSaved) {
+                    connection.commit();
+                    return true;
+                }
+            }
+
+            connection.rollback();
+            return false;
+
+        } catch (Exception e) {
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
+
     public ArrayList<CustomerDto> getAllCustomers() throws SQLException, ClassNotFoundException {
         ResultSet rst =  CrudUtil.execute("select * from customer");
         ArrayList<CustomerDto> customerDTOS = new ArrayList<>();

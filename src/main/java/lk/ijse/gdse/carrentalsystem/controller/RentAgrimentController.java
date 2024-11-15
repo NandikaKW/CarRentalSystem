@@ -196,6 +196,7 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+
         try {
             String agrimentId = textArgumatId.getText();
             String paymentTerms = txtPaymentTerms.getText();

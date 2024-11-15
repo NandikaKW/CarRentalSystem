@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -22,43 +24,43 @@
             <Image url="@../image/6569161.gif" />
          </image>
       </ImageView>
-      <Label fx:id="lblCustomerName" layoutX="14.0" layoutY="62.0" text="Customer Name">
+      <Label fx:id="lblCustomerName" layoutX="22.0" layoutY="349.0" text="Customer Name">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblAdminID" layoutX="291.0" layoutY="63.0" text="Admin ID">
+      <Label fx:id="lblAdminID" layoutX="299.0" layoutY="350.0" text="Admin ID">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblCustomerID" layoutX="511.0" layoutY="62.0" text="Customer ID">
+      <Label fx:id="lblCustomerID" layoutX="519.0" layoutY="349.0" text="Customer ID">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblNIC" layoutX="14.0" layoutY="95.0" text="NIC Number">
+      <Label fx:id="lblNIC" layoutX="22.0" layoutY="382.0" text="NIC Number">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblAdress" layoutX="291.0" layoutY="95.0" text="Address">
+      <Label fx:id="lblAdress" layoutX="299.0" layoutY="382.0" text="Address">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblContactNumber" layoutX="518.0" layoutY="96.0" text="Contact  Email">
+      <Label fx:id="lblContactNumber" layoutX="526.0" layoutY="383.0" text="Contact  Email">
          <font>
             <Font name="Serif Bold Italic" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCustomerName" layoutX="126.0" layoutY="59.0" promptText="Customer Name " />
-      <TextField fx:id="txtNIC" layoutX="126.0" layoutY="92.0" promptText="NIC Number" />
-      <TextField fx:id="txtAdminID" layoutX="361.0" layoutY="60.0" promptText="Admin ID" />
-      <TextField fx:id="txtAdress" layoutX="361.0" layoutY="95.0" promptText="Address" />
-      <TextField fx:id="txtCustomerNumber" layoutX="632.0" layoutY="92.0" prefHeight="26.0" prefWidth="107.0" promptText="Contact Email" />
-      <TextField fx:id="txtCustomerID" layoutX="608.0" layoutY="59.0" prefHeight="26.0" prefWidth="122.0" promptText="Customer ID" />
-      <TableView fx:id="tblCustomer" layoutX="-3.0" layoutY="181.0" onMouseClicked="#onClickTable" prefHeight="511.0" prefWidth="769.0">
+      <TextField fx:id="txtCustomerName" layoutX="134.0" layoutY="346.0" promptText="Customer Name " />
+      <TextField fx:id="txtNIC" layoutX="134.0" layoutY="379.0" promptText="NIC Number" />
+      <TextField fx:id="txtAdminID" layoutX="369.0" layoutY="347.0" promptText="Admin ID" />
+      <TextField fx:id="txtAdress" layoutX="369.0" layoutY="382.0" promptText="Address" />
+      <TextField fx:id="txtCustomerNumber" layoutX="640.0" layoutY="379.0" prefHeight="26.0" prefWidth="107.0" promptText="Contact Email" />
+      <TextField fx:id="txtCustomerID" layoutX="616.0" layoutY="346.0" prefHeight="26.0" prefWidth="122.0" promptText="Customer ID" />
+      <TableView fx:id="tblCustomer" layoutX="-3.0" layoutY="452.0" onMouseClicked="#onClickTable" prefHeight="240.0" prefWidth="770.0">
         <columns>
           <TableColumn fx:id="colCustomerName" prefWidth="119.20001220703125" text="Customer Name" />
           <TableColumn fx:id="colNIC" prefWidth="121.60003662109375" text="NIC Number" />
@@ -68,35 +70,103 @@
             <TableColumn fx:id="colCustomerEmail" prefWidth="180.79995117187502" text="Customer Email" />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="14.0" layoutY="137.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save ">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="583.0" layoutY="415.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="95.0" layoutY="137.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="426.0" layoutY="417.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="194.0" layoutY="137.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="508.0" layoutY="416.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnRest" buttonType="RAISED" layoutX="290.0" layoutY="137.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset ">
+      <JFXButton fx:id="btnRest" buttonType="RAISED" layoutX="645.0" layoutY="415.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="379.0" layoutY="137.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="254.0" layoutY="417.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="473.0" layoutY="137.0" onAction="#openSendMailModel" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Send Email">
+      <JFXButton buttonType="RAISED" layoutX="325.0" layoutY="417.0" onAction="#openSendMailModel" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Send Email">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
+      <Label fx:id="lblPaymentID" layoutX="14.0" layoutY="52.0" text="Payment ID">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbPayemntId" layoutX="101.0" layoutY="50.0" onAction="#cmbPayemntIdOnAction" prefHeight="26.0" prefWidth="142.0" style="-fx-background-color: #FBFBFB; -fx-border-color: black; -fx-background-radius: 23; -fx-border-radius: 8;" />
+      <Label fx:id="lblRentID" layoutX="254.0" layoutY="55.0" text="Rent ID">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbRentID" layoutX="319.0" layoutY="53.0" onAction="#cmbRentIDOnAction" prefHeight="26.0" prefWidth="129.0" style="-fx-background-color: #FBFBFB; -fx-border-color: black; -fx-background-radius: 23; -fx-border-radius: 8;" />
+      <Label fx:id="lblPaymentAmount" layoutX="461.0" layoutY="60.0" text="Payment Amount">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPaymentAmount" layoutX="583.0" layoutY="58.0" prefHeight="26.0" prefWidth="107.0" promptText="Payment Amount" />
+      <Label fx:id="lblPaymentDate" layoutX="13.0" layoutY="86.0" text="Payment Date ">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPaymentDate" layoutX="112.0" layoutY="84.0" prefHeight="26.0" prefWidth="142.0" promptText="Payment Date" />
+      <TableView fx:id="tblSubmit" layoutX="1.0" layoutY="153.0" prefHeight="174.0" prefWidth="767.0">
+        <columns>
+          <TableColumn fx:id="colPaymentID" prefWidth="165.60003972053528" text="Payment ID" />
+          <TableColumn fx:id="colRentID" prefWidth="141.59996032714844" text="Rent ID" />
+            <TableColumn fx:id="colPaymentAmount" prefWidth="160.79998779296875" text="Payment Amount" />
+            <TableColumn fx:id="colCustId" prefWidth="147.20001220703125" text="Cust ID" />
+            <TableColumn fx:id="colRemove" prefWidth="149.5999633789063" text="Remove" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="btnPreparePayment" buttonType="RAISED" layoutX="5.0" layoutY="118.0" onAction="#btnPreparePaymentOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Prepare Payment ">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnSubmitPayment" buttonType="RAISED" layoutX="144.0" layoutY="118.0" onAction="#btnSubmitPaymentOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Submit Payment ">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <Separator layoutX="1.0" layoutY="334.0" prefHeight="5.0" prefWidth="767.0" />
+      <Label fx:id="lblCustomerName1" layoutX="274.0" layoutY="92.0" text="Customer Name">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblNIC1" layoutX="281.0" layoutY="125.0" text="NIC Number">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCustomerName1" layoutX="386.0" layoutY="89.0" prefHeight="26.0" prefWidth="122.0" promptText="Customer Name " />
+      <TextField fx:id="txtNIC1" layoutX="374.0" layoutY="122.0" prefHeight="26.0" prefWidth="134.0" promptText="NIC Number" />
+      <Label fx:id="lblAdress1" layoutX="516.0" layoutY="92.0" text="Address">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtAdress1" layoutX="586.0" layoutY="92.0" promptText="Address" />
+      <Label fx:id="lblContactNumber1" layoutX="515.0" layoutY="124.0" text="Contact  Email">
+         <font>
+            <Font name="Serif Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCustomerNumber1" layoutX="629.0" layoutY="120.0" prefHeight="26.0" prefWidth="107.0" promptText="Contact Email" />
    </children>
 </AnchorPane>
