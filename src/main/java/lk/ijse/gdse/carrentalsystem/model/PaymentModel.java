@@ -123,4 +123,15 @@ public class PaymentModel {
             return false;
         }
     }
+
+    public static BigDecimal getAvailablePaymentAmount(String paymentId) throws SQLException, ClassNotFoundException {
+        String query = "SELECT amount FROM payment WHERE pay_id = ?";
+        ResultSet rs = CrudUtil.execute(query, paymentId);
+
+        if (rs.next()) {
+            return rs.getBigDecimal("amount");
+        } else {
+            throw new SQLException("Payment ID not found: " + paymentId);
+        }
+    }
 }

@@ -655,6 +655,30 @@ public class CustomerController implements Initializable {
                 return;
             }
 
+            // Calculate the total payment amount from the table
+            BigDecimal totalPaymentAmount = BigDecimal.ZERO;
+            for (SubmitTM submitTM : tblSubmit.getItems()) {
+                totalPaymentAmount = totalPaymentAmount.add(submitTM.getAmount());
+            }
+
+            // Parse the required payment amount
+            BigDecimal requiredPaymentAmount;
+            try {
+                requiredPaymentAmount = new BigDecimal(txtPaymentAmount.getText());
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid payment amount entered.").show();
+                return;
+            }
+
+            // Validate the total payment amount against the required amount
+            if (totalPaymentAmount.compareTo(requiredPaymentAmount) > 0) {
+                new Alert(Alert.AlertType.ERROR, "Total payment amount exceeds the required payment amount.").show();
+                return;
+            } else if (totalPaymentAmount.compareTo(requiredPaymentAmount) < 0) {
+                new Alert(Alert.AlertType.ERROR, "Total payment amount is less than the required payment amount.").show();
+                return;
+            }
+
             // Load the next customer ID
             String customerId = CustomerModel.loadNextCustomerId();
             txtCustomerID.setText(customerId);
@@ -673,8 +697,7 @@ public class CustomerController implements Initializable {
             }
 
             // Populate payment DTOs from the table
-            for (Object item : tblSubmit.getItems()) {
-                SubmitTM submitTM = (SubmitTM) item; // Cast object to SubmitTM
+            for (SubmitTM submitTM : tblSubmit.getItems()) {
                 CustomerPaymentDto customerPaymentDto = new CustomerPaymentDto(
                         submitTM.getCustId(),
                         submitTM.getPaymentId(),
@@ -683,8 +706,6 @@ public class CustomerController implements Initializable {
                 );
                 customerPaymentDtos.add(customerPaymentDto);
             }
-
-
 
             // Prepare customer DTO
             CustomerDto customerDto = new CustomerDto(
@@ -702,9 +723,6 @@ public class CustomerController implements Initializable {
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully.").show();
 
-                System.out.println(customerDto.toString());
-
-                // Add customer to the table
                 CustomerTM customerTM = new CustomerTM(
                         customerDto.getCust_id(),
                         customerDto.getCust_name(),
@@ -760,18 +778,34 @@ public class CustomerController implements Initializable {
             return;
         }
 
-        String custId = txtCustomerID.getText();
-        BigDecimal reservePayAmount = new BigDecimal("1000.00"); // Example reserved amount
-
-        if (payAmount.compareTo(reservePayAmount) < 0) {
-            new Alert(Alert.AlertType.ERROR, "Not enough Payment..!").show();
+        // Check the available amount for the selected payment ID
+        BigDecimal availableAmount;
+        try {
+            availableAmount = PaymentModel.getAvailablePaymentAmount(paymentId);
+            if (payAmount.compareTo(availableAmount) > 0) {
+                new Alert(Alert.AlertType.ERROR, "The payment amount exceeds the available amount for this payment ID.").show();
+                return;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error while fetching available payment amount: " + e.getMessage()).show();
+            e.printStackTrace();
             return;
         }
+
+        String custId = txtCustomerID.getText();
 
         // Check if payment already exists and update the amount
         for (SubmitTM submitTM : submitTMS) {
             if (submitTM.getPaymentId().equals(paymentId)) {
-                submitTM.setAmount(submitTM.getAmount().add(payAmount));
+                BigDecimal newAmount = submitTM.getAmount().add(payAmount);
+
+                // Validate if the new amount exceeds the available amount
+                if (newAmount.compareTo(availableAmount) > 0) {
+                    new Alert(Alert.AlertType.ERROR, "The total payment amount exceeds the available amount.").show();
+                    return;
+                }
+
+                submitTM.setAmount(newAmount);
                 tblSubmit.refresh();
                 return;
             }

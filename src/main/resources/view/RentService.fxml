@@ -100,7 +100,7 @@
             <Font name="Times New Roman Bold" size="15.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="tblCart" layoutX="2.0" layoutY="541.0" onMouseClicked="#tblCartOnClick" prefHeight="176.0" prefWidth="763.0">
+      <TableView fx:id="tblCart" layoutX="2.0" layoutY="519.0" onMouseClicked="#tblCartOnClick" prefHeight="198.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colVehicleId" prefWidth="218.39999079704285" text="Vehicle Id" />
             <TableColumn fx:id="colQty" prefWidth="152.00001525878906" text="QTY" />
