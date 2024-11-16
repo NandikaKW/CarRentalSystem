@@ -31,7 +31,7 @@ public class EmailController {
             return;
         }
 
-        final String FROM = "replace-your-email@gmail.com";
+        final String FROM = "nandikakaweesha4005@gmail.com";
         String subject = txtSubject.getText();
         String body = txtBody.getText();
 

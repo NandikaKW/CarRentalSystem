@@ -684,6 +684,8 @@ public class CustomerController implements Initializable {
                 customerPaymentDtos.add(customerPaymentDto);
             }
 
+
+
             // Prepare customer DTO
             CustomerDto customerDto = new CustomerDto(
                     txtCustomerID.getText(),
@@ -699,6 +701,8 @@ public class CustomerController implements Initializable {
             boolean isSaved = CustomerModel.saveCustomer(customerDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully.").show();
+
+                System.out.println(customerDto.toString());
 
                 // Add customer to the table
                 CustomerTM customerTM = new CustomerTM(

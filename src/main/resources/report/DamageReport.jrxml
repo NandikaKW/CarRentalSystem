@@ -66,31 +66,31 @@ JOIN
 		</element>
 	</pageHeader>
 	<columnHeader height="61" splitType="Stretch">
-		<element kind="staticText" uuid="aec88776-8d68-48c4-8aba-0fc9f4b6ae4b" x="-19" y="15" width="81" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="aec88776-8d68-48c4-8aba-0fc9f4b6ae4b" x="-19" y="15" width="81" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Damage ID]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1585025-1536-45d9-a037-71567b024f6c"/>
 		</element>
-		<element kind="staticText" uuid="06351bde-898d-4689-bf3d-13312358ded7" x="62" y="15" width="118" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="06351bde-898d-4689-bf3d-13312358ded7" x="62" y="15" width="118" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Repair Cost]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4511e77e-6750-41d3-aeba-25d61e0c343a"/>
 		</element>
-		<element kind="staticText" uuid="a9f71ca8-ee47-4468-a77f-7cd2aa60b744" x="180" y="15" width="140" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="a9f71ca8-ee47-4468-a77f-7cd2aa60b744" x="180" y="15" width="140" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Damage Detail]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e10e9355-2ef1-41c3-aa7f-31c525df1352"/>
 		</element>
-		<element kind="staticText" uuid="7cfbe587-ad64-4211-8c5b-6270122fa5d7" x="320" y="16" width="90" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="7cfbe587-ad64-4211-8c5b-6270122fa5d7" x="320" y="16" width="90" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Rent ID]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8f49cb9-a911-4b0f-b885-717bf5dfdfdc"/>
 		</element>
-		<element kind="staticText" uuid="80b8cef1-efbb-4798-a2ee-6b306f999d9f" x="410" y="16" width="150" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="80b8cef1-efbb-4798-a2ee-6b306f999d9f" x="410" y="16" width="150" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Rental Start Date]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85a8657f-ad58-4e3b-82ca-c066ef5a7c02"/>
 		</element>
-		<element kind="staticText" uuid="0acc843d-4efb-4357-bff2-1162bc741bf6" x="560" y="16" width="140" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="0acc843d-4efb-4357-bff2-1162bc741bf6" x="560" y="16" width="140" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Rental End Date]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d387115e-3775-4987-882d-23561ac1626d"/>
 		</element>
-		<element kind="staticText" uuid="4895939e-1db3-4f98-8705-0a3c623529f0" x="700" y="16" width="122" height="30" fontName="Serif" fontSize="18.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="4895939e-1db3-4f98-8705-0a3c623529f0" x="700" y="16" width="122" height="30" fontName="Times New Roman" fontSize="18.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Vehicle Model]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="523175fb-ee01-4e08-bfd7-18a784da71ed"/>
 		</element>
@@ -98,31 +98,31 @@ JOIN
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
-			<element kind="textField" uuid="0490c602-3e78-45bb-82ce-e3756885c12f" x="-19" y="-15" width="81" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="0490c602-3e78-45bb-82ce-e3756885c12f" x="-19" y="-15" width="81" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Damage ID}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1585025-1536-45d9-a037-71567b024f6c"/>
 			</element>
-			<element kind="textField" uuid="cfe3ec74-b4d6-41dd-ab3a-cfbab212655b" x="62" y="-15" width="118" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="cfe3ec74-b4d6-41dd-ab3a-cfbab212655b" x="62" y="-15" width="118" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Repair Cost}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4511e77e-6750-41d3-aeba-25d61e0c343a"/>
 			</element>
-			<element kind="textField" uuid="ca87457a-d015-4a20-8477-34c38695a1ae" x="180" y="-15" width="140" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="ca87457a-d015-4a20-8477-34c38695a1ae" x="180" y="-15" width="140" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Damage Detail}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e10e9355-2ef1-41c3-aa7f-31c525df1352"/>
 			</element>
-			<element kind="textField" uuid="c403f6b5-6c5d-4b09-9808-f45c69a74484" x="320" y="-14" width="90" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="c403f6b5-6c5d-4b09-9808-f45c69a74484" x="320" y="-14" width="90" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Rent ID}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8f49cb9-a911-4b0f-b885-717bf5dfdfdc"/>
 			</element>
-			<element kind="textField" uuid="0e4d325a-a13d-4378-a342-8533cdb53fcb" x="410" y="-14" width="150" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="0e4d325a-a13d-4378-a342-8533cdb53fcb" x="410" y="-14" width="150" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Rental Start Date}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85a8657f-ad58-4e3b-82ca-c066ef5a7c02"/>
 			</element>
-			<element kind="textField" uuid="f97f933a-bbf5-4bfc-a070-7a4f2503d364" x="560" y="-14" width="140" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="f97f933a-bbf5-4bfc-a070-7a4f2503d364" x="560" y="-14" width="140" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Rental End Date}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d387115e-3775-4987-882d-23561ac1626d"/>
 			</element>
-			<element kind="textField" uuid="a26772a6-d679-43b9-b540-4d3720d389b3" x="700" y="-14" width="122" height="30" fontName="Serif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="a26772a6-d679-43b9-b540-4d3720d389b3" x="700" y="-14" width="122" height="30" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{Vehicle Model}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="523175fb-ee01-4e08-bfd7-18a784da71ed"/>
 			</element>

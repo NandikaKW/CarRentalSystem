@@ -13,13 +13,10 @@ public class AppInitilizer extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Parent load = FXMLLoader.load(getClass().getResource("/view/Welcome.fxml"));
         primaryStage.setScene(new Scene(load));
         primaryStage.setTitle("SignIn Form");
         primaryStage.show();
-
-
 
     }
 }
