@@ -720,6 +720,7 @@ public class CustomerController implements Initializable {
 
             // Save customer and handle the result
             boolean isSaved = CustomerModel.saveCustomer(customerDto);
+
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully.").show();
 

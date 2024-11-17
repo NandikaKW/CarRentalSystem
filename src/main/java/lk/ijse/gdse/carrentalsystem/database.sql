@@ -159,3 +159,11 @@ CREATE TABLE Maintenance (
                                  ON UPDATE CASCADE
                                  ON DELETE CASCADE
 );
+CREATE TABLE customerpayment (
+                                 cust_id VARCHAR(50) NOT NULL,
+                                 pay_id VARCHAR(50) NOT NULL,
+                                 payment_date DATE NOT NULL,
+                                 amount DECIMAL(10, 2) NOT NULL,
+                                 PRIMARY KEY (cust_id, pay_id)
+);
+
