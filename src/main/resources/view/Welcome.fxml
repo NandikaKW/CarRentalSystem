@@ -14,12 +14,12 @@
             <Image url="@../image/77236f94369913.5e7cfc87a518c.gif" />
          </image>
       </ImageView>
-      <Label layoutX="168.0" layoutY="423.0" prefHeight="46.0" prefWidth="258.0" style="-fx-background-color: white;" text="Wunder Rent" textFill="#0d0d0d">
+      <Label layoutX="177.0" layoutY="423.0" prefHeight="46.0" prefWidth="258.0" style="-fx-background-color: white;" text="Wunder Rent" textFill="#0d0d0d">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
       </Label>
-      <Label layoutX="179.0" layoutY="377.0" prefHeight="46.0" prefWidth="258.0" style="-fx-background-color: white;" text="Welcome To " textFill="#0d0d0d">
+      <Label layoutX="188.0" layoutY="377.0" prefHeight="46.0" prefWidth="258.0" style="-fx-background-color: white;" text="Welcome To " textFill="#0d0d0d">
          <font>
             <Font name="Serif Bold" size="40.0" />
          </font>
