@@ -46,27 +46,27 @@
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="369.0" onAction="#btnAgrimentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Vehicle Details" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="367.0" onAction="#btnAgrimentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Vehicle Details" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="414.0" onAction="#btnPackageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Package Offers " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="411.0" onAction="#btnPackageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Package Offers " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="458.0" onAction="#btnMaintainOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Maintaince Schedule " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="455.0" onAction="#btnMaintainOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Maintaince Schedule " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="503.0" onAction="#btnDamageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Damage Details" textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="499.0" onAction="#btnDamageOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Damage Details" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="545.0" onAction="#btnVehicleRentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Vehicle Rents Details " textFill="#f7f7f7">
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="543.0" onAction="#btnVehicleRentOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Vehicle Rents Details " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
@@ -115,12 +115,12 @@
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnAgrimentDetail" buttonType="RAISED" layoutX="19.0" layoutY="586.0" onAction="#btnAgrimentDetailOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Rent Agriment" textFill="#f7f7f7">
+            <JFXButton fx:id="btnAgrimentDetail" buttonType="RAISED" layoutX="19.0" layoutY="583.0" onAction="#btnAgrimentDetailOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Rent Agriment" textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnBusiness" buttonType="RAISED" layoutX="19.0" layoutY="625.0" onAction="#btnBusinessOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Our Mission " textFill="#f7f7f7">
+            <JFXButton fx:id="btnBusiness" buttonType="RAISED" layoutX="19.0" layoutY="623.0" onAction="#btnBusinessOnAction" prefHeight="30.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="Our Mission " textFill="#f7f7f7">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
