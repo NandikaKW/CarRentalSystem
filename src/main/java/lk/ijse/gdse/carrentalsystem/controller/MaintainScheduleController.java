@@ -200,13 +200,53 @@ public class MaintainScheduleController  implements Initializable {
             String duration = txtDuration.getText();
             String vehicleId = txtVehicleID.getText();
 
-            // Validate inputs: Ensure that no field is empty
-            if (maintainId.isEmpty() || cost.isEmpty() || maintainDateStr.isEmpty() || duration.isEmpty() || vehicleId.isEmpty()) {
-                new Alert(Alert.AlertType.WARNING, "Please fill all fields!").show();
+            // Regex patterns for validation
+            String maintainIdPattern = "^M\\d{3}$"; // Matches M001, M002, etc.
+            String costPattern = "^\\d+(\\.\\d{1,2})?$"; // Valid decimal format (e.g., 200.00, 350)
+            String datePattern = "^\\d{4}-\\d{2}-\\d{2}$"; // Valid date format YYYY-MM-DD
+            String durationPattern = "^\\d+\\s(hour|hours|minute|minutes)$"; // Valid duration (e.g., "2 hours", "45 minutes")
+            String vehicleIdPattern = "^V\\d{3}$"; // Matches V001, V002, etc.
+
+            // Reset field styles
+            resetFieldStyles();
+
+            // Validation checks
+            boolean isValidMaintainId = maintainId.matches(maintainIdPattern);
+            boolean isValidCost = cost.matches(costPattern);
+            boolean isValidDate = maintainDateStr.matches(datePattern);
+            boolean isValidDuration = duration.matches(durationPattern);
+            boolean isValidVehicleId = vehicleId.matches(vehicleIdPattern);
+
+            // Alert message for validation errors
+            if (!isValidMaintainId || !isValidCost || !isValidDate || !isValidDuration || vehicleId.isEmpty()) {
+                StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+                if (!isValidMaintainId) {
+                    txtMaintainID.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Maintain ID (Expected format: M001)\n");
+                }
+                if (!isValidCost) {
+                    txtCost.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Cost format (Expected format: 200.00 or 350)\n");
+                }
+                if (!isValidDate) {
+                    txtMaintainDate.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Date format (Expected format: YYYY-MM-DD)\n");
+                }
+                if (!isValidDuration) {
+                    txtDuration.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Duration (Expected format: '2 hours' or '45 minutes')\n");
+                }
+                if (!isValidVehicleId) {
+                    txtVehicleID.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Vehicle ID (Expected format: V001)\n");
+                }
+
+                new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
                 return; // Exit if validation fails
             }
 
-            // Convert cost to BigDecimal with error handling for invalid format
+            // Convert cost to BigDecimal
             BigDecimal decimalCost;
             try {
                 decimalCost = new BigDecimal(cost);
@@ -215,15 +255,11 @@ public class MaintainScheduleController  implements Initializable {
                 return; // Exit if cost format is invalid
             }
 
-            // Parse maintainDate from String to Date with error handling for invalid date format
+            // Parse maintainDate from String to Date
             java.util.Date maintainDate;
             try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust to your date format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 maintainDate = dateFormat.parse(maintainDateStr);
-
-                // Print the date in the desired format to the terminal
-                System.out.println("Parsed maintain date: " + dateFormat.format(maintainDate));
-
             } catch (ParseException e) {
                 new Alert(Alert.AlertType.ERROR, "Invalid date format! Use YYYY-MM-DD.").show();
                 return; // Exit if date format is invalid
@@ -257,6 +293,16 @@ public class MaintainScheduleController  implements Initializable {
             e.printStackTrace(); // Log for debugging
         }
     }
+
+    private void resetFieldStyles() {
+        txtMaintainDate.setStyle("");
+        txtCost.setStyle("");
+        txtDuration.setStyle("");
+        txtDescription.setStyle("");
+        txtVehicleID.setStyle("");
+        txtMaintainID.setStyle("");
+    }
+
 
     @FXML
     void btnSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -314,10 +360,56 @@ public class MaintainScheduleController  implements Initializable {
             String duration = txtDuration.getText();
             String vehicleId = txtVehicleID.getText();
 
-            // Validate inputs
-            if (maintainId.isEmpty() || costStr.isEmpty() || maintainDateStr.isEmpty() || duration.isEmpty() || vehicleId.isEmpty()) {
-                new Alert(Alert.AlertType.WARNING, "Please fill all fields!").show();
-                return; // Exit if validation fails
+            // Regex patterns
+            String maintainIdPattern = "^M\\d{3}$"; // Matches M001, M002, etc.
+            String costPattern = "^\\d+(\\.\\d{1,2})?$"; // Matches valid decimal numbers
+            String maintainDatePattern = "^\\d{4}-\\d{2}-\\d{2}$"; // Matches YYYY-MM-DD format
+            String descriptionPattern = "^[\\w\\s]+$"; // Matches letters, digits, and spaces
+            String durationPattern = "^[\\w\\s]+$"; // Matches letters, digits, and spaces
+            String vehicleIdPattern = "^V\\d{3}$"; // Matches V001, V002, etc.
+
+            // Reset field styles
+            resetFieldStyles();
+
+            // Validation checks
+            boolean isValidMaintainId = maintainId.matches(maintainIdPattern);
+            boolean isValidCost = costStr.matches(costPattern);
+            boolean isValidMaintainDate = maintainDateStr.matches(maintainDatePattern);
+            boolean isValidDescription = description.matches(descriptionPattern);
+            boolean isValidDuration = duration.matches(durationPattern);
+            boolean isValidVehicleId = vehicleId.matches(vehicleIdPattern);
+
+            // Handle validation errors
+            if (!isValidMaintainId || !isValidCost || !isValidMaintainDate || !isValidDescription || !isValidDuration || !isValidVehicleId) {
+                StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+                if (!isValidMaintainId) {
+                    txtMaintainID.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Maintain ID (Expected format: M001)\n");
+                }
+                if (!isValidCost) {
+                    txtCost.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Cost (Must be a valid decimal number)\n");
+                }
+                if (!isValidMaintainDate) {
+                    txtMaintainDate.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Maintain Date (Expected format: YYYY-MM-DD)\n");
+                }
+                if (!isValidDescription) {
+                    txtDescription.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Description (Only letters, digits, and spaces allowed)\n");
+                }
+                if (!isValidDuration) {
+                    txtDuration.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Duration (Only letters, digits, and spaces allowed)\n");
+                }
+                if (!isValidVehicleId) {
+                    txtVehicleID.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Vehicle ID (Expected format: V001)\n");
+                }
+
+                new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+                return;
             }
 
             // Convert cost to BigDecimal

@@ -186,22 +186,43 @@ public class PackageOffersController  implements Initializable {
         String packageId = txtPackageId.getText();
         String packageName = txtPackageName.getText();
         BigDecimal cost = BigDecimal.ZERO;
+        String rentDuration = txtRentDuration.getText();
+        String mileage = txtMileage.getText();
+        String description = txtDescription.getText();
+
+        // Regex patterns
+        String packageIdPattern = "^P\\d{3}$"; // Matches P001, P002, etc.
+        String packageNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String rentDurationPattern = "^[\\d]+\\s?(days|months|years)?$"; // Matches "10 days", "5 months", etc.
+        String mileagePattern = "^[\\d]+\\s?(km|mi)?$"; // Matches "1500 km", "2000 mi", etc.
+
+        // Reset field styles
+        resetFieldStyles();
+
+        // Validation checks
+        boolean isValidPackageId = packageId.matches(packageIdPattern);
+        boolean isValidPackageName = packageName.matches(packageNamePattern);
+        boolean isValidRentDuration = rentDuration.matches(rentDurationPattern);
+        boolean isValidMileage = mileage.matches(mileagePattern);
+
+        // Validate cost
         try {
             cost = new BigDecimal(txtcost.getText()); // Convert cost to BigDecimal
         } catch (NumberFormatException e) {
+            txtcost.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid cost format!").show();
             return; // Exit if cost format is invalid
         }
 
+        // Validate insurance
         boolean insurance = false;
         try {
             insurance = Boolean.parseBoolean(txtinsuarence.getText()); // Parse insurance input
         } catch (Exception e) {
+            txtinsuarence.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid insurance value! Please enter true/false.").show();
             return; // Exit if insurance value is invalid
         }
-
-        String rentDuration = txtRentDuration.getText();
 
         // Parsing rentDate
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -209,13 +230,35 @@ public class PackageOffersController  implements Initializable {
         try {
             rentDate = dateFormat.parse(txtRentDate.getText()); // Parse date
         } catch (ParseException e) {
-            e.printStackTrace();
+            txtRentDate.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd.").show();
             return; // Exit if date format is wrong
         }
 
-        String mileage = txtMileage.getText();
-        String description = txtDescription.getText();
+        // Alert message for validation errors
+        if (!isValidPackageId || !isValidPackageName || !isValidRentDuration || !isValidMileage) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidPackageId) {
+                txtPackageId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Package ID (Expected format: P001)\n");
+            }
+            if (!isValidPackageName) {
+                txtPackageName.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Package Name (Only letters and spaces allowed)\n");
+            }
+            if (!isValidRentDuration) {
+                txtRentDuration.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Rental Duration (e.g., '10 days')\n");
+            }
+            if (!isValidMileage) {
+                txtMileage.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Mileage (e.g., '1500 km')\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return;
+        }
 
         // Create PackageDto object to pass the data to the model
         PackageDto dto = new PackageDto(packageId, packageName, cost, insurance, rentDuration, rentDate, mileage, description);
@@ -243,6 +286,18 @@ public class PackageOffersController  implements Initializable {
             new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
         }
     }
+
+    private void resetFieldStyles() {
+        txtPackageId.setStyle("");
+        txtPackageName.setStyle("");
+        txtcost.setStyle("");
+        txtinsuarence.setStyle("");
+        txtRentDuration.setStyle("");
+        txtRentDate.setStyle("");
+        txtMileage.setStyle("");
+        txtDescription.setStyle("");
+    }
+
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextPackageId();

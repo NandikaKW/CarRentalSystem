@@ -21,7 +21,7 @@
             <Image url="@../../../../../../Downloads/icons8-show-password-32.png" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="246.0" layoutY="501.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #3d3d3d;" text="Login" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="239.0" layoutY="501.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="26.0" />
          </font>
@@ -49,7 +49,7 @@
             <Image url="@../image/6569158.gif" />
          </image>
       </ImageView>
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="441.0" layoutY="473.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="441.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/8717908%20(1).gif" />
          </image>
