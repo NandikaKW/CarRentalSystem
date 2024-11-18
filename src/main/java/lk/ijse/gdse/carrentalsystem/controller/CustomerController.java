@@ -595,7 +595,7 @@ public class CustomerController implements Initializable {
             stage.showAndWait();
 
         } catch (IOException e) {
-
+            // Handle loading failure of the email view
             new Alert(Alert.AlertType.ERROR, "Failed to load the email sending interface. Please try again later.").show();
             e.printStackTrace();
         } catch (NullPointerException e) {
