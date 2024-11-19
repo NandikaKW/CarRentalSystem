@@ -8,9 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -28,6 +31,8 @@ public class DashboradController implements Initializable {
     private AnchorPane content;
     @FXML
     private Label lblDate;
+    @FXML
+    private AnchorPane DashboardPane;
 
     @FXML
     private Label lblTime;
@@ -160,17 +165,30 @@ public class DashboradController implements Initializable {
 
     public void btnBusinessOnAction(ActionEvent actionEvent) {
         try {
-            if (isLocationViewActive) {
-                navigateto("/view/Location.fxml");  // Load location.fxml
-            } else {
-                navigateto("/view/OurMission.fxml");  // Load ourMission.fxml
-            }
-            isLocationViewActive = !isLocationViewActive;  // Toggle the view
+            // Load the FXML file for the new stage
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/SignIn.fxml"));
+            AnchorPane root = fxmlLoader.load();
+
+            // Create a new stage for the Sign In window
+            Stage signInStage = new Stage();
+            signInStage.setTitle("Sign In");
+            signInStage.setScene(new Scene(root));
+
+            // Optional: Prevent interaction with other windows until this stage is closed
+            signInStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Show the new stage
+            signInStage.show();
+
+            // Close the current (dashboard) stage
+            Stage currentStage = (Stage) btnBusiness.getScene().getWindow(); // Get the current stage
+            currentStage.close(); // Close it
         } catch (IOException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to load form: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Failed to load SignIn form: " + e.getMessage()).show();
         }
     }
+
 }
 
 
