@@ -468,7 +468,7 @@ public class RentAgrimentController implements Initializable {
             updateDaysOne();
 
         } catch (SQLException e) {
-            // Handle SQLException - typically related to database errors
+
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Database error occurred while loading data: " + e.getMessage()).show();
 
