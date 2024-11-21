@@ -285,8 +285,8 @@ public class EmployeeController implements Initializable {
                 // If employee is not found, show an error alert
                 new Alert(Alert.AlertType.ERROR, "Employee not found!").show();
                 clearFields(); // Clear the fields
-                loadCurrentAdminId(); // Load current admin ID
-                loadNextEmployeeId(); // Load next employee ID
+                loadCurrentAdminId();
+                loadNextEmployeeId();
             }
 
         } catch (SQLException e) {

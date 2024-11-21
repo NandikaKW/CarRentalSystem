@@ -33,7 +33,7 @@ public class PaymentTrackingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set up the table column value factories
+
         colPaymentId.setCellValueFactory(new PropertyValueFactory<>("pay_id"));
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -44,7 +44,7 @@ public class PaymentTrackingController implements Initializable {
         colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount_applied"));
 
         try {
-            // Attempt to refresh the page, load data, and initialize components
+
             refreshPage();
             loadTableData();
             loadNextPaymentId();

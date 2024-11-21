@@ -239,10 +239,10 @@ public class CustomerController implements Initializable {
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
-                    clearFields();         // Clear input fields
-                    refreshTableData();     // Refresh the table
-                    loadNextCustomerId();   // Load the next available customer ID
-                    loadCurrentAdminId();   // Load the current admin ID
+                    clearFields();
+                    refreshTableData();
+                    loadNextCustomerId();
+                    loadCurrentAdminId();
 
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
@@ -308,7 +308,7 @@ public class CustomerController implements Initializable {
         String nicPattern = "^[0-9]{9}[Vv]$|^[0-9]{12}$"; // Matches NIC format with 9 digits + V or 12 digits
         String adminIdPattern = "^A\\d{3}$"; // Matches A001, A002, etc.
 
-        // Reset field styles
+
         resetFieldStyles();
 
         // Validation checks
@@ -319,7 +319,7 @@ public class CustomerController implements Initializable {
         boolean isValidNic = nic.matches(nicPattern);
         boolean isValidAdminId = adminId.matches(adminIdPattern);
 
-        // Highlight invalid fields
+
         if (!isValidCustomerId) {
             txtCustomerID.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.WARNING, "Invalid Customer ID format!").show();
@@ -398,7 +398,7 @@ public class CustomerController implements Initializable {
         }
 
         try {
-            // Try searching for the customer
+
             CustomerDto customer = customerModel.searchCustomer(customerId);
 
             // If customer is found, populate fields

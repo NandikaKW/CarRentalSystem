@@ -122,7 +122,7 @@ public class PackageOffersController  implements Initializable {
         // Input validation for Package ID
         if (packageId.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please enter a Package ID to delete!").show();
-            return; // Exit if the Package ID is not entered
+            return;
         }
 
         // Confirmation dialog before deletion
@@ -661,7 +661,7 @@ private void loadTableData() throws SQLException, ClassNotFoundException {
                     connection
             );
 
-            // Display the report
+
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (JRException | ClassNotFoundException e) {
