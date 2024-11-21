@@ -8,25 +8,21 @@ public class VechileRentDetailDto {
     private String rent_id;
     private Date start_date;
     private Date end_date;
-    private String vehicle_condition;
     private int vehicle_quantity;
+    private String vehicle_condition;
 
-    // Default constructor
     public VechileRentDetailDto() {
     }
 
-    // Parameterized constructor
-    public VechileRentDetailDto(String vehicle_id, String rent_id, Date start_date, Date end_date,  String vehicle_condition, int vehicle_quantity) {
+    public VechileRentDetailDto(String vehicle_id, String rent_id, Date start_date, Date end_date, int vehicle_quantity, String vehicle_condition) {
         this.vehicle_id = vehicle_id;
         this.rent_id = rent_id;
         this.start_date = start_date;
         this.end_date = end_date;
-
-        this.vehicle_condition = vehicle_condition;
         this.vehicle_quantity = vehicle_quantity;
+        this.vehicle_condition = vehicle_condition;
     }
 
-    // Getters and Setters
     public String getVehicle_id() {
         return vehicle_id;
     }
@@ -59,9 +55,13 @@ public class VechileRentDetailDto {
         this.end_date = end_date;
     }
 
+    public int getVehicle_quantity() {
+        return vehicle_quantity;
+    }
 
-
-
+    public void setVehicle_quantity(int vehicle_quantity) {
+        this.vehicle_quantity = vehicle_quantity;
+    }
 
     public String getVehicle_condition() {
         return vehicle_condition;
@@ -71,14 +71,6 @@ public class VechileRentDetailDto {
         this.vehicle_condition = vehicle_condition;
     }
 
-    public int getVehicle_quantity() {
-        return vehicle_quantity;
-    }
-
-    public void setVehicle_quantity(int vehicle_quantity) {
-        this.vehicle_quantity = vehicle_quantity;
-    }
-
     @Override
     public String toString() {
         return "VechileRentDetailDto{" +
@@ -86,9 +78,8 @@ public class VechileRentDetailDto {
                 ", rent_id='" + rent_id + '\'' +
                 ", start_date=" + start_date +
                 ", end_date=" + end_date +
-
-                ", vehicle_condition='" + vehicle_condition + '\'' +
                 ", vehicle_quantity=" + vehicle_quantity +
+                ", vehicle_condition='" + vehicle_condition + '\'' +
                 '}';
     }
 }

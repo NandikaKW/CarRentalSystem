@@ -21,11 +21,6 @@
             <Image url="@../../../../../../Downloads/icons8-show-password-32.png" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="239.0" layoutY="501.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold" size="26.0" />
-         </font>
-      </JFXButton>
       <TextField fx:id="txtUsername" layoutX="170.0" layoutY="463.0" prefHeight="31.0" prefWidth="262.0" promptText="User name" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: black; -fx-background-radius: 23;">
          <font>
             <Font name="Times New Roman" size="15.0" />
@@ -54,5 +49,10 @@
             <Image url="@../image/8717908%20(1).gif" />
          </image>
       </ImageView>
+      <JFXButton buttonType="RAISED" layoutX="234.0" layoutY="506.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="26.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

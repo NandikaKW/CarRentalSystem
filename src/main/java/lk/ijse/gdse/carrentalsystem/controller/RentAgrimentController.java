@@ -196,66 +196,101 @@ public class RentAgrimentController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-
         try {
+            // Get field values
             String agrimentId = textArgumatId.getText();
             String paymentTerms = txtPaymentTerms.getText();
 
-            // Check for missing fields
-            if (agrimentId.isEmpty() || paymentTerms.isEmpty() || txtStartDate.getText().isEmpty() || txtEndDate.getText().isEmpty() || txtDepositAmount.getText().isEmpty() || txtCost.getText().isEmpty()) {
-                new Alert(Alert.AlertType.ERROR, "All fields must be filled in.").show();
+            // Regex patterns
+            String agrimentIdPattern = "^AG\\d{3}$"; // Matches AG001, AG002, etc.
+            String paymentTermsPattern = "^(Monthly|Weekly|Daily|Yearly)$"; // Specific valid terms only
+            String datePattern = "^\\d{4}-\\d{2}-\\d{2}$"; // Matches YYYY-MM-DD format
+            String numericPattern = "^\\d+(\\.\\d{1,2})?$"; // Matches valid decimal numbers (e.g., 100.00)
+
+            // Reset field styles
+            resetFieldStyles();
+
+            // Validation checks
+            boolean isValidAgrimentId = agrimentId.matches(agrimentIdPattern);
+            boolean isValidPaymentTerms = paymentTerms.matches(paymentTermsPattern);
+            boolean isValidStartDate = txtStartDate.getText().matches(datePattern);
+            boolean isValidEndDate = txtEndDate.getText().matches(datePattern);
+            boolean isValidDepositAmount = txtDepositAmount.getText().matches(numericPattern);
+            boolean isValidCost = txtCost.getText().matches(numericPattern);
+
+            // Alert message for validation errors
+            if (!isValidAgrimentId || !isValidPaymentTerms || !isValidStartDate || !isValidEndDate || !isValidDepositAmount || !isValidCost) {
+                StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+                if (!isValidAgrimentId) {
+                    textArgumatId.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Agreement ID (Expected format: AG001)\n");
+                }
+                if (!isValidPaymentTerms) {
+                    txtPaymentTerms.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Payment Terms (Allowed: Monthly, Weekly, Daily, Yearly)\n");
+                }
+                if (!isValidStartDate) {
+                    txtStartDate.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Start Date (Expected format: YYYY-MM-DD)\n");
+                }
+                if (!isValidEndDate) {
+                    txtEndDate.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid End Date (Expected format: YYYY-MM-DD)\n");
+                }
+                if (!isValidDepositAmount) {
+                    txtDepositAmount.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Deposit Amount (Expected a numeric value)\n");
+                }
+                if (!isValidCost) {
+                    txtCost.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Total Rent Cost (Expected a numeric value)\n");
+                }
+
+                new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
                 return;
             }
 
             // Convert String to Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = null;
-            Date endDate = null;
-
-            try {
-                startDate = dateFormat.parse(txtStartDate.getText());
-                endDate = dateFormat.parse(txtEndDate.getText());
-            } catch (ParseException e) {
-                new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd.").show();
-                return; // Exit if date format is invalid
-            }
+            Date startDate = dateFormat.parse(txtStartDate.getText());
+            Date endDate = dateFormat.parse(txtEndDate.getText());
 
             // Convert String to BigDecimal
-            BigDecimal depositAmount = null;
-            BigDecimal cost = null;
-
-            try {
-                depositAmount = new BigDecimal(txtDepositAmount.getText());
-                cost = new BigDecimal(txtCost.getText());
-            } catch (NumberFormatException e) {
-                new Alert(Alert.AlertType.ERROR, "Invalid numeric format for deposit amount or cost.").show();
-                return; // Exit if numeric format is invalid
-            }
+            BigDecimal depositAmount = new BigDecimal(txtDepositAmount.getText());
+            BigDecimal cost = new BigDecimal(txtCost.getText());
 
             AgrimentDto agrimentDto = new AgrimentDto(agrimentId, paymentTerms, startDate, endDate, depositAmount, cost);
 
-            try {
-                boolean isSaved = AgrimentModel.saveAgriment(agrimentDto);
-                if (isSaved) {
-                    new Alert(Alert.AlertType.INFORMATION, "Rent Agreement Saved").show();
-                    refreshPage();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to save Rent Agreement").show();
-                }
-            } catch (SQLException e) {
-                // Handle database-related errors
-                new Alert(Alert.AlertType.ERROR, "Database error occurred while saving Rent Agreement: " + e.getMessage()).show();
-            } catch (ClassNotFoundException e) {
-                // Handle class not found errors (e.g., missing JDBC driver)
-                new Alert(Alert.AlertType.ERROR, "Class not found error: " + e.getMessage()).show();
-            }
+            // Save the agreement
+            boolean isSaved = AgrimentModel.saveAgriment(agrimentDto);
 
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Rent Agreement Saved").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to save Rent Agreement").show();
+            }
+        } catch (ParseException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd.").show();
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid numeric format for deposit amount or cost.").show();
         } catch (Exception e) {
-            // Handle any other unexpected errors
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
     }
+
+    // Helper method to reset field styles
+    private void resetFieldStyles() {
+        textArgumatId.setStyle("");
+        txtPaymentTerms.setStyle("");
+        txtStartDate.setStyle("");
+        txtEndDate.setStyle("");
+        txtDepositAmount.setStyle("");
+        txtCost.setStyle("");
+    }
+
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
@@ -309,6 +344,33 @@ public class RentAgrimentController implements Initializable {
         try {
             String agrimentId = textArgumatId.getText();
             String paymentTerms = txtPaymentTerms.getText();
+
+            // Regex patterns
+            String agreementIdPattern = "^AG\\d{3}$"; // Matches AG001, AG002, etc.
+            String paymentTermsPattern = "^(Daily|Weekly|Monthly|Yearly)$"; // Allows specific terms only
+
+            // Reset field styles
+            resetFieldStyles();
+
+            // Validation checks
+            boolean isValidAgreementId = agrimentId.matches(agreementIdPattern);
+            boolean isValidPaymentTerms = paymentTerms.matches(paymentTermsPattern);
+
+            if (!isValidAgreementId || !isValidPaymentTerms) {
+                StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+                if (!isValidAgreementId) {
+                    textArgumatId.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Agreement ID (Expected format: AG001)\n");
+                }
+                if (!isValidPaymentTerms) {
+                    txtPaymentTerms.setStyle("-fx-border-color: red;");
+                    errorMessage.append("- Invalid Payment Terms (Allowed values: Daily, Weekly, Monthly, Yearly)\n");
+                }
+
+                new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+                return; // Exit the method early if validation fails
+            }
 
             // Convert String to Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

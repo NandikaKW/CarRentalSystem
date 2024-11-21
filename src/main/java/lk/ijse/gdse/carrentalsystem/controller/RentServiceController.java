@@ -640,8 +640,9 @@ public class RentServiceController  implements Initializable {
                         rentId, // use updated rent ID
                         startDate,
                         endDate,
-                        cmbCondition.getValue(),
-                        Integer.parseInt(cartTM.getQuantity()) // Use updated quantity from cartTM
+                        Integer.parseInt(cartTM.getQuantity()),
+                        cmbCondition.getValue()
+
                 );
                 vechileRentDetailDtos.add(vechileRentDetailDto);
             }

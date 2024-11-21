@@ -44,11 +44,6 @@
             <Font name="Serif Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lblRentDate" layoutX="2.0" layoutY="181.0" text="Rent Date ">
-         <font>
-            <Font name="Serif Bold Italic" size="18.0" />
-         </font>
-      </Label>
       <Label fx:id="lblRentID" layoutX="535.0" layoutY="59.0" text="Rent ID ">
          <font>
             <Font name="Serif Bold Italic" size="18.0" />
@@ -59,14 +54,13 @@
       <TextField fx:id="txtEndDate" layoutX="78.0" layoutY="133.0" prefHeight="26.0" prefWidth="156.0" promptText="End Date " />
       <TextField fx:id="txtVehicleQuantity" layoutX="395.0" layoutY="55.0" prefHeight="26.0" prefWidth="138.0" promptText="Quantity" />
       <TextField fx:id="txtCondition" layoutX="596.0" layoutY="94.0" prefHeight="26.0" prefWidth="156.0" promptText="Condtion" />
-      <TextField fx:id="txtRentDate" layoutX="80.0" layoutY="176.0" prefHeight="26.0" prefWidth="156.0" promptText="Rent Date" />
       <ImageView fitHeight="48.0" fitWidth="50.0" layoutX="496.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/8948327.gif" />
          </image>
       </ImageView>
       <TextField fx:id="txtRentId" layoutX="596.0" layoutY="55.0" prefHeight="26.0" prefWidth="156.0" promptText="Rent ID" />
-      <TableView fx:id="tblVehileRent" layoutY="290.0" onMouseClicked="#tblVehicleRentClickedOnAction" prefHeight="403.0" prefWidth="763.0">
+      <TableView fx:id="tblVehileRent" layoutY="233.0" onMouseClicked="#tblVehicleRentClickedOnAction" prefHeight="460.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colVehicleID" prefWidth="99.19997864961624" text="Vehicle ID " />
           <TableColumn fx:id="colStartDate" prefWidth="80.79998779296875" text="Start Date " />
@@ -77,27 +71,27 @@
         </columns>
       </TableView>
       <Accordion />
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="46.0" layoutY="249.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Save ">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="46.0" layoutY="186.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Save ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="142.0" layoutY="249.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Update ">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="142.0" layoutY="186.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Update ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="256.0" layoutY="249.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Delete">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="256.0" layoutY="186.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Delete">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="352.0" layoutY="249.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Reset">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="352.0" layoutY="186.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Reset">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="425.0" layoutY="249.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Search">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="425.0" layoutY="186.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-radius: 8; -fx-border-color: black;" text="Search">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
@@ -108,8 +102,5 @@
       <ComboBox fx:id="ComboYearOne" layoutX="242.0" layoutY="132.0" onAction="#ComboYearOneOnAction" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="CombMonthOne" layoutX="350.0" layoutY="132.0" onAction="#ComboMonthOneOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
       <ComboBox fx:id="ComboDayOne" layoutX="423.0" layoutY="134.0" onAction="#ComboDayOneOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="ComboYearTwo" layoutX="245.0" layoutY="176.0" onAction="#ComboYearTwoOnAction" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="CombMonthTwo" layoutX="353.0" layoutY="176.0" onAction="#ComboMonthTwoOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="ComboDayTwo" layoutX="426.0" layoutY="177.0" onAction="#ComboDayTwoOnAction" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #ffffff; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
    </children>
 </AnchorPane>

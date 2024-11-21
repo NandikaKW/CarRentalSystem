@@ -199,26 +199,69 @@ public class VehicleDetailsController  implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        // Validate input fields for empty values
         String vehicleId = txtVehicleId.getText();
         String model = txtModel.getText();
         String colour = txtColour.getText();
         String category = txtCategory.getText();
         String packageId = txtPackageId.getText();
 
-        // Check if any field is empty
-        if (vehicleId.isEmpty() || model.isEmpty() || colour.isEmpty() || category.isEmpty() || packageId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please fill in all fields").show();
-            return;  // Exit early if any field is empty
+        // Regex patterns
+        String vehicleIdPattern = "^V\\d{3}$"; // Matches V001, V002, etc.
+        String modelPattern = "^[A-Za-z0-9 ]+$"; // Letters, numbers, and spaces only
+        String colourPattern = "^[A-Za-z]+$"; // Letters only
+        String categoryPattern = "^[A-Za-z]+$"; // Letters only
+        String packageIdPattern = "^P\\d{3}$"; // Matches P001, P002, etc.
+
+        // Reset field styles
+        resetFieldStyles();
+
+        // Validation checks
+        boolean isValidVehicleId = vehicleId.matches(vehicleIdPattern);
+        boolean isValidModel = model.matches(modelPattern);
+        boolean isValidColour = colour.matches(colourPattern);
+        boolean isValidCategory = category.matches(categoryPattern);
+        boolean isValidPackageId = packageId.matches(packageIdPattern);
+
+        // Alert message for validation errors
+        if (!isValidVehicleId || !isValidModel || !isValidColour || !isValidCategory || !isValidPackageId) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidVehicleId) {
+                txtVehicleId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Vehicle ID (Expected format: V001)\n");
+            }
+            if (!isValidModel) {
+                txtModel.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Model (Letters, numbers, and spaces only)\n");
+            }
+            if (!isValidColour) {
+                txtColour.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Colour (Only letters allowed)\n");
+            }
+            if (!isValidCategory) {
+                txtCategory.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Category (Only letters allowed)\n");
+            }
+            if (!isValidPackageId) {
+                txtPackageId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Package ID (Expected format: P001)\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return;
         }
 
         // Validate quantity as a valid number
         int quantity;
         try {
             quantity = Integer.parseInt(txtQuantity.getText());
+            if (quantity <= 0) {
+                throw new NumberFormatException("Quantity must be greater than zero.");
+            }
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid quantity. Please enter a valid number").show();
-            return;  // Exit early if the quantity is not a valid integer
+            txtQuantity.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid quantity. Please enter a valid positive number").show();
+            return;
         }
 
         // Create the VehicleDto object with validated data
@@ -245,6 +288,15 @@ public class VehicleDetailsController  implements Initializable {
             e.printStackTrace();  // Log the error for debugging
             new Alert(Alert.AlertType.ERROR, "Unexpected Error: " + e.getMessage()).show();
         }
+    }
+
+    private void resetFieldStyles() {
+        txtVehicleId.setStyle("");
+        txtModel.setStyle("");
+        txtColour.setStyle("");
+        txtCategory.setStyle("");
+        txtQuantity.setStyle("");
+        txtPackageId.setStyle("");
     }
 
     @FXML
@@ -300,24 +352,62 @@ public class VehicleDetailsController  implements Initializable {
         String model = txtModel.getText();
         String colour = txtColour.getText();
         String category = txtCategory.getText();
-        String quantityText = txtQuantity.getText();  // Get quantity as string for validation
+        String quantityText = txtQuantity.getText(); // Get quantity as string for validation
         String packageId = txtPackageId.getText();
 
-        // Check if any critical fields are empty and alert the user
-        if (vehicleId.isEmpty() || model.isEmpty() || colour.isEmpty() || category.isEmpty() || quantityText.isEmpty() || packageId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please fill in all fields").show();
-            return;  // Exit early if any required field is empty
+        // Reset field styles before validation
+        resetFieldStyles();
+
+        // Regex patterns for validation
+        String vehicleIdPattern = "^V\\d{3}$"; // Matches V001, V002, etc.
+        String modelPattern = "^[A-Za-z0-9 ]+$"; // Alphanumeric with spaces
+        String colourPattern = "^[A-Za-z ]+$"; // Letters and spaces only
+        String categoryPattern = "^[A-Za-z ]+$"; // Letters and spaces only
+        String quantityPattern = "^[1-9]\\d*$"; // Positive integers only (non-zero)
+        String packageIdPattern = "^P\\d{3}$"; // Matches P001, P002, etc.
+
+        // Validation checks
+        boolean isValidVehicleId = vehicleId.matches(vehicleIdPattern);
+        boolean isValidModel = model.matches(modelPattern);
+        boolean isValidColour = colour.matches(colourPattern);
+        boolean isValidCategory = category.matches(categoryPattern);
+        boolean isValidQuantity = quantityText.matches(quantityPattern);
+        boolean isValidPackageId = packageId.matches(packageIdPattern);
+
+        if (!isValidVehicleId || !isValidModel || !isValidColour || !isValidCategory || !isValidQuantity || !isValidPackageId) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidVehicleId) {
+                txtVehicleId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Vehicle ID (Expected format: V001)\n");
+            }
+            if (!isValidModel) {
+                txtModel.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Model (Only alphanumeric characters and spaces allowed)\n");
+            }
+            if (!isValidColour) {
+                txtColour.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Colour (Only letters and spaces allowed)\n");
+            }
+            if (!isValidCategory) {
+                txtCategory.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Category (Only letters and spaces allowed)\n");
+            }
+            if (!isValidQuantity) {
+                txtQuantity.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Quantity (Must be a positive integer)\n");
+            }
+            if (!isValidPackageId) {
+                txtPackageId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Package ID (Expected format: P001)\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return; // Exit early if validation fails
         }
 
-        int quantity = 0;
-        try {
-            // Attempt to parse the quantity to an integer
-            quantity = Integer.parseInt(quantityText);
-        } catch (NumberFormatException e) {
-            // Handle invalid number format for quantity input
-            new Alert(Alert.AlertType.ERROR, "Invalid quantity. Please enter a valid number").show();
-            return;  // Exit early if quantity is not a valid number
-        }
+        // Parse the quantity to an integer (safe since regex validated it)
+        int quantity = Integer.parseInt(quantityText);
 
         // Create the VehicleDto object with the validated input data
         VehicleDto vehicleDto = new VehicleDto(vehicleId, model, colour, category, quantity, packageId);
@@ -338,16 +428,15 @@ public class VehicleDetailsController  implements Initializable {
 
         } catch (SQLException | ClassNotFoundException e) {
             // Catch any database-related exceptions and display the error
-            e.printStackTrace();  // Log the exception for debugging
+            e.printStackTrace(); // Log the exception for debugging
             new Alert(Alert.AlertType.ERROR, "Error occurred while updating vehicle: " + e.getMessage()).show();
         } catch (Exception e) {
             // Catch any unexpected exceptions
-            e.printStackTrace();  // Log the exception for debugging
+            e.printStackTrace(); // Log the exception for debugging
             new Alert(Alert.AlertType.ERROR, "Unexpected error occurred: " + e.getMessage()).show();
         }
-
-
     }
+
 
     @FXML
     void onVehicleTblClicked(MouseEvent event) {

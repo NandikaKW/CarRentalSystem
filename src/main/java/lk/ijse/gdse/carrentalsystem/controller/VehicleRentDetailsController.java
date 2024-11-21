@@ -108,8 +108,7 @@ public class VehicleRentDetailsController  implements Initializable {
     @FXML
     private Label lblEndDate;
 
-    @FXML
-    private Label lblRentDate;
+
 
     @FXML
     private Label lblRentID;
@@ -133,9 +132,6 @@ public class VehicleRentDetailsController  implements Initializable {
     private TextField txtEndDate;
 
     @FXML
-    private TextField txtRentDate;
-
-    @FXML
     private TextField txtRentId;
 
     @FXML
@@ -155,10 +151,8 @@ public class VehicleRentDetailsController  implements Initializable {
         ));
         ComboYearOne.getSelectionModel().selectLast();
 
-        ComboYearTwo.setItems(FXCollections.observableArrayList(
-                IntStream.rangeClosed(1970, YearMonth.now().getYear()).boxed().toList()
-        ));
-        ComboYearTwo.getSelectionModel().selectLast();
+
+
 
         CombMonth.setItems(FXCollections.observableArrayList(
                 IntStream.rangeClosed(1, 12).boxed().toList()
@@ -170,14 +164,11 @@ public class VehicleRentDetailsController  implements Initializable {
         ));
         CombMonthOne.getSelectionModel().selectFirst();
 
-        CombMonthTwo.setItems(FXCollections.observableArrayList(
-                IntStream.rangeClosed(1, 12).boxed().toList()
-        ));
-        CombMonthTwo.getSelectionModel().selectFirst();
+
 
         updateDays();
         updateDaysOne();
-        updateDaysTwo();
+
     }
 
 
@@ -195,12 +186,6 @@ public class VehicleRentDetailsController  implements Initializable {
 
     }
 
-    @FXML
-    void ComboDayTwoOnAction(ActionEvent event) {
-        showSelectedDateTwo();
-
-
-    }
 
     @FXML
     void ComboMonthOnAction(ActionEvent event) {
@@ -215,13 +200,7 @@ public class VehicleRentDetailsController  implements Initializable {
 
     }
 
-    @FXML
-    void ComboMonthTwoOnAction(ActionEvent event) {
-        updateDaysTwo();
 
-
-
-    }
 
     @FXML
     void ComboYearOnAction(ActionEvent event) {
@@ -235,12 +214,7 @@ public class VehicleRentDetailsController  implements Initializable {
 
     }
 
-    @FXML
-    void ComboYearTwoOnAction(ActionEvent event) {
-        updateDaysTwo();
 
-
-    }
     private void updateDays() {
         Integer year = ComboYear.getValue();
         Integer month = CombMonth.getValue();
@@ -286,35 +260,6 @@ public class VehicleRentDetailsController  implements Initializable {
             txtEndDate.setText(String.format("%04d-%02d-%02d", year, month, day));
         }
     }
-
-    private void updateDaysTwo() {
-        Integer year = ComboYearTwo.getValue();
-        Integer month = CombMonthTwo.getValue();
-
-        if (year != null && month != null) {
-            int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
-            ComboDayTwo.setItems(FXCollections.observableArrayList(
-                    IntStream.rangeClosed(1, daysInMonth).boxed().toList()
-            ));
-            ComboDayTwo.getSelectionModel().selectFirst();
-            showSelectedDateTwo();
-        }
-    }
-    private void showSelectedDateTwo() {
-        Integer year = ComboYearTwo.getValue();
-        Integer month = CombMonthTwo.getValue();
-        Integer day = ComboDayTwo.getValue();
-
-        if (year != null && month != null && day != null) {
-            txtRentDate.setText(String.format("%04d-%02d-%02d", year, month, day));
-        }
-    }
-
-    public void txtDateone(ActionEvent actionEvent) {
-        lblRentDate.setText("Selected Date: " + txtRentDate.getText());
-    }
-
-
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
@@ -395,7 +340,6 @@ public class VehicleRentDetailsController  implements Initializable {
         txtRentId.clear();
         txtStartDate.clear();
         txtEndDate.clear();
-        txtRentDate.clear();
         txtCondition.clear();
         txtVehicleQuantity.clear();
     }
@@ -426,7 +370,7 @@ public class VehicleRentDetailsController  implements Initializable {
             // Parse dates and handle invalid format
             startDate = java.sql.Date.valueOf(txtStartDate.getText());
             endDate = java.sql.Date.valueOf(txtEndDate.getText());
-            rentDate = java.sql.Date.valueOf(txtRentDate.getText());
+
         } catch (IllegalArgumentException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use YYYY-MM-DD format.").show();
             return;
@@ -444,7 +388,7 @@ public class VehicleRentDetailsController  implements Initializable {
 
         // Create DTO with validated inputs
         VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                vehicleId, rentId, startDate, endDate,  vehicleCondition, quantity
+                vehicleId, rentId, startDate, endDate,  quantity, vehicleCondition
         );
 
         try {
@@ -530,7 +474,7 @@ public class VehicleRentDetailsController  implements Initializable {
             try {
                 startDate = java.sql.Date.valueOf(txtStartDate.getText());
                 endDate = java.sql.Date.valueOf(txtEndDate.getText());
-                rentDate = java.sql.Date.valueOf(txtRentDate.getText());
+
             } catch (IllegalArgumentException e) {
                 new Alert(Alert.AlertType.ERROR, "Please enter valid dates in the format YYYY-MM-DD").show();
                 return;
@@ -552,7 +496,7 @@ public class VehicleRentDetailsController  implements Initializable {
 
             // Create DTO object with validated inputs
             VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                    vehicleId, rentId, startDate, endDate,  vehicleCondition, quantity
+                    vehicleId, rentId, startDate, endDate,  quantity, vehicleCondition
             );
 
             // Attempt to update vehicle rent details

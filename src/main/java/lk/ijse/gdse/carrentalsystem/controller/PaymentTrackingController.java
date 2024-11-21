@@ -414,41 +414,82 @@ public class PaymentTrackingController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-
-
         String paymentId = txtPaymentId.getText();
-
-        BigDecimal amount = null;
-        try {
-            amount = new BigDecimal(txtAmount.getText());
-              // Print the amount to the terminal
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid amount format. Please enter a valid number.").show();
-            return; // Exit if the format is invalid
-        }
-
-        Date date = null;
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            date = dateFormat.parse(txtDate.getText());
-        } catch (ParseException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
-            return; // Exit if the date format is invalid
-        }
-
         String invoice = txtInvoice.getText();
         String method = txtPayMethods.getText();
         String transaction = txtTransaction.getText();
 
+        // Regex patterns
+        String paymentIdPattern = "^PAY\\d{3}$"; // Matches PAY001, PAY002, etc.
+        String invoicePattern = "^[A-Za-z0-9]+$"; // Allows alphanumeric characters only
+        String methodPattern = "^(Cash|Credit Card|Bank Transfer|Mobile Payment|Bank Deposit)$"; // Valid payment methods
+        String transactionPattern = "^[A-Za-z0-9]+$"; // Allows alphanumeric characters only
+
+        // Reset field styles
+        resetFieldStyles();
+
+        // Validation checks
+        boolean isValidPaymentId = paymentId.matches(paymentIdPattern);
+        boolean isValidInvoice = invoice.matches(invoicePattern);
+        boolean isValidMethod = method.matches(methodPattern);
+        boolean isValidTransaction = transaction.matches(transactionPattern);
+
+        // Validate numeric and date fields separately
+        BigDecimal amount = null;
         BigDecimal tax = null;
         BigDecimal discount = null;
+        Date date = null;
+
+        try {
+            amount = new BigDecimal(txtAmount.getText());
+        } catch (NumberFormatException e) {
+            txtAmount.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid amount format. Please enter a valid number.").show();
+            return;
+        }
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = dateFormat.parse(txtDate.getText());
+        } catch (ParseException e) {
+            txtDate.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
+            return;
+        }
 
         try {
             tax = new BigDecimal(txtTax.getText());
             discount = new BigDecimal(txtDiscount.getText());
         } catch (NumberFormatException e) {
+            txtTax.setStyle("-fx-border-color: red;");
+            txtDiscount.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid tax or discount format. Please enter valid numbers.").show();
-            return; // Exit if tax or discount format is invalid
+            return;
+        }
+
+        // Alert message for validation errors
+        if (!isValidPaymentId || !isValidInvoice || !isValidMethod || !isValidTransaction) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidPaymentId) {
+                txtPaymentId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Payment ID (Expected format: PAY001)\n");
+            }
+            if (!isValidInvoice) {
+                txtInvoice.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Invoice (Only alphanumeric characters allowed)\n");
+            }
+            if (!isValidMethod) {
+                txtPayMethods.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Payment Method (Allowed: Cash, Credit Card, Bank Transfer, Mobile Payment, Bank Deposit)\n");
+            }
+            if (!isValidTransaction) {
+                txtTransaction.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Transaction Reference (Only alphanumeric characters allowed)\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return;
         }
 
         // Calculate total after applying tax and discount
@@ -456,22 +497,20 @@ public class PaymentTrackingController implements Initializable {
         BigDecimal discountAmount = amount.multiply(discount).divide(new BigDecimal("100"));
         BigDecimal finalAmount = amount.add(taxAmount).subtract(discountAmount);
 
-        // Print the calculated tax, discount, and final amount in the terminal
-
-        // Set the finalAmount in the txtFinalAmount text field
+        // Set the final amount in the text field
         txtFinalAmount.setText(finalAmount.toString());
 
-
-
+        // Create the PaymentDto object
         PaymentDto paymentDto = new PaymentDto(paymentId, finalAmount, date, invoice, method, transaction, tax, discount);
 
+        // Save payment
         boolean isSaved = false;
         try {
             isSaved = PaymentModel.savePayment(paymentDto);
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "Error occurred while saving payment: " + e.getMessage()).show();
-            e.printStackTrace(); // Log the error details
-            return; // Exit on error
+            e.printStackTrace();
+            return;
         }
 
         if (isSaved) {
@@ -481,6 +520,18 @@ public class PaymentTrackingController implements Initializable {
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save payment").show();
         }
+    }
+
+    // Utility function to reset field styles
+    private void resetFieldStyles() {
+        txtPaymentId.setStyle("");
+        txtAmount.setStyle("");
+        txtDate.setStyle("");
+        txtInvoice.setStyle("");
+        txtPayMethods.setStyle("");
+        txtTransaction.setStyle("");
+        txtTax.setStyle("");
+        txtDiscount.setStyle("");
     }
 
 
@@ -534,49 +585,92 @@ public class PaymentTrackingController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {String paymentId = txtPaymentId.getText();
-
-        // Check if Payment ID is empty
-        if (paymentId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please enter Payment ID").show();
-            return; // Exit if the Payment ID is empty
-        }
-
-        BigDecimal amount = null;
-        try {
-            amount = new BigDecimal(txtAmount.getText()); // line no 1
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid amount format").show();
-            return; // Exit if the amount is invalid
-        }
-
-        Date date = null;
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Assuming the date format is yyyy-MM-dd
-            date = dateFormat.parse(txtDate.getText()); // Parse the text to a Date object
-        } catch (ParseException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
-            return; // Exit if the date format is invalid
-        }
-
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String paymentId = txtPaymentId.getText();
+        String amountStr = txtAmount.getText();
+        String dateStr = txtDate.getText();
         String invoice = txtInvoice.getText();
         String method = txtPayMethods.getText();
         String transaction = txtTransaction.getText();
+        String taxStr = txtTax.getText();
+        String discountStr = txtDiscount.getText();
 
-        BigDecimal tax = null;
+        // Regex patterns for validation
+        String paymentIdPattern = "^PAY\\d{3}$"; // Matches PAY001, PAY002, etc.
+        String invoicePattern = "^[A-Za-z0-9]+$"; // Allows alphanumeric characters only
+        String methodPattern = "^[A-Za-z ]+$"; // Allows letters and spaces
+        String transactionPattern = "^TXN\\d{3}$"; // Matches TXN001, TXN002, etc.
+
+        // Reset field styles
+        resetFieldStyles();
+
+        // Validation checks
+        boolean isValidPaymentId = paymentId.matches(paymentIdPattern);
+        boolean isValidInvoice = invoice.matches(invoicePattern);
+        boolean isValidMethod = method.matches(methodPattern);
+        boolean isValidTransaction = transaction.matches(transactionPattern);
+
+        BigDecimal amount = null, tax = null, discount = null;
+        Date date = null;
+
+        // Validate numeric fields
         try {
-            tax = new BigDecimal(txtTax.getText()); // line no 2
+            amount = new BigDecimal(amountStr);
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid tax format").show();
-            return; // Exit if the tax format is invalid
+            txtAmount.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid amount format").show();
+            return;
         }
 
-        BigDecimal discount = null;
         try {
-            discount = new BigDecimal(txtDiscount.getText()); // line no 3
+            tax = new BigDecimal(taxStr);
         } catch (NumberFormatException e) {
+            txtTax.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid tax format").show();
+            return;
+        }
+
+        try {
+            discount = new BigDecimal(discountStr);
+        } catch (NumberFormatException e) {
+            txtDiscount.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid discount format").show();
-            return; // Exit if the discount format is invalid
+            return;
+        }
+
+        // Validate date format
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            txtDate.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid date format. Please use yyyy-MM-dd format.").show();
+            return;
+        }
+
+        // Check string fields
+        if (!isValidPaymentId) {
+            txtPaymentId.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid Payment ID (Expected format: PAY001)").show();
+            return;
+        }
+
+        if (!isValidInvoice) {
+            txtInvoice.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid Invoice format (Only alphanumeric characters allowed)").show();
+            return;
+        }
+
+        if (!isValidMethod) {
+            txtPayMethods.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid Payment Method (Only letters and spaces allowed)").show();
+            return;
+        }
+
+        if (!isValidTransaction) {
+            txtTransaction.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.ERROR, "Invalid Transaction Reference (Expected format: TXN001)").show();
+            return;
         }
 
         // Create PaymentDto object
@@ -594,20 +688,16 @@ public class PaymentTrackingController implements Initializable {
             }
 
         } catch (SQLException e) {
-            // Handle any SQL-related errors (e.g., database issues)
             new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
-            e.printStackTrace(); // Optionally log the exception details for debugging
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            // Handle class not found errors (e.g., missing JDBC driver)
             new Alert(Alert.AlertType.ERROR, "Class not found: " + e.getMessage()).show();
-            e.printStackTrace(); // Log the exception details
+            e.printStackTrace();
         } catch (Exception e) {
-            // Catch any other unexpected errors
             new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
-            e.printStackTrace(); // Log the error
+            e.printStackTrace();
         }
     }
-
     @FXML
     void tblPaymnetClickedOnAction(MouseEvent event) {
         PaymentTM paymentTM=tblPayment.getSelectionModel().getSelectedItem();

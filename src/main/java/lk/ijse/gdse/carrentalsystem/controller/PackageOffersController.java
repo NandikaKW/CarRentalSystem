@@ -361,16 +361,28 @@ public class PackageOffersController  implements Initializable {
         String packageName = txtPackageName.getText();
         BigDecimal cost = null;
 
+        // Regex patterns
+        String packageIdPattern = "^P\\d{3}$"; // Matches P001, P002, etc.
+        String packageNamePattern = "^[A-Za-z ]+$"; // Allows letters and spaces only
+        String rentDurationPattern = "^[\\w\\s]+$"; // Allows alphanumeric and spaces for durations like "10 days"
+        String mileagePattern = "^[\\w\\s]+$"; // Allows alphanumeric and spaces for mileage like "1500 km"
+
+        // Reset field styles
+        resetFieldStyles();
+
         // Validate cost input
         try {
             cost = new BigDecimal(txtcost.getText());
         } catch (NumberFormatException e) {
+            txtcost.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid cost format! Please enter a valid number.").show();
-            return; // Exit the method if cost format is incorrect
+            return;
         }
 
         boolean insurance = Boolean.parseBoolean(txtinsuarence.getText());
         String rentDuration = txtRentDuration.getText();
+        String mileage = txtMileage.getText();
+        String description = txtDescription.getText();
 
         // Parsing date using java.util.Date
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -378,18 +390,46 @@ public class PackageOffersController  implements Initializable {
         try {
             rentDate = dateFormat.parse(txtRentDate.getText());
         } catch (ParseException e) {
-            e.printStackTrace();
+            txtRentDate.setStyle("-fx-border-color: red;");
             new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd.").show();
-            return; // Exit the method if the date format is wrong
+            return;
         }
 
-        String mileage = txtMileage.getText();
-        String description = txtDescription.getText();
+        // Validation checks
+        boolean isValidPackageId = packageId.matches(packageIdPattern);
+        boolean isValidPackageName = packageName.matches(packageNamePattern);
+        boolean isValidRentDuration = rentDuration.matches(rentDurationPattern);
+        boolean isValidMileage = mileage.matches(mileagePattern);
+
+        if (!isValidPackageId || !isValidPackageName || !isValidRentDuration || !isValidMileage) {
+            StringBuilder errorMessage = new StringBuilder("Please fix the following errors:\n");
+
+            if (!isValidPackageId) {
+                txtPackageId.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Package ID (Expected format: P001)\n");
+            }
+            if (!isValidPackageName) {
+                txtPackageName.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Package Name (Only letters and spaces allowed)\n");
+            }
+            if (!isValidRentDuration) {
+                txtRentDuration.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Rent Duration (Alphanumeric and spaces only)\n");
+            }
+            if (!isValidMileage) {
+                txtMileage.setStyle("-fx-border-color: red;");
+                errorMessage.append("- Invalid Mileage (Alphanumeric and spaces only)\n");
+            }
+
+            new Alert(Alert.AlertType.WARNING, errorMessage.toString()).show();
+            return;
+        }
 
         // Ensure all required fields are filled before proceeding
-        if (packageId.isEmpty() || packageName.isEmpty() || rentDuration.isEmpty() || mileage.isEmpty() || description.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please fill all the fields before updating.").show();
-            return; // Exit the method if any field is empty
+        if (description.isEmpty()) {
+            txtDescription.setStyle("-fx-border-color: red;");
+            new Alert(Alert.AlertType.WARNING, "Please fill the description field before updating.").show();
+            return;
         }
 
         // Create PackageDto and update
@@ -405,21 +445,18 @@ public class PackageOffersController  implements Initializable {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update package!").show();
             }
-
         } catch (SQLException e) {
-            // Handle SQL exceptions
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Database error occurred while updating the package: " + e.getMessage()).show();
         } catch (ClassNotFoundException e) {
-            // Handle ClassNotFoundException
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Class not found error occurred while updating the package: " + e.getMessage()).show();
         } catch (Exception e) {
-            // Catch any unexpected exceptions
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
         }
     }
+
 
     @FXML
     private JFXButton btnDelete;
