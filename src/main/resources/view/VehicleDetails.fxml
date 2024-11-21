@@ -93,5 +93,10 @@
             <TableColumn fx:id="colCategory" prefWidth="184.0" text="Category " />
         </columns>
       </TableView>
+      <JFXButton fx:id="btnReturnReport" buttonType="RAISED" layoutX="452.0" layoutY="169.0" onAction="#btnReturnReportOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Vehicle Return Report">
+         <font>
+            <Font name="Times New Roman Bold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

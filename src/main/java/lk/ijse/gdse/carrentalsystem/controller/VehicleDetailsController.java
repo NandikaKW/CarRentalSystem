@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.VehicleDto;
 import lk.ijse.gdse.carrentalsystem.dto.tm.ReserveTM;
 import lk.ijse.gdse.carrentalsystem.dto.tm.VehicleRentDetailTM;
@@ -16,15 +17,18 @@ import lk.ijse.gdse.carrentalsystem.model.CustomerModel;
 import lk.ijse.gdse.carrentalsystem.model.RentModel;
 import lk.ijse.gdse.carrentalsystem.model.VehicleModel;
 import lk.ijse.gdse.carrentalsystem.dto.tm.VehicleTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.util.*;
 
 public class VehicleDetailsController  implements Initializable {
+    @FXML
+    private JFXButton btnReturnReport;
 
 
     @FXML
@@ -423,6 +427,38 @@ public class VehicleDetailsController  implements Initializable {
     public void loadCurrentPackageId() throws SQLException, ClassNotFoundException {
         String currentPackageId = vehicleModel.loadCurrentPackageId();
         txtPackageId.setText(currentPackageId);
+    }
+    @FXML
+    void btnReturnReportOnAction(ActionEvent event) {
+        try {
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/report/ReturnReport.jrxml")
+            );
+
+
+            Connection connection = DBConnection.getInstance().getConnection();
+
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("P_Date", LocalDate.now().toString());  // Example parameter
+
+            // Fill the report with data
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+
+            // Display the report
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error!").show();
+        }
+
     }
 
 

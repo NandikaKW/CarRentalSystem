@@ -64,9 +64,17 @@ public class VehicleRentDetailModel {
     }
 
     public static boolean isVehicleRentUpdated(VechileRentDetailDto vechileRentDetailDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE vehicle_rent_details SET start_date=?,end_date=?,vehicle_condition=?,Vehicle_Quantity=? WHERE vehicle_id=? AND rent_id=?",vechileRentDetailDto.getStart_date(),vechileRentDetailDto.getEnd_date(),vechileRentDetailDto.getVehicle_condition(),vechileRentDetailDto.getVehicle_quantity(),vechileRentDetailDto.getVehicle_id(),vechileRentDetailDto.getRent_id());
-
+        return CrudUtil.execute(
+                "UPDATE vehicle_rent_details SET start_date=?, end_date=?, vehicle_condition=?, quantity=? WHERE vehicle_id=? AND rent_id=?",
+                vechileRentDetailDto.getStart_date(),
+                vechileRentDetailDto.getEnd_date(),
+                vechileRentDetailDto.getVehicle_condition(),
+                vechileRentDetailDto.getVehicle_quantity(),
+                vechileRentDetailDto.getVehicle_id(),
+                vechileRentDetailDto.getRent_id()
+        );
     }
+
 
     public static String loadNextVehicleId() throws SQLException, ClassNotFoundException {
        ResultSet resultSet=CrudUtil.execute("SELECT vehicle_id FROM vehicle ORDER BY vehicle_id DESC LIMIT 1");

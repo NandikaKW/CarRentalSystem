@@ -614,7 +614,6 @@ private void loadTableData() throws SQLException, ClassNotFoundException {
 
             Connection connection = DBConnection.getInstance().getConnection();
 
-
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("P_Date", LocalDate.now().toString());  // Example parameter
 

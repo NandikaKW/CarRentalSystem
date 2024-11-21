@@ -1,5 +1,6 @@
 package lk.ijse.gdse.carrentalsystem.model;
 
+import lk.ijse.gdse.carrentalsystem.dto.RentDto;
 import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.dto.VehicleDto;
 import lk.ijse.gdse.carrentalsystem.util.CrudUtil;
@@ -9,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VehicleModel {
+
+
     public boolean deleteVehicle(String vehicleId) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM vehicle WHERE vehicle_id = ?", vehicleId);
     }
@@ -97,7 +100,7 @@ public class VehicleModel {
         }
     }
 
-    public ArrayList<String> getAllVehicleIds() throws SQLException, ClassNotFoundException {
+    public static ArrayList<String> getAllVehicleIds() throws SQLException, ClassNotFoundException {
         // Execute SQL query to get all item IDs
         ResultSet rst = CrudUtil.execute("select vehicle_id from vehicle");
 

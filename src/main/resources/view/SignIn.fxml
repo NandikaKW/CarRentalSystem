@@ -26,7 +26,7 @@
             <Font name="Times New Roman Bold" size="26.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="txtUsername" layoutX="170.0" layoutY="463.0" prefHeight="31.0" prefWidth="262.0" promptText="User name" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-border-color: black; -fx-background-radius: 23;">
+      <TextField fx:id="txtUsername" layoutX="170.0" layoutY="463.0" prefHeight="31.0" prefWidth="262.0" promptText="User name" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: black; -fx-background-radius: 23;">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font></TextField>
@@ -40,7 +40,7 @@
             <Font name="Serif Bold" size="53.0" />
          </font>
       </Text>
-      <PasswordField fx:id="txtPassword" layoutX="170.0" layoutY="424.0" prefHeight="31.0" prefWidth="261.0" promptText="Password" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;">
+      <PasswordField fx:id="txtPassword" layoutX="170.0" layoutY="424.0" prefHeight="31.0" prefWidth="261.0" promptText="Password" style="-fx-background-color: white; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font></PasswordField>

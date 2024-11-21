@@ -44,6 +44,9 @@ public class EmailController {
         try {
             sendEmailWithGmail(FROM, customerEmail, subject, body);
             new Alert(Alert.AlertType.INFORMATION, "Email sent successfully!").show();
+            txtBody.clear();
+            txtSubject.clear();
+
         } catch (AuthenticationFailedException e) {
             new Alert(Alert.AlertType.ERROR, "Authentication failed. Please check your email credentials.").show();
             e.printStackTrace();

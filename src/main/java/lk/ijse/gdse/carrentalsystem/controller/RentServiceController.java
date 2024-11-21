@@ -5,10 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import lk.ijse.gdse.carrentalsystem.db.DBConnection;
 import lk.ijse.gdse.carrentalsystem.dto.RentDto;
 import lk.ijse.gdse.carrentalsystem.dto.VechileRentDetailDto;
 import lk.ijse.gdse.carrentalsystem.dto.VehicleDto;
@@ -16,16 +25,24 @@ import lk.ijse.gdse.carrentalsystem.dto.tm.CartTM;
 import lk.ijse.gdse.carrentalsystem.dto.tm.ReserveTM;
 import lk.ijse.gdse.carrentalsystem.model.*;
 import lk.ijse.gdse.carrentalsystem.dto.tm.RentTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.IntStream;
 
 public class RentServiceController  implements Initializable {
+    @FXML
+    private JFXButton btnTrackRentalReport;
+
     @FXML
     private TextField txtDate;
 
@@ -738,6 +755,40 @@ public class RentServiceController  implements Initializable {
     void cmbConditionOnAction(ActionEvent event) {
 
     }
+    @FXML
+    void btnTrackRentalReportOnAction(ActionEvent event) {
+        try {
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/report/TrackRentalReport.jrxml")
+            );
+
+
+            Connection connection = DBConnection.getInstance().getConnection();
+
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("P_Date", LocalDate.now().toString());  // Example parameter
+
+            // Fill the report with data
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+
+            // Display the report
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error!").show();
+        }
+
+    }
+
+
 }
 
 
