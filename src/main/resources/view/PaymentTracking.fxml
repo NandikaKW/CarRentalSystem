@@ -18,7 +18,7 @@
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="550.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="556.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/8112748.gif" />
          </image>
@@ -48,7 +48,7 @@
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblDiscount" layoutX="566.0" layoutY="124.0" text="Discount ">
+      <Label fx:id="lblDiscount" layoutX="559.0" layoutY="124.0" text="Discount ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
@@ -70,7 +70,7 @@
       <TextField fx:id="txtPayMethods" layoutX="409.0" layoutY="74.0" prefHeight="26.0" prefWidth="150.0" promptText="Method Of Pay" />
       <TextField fx:id="txtTransaction" layoutX="436.0" layoutY="120.0" prefHeight="34.0" prefWidth="118.0" promptText="Transaction Refference" />
       <TextField fx:id="txtTax" layoutX="638.0" layoutY="72.0" prefHeight="26.0" prefWidth="118.0" promptText="Tax" />
-      <TextField fx:id="txtDiscount" layoutX="649.0" layoutY="120.0" prefHeight="26.0" prefWidth="118.0" promptText="Discount" />
+      <TextField fx:id="txtDiscount" layoutX="642.0" layoutY="120.0" prefHeight="26.0" prefWidth="118.0" promptText="Discount" />
       <TableView fx:id="tblPayment" layoutY="325.0" onMouseClicked="#tblPaymnetClickedOnAction" prefHeight="366.0" prefWidth="764.0">
         <columns>
           <TableColumn fx:id="colPaymentId" prefWidth="91.99996662139893" text="Payment ID" />

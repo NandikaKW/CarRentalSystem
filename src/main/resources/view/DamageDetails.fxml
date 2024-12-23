@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.DamageDetailsController">
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" stylesheets="@../Styles/Damage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.DamageDetailsController">
    <children>
       <Label layoutX="235.0" layoutY="14.0" text="Damge Details ">
          <font>
@@ -22,30 +22,30 @@
             <Image url="@../image/12749386.gif" />
          </image>
       </ImageView>
-      <Label fx:id="lblDamageId" layoutX="14.0" layoutY="74.0" text="Damage ID ">
+      <Label fx:id="lblDamageId" layoutX="7.0" layoutY="74.0" text="Damage ID ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblRentId" layoutX="290.0" layoutY="74.0" text="Rent ID ">
+      <Label fx:id="lblRentId" layoutX="312.0" layoutY="74.0" text="Rent ID ">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblRepairCost" layoutX="15.0" layoutY="130.0" text="Repair Cost">
+      <Label fx:id="lblRepairCost" layoutX="5.0" layoutY="130.0" text="Repair Cost">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblDescription" layoutX="489.0" layoutY="74.0" text="Description">
+      <Label fx:id="lblDescription" layoutX="508.0" layoutY="74.0" text="Description">
          <font>
             <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtDamageId" layoutX="127.0" layoutY="73.0" promptText="Damage ID " />
-      <TextField fx:id="txtRepairCost" layoutX="128.0" layoutY="129.0" promptText="Repair Cost" />
-      <TextField fx:id="txtRentId" layoutX="364.0" layoutY="72.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />
-      <TextField fx:id="txtDescription" layoutX="596.0" layoutY="72.0" prefHeight="26.0" prefWidth="136.0" promptText="Description" />
+      <TextField fx:id="txtDamageId" layoutX="120.0" layoutY="73.0" promptText="Damage ID " />
+      <TextField fx:id="txtRepairCost" layoutX="118.0" layoutY="129.0" promptText="Repair Cost" />
+      <TextField fx:id="txtRentId" layoutX="386.0" layoutY="72.0" prefHeight="26.0" prefWidth="112.0" promptText="Rent ID" />
+      <TextField fx:id="txtDescription" layoutX="615.0" layoutY="72.0" prefHeight="26.0" prefWidth="136.0" promptText="Description" />
       <TableView fx:id="tblDamage" layoutY="234.0" onMouseClicked="#OnClickedTable" prefHeight="458.0" prefWidth="763.0">
         <columns>
           <TableColumn fx:id="colDamageId" prefWidth="134.39996033906937" text="Damage ID" />
@@ -54,32 +54,32 @@
             <TableColumn fx:id="colDescription" prefWidth="259.1999206542969" text="Description " />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="41.0" layoutY="194.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save ">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="41.0" layoutY="190.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="171.0" layoutY="194.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="171.0" layoutY="190.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="295.0" layoutY="194.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="295.0" layoutY="190.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="417.0" layoutY="194.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="417.0" layoutY="190.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="515.0" layoutY="194.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="515.0" layoutY="190.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="598.0" layoutY="194.0" onAction="#btnReportOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Generate Report">
+      <JFXButton fx:id="btnReport" buttonType="RAISED" layoutX="598.0" layoutY="190.0" onAction="#btnReportOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Generate Report">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
