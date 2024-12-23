@@ -11,91 +11,91 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.MaintainScheduleController">
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" stylesheets="@../Styles/Maintain.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.MaintainScheduleController">
    <children>
-      <Label layoutX="152.0" layoutY="8.0" text="Maintain Schedule Details ">
+      <Label layoutX="143.0" layoutY="16.0" prefHeight="39.0" prefWidth="432.0" styleClass="title" text="Maintain Schedule Details ">
          <font>
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
       </Label>
-      <ImageView fitHeight="49.0" fitWidth="64.0" layoutX="549.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="57.0" fitWidth="66.0" layoutX="546.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/13893613.gif" />
          </image>
       </ImageView>
-      <Label fx:id="lblMaintainID" layoutX="14.0" layoutY="66.0" text="Maintain ID">
+      <Label fx:id="lblMaintainID" layoutX="2.0" layoutY="66.0" text="Maintain ID">
          <font>
-            <Font name="Serif Bold Italic" size="15.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblMaintainDate" layoutX="515.0" layoutY="72.0" text="Maitain Date ">
+      <Label fx:id="lblMaintainDate" layoutX="1.0" layoutY="172.0" text="Maitain Date ">
          <font>
-            <Font name="Serif Bold Italic" size="15.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblVehicleID" layoutX="261.0" layoutY="105.0" text="Vehicle ID">
+      <Label fx:id="lblVehicleID" layoutX="260.0" layoutY="117.0" text="Vehicle ID">
          <font>
-            <Font name="Serif Bold Italic" size="15.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblCost" layoutX="14.0" layoutY="105.0" text="Cost">
+      <Label fx:id="lblCost" layoutX="14.0" layoutY="117.0" text="Cost">
          <font>
-            <Font name="Serif Bold Italic" size="15.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblDiscription" layoutX="263.0" layoutY="66.0" text="Description">
+      <Label fx:id="lblDiscription" layoutX="243.0" layoutY="66.0" text="Description">
          <font>
-            <Font name="Serif Bold Italic" size="15.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblDuration" layoutX="14.0" layoutY="146.0" text="Duration">
+      <Label fx:id="lblDuration" layoutX="512.0" layoutY="71.0" text="Duration">
          <font>
-            <Font name="Serif Bold Italic" size="15.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtMaintainID" layoutX="101.0" layoutY="65.0" promptText="Maintain ID" />
-      <TextField fx:id="txtCost" layoutX="99.0" layoutY="104.0" prefHeight="26.0" prefWidth="150.0" promptText="Cost" />
-      <TextField fx:id="txtMaintainDate" layoutX="604.0" layoutY="71.0" prefHeight="26.0" prefWidth="143.0" promptText="Maintain Date " />
-      <TextField fx:id="txtDescription" layoutX="339.0" layoutY="65.0" prefHeight="26.0" prefWidth="170.0" promptText="Description" />
-      <TextField fx:id="txtVehicleID" layoutX="340.0" layoutY="104.0" prefHeight="26.0" prefWidth="170.0" promptText="Vehicle ID " />
-      <TextField fx:id="txtDuration" layoutX="99.0" layoutY="140.0" prefHeight="26.0" prefWidth="150.0" promptText="Duration" />
-      <TableView fx:id="tblMaintain" layoutY="233.0" onMouseClicked="#tblMaintainOnClick" prefHeight="458.0" prefWidth="763.0">
+      <TextField fx:id="txtMaintainID" layoutX="109.0" layoutY="65.0" prefHeight="30.0" prefWidth="131.0" promptText="Maintain ID" />
+      <TextField fx:id="txtCost" layoutX="99.0" layoutY="116.0" prefHeight="26.0" prefWidth="150.0" promptText="Cost" />
+      <TextField fx:id="txtMaintainDate" layoutX="121.0" layoutY="168.0" prefHeight="26.0" prefWidth="130.0" promptText="Maintain Date " />
+      <TextField fx:id="txtDescription" layoutX="348.0" layoutY="65.0" prefHeight="26.0" prefWidth="150.0" promptText="Description" />
+      <TextField fx:id="txtVehicleID" layoutX="374.0" layoutY="116.0" prefHeight="26.0" prefWidth="170.0" promptText="Vehicle ID " />
+      <TextField fx:id="txtDuration" layoutX="602.0" layoutY="65.0" prefHeight="26.0" prefWidth="150.0" promptText="Duration" />
+      <TableView fx:id="tblMaintain" layoutY="277.0" onMouseClicked="#tblMaintainOnClick" prefHeight="414.0" prefWidth="763.0">
         <columns>
-          <TableColumn fx:id="colMaintainID" prefWidth="107.99996662139893" text="Maintain ID" />
-          <TableColumn fx:id="colCost" prefWidth="95.20001220703125" text="Cost " />
-            <TableColumn fx:id="colMaintainDate" prefWidth="125.60005187988281" text="Maintain Date " />
-            <TableColumn fx:id="colDescription" prefWidth="119.20001220703125" text="Description " />
-            <TableColumn fx:id="colVechleId" prefWidth="128.0" text="Vehicle ID " />
-            <TableColumn fx:id="colDuration" prefWidth="182.40008544921875" text="Duration " />
+          <TableColumn fx:id="colMaintainID" prefWidth="139.20001828670502" text="Maintain ID" />
+          <TableColumn fx:id="colCost" prefWidth="64.79998779296875" text="Cost " />
+            <TableColumn fx:id="colMaintainDate" prefWidth="162.4000244140625" text="Maintain Date " />
+            <TableColumn fx:id="colDescription" prefWidth="127.199951171875" text="Description " />
+            <TableColumn fx:id="colVechleId" prefWidth="121.59994506835938" text="Vehicle ID " />
+            <TableColumn fx:id="colDuration" prefWidth="146.39996337890625" text="Duration " />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="25.0" layoutY="191.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save">
+      <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="25.0" layoutY="223.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="117.0" layoutY="191.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Upadte ">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="117.0" layoutY="223.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Upadte ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="311.0" layoutY="191.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset">
+      <JFXButton fx:id="btnReset" buttonType="RAISED" layoutX="311.0" layoutY="223.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" styleClass="reset" text="Reset">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="218.0" layoutY="191.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="218.0" layoutY="223.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="391.0" layoutY="191.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
+      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="391.0" layoutY="223.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Search">
          <font>
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <ComboBox fx:id="ComboYear" layoutX="261.0" layoutY="141.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="86.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="CombMonth" layoutX="358.0" layoutY="140.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="ComboDay" layoutX="442.0" layoutY="140.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="ComboYear" layoutX="261.0" layoutY="165.0" onAction="#ComboYearOnAction" prefHeight="38.0" prefWidth="109.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="CombMonth" layoutX="374.0" layoutY="164.0" onAction="#ComboMonthOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="ComboDay" layoutX="469.0" layoutY="164.0" onAction="#ComboDayOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
    </children>
 </AnchorPane>

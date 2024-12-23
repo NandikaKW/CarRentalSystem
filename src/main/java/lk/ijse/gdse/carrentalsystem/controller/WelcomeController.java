@@ -33,7 +33,7 @@ public class WelcomeController {
             @Override
             protected Scene call() throws Exception {
                 // Load the dashboard layout from FXML
-                FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("/view/SignIn.fxml"));
+                FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("/view/Dashborad.fxml"));
                 AnchorPane dashboardRoot = dashboardLoader.load();
                 return new Scene(dashboardRoot);
             }

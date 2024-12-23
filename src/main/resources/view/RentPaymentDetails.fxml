@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.RentPaymentDetailsController">
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" stylesheets="@../Styles/RentPayement.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.RentPaymentDetailsController">
    <children>
-      <Label layoutX="208.0" layoutY="14.0" text="Rent Payment Details ">
+      <Label layoutX="210.0" layoutY="13.0" prefHeight="47.0" prefWidth="337.0" text="Rent Payment Details ">
          <font>
             <Font name="Times New Roman Bold" size="35.0" />
          </font>
@@ -28,58 +28,58 @@
             <Image url="@../image/8948320.gif" />
          </image>
       </ImageView>
-      <Label fx:id="lblPaymentMethod" layoutX="14.0" layoutY="84.0" text="Payment Method ">
+      <Label fx:id="lblPaymentMethod" layoutY="84.0" text="Payment Method ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblDuration" layoutX="303.0" layoutY="83.0" text="Duration ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblRentId" layoutX="27.0" layoutY="139.0" text="Rent ID">
+      <Label fx:id="lblRentId" layoutX="2.0" layoutY="139.0" text="Rent ID">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblPaymentId" layoutX="535.0" layoutY="80.0" text="Payment ID">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblDescription" layoutX="310.0" layoutY="138.0" text="Description ">
+      <Label fx:id="lblDescription" layoutX="299.0" layoutY="138.0" text="Description ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblPayamount" layoutX="545.0" layoutY="136.0" text="Payamount">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblPaymentDate" layoutX="28.0" layoutY="187.0" text="Payment Date ">
+      <Label fx:id="lblPaymentDate" layoutY="190.0" text="Payment Date ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPaymentMethod" layoutX="149.0" layoutY="81.0" promptText="Payment Method " />
-      <TextField fx:id="txtRentId" layoutX="144.0" layoutY="135.0" promptText="Rent ID" />
-      <TextField fx:id="txtPaymentDate" layoutX="144.0" layoutY="184.0" promptText="Payment Date" />
-      <TextField fx:id="txtDuration" layoutX="376.0" layoutY="80.0" promptText="Duration" />
-      <TextField fx:id="txtDescription" layoutX="402.0" layoutY="135.0" prefHeight="26.0" prefWidth="138.0" promptText="Descritption" />
-      <TextField fx:id="txtPaymentId" layoutX="635.0" layoutY="77.0" prefHeight="26.0" prefWidth="124.0" promptText="Payment ID" />
-      <TextField fx:id="txtPayamount" layoutX="638.0" layoutY="135.0" prefHeight="26.0" prefWidth="108.0" promptText="Payamount" />
+      <TextField fx:id="txtPaymentMethod" layoutX="149.0" layoutY="81.0" prefHeight="34.0" prefWidth="146.0" promptText="Payment Method " />
+      <TextField fx:id="txtRentId" layoutX="88.0" layoutY="135.0" promptText="Rent ID" />
+      <TextField fx:id="txtPaymentDate" layoutX="129.0" layoutY="184.0" prefHeight="33.0" prefWidth="166.0" promptText="Payment Date" />
+      <TextField fx:id="txtDuration" layoutX="392.0" layoutY="80.0" prefHeight="34.0" prefWidth="138.0" promptText="Duration" />
+      <TextField fx:id="txtDescription" layoutX="402.0" layoutY="135.0" prefHeight="34.0" prefWidth="124.0" promptText="Descritption" />
+      <TextField fx:id="txtPaymentId" layoutX="652.0" layoutY="77.0" prefHeight="33.0" prefWidth="114.0" promptText="Payment ID" />
+      <TextField fx:id="txtPayamount" layoutX="651.0" layoutY="135.0" prefHeight="33.0" prefWidth="108.0" promptText="Payamount" />
       <TableView fx:id="tblRentPayment" layoutY="275.0" onMouseClicked="#tblRentPaymentOnClickedOnAction" prefHeight="390.0" prefWidth="763.0">
         <columns>
-          <TableColumn fx:id="colPaymentMethod" prefWidth="110.4000244140625" text="Payment Method " />
-          <TableColumn fx:id="colRentId" prefWidth="73.5999755859375" text="Rent ID" />
-            <TableColumn fx:id="colPaymentDate" prefWidth="94.4000244140625" text="Payment Date " />
-            <TableColumn fx:id="colDuration" minWidth="8.79998779296875" prefWidth="78.4000244140625" text="Duration " />
-            <TableColumn fx:id="colDescription" prefWidth="96.0" text="Description " />
+          <TableColumn fx:id="colPaymentMethod" prefWidth="152.00000619888306" text="Payment Method " />
+          <TableColumn fx:id="colRentId" prefWidth="100.0" text="Rent ID" />
+            <TableColumn fx:id="colPaymentDate" prefWidth="95.20001220703125" text="Payment Date " />
+            <TableColumn fx:id="colDuration" minWidth="8.79998779296875" prefWidth="73.60003662109375" text="Duration " />
+            <TableColumn fx:id="colDescription" prefWidth="108.79995727539062" text="Description " />
             <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-            <TableColumn fx:id="colPaymentID" prefWidth="133.60003662109375" text="Payment ID " />
-            <TableColumn fx:id="colPayamount" prefWidth="172.8000366210938" text="Payamount " />
+            <TableColumn fx:id="colPaymentID" prefWidth="127.2000732421875" text="Payment ID " />
+            <TableColumn fx:id="colPayamount" prefWidth="119.9998779296875" text="Payamount " />
         </columns>
       </TableView>
       <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="34.0" layoutY="230.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Save">
@@ -107,8 +107,8 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <ComboBox fx:id="ComboYear" layoutX="306.0" layoutY="183.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="76.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="CombMonth" layoutX="396.0" layoutY="183.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="66.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="ComboDay" layoutX="476.0" layoutY="183.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="ComboYear" layoutX="304.0" layoutY="183.0" onAction="#ComboYearOnAction" prefHeight="38.0" prefWidth="114.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="CombMonth" layoutX="430.0" layoutY="183.0" onAction="#ComboMonthOnAction" prefHeight="38.0" prefWidth="91.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="ComboDay" layoutX="528.0" layoutY="182.0" onAction="#ComboDayOnAction" prefHeight="38.0" prefWidth="91.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
    </children>
 </AnchorPane>

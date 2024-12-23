@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.PaymentTrackingController">
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" stylesheets="@../Styles/Payment.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.PaymentTrackingController">
    <children>
       <Label layoutX="161.0" layoutY="7.0" text="Payment Tracking Details ">
          <font>
@@ -25,52 +25,52 @@
       </ImageView>
       <Label fx:id="lblPaymentId" layoutX="3.0" layoutY="75.0" text="Payment ID ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblPayMethods" layoutX="265.0" layoutY="76.0" text="Method Of Pay ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblTax" layoutX="546.0" layoutY="78.0" text="Tax ">
+      <Label fx:id="lblTax" layoutX="587.0" layoutY="78.0" text="Tax ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblAmount" layoutX="14.0" layoutY="124.0" text="Amount">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblTransaction" layoutX="250.0" layoutY="124.0" text="Transaction Refference ">
+      <Label fx:id="lblTransaction" layoutX="238.0" layoutY="124.0" text="Transaction Refference ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblDiscount" layoutX="566.0" layoutY="124.0" text="Discount ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblDate" layoutX="14.0" layoutY="169.0" text="Date ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
       <Label fx:id="lblInvoice" layoutX="14.0" layoutY="211.0" text="Invoice ">
          <font>
-            <Font name="Serif Bold Italic" size="18.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPaymentId" layoutX="98.0" layoutY="71.0" promptText="Payment ID" />
-      <TextField fx:id="txtAmount" layoutX="98.0" layoutY="121.0" promptText="Amount" />
+      <TextField fx:id="txtPaymentId" layoutX="107.0" layoutY="72.0" prefHeight="34.0" prefWidth="150.0" promptText="Payment ID" />
+      <TextField fx:id="txtAmount" layoutX="86.0" layoutY="121.0" prefHeight="33.0" prefWidth="150.0" promptText="Amount" />
       <TextField fx:id="txtDate" layoutX="98.0" layoutY="166.0" promptText="Date" />
       <TextField fx:id="txtInvoice" layoutX="98.0" layoutY="208.0" promptText="Invoice" />
-      <TextField fx:id="txtPayMethods" layoutX="377.0" layoutY="74.0" prefHeight="26.0" prefWidth="150.0" promptText="Method Of Pay" />
-      <TextField fx:id="txtTransaction" layoutX="430.0" layoutY="120.0" prefHeight="26.0" prefWidth="135.0" promptText="Transaction Refference" />
-      <TextField fx:id="txtTax" layoutX="583.0" layoutY="72.0" prefHeight="26.0" prefWidth="118.0" promptText="Tax" />
-      <TextField fx:id="txtDiscount" layoutX="641.0" layoutY="120.0" prefHeight="26.0" prefWidth="118.0" promptText="Discount" />
+      <TextField fx:id="txtPayMethods" layoutX="409.0" layoutY="74.0" prefHeight="26.0" prefWidth="150.0" promptText="Method Of Pay" />
+      <TextField fx:id="txtTransaction" layoutX="436.0" layoutY="120.0" prefHeight="34.0" prefWidth="118.0" promptText="Transaction Refference" />
+      <TextField fx:id="txtTax" layoutX="638.0" layoutY="72.0" prefHeight="26.0" prefWidth="118.0" promptText="Tax" />
+      <TextField fx:id="txtDiscount" layoutX="649.0" layoutY="120.0" prefHeight="26.0" prefWidth="118.0" promptText="Discount" />
       <TableView fx:id="tblPayment" layoutY="325.0" onMouseClicked="#tblPaymnetClickedOnAction" prefHeight="366.0" prefWidth="764.0">
         <columns>
           <TableColumn fx:id="colPaymentId" prefWidth="91.99996662139893" text="Payment ID" />
@@ -113,14 +113,14 @@
             <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <ComboBox fx:id="ComboYear" layoutX="256.0" layoutY="166.0" onAction="#ComboYearOnAction" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="CombMonth" layoutX="342.0" layoutY="166.0" onAction="#ComboMonthOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <ComboBox fx:id="ComboDay" layoutX="416.0" layoutY="165.0" onAction="#ComboDayOnAction" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
-      <Label fx:id="lblDiscount1" layoutX="260.0" layoutY="210.0" text="Final  Amount That Should Pay">
+      <ComboBox fx:id="ComboYear" layoutX="290.0" layoutY="166.0" onAction="#ComboYearOnAction" prefHeight="38.0" prefWidth="142.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="CombMonth" layoutX="437.0" layoutY="166.0" onAction="#ComboMonthOnAction" prefHeight="38.0" prefWidth="94.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <ComboBox fx:id="ComboDay" layoutX="543.0" layoutY="165.0" onAction="#ComboDayOnAction" prefHeight="38.0" prefWidth="102.0" style="-fx-background-color: #FBFBFB; -fx-background-radius: 23; -fx-border-color: black; -fx-border-radius: 8;" />
+      <Label fx:id="lblDiscount1" layoutX="292.0" layoutY="213.0" text="Final  Amount That Should Pay">
          <font>
-            <Font name="Serif Bold Italic" size="19.0" />
+            <Font name="Serif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFinalAmount" layoutX="522.0" layoutY="208.0" promptText="Final Amount" />
+      <TextField fx:id="txtFinalAmount" layoutX="570.0" layoutY="211.0" prefHeight="33.0" prefWidth="166.0" promptText="Final Amount" />
    </children>
 </AnchorPane>
