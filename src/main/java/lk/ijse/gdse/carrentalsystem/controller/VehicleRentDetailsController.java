@@ -72,11 +72,9 @@ public class VehicleRentDetailsController  implements Initializable {
     @FXML
     private JFXButton btnSave;
 
-    @FXML
-    private JFXButton btnSearch;
 
-    @FXML
-    private JFXButton btnUpdate;
+
+
 
     @FXML
     private TableColumn<VehicleRentDetailTM, String> colCondition;
@@ -411,118 +409,7 @@ public class VehicleRentDetailsController  implements Initializable {
         }
     }
 
-    @FXML
-    void btnSearchOnAction(ActionEvent event) {
-        String vehicleId = txtVehicleID.getText();
-        String rentId = txtRentId.getText();
 
-        // Check if mandatory fields are provided
-        if (vehicleId.isEmpty() || rentId.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please enter both Vehicle ID and Rent ID").show();
-            return;
-        }
-
-        try {
-            // Attempt to find the vehicle rent details
-            VechileRentDetailDto vehicleRentDetailDto = VehicleRentDetailModel.searchVehicleRent(vehicleId, rentId);
-
-            if (vehicleRentDetailDto != null) {
-                // Display retrieved data in text fields
-                txtVehicleID.setText(vehicleRentDetailDto.getVehicle_id());
-                txtRentId.setText(vehicleRentDetailDto.getRent_id());
-                txtStartDate.setText(vehicleRentDetailDto.getStart_date().toString());
-                txtEndDate.setText(vehicleRentDetailDto.getEnd_date().toString());
-                txtCost.setText(vehicleRentDetailDto.getVehicle_condition()); // Assuming condition is a text field
-                txtVehicleQuantity.setText(String.valueOf(vehicleRentDetailDto.getVehicle_quantity())); // Convert int to String
-            } else {
-                // Alert if no matching record is found
-                new Alert(Alert.AlertType.ERROR, "Vehicle Rent not found.").show();
-                loadCurrentRentId();
-                loadCurrentVehicleId();
-                clearFields();
-            }
-
-        } catch (SQLException e) {
-            // Handle SQL-related errors
-            new Alert(Alert.AlertType.ERROR, "Database error occurred while searching vehicle rent: " + e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            // Handle errors if necessary classes are missing
-            new Alert(Alert.AlertType.ERROR, "System error: Required class not found.").show();
-        } catch (Exception e) {
-            // Handle any unexpected errors
-            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
-        }
-    }
-
-    @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
-            String vehicleId = txtVehicleID.getText();
-            String rentId = txtRentId.getText();
-
-            // Check if mandatory fields are filled
-            if (vehicleId.isEmpty() || rentId.isEmpty()) {
-                new Alert(Alert.AlertType.ERROR, "Please enter both Vehicle ID and Rent ID").show();
-                return;
-            }
-
-            // Convert string dates to SQL Date format, handle potential parsing issues
-            java.sql.Date startDate;
-            java.sql.Date endDate;
-            java.sql.Date rentDate;
-
-            try {
-                startDate = java.sql.Date.valueOf(txtStartDate.getText());
-                endDate = java.sql.Date.valueOf(txtEndDate.getText());
-
-            } catch (IllegalArgumentException e) {
-                new Alert(Alert.AlertType.ERROR, "Please enter valid dates in the format YYYY-MM-DD").show();
-                return;
-            }
-
-            // Convert cost and quantity fields, handle potential parsing issues
-            BigDecimal cost;
-            Integer quantity;
-
-            try {
-                cost = BigDecimal.valueOf(Double.parseDouble(txtCost.getText()));
-                quantity = Integer.parseInt(txtVehicleQuantity.getText());
-            } catch (NumberFormatException e) {
-                new Alert(Alert.AlertType.ERROR, "Please enter valid numbers for Cost and Quantity").show();
-                return;
-            }
-
-            String vehicleCondition = txtCondition.getText();
-
-            // Create DTO object with validated inputs
-            VechileRentDetailDto vehicleRentDetailDto = new VechileRentDetailDto(
-                    vehicleId, rentId, startDate, endDate,  quantity, vehicleCondition
-            );
-
-            // Attempt to update vehicle rent details
-            boolean isUpdated = VehicleRentDetailModel.isVehicleRentUpdated(vehicleRentDetailDto);
-
-            if (isUpdated) {
-                new Alert(Alert.AlertType.INFORMATION, "Vehicle Rent Updated Successfully").show();
-                clearFields();
-                refreshPage();
-                loadCurrentVehicleId();
-                loadCurrentRentId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Vehicle Rent Not Updated").show();
-            }
-
-        } catch (SQLException e) {
-            // Handle SQL-related errors
-            new Alert(Alert.AlertType.ERROR, "Database error occurred: " + e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            // Handle class not found errors
-            new Alert(Alert.AlertType.ERROR, "System error: Required class not found.").show();
-        } catch (Exception e) {
-            // Catch any unexpected exceptions
-            new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
-        }
-    }
 
 
     @FXML
@@ -536,7 +423,6 @@ public class VehicleRentDetailsController  implements Initializable {
             txtCondition.setText(vehicleRentDetailTM.getVehicle_condition());
             txtVehicleQuantity.setText(String.valueOf(vehicleRentDetailTM.getVehicle_quantity()));
             btnSave.setDisable(true);
-            btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
 
         }
@@ -597,8 +483,7 @@ public class VehicleRentDetailsController  implements Initializable {
         loadCurrentVehicleId();
         loadCurrentRentId();
         btnSave.setDisable(false);
-       btnUpdate.setDisable(true);
-       btnDelete.setDisable(true);
+        btnDelete.setDisable(true);
        clearFields();
 
     }

@@ -1,0 +1,11 @@
+.reset:hover{
+    -fx-fill: red !important;
+}
+
+.title:hover{
+    -fx-fill: red;
+}
+
+.title{
+    -fx-fill: red !important;
+}

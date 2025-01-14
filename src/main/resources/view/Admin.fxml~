@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane prefHeight="692.0" prefWidth="763.0" style="-fx-background-color: #ffffff;" stylesheets="@/Styles/admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.carrentalsystem.controller.AdminController">
+   <children>
+      <Label layoutX="245.0" layoutY="14.0" prefHeight="50.0" prefWidth="260.0" text="Admin Pannel ">
+         <font>
+            <Font name="Times New Roman Bold" size="35.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="61.0" fitWidth="69.0" layoutX="461.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/7211817.gif" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblEmail" layoutX="99.0" layoutY="83.0" prefHeight="38.0" prefWidth="135.0" text="Email">
+         <font>
+            <Font name="Serif Regular" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAdminID" layoutX="99.0" layoutY="150.0" prefHeight="38.0" prefWidth="135.0" text="Admin ID">
+         <font>
+            <Font name="Serif Regular" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAdminName" layoutX="99.0" layoutY="217.0" prefHeight="38.0" prefWidth="135.0" text="Admin name">
+         <font>
+            <Font name="Serif Regular" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPassword" layoutX="99.0" layoutY="282.0" prefHeight="38.0" prefWidth="135.0" text="Password ">
+         <font>
+            <Font name="Serif Regular" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEmail" layoutX="269.0" layoutY="83.0" prefHeight="38.0" prefWidth="322.0" promptText="Email" />
+      <TextField fx:id="txtAdminID" layoutX="269.0" layoutY="150.0" prefHeight="38.0" prefWidth="322.0" promptText="Admin ID" />
+      <TextField fx:id="txtAdminName" layoutX="269.0" layoutY="217.0" prefHeight="38.0" prefWidth="322.0" promptText="User Name" />
+      <TextField fx:id="txtPassword" layoutX="269.0" layoutY="282.0" prefHeight="38.0" prefWidth="322.0" promptText="Password" />
+      <TableView fx:id="tblAdmin" layoutX="-1.0" layoutY="371.0" onMouseClicked="#onClickTable" prefHeight="319.0" prefWidth="763.0">
+        <columns>
+          <TableColumn fx:id="colAdminID" prefWidth="143.19998168945312" text="Admin ID" />
+            <TableColumn fx:id="colAdminName" prefWidth="162.39996337890625" text="Admin Name" />
+            <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="215.20001220703125" text="Email" />
+            <TableColumn fx:id="colPassword" prefWidth="240.79997558593755" text="Password" />
+        </columns>
+      </TableView>
+      <JFXButton id="button" fx:id="btnReset" buttonType="RAISED" layoutX="382.0" layoutY="333.0" onAction="#btnResetOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Reset">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="button" fx:id="btnDelete" buttonType="RAISED" layoutX="282.0" layoutY="332.0" onAction="#btnDeleteOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Delete ">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="button" fx:id="btnUpdate" buttonType="RAISED" layoutX="167.0" layoutY="333.0" onAction="#btnUpdateOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="Update ">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="button" fx:id="btnSave" buttonType="RAISED" layoutX="70.0" layoutY="333.0" onAction="#btnSaveOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" styleClass="savebutton" text="Save  ">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="button" fx:id="btnSearch" buttonType="RAISED" layoutX="469.0" layoutY="333.0" onAction="#btnSearchOnAction" style="-fx-background-color: #FBFBFB; -fx-border-radius: 8; -fx-background-radius: 23; -fx-border-color: black;" text="search">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
 </AnchorPane>
